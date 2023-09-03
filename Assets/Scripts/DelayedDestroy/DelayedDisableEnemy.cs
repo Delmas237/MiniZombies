@@ -2,8 +2,15 @@ using EnemyLib;
 
 public class DelayedDisableEnemy : DelayedDestruction
 {
+    private HealthController healthController;
+
     protected override void Start()
     {
-        GetComponent<Enemy>().HealthController.Died += DelayedSetActiveFalse;
+        healthController = GetComponent<Enemy>().HealthController;
+        healthController.Died += DelayedSetActiveFalse;
+    }
+    protected void OnDestroy()
+    {
+        healthController.Died -= DelayedSetActiveFalse;
     }
 }

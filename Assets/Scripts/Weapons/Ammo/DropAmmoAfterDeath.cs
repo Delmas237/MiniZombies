@@ -9,10 +9,16 @@ namespace Weapons
         [SerializeField] private float dropChance = 1;
         public IPool<AmmoPack> AmmoPool { get; set; }
 
+        private Enemy enemy;
+
         private void Start()
         {
-            Enemy enemy = GetComponent<Enemy>();
+            enemy = GetComponent<Enemy>();
             enemy.HealthController.Died += DropAmmo;
+        }
+        private void OnDestroy()
+        {
+            enemy.HealthController.Died -= DropAmmo;
         }
 
         private void DropAmmo()

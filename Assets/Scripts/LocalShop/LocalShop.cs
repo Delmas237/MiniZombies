@@ -31,6 +31,11 @@ namespace LocalShopLib
             EnemyWaveManager.WaveStarted += ShopDisable;
             EnemyWaveManager.WaveFinished += ShopEnable;
         }
+        private void OnDestroy()
+        {
+            EnemyWaveManager.WaveStarted -= ShopDisable;
+            EnemyWaveManager.WaveFinished -= ShopEnable;
+        }
 
         private void UpdatePrice()
         {
@@ -44,12 +49,6 @@ namespace LocalShopLib
 
             for (int i = 0; i < shopWeapons.Length; i++)
                 weaponsLvl.Add(-1);
-        }
-
-        private void OnDestroy()
-        {
-            EnemyWaveManager.WaveStarted -= ShopDisable;
-            EnemyWaveManager.WaveFinished -= ShopEnable;
         }
 
         private void ShopEnable()
