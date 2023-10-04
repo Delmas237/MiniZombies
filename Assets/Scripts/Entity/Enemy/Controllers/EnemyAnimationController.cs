@@ -16,10 +16,6 @@ namespace EnemyLib
 
             enemy.HealthController.Died += DeathAnim;
         }
-        private void OnDestroy()
-        {
-            enemy.HealthController.Died -= DeathAnim;
-        }
 
         public void MoveAnim()
         {

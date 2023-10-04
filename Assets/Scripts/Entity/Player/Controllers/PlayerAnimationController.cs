@@ -17,11 +17,6 @@ namespace PlayerLib
             player.WeaponsController.GunChanged += CurrentGunAnim;
             player.HealthController.Died += DeathAnim;
         }
-        private void OnDestroy()
-        {
-            player.WeaponsController.GunChanged -= CurrentGunAnim;
-            player.HealthController.Died -= DeathAnim;
-        }
 
         public void MoveAnim()
         {

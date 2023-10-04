@@ -10,10 +10,6 @@ namespace EnemyLib
 
             HealthController.Died += Death;
         }
-        private void OnDestroy()
-        {
-            HealthController.Died -= Death;
-        }
 
         protected void Death()
         {
