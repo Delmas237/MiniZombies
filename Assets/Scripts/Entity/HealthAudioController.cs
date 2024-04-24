@@ -1,9 +1,10 @@
+using System;
 using UnityEngine;
 
 namespace PlayerLib
 {
-    [RequireComponent(typeof(HealthController))]
-    public class HealthAudioController : MonoBehaviour
+    [Serializable]
+    public class HealthAudioController
     {
         [SerializeField] protected AudioSource damageSound;
         [SerializeField] protected AudioSource healSound;

@@ -5,8 +5,8 @@ using Weapons;
 
 namespace PlayerLib
 {
-    [RequireComponent(typeof(Player))]
-    public class PlayerWeaponsController : MonoBehaviour
+    [Serializable]
+    public class PlayerWeaponsController
     {
         [field: SerializeField] public int Bullets { get; set; } = 100;
 

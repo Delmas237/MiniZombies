@@ -2,7 +2,8 @@ using PlayerLib;
 using System;
 using UnityEngine;
 
-public class HealthController : MonoBehaviour, IEntity
+[Serializable]
+public class HealthController
 {
     [field: SerializeField] public float MaxHealth { get; private set; } = 100;
     private float health;
@@ -38,7 +39,7 @@ public class HealthController : MonoBehaviour, IEntity
     }
     private void Death()
     {
-        enabled = false;
+        //enabled = false;
         Died?.Invoke();
     }
 }

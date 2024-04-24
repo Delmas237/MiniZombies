@@ -1,11 +1,15 @@
 using PlayerLib;
+using System;
 using System.Collections;
 using UnityEngine;
 
 namespace EnemyLib
 {
-    public class EnemyAttackController : MonoBehaviour
+    [Serializable]
+    public class EnemyAttackController
     {
+        [SerializeField] private CollisionHandler collisionHandler;
+
         public bool IsAttack { get; set; }
         private Player targetCollision;
 
@@ -17,6 +21,9 @@ namespace EnemyLib
         public void Initialize(Enemy _enemy)
         {
             enemy = _enemy;
+
+            collisionHandler.OnCollisionEnterEvent += OnCollisionEnter;
+            collisionHandler.OnCollisionExitEvent += OnCollisionExit;
         }
 
         protected void Attack()
@@ -42,7 +49,7 @@ namespace EnemyLib
             if (target != null)
             {
                 targetCollision = null;
-                StartCoroutine(StopAttack(1));
+                enemy.StartCoroutine(StopAttack(1));
             }
         }
 
@@ -56,13 +63,12 @@ namespace EnemyLib
             IsAttack = false;
         }
 
-        //using in animation event
-        private void DealDamage()
+        public void DealDamage()
         {
             if (targetCollision != null && targetCollision.HealthController.Health > 0)
                 targetCollision.HealthController.Health -= Damage;
             else
-                StartCoroutine(StopAttack(0));
+                enemy.StartCoroutine(StopAttack(0));
         }
     }
 }

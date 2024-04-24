@@ -1,18 +1,19 @@
+using System;
 using UnityEngine;
 using Weapons;
 
 namespace PlayerLib
 {
-    [RequireComponent(typeof(Player))]
-    public class PlayerAnimationController : MonoBehaviour
+    [Serializable]
+    public class PlayerAnimationController
     {
         private Player player;
         private Animator animator;
 
-        public void Initialize(Player _player)
+        public void Initialize(Player _player, Animator _animator)
         {
             player = _player;
-            animator = GetComponent<Animator>();
+            animator = _animator;
 
             player.WeaponsController.GunChanged += CurrentGunAnim;
             player.HealthController.Died += DeathAnim;

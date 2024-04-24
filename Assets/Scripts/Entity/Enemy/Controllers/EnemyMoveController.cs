@@ -4,7 +4,8 @@ using UnityEngine;
 
 namespace EnemyLib
 {
-    public class EnemyMoveController : MonoBehaviour
+    [Serializable]
+    public class EnemyMoveController
     {
         [field: SerializeField] public float Speed { get; set; } = 3.5f;
         public Player Target { get; set; }

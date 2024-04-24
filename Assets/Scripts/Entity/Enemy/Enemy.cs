@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 namespace EnemyLib
 {
-    public abstract class Enemy : MonoBehaviour
+    public abstract class Enemy : MonoBehaviour, IEnemy
     {
         public NavMeshAgent Agent { get; set; }
 
@@ -27,5 +27,7 @@ namespace EnemyLib
             AnimationController.MoveAnim();
             AnimationController.AttackAnim();
         }
+
+        private void DealDamage() => AttackController.DealDamage();
     }
 }

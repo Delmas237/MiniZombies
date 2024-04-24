@@ -71,17 +71,17 @@ namespace Weapons
                 Ray ray = new Ray(vector, shootDir.forward);
                 RaycastHit[] hits = Physics.RaycastAll(ray, Distance, layerMask).OrderBy(hit => hit.distance).ToArray();
 
-                List<IEntity> enemies = new List<IEntity>();
+                List<IEnemy> enemies = new List<IEnemy>();
                 for (int i = 0; i < hits.Length; i++)
                 {
-                    if (hits[i].collider.gameObject.TryGetComponent(out IEntity enemy))
+                    if (hits[i].collider.gameObject.TryGetComponent(out IEnemy enemy))
                         enemies.Add(enemy);
                 }
 
                 float piercingDamage = Damage;
                 for (int i = 0; i < enemies.Count; i++)
                 {
-                    enemies[i].Health -= piercingDamage;
+                    enemies[i].HealthController.Health -= piercingDamage;
                     piercingDamage -= (piercingDamage / 100) * MinusPiercingDamage;
                 }
             }

@@ -1,8 +1,14 @@
+using System;
+using System.Linq;
+using UnityEditor;
+using UnityEditor.Animations;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace EnemyLib
 {
-    public class EnemyAnimationController : MonoBehaviour
+    [Serializable]
+    public class EnemyAnimationController
     {
         public float AttackSpeedX { get; set; } = 1;
 

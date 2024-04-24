@@ -15,9 +15,9 @@ namespace PlayerLib
         private void Start()
         {
             HealthController.Initialize();
-            AnimationController.Initialize(this);
+            AnimationController.Initialize(this, GetComponent<Animator>());
             WeaponsController.Initialize(this);
-            MoveController.Initialize(this);
+            MoveController.Initialize(this, transform);
         }
 
         private void Update()

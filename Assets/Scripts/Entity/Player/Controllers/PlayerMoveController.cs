@@ -1,14 +1,17 @@
 using EnemyLib;
 using JoystickLib;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace PlayerLib
 {
-    [RequireComponent(typeof(Player))]
-    public class PlayerMoveController : MonoBehaviour
+    [Serializable]
+    public class PlayerMoveController
     {
+        private Transform transform;
+
         [SerializeField] private float maxSpeed = 3.65f;
         public bool Walks => MoveJoystick.Horizontal != 0 || MoveJoystick.Vertical != 0;
 
@@ -25,12 +28,14 @@ namespace PlayerLib
         private Enemy closestEnemy;
         private const float timeToUpdateClosestEnemy = 0.35f;
 
-        public void Initialize(Player _player)
+        public void Initialize(Player _player, Transform _transform)
         {
             player = _player;
-            rb = GetComponent<Rigidbody>();
+            transform = _transform;
 
-            StartCoroutine(UpdateClosestEnemy());
+            rb = player.GetComponent<Rigidbody>();
+
+            player.StartCoroutine(UpdateClosestEnemy());
         }
 
         public void Move()
@@ -116,7 +121,7 @@ namespace PlayerLib
                 this.closestEnemy = null;
 
             yield return new WaitForSeconds(timeToUpdateClosestEnemy);
-            StartCoroutine(UpdateClosestEnemy());
+            player.StartCoroutine(UpdateClosestEnemy());
         }
     }
 }
