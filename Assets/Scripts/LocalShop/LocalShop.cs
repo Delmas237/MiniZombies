@@ -72,9 +72,9 @@ namespace LocalShopLib
         private void Cheats()
         {
             if (Input.GetKeyDown(KeyCode.N))
-                player.Coins += 100;
+                player.CurrencyController.Coins += 100;
             if (Input.GetKeyDown(KeyCode.M))
-                player.Coins -= 100;
+                player.CurrencyController.Coins -= 100;
         }
 
         public void PurchaseGun(int ID)
@@ -85,9 +85,9 @@ namespace LocalShopLib
                 return;
             }
 
-            if (player.Coins >= shopWeapons[ID].Price)
+            if (player.CurrencyController.Coins >= shopWeapons[ID].Price)
             {
-                player.Coins -= shopWeapons[ID].Price;
+                player.CurrencyController.Coins -= shopWeapons[ID].Price;
 
                 weaponsLvl[ID]++;
 
@@ -97,9 +97,9 @@ namespace LocalShopLib
         }
         private void GunLvlUp(int ID)
         {
-            if (player.Coins >= 100)
+            if (player.CurrencyController.Coins >= 100)
             {
-                player.Coins -= 100;
+                player.CurrencyController.Coins -= 100;
 
                 weaponsLvl[ID]++;
                 player.WeaponsController.Guns[ID + 1].Damage += shopWeapons[ID].DamageLvlBoost;
@@ -127,10 +127,10 @@ namespace LocalShopLib
 
         public void PurchaseMedKit(int ID)
         {
-            if (player.Coins >= shopItems[ID].Price &&
+            if (player.CurrencyController.Coins >= shopItems[ID].Price &&
                 player.HealthController.Health < player.HealthController.MaxHealth)
             {
-                player.Coins -= shopItems[ID].Price;
+                player.CurrencyController.Coins -= shopItems[ID].Price;
                 player.HealthController.Health = player.HealthController.MaxHealth;
             }
         }

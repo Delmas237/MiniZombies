@@ -11,8 +11,12 @@ namespace PlayerLib
         {
             EnemyWaveManager.WaveFinished += LocalCoinsWon;
         }
+        private void OnDestroy()
+        {
+            EnemyWaveManager.WaveFinished -= LocalCoinsWon;
+        }
 
-        private void LocalCoinsWon() => player.Coins += 100 + EnemyWaveManager.CurrentWaveIndex * 5;
+        private void LocalCoinsWon() => player.CurrencyController.Coins += 100 + EnemyWaveManager.CurrentWaveIndex * 5;
 
         public static int GlobalCoinsWon()
         {

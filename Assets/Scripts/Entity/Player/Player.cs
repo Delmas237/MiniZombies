@@ -4,9 +4,8 @@ namespace PlayerLib
 {
     public class Player : MonoBehaviour
     {
-        [field: SerializeField] public int Coins { get; set; } = 0;
-
         [field: Header("Controllers")]
+        [field: SerializeField] public PlayerCurrencyController CurrencyController { get; set; }
         [field: SerializeField] public HealthController HealthController { get; set; }
         [field: SerializeField] public PlayerWeaponsController WeaponsController { get; set; }
         [field: SerializeField] public PlayerMoveController MoveController { get; set; }

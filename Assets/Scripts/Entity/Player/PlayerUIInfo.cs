@@ -18,7 +18,7 @@ namespace PlayerLib
             {
                 healthBar.fillAmount = player.HealthController.Health * 0.01f;
                 bullets.text = player.WeaponsController.Bullets.ToString();
-                coins.text = player.Coins.ToString();
+                coins.text = player.CurrencyController.Coins.ToString();
             }
         }
     }
