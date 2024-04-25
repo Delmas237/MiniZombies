@@ -1947,7 +1947,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 319769474}
-  - component: {fileID: 319769478}
   - component: {fileID: 319769477}
   - component: {fileID: 319769476}
   - component: {fileID: 319769475}
@@ -2024,7 +2023,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 319769478}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GlobalShopParameter, Assembly-CSharp
         m_MethodName: Purchase
         m_Mode: 1
@@ -2074,24 +2073,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 319769473}
   m_CullTransparentMesh: 1
---- !u!114 &319769478
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 319769473}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6afb500aa9a5234ea2b9670572123d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <Price>k__BackingField: 200
-  <Up>k__BackingField: 0.1
-  <Info>k__BackingField: 4
-  priceText: {fileID: 355792099}
-  upText: {fileID: 1249635439}
-  infoText: {fileID: 1465189095}
 --- !u!1 &346319675
 GameObject:
   m_ObjectHideFlags: 0
@@ -2101,7 +2082,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 346319676}
-  - component: {fileID: 346319680}
   - component: {fileID: 346319679}
   - component: {fileID: 346319678}
   - component: {fileID: 346319677}
@@ -2178,7 +2158,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 346319680}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GlobalShopParameter, Assembly-CSharp
         m_MethodName: Purchase
         m_Mode: 1
@@ -2228,24 +2208,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 346319675}
   m_CullTransparentMesh: 1
---- !u!114 &346319680
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 346319675}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6afb500aa9a5234ea2b9670572123d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <Price>k__BackingField: 200
-  <Up>k__BackingField: 0.2
-  <Info>k__BackingField: 5
-  priceText: {fileID: 1603719515}
-  upText: {fileID: 237635323}
-  infoText: {fileID: 479065488}
 --- !u!4 &353665091 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 96d7977f77668bf4583fb13a66ae6cc5, type: 3}
@@ -2480,7 +2442,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 369239719}
-  - component: {fileID: 369239723}
   - component: {fileID: 369239722}
   - component: {fileID: 369239721}
   - component: {fileID: 369239720}
@@ -2557,7 +2518,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 369239723}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GlobalShopParameter, Assembly-CSharp
         m_MethodName: Purchase
         m_Mode: 1
@@ -2607,24 +2568,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 369239718}
   m_CullTransparentMesh: 1
---- !u!114 &369239723
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 369239718}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6afb500aa9a5234ea2b9670572123d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <Price>k__BackingField: 150
-  <Up>k__BackingField: 0.01
-  <Info>k__BackingField: 0.5
-  priceText: {fileID: 1943281634}
-  upText: {fileID: 2102290603}
-  infoText: {fileID: 1894089650}
 --- !u!1001 &371605896
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5405,7 +5348,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 706006657}
-  - component: {fileID: 706006661}
   - component: {fileID: 706006660}
   - component: {fileID: 706006659}
   - component: {fileID: 706006658}
@@ -5482,7 +5424,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 706006661}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GlobalShopParameter, Assembly-CSharp
         m_MethodName: Purchase
         m_Mode: 1
@@ -5532,24 +5474,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 706006656}
   m_CullTransparentMesh: 1
---- !u!114 &706006661
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 706006656}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6afb500aa9a5234ea2b9670572123d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <Price>k__BackingField: 180
-  <Up>k__BackingField: 1
-  <Info>k__BackingField: 30
-  priceText: {fileID: 1510013966}
-  upText: {fileID: 1249692438}
-  infoText: {fileID: 294443351}
 --- !u!1 &719952635
 GameObject:
   m_ObjectHideFlags: 0
@@ -6855,7 +6779,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 913712628}
-  - component: {fileID: 913712629}
   m_Layer: 5
   m_Name: Shotgun
   m_TagString: Untagged
@@ -6886,22 +6809,6 @@ RectTransform:
   m_AnchoredPosition: {x: -0.23536, y: 110.99997}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &913712629
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 913712627}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 121da15cd7678b649bb73090dd28af21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gunType: 2
-  damageParameter: {fileID: 1066914888}
-  cooldownParameter: {fileID: 1276499533}
-  distanceParameter: {fileID: 319769478}
 --- !u!1 &968183108
 GameObject:
   m_ObjectHideFlags: 0
@@ -7668,7 +7575,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1066914884}
-  - component: {fileID: 1066914888}
   - component: {fileID: 1066914887}
   - component: {fileID: 1066914886}
   - component: {fileID: 1066914885}
@@ -7745,7 +7651,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1066914888}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GlobalShopParameter, Assembly-CSharp
         m_MethodName: Purchase
         m_Mode: 1
@@ -7795,24 +7701,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1066914883}
   m_CullTransparentMesh: 1
---- !u!114 &1066914888
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1066914883}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6afb500aa9a5234ea2b9670572123d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <Price>k__BackingField: 180
-  <Up>k__BackingField: 1
-  <Info>k__BackingField: 28
-  priceText: {fileID: 741143036}
-  upText: {fileID: 1173621152}
-  infoText: {fileID: 1514597985}
 --- !u!1 &1075920145
 GameObject:
   m_ObjectHideFlags: 0
@@ -9682,7 +9570,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1276499529}
-  - component: {fileID: 1276499533}
   - component: {fileID: 1276499532}
   - component: {fileID: 1276499531}
   - component: {fileID: 1276499530}
@@ -9759,7 +9646,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1276499533}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GlobalShopParameter, Assembly-CSharp
         m_MethodName: Purchase
         m_Mode: 1
@@ -9809,24 +9696,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1276499528}
   m_CullTransparentMesh: 1
---- !u!114 &1276499533
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1276499528}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6afb500aa9a5234ea2b9670572123d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <Price>k__BackingField: 150
-  <Up>k__BackingField: 0.01
-  <Info>k__BackingField: 0.5
-  priceText: {fileID: 1966434345}
-  upText: {fileID: 1703137880}
-  infoText: {fileID: 482571823}
 --- !u!1001 &1301037975
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11795,7 +11664,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1496553533}
-  - component: {fileID: 1496553534}
   m_Layer: 5
   m_Name: MachineGun
   m_TagString: Untagged
@@ -11826,22 +11694,6 @@ RectTransform:
   m_AnchoredPosition: {x: -329.24, y: 110.99798}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1496553534
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1496553532}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 121da15cd7678b649bb73090dd28af21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gunType: 1
-  damageParameter: {fileID: 706006661}
-  cooldownParameter: {fileID: 1727827051}
-  distanceParameter: {fileID: 346319680}
 --- !u!1 &1510013964
 GameObject:
   m_ObjectHideFlags: 0
@@ -14007,7 +13859,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1727827047}
-  - component: {fileID: 1727827051}
   - component: {fileID: 1727827050}
   - component: {fileID: 1727827049}
   - component: {fileID: 1727827048}
@@ -14084,7 +13935,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1727827051}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GlobalShopParameter, Assembly-CSharp
         m_MethodName: Purchase
         m_Mode: 1
@@ -14134,24 +13985,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1727827046}
   m_CullTransparentMesh: 1
---- !u!114 &1727827051
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1727827046}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6afb500aa9a5234ea2b9670572123d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <Price>k__BackingField: 350
-  <Up>k__BackingField: 0.01
-  <Info>k__BackingField: 0.1
-  priceText: {fileID: 55765033}
-  upText: {fileID: 1367930516}
-  infoText: {fileID: 641386690}
 --- !u!1 &1794274988
 GameObject:
   m_ObjectHideFlags: 0
@@ -15158,7 +14991,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1904299312}
-  - component: {fileID: 1904299316}
   - component: {fileID: 1904299315}
   - component: {fileID: 1904299314}
   - component: {fileID: 1904299313}
@@ -15235,7 +15067,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1904299316}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GlobalShopParameter, Assembly-CSharp
         m_MethodName: Purchase
         m_Mode: 1
@@ -15285,24 +15117,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1904299311}
   m_CullTransparentMesh: 1
---- !u!114 &1904299316
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1904299311}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6afb500aa9a5234ea2b9670572123d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <Price>k__BackingField: 190
-  <Up>k__BackingField: 0.3
-  <Info>k__BackingField: 7.9
-  priceText: {fileID: 1617404209}
-  upText: {fileID: 436462789}
-  infoText: {fileID: 1054906560}
 --- !u!1001 &1911597375
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16448,7 +16262,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2006955733}
-  - component: {fileID: 2006955734}
   m_Layer: 5
   m_Name: Riffle
   m_TagString: Untagged
@@ -16479,22 +16292,6 @@ RectTransform:
   m_AnchoredPosition: {x: 328.76, y: 110.99798}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2006955734
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2006955732}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 121da15cd7678b649bb73090dd28af21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gunType: 3
-  damageParameter: {fileID: 2132235958}
-  cooldownParameter: {fileID: 369239723}
-  distanceParameter: {fileID: 1904299316}
 --- !u!1 &2033102730
 GameObject:
   m_ObjectHideFlags: 0
@@ -16805,9 +16602,108 @@ MonoBehaviour:
   gunsData: {fileID: 11400000, guid: afc016a82bde51c4583df8fe000e8d4d, type: 2}
   localWeapons: {fileID: 1979931240}
   items:
-  - {fileID: 1496553534}
-  - {fileID: 913712629}
-  - {fileID: 2006955734}
+  - gunType: 1
+    damageParameter:
+      Price:
+        Value: 180
+        Text: {fileID: 1510013966}
+      Up:
+        Value: 1
+        Text: {fileID: 1249692438}
+      Info:
+        Value: 30
+        Text: {fileID: 294443351}
+      PurchaseButton: {fileID: 706006658}
+    cooldownParameter:
+      Price:
+        Value: 350
+        Text: {fileID: 55765033}
+      Up:
+        Value: 0.01
+        Text: {fileID: 1367930516}
+      Info:
+        Value: 0.1
+        Text: {fileID: 641386690}
+      PurchaseButton: {fileID: 1727827048}
+    distanceParameter:
+      Price:
+        Value: 200
+        Text: {fileID: 1603719515}
+      Up:
+        Value: 0.2
+        Text: {fileID: 237635323}
+      Info:
+        Value: 5
+        Text: {fileID: 479065488}
+      PurchaseButton: {fileID: 346319677}
+  - gunType: 2
+    damageParameter:
+      Price:
+        Value: 180
+        Text: {fileID: 741143036}
+      Up:
+        Value: 1
+        Text: {fileID: 1173621152}
+      Info:
+        Value: 28
+        Text: {fileID: 1514597985}
+      PurchaseButton: {fileID: 1066914885}
+    cooldownParameter:
+      Price:
+        Value: 150
+        Text: {fileID: 1966434345}
+      Up:
+        Value: 0.01
+        Text: {fileID: 1703137880}
+      Info:
+        Value: 0.5
+        Text: {fileID: 482571823}
+      PurchaseButton: {fileID: 1276499530}
+    distanceParameter:
+      Price:
+        Value: 200
+        Text: {fileID: 355792099}
+      Up:
+        Value: 0.1
+        Text: {fileID: 1249635439}
+      Info:
+        Value: 4
+        Text: {fileID: 1465189095}
+      PurchaseButton: {fileID: 319769475}
+  - gunType: 3
+    damageParameter:
+      Price:
+        Value: 180
+        Text: {fileID: 968183110}
+      Up:
+        Value: 1.2
+        Text: {fileID: 1881183244}
+      Info:
+        Value: 62
+        Text: {fileID: 2115064089}
+      PurchaseButton: {fileID: 2132235955}
+    cooldownParameter:
+      Price:
+        Value: 150
+        Text: {fileID: 1943281634}
+      Up:
+        Value: 0.01
+        Text: {fileID: 2102290603}
+      Info:
+        Value: 0.5
+        Text: {fileID: 1894089650}
+      PurchaseButton: {fileID: 369239720}
+    distanceParameter:
+      Price:
+        Value: 190
+        Text: {fileID: 1617404209}
+      Up:
+        Value: 0.3
+        Text: {fileID: 436462789}
+      Info:
+        Value: 7.9
+        Text: {fileID: 1054906560}
+      PurchaseButton: {fileID: 1904299313}
 --- !u!1001 &2088340197
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17313,7 +17209,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2132235954}
-  - component: {fileID: 2132235958}
   - component: {fileID: 2132235957}
   - component: {fileID: 2132235956}
   - component: {fileID: 2132235955}
@@ -17390,7 +17285,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2132235958}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GlobalShopParameter, Assembly-CSharp
         m_MethodName: Purchase
         m_Mode: 1
@@ -17440,24 +17335,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2132235953}
   m_CullTransparentMesh: 1
---- !u!114 &2132235958
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2132235953}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6afb500aa9a5234ea2b9670572123d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <Price>k__BackingField: 180
-  <Up>k__BackingField: 1.2
-  <Info>k__BackingField: 62
-  priceText: {fileID: 968183110}
-  upText: {fileID: 1881183244}
-  infoText: {fileID: 2115064089}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

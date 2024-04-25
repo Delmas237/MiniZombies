@@ -94,34 +94,36 @@ namespace PlayerLib
         }
         public void RotateToAttackJoystickDir()
         {
-            if (closestEnemy == false)
+            if (closestEnemy == null)
                 RotateToJoystickDir(player.WeaponsController.AttackJoystick, 1);
         }
 
         private IEnumerator UpdateClosestEnemy()
         {
-            ComponentSearcher<Enemy>.InRadius(
-                transform.position, player.WeaponsController.CurrentGun.Distance, out List<Enemy> closestEnemies);
-
-            bool enemyInRange = false;
-            Enemy closestEnemy = null;
-            if (closestEnemies != null)
+            while (true)
             {
-                closestEnemy = ComponentSearcher<Enemy>.Closest(transform.position, closestEnemies);
+                ComponentSearcher<Enemy>.InRadius(
+                    transform.position, player.WeaponsController.CurrentGun.Distance, out List<Enemy> closestEnemies);
 
-                if (closestEnemy && closestEnemy.HealthController.Health > 0)
+                bool enemyInRange = false;
+                Enemy closestEnemy = null;
+                if (closestEnemies != null)
                 {
-                    float distanceToEnemy = Vector3.Distance(transform.position, closestEnemy.transform.position);
-                    enemyInRange = distanceToEnemy <= player.WeaponsController.CurrentGun.Distance;
-                }
-            }
-            if (enemyInRange)
-                this.closestEnemy = closestEnemy;
-            else
-                this.closestEnemy = null;
+                    closestEnemy = ComponentSearcher<Enemy>.Closest(transform.position, closestEnemies);
 
-            yield return new WaitForSeconds(timeToUpdateClosestEnemy);
-            player.StartCoroutine(UpdateClosestEnemy());
+                    if (closestEnemy && closestEnemy.HealthController.Health > 0)
+                    {
+                        float distanceToEnemy = Vector3.Distance(transform.position, closestEnemy.transform.position);
+                        enemyInRange = distanceToEnemy <= player.WeaponsController.CurrentGun.Distance;
+                    }
+                }
+                if (enemyInRange)
+                    this.closestEnemy = closestEnemy;
+                else
+                    this.closestEnemy = null;
+
+                yield return new WaitForSeconds(timeToUpdateClosestEnemy);
+            }
         }
     }
 }

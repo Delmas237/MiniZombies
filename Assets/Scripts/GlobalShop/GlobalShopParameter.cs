@@ -1,27 +1,30 @@
 using System;
 using TMPro;
 using UnityEngine;
-using Weapons;
+using UnityEngine.UI;
 
 namespace GlobalShopLib
 {
-    public class GlobalShopParameter : MonoBehaviour
+    [Serializable]
+    public class GlobalShopParameter
     {
-        [field: SerializeField] public int Price { get; set; }
-        [field: SerializeField] public float Up { get; set; }
-        [field: SerializeField] public float Info { get; set; }
-
-        [SerializeField] private TextMeshProUGUI priceText;
-        [SerializeField] private TextMeshProUGUI upText;
-        [SerializeField] private TextMeshProUGUI infoText;
-
+        public GlobalShopValue Price;
+        public GlobalShopValue Up;
+        public GlobalShopValue Info;
+        [Space(10)]
+        public Button PurchaseButton;
         public event Action Purchased;
+
+        public void Initialize()
+        {
+            PurchaseButton.onClick.AddListener(Purchase);
+        }
 
         public void Purchase()
         {
-            if (Bank.Coins >= Price && Info > Up)
+            if (Bank.Coins >= Price.Value && Info.Value > Up.Value)
             {
-                Bank.Coins -= Price;
+                Bank.Coins -= (int)Price.Value;
 
                 Purchased.Invoke();
 
@@ -31,11 +34,18 @@ namespace GlobalShopLib
 
         public void UpdateText()
         {
-            priceText.text = Price.ToString() + "$";
-            upText.text = Up.ToString();
+            Price.Text.text = Price.Value.ToString() + "$";
+            Up.Text.text = Up.Value.ToString();
 
-            Info = (float)Math.Round(Info, 2);
-            infoText.text = Info.ToString();
+            Info.Value = (float)Math.Round(Info.Value, 2);
+            Info.Text.text = Info.Value.ToString();
         }
+    }
+
+    [Serializable]
+    public class GlobalShopValue
+    {
+        public float Value;
+        public TextMeshProUGUI Text;
     }
 }

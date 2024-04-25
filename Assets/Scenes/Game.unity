@@ -35280,7 +35280,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 890166137}
-  - component: {fileID: 890166138}
   m_Layer: 5
   m_Name: MachineGun
   m_TagString: Untagged
@@ -35309,23 +35308,6 @@ RectTransform:
   m_AnchoredPosition: {x: -236.99997, y: 36.970016}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &890166138
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 890166136}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b51d4227bb6e884f8310156f22ac775, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Price: 300
-  PriceText: {fileID: 1767509391}
-  DamageLvlBoost: 1
-  DamageText: {fileID: 423799913}
-  LvlText: {fileID: 990496108}
 --- !u!1001 &891514715
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -44619,7 +44601,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1092040412}
-  - component: {fileID: 1092040413}
   m_Layer: 5
   m_Name: MedKit
   m_TagString: Untagged
@@ -44648,20 +44629,6 @@ RectTransform:
   m_AnchoredPosition: {x: -0.000030517578, y: -132.02876}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1092040413
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1092040411}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3291540acd164c4e92062e1e5091bec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Price: 80
-  PriceText: {fileID: 484687310}
 --- !u!4 &1096123554 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2e645cdecd35b204ea2b6f9127648d2e, type: 3}
@@ -70764,7 +70731,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1709511387}
-  - component: {fileID: 1709511388}
   m_Layer: 5
   m_Name: Riffle
   m_TagString: Untagged
@@ -70793,23 +70759,6 @@ RectTransform:
   m_AnchoredPosition: {x: 236.99988, y: 36.970016}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1709511388
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1709511386}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b51d4227bb6e884f8310156f22ac775, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Price: 300
-  PriceText: {fileID: 23998717}
-  DamageLvlBoost: 2
-  DamageText: {fileID: 47522134}
-  LvlText: {fileID: 758106291}
 --- !u!1001 &1709929007
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -82444,7 +82393,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2023112791}
-  - component: {fileID: 2023112792}
   m_Layer: 5
   m_Name: Shotgun
   m_TagString: Untagged
@@ -82473,23 +82421,6 @@ RectTransform:
   m_AnchoredPosition: {x: -0.000030517578, y: 36.971268}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2023112792
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2023112790}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b51d4227bb6e884f8310156f22ac775, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Price: 300
-  PriceText: {fileID: 1569906788}
-  DamageLvlBoost: 1
-  DamageText: {fileID: 1711031887}
-  LvlText: {fileID: 754253867}
 --- !u!4 &2024352058 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 85cddcbb826e5444aacd0cbb6d92364d, type: 3}
@@ -82987,11 +82918,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shopItems:
-  - {fileID: 1092040413}
+  - Name: Medkit
+    Price: 80
+    PriceText: {fileID: 484687310}
   shopWeapons:
-  - {fileID: 890166138}
-  - {fileID: 2023112792}
-  - {fileID: 1709511388}
+  - Name: MachineGun
+    Price: 300
+    PriceText: {fileID: 1767509391}
+    DamageLvlBoost: 1
+    DamageText: {fileID: 423799913}
+    LvlText: {fileID: 990496108}
+  - Name: Shotgun
+    Price: 300
+    PriceText: {fileID: 1569906788}
+    DamageLvlBoost: 1
+    DamageText: {fileID: 1711031887}
+    LvlText: {fileID: 754253867}
+  - Name: Riffle
+    Price: 300
+    PriceText: {fileID: 23998717}
+    DamageLvlBoost: 2
+    DamageText: {fileID: 47522134}
+    LvlText: {fileID: 758106291}
   player: {fileID: 7560204000705171858}
   playerGunSlots: {fileID: 1269711841}
   shopButton: {fileID: 260506476}
@@ -84009,7 +83957,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.18039216, g: 0.18039216, b: 0.18039216, a: 0.3137255}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:

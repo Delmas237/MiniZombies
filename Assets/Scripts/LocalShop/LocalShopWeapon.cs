@@ -1,8 +1,10 @@
+using System;
 using TMPro;
 using UnityEngine;
 
 namespace LocalShopLib
 {
+    [Serializable]
     public class LocalShopWeapon : LocalShopItem
     {
         [Space(10)]

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using Weapons;
 
@@ -7,7 +8,7 @@ namespace GlobalShopLib
     {
         [SerializeField] private GunsData gunsData;
         [SerializeField] private GameObject localWeapons;
-        [SerializeField] private GlobalShopItem[] items;
+        [SerializeField] private List<GlobalShopItem> items;
 
         private void Awake()
         {
@@ -15,8 +16,17 @@ namespace GlobalShopLib
             Gun[] guns = GunsManager.GameObjectToGuns(localWeapons);
             GunsManager.CopyGunsValuesTo(ref guns);
 
-            for (int i = 0; i < items.Length; i++)
-                items[i].Updated += GunsManager.Save;
+            foreach (var item in items)
+            {
+                item.Intialize();
+                item.Updated += GunsManager.Save;
+            }
+        }
+
+        private void OnDestroy()
+        {
+            foreach (var item in items)
+                item.OnDestroy();
         }
 
         private void Update()

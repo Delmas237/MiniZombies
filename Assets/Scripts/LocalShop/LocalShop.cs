@@ -8,8 +8,8 @@ namespace LocalShopLib
 {
     public class LocalShop : MonoBehaviour
     {
-        [SerializeField] private LocalShopItem[] shopItems;
-        [SerializeField] private LocalShopWeapon[] shopWeapons;
+        [SerializeField] private List<LocalShopItem> shopItems;
+        [SerializeField] private List<LocalShopWeapon> shopWeapons;
         [Space(10f)]
         [SerializeField] private Player player;
         [SerializeField] private PlayerGunSlots playerGunSlots;
@@ -34,15 +34,15 @@ namespace LocalShopLib
 
         private void UpdatePrice()
         {
-            for (int i = 0; i < shopWeapons.Length; i++)
+            for (int i = 0; i < shopWeapons.Count; i++)
                 shopWeapons[i].PriceText.text = shopWeapons[i].Price.ToString() + "$";
         }
 
         private void GunsLvlInitialize()
         {
-            weaponsLvl = new List<int>(shopWeapons.Length);
+            weaponsLvl = new List<int>(shopWeapons.Count);
 
-            for (int i = 0; i < shopWeapons.Length; i++)
+            for (int i = 0; i < shopWeapons.Count; i++)
                 weaponsLvl.Add(-1);
         }
 
