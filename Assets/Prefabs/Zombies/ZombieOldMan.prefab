@@ -82,7 +82,7 @@ GameObject:
   - component: {fileID: 5782713811386309685}
   m_Layer: 7
   m_Name: ZombieOldMan
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -657,7 +657,7 @@ GameObject:
   - component: {fileID: 8353536294926117361}
   m_Layer: 7
   m_Name: ZombiePrison
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

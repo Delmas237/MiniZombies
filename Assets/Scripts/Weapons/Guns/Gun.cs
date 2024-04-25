@@ -8,6 +8,8 @@ namespace Weapons
 {
     public class Gun : MonoBehaviour
     {
+        [field: SerializeField] public GunType Type { get; private set; }
+        [field: Space(5)]
         [field: SerializeField] public float Damage { get; set; }
 
         [field: SerializeField] public float Cooldown { get; set; }
@@ -17,8 +19,6 @@ namespace Weapons
 
         [field: SerializeField] public float Distance { get; set; } = 4;
         [field: SerializeField] public int Consumption { get; set; } = 1;
-        [field: Space(5)]
-        [field: SerializeField] public GunType Type { get; private set; }
 
         //% of damage reduction on the next penetration
         public const float MinusPiercingDamage = 5;
