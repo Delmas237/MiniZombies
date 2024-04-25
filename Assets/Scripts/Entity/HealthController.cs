@@ -39,7 +39,6 @@ public class HealthController
     }
     private void Death()
     {
-        //enabled = false;
         Died?.Invoke();
     }
 }

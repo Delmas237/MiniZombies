@@ -4,7 +4,6 @@ using UnityEngine;
 public class CollisionHandler : MonoBehaviour
 {
     public event Action<Collision> OnCollisionEnterEvent;
-    public event Action<Collision> OnCollisionStayEvent;
     public event Action<Collision> OnCollisionExitEvent;
 
     private bool inCollision;
