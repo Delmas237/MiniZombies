@@ -12,10 +12,10 @@ public class HealthController
         get { return health; }
         set
         {
+            value = Mathf.Clamp(value, 0, MaxHealth);
+
             if (value <= 0 && health > 0)
                 Death();
-            if (value > MaxHealth)
-                value = MaxHealth;
 
             if (value < health)
                 Damaged?.Invoke();

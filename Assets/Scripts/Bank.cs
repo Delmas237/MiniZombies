@@ -8,13 +8,7 @@ public static class Bank
         get { return coins; }
         set
         {
-            if (value < 0)
-                coins = 0;
-            else if (value > MaxCoins)
-                coins = MaxCoins;
-            else
-                coins = value;
-
+            coins = Mathf.Clamp(value, 0, MaxCoins);
             Save();
         }
     }
