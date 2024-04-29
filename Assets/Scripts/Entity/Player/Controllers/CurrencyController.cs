@@ -4,7 +4,7 @@ using UnityEngine;
 namespace PlayerLib
 {
     [Serializable]
-    public class PlayerCurrencyController
+    public class CurrencyController
     {
         [field: SerializeField] public int Coins { get; set; } = 0;
     }

@@ -26,8 +26,8 @@ namespace EnemyLib
         protected virtual void Update()
         {
             MoveController.Move();
-
             AnimationController.MoveAnim();
+
             AnimationController.AttackAnim();
         }
 

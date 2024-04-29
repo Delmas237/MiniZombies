@@ -5,7 +5,7 @@ namespace PlayerLib
     public class PlayerContainer : MonoBehaviour, IEntity
     {
         [field: Header("Controllers")]
-        [field: SerializeField] public PlayerCurrencyController CurrencyController { get; set; }
+        [field: SerializeField] public CurrencyController CurrencyController { get; set; }
         [field: SerializeField] public HealthController HealthController { get; set; }
         [field: SerializeField] public PlayerWeaponsController WeaponsController { get; set; }
         [field: SerializeField] public PlayerMoveController MoveController { get; set; }
@@ -21,13 +21,10 @@ namespace PlayerLib
 
         private void Update()
         {
-            if (Time.timeScale > 0)
-            {
-                MoveController.Move();
-                AnimationController.MoveAnim();
+            MoveController.Move();
+            AnimationController.MoveAnim();
 
-                MoveController.Rotation();
-            }
+            MoveController.Rotation();
         }
     }
 }
