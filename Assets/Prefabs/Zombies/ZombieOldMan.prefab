@@ -74,7 +74,6 @@ GameObject:
   m_Component:
   - component: {fileID: 477521500200552015}
   - component: {fileID: -301051384682500517}
-  - component: {fileID: 4085282889953933490}
   - component: {fileID: 1973019532695511494}
   - component: {fileID: -1848398006467348512}
   - component: {fileID: 6004752277940655587}
@@ -126,22 +125,10 @@ MonoBehaviour:
       healSound: {fileID: 2244451784809278005}
       deathSound: {fileID: 2837525364688832580}
   <AttackController>k__BackingField:
-    collisionHandler: {fileID: 4085282889953933490}
+    collisionHandler: {fileID: 0}
     damage: 15
   <MoveController>k__BackingField:
     <Speed>k__BackingField: 3.7
---- !u!114 &4085282889953933490
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1003088765245234421}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c84f811690ece24eabb5892e09f3db6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1973019532695511494
 MonoBehaviour:
   m_ObjectHideFlags: 0

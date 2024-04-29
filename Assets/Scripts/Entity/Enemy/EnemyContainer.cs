@@ -28,6 +28,16 @@ namespace EnemyLib
             AnimationController.AttackAnim();
         }
 
+        private void OnCollisionEnter(Collision collision)
+        {
+            AttackController.OnCollisionEnter(collision);
+        }
+
+        private void OnCollisionExit(Collision collision)
+        {
+            AttackController.OnCollisionExit(collision);
+        }
+
         private void DealDamage() => AttackController.DealDamage();
     }
 }

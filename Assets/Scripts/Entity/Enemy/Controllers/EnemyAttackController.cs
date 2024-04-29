@@ -8,8 +8,6 @@ namespace EnemyLib
     [Serializable]
     public class EnemyAttackController
     {
-        [SerializeField] private CollisionHandler collisionHandler;
-
         public bool IsAttack { get; set; }
         private PlayerContainer targetCollision;
 
@@ -21,9 +19,6 @@ namespace EnemyLib
         public void Initialize(EnemyContainer _enemy)
         {
             enemy = _enemy;
-
-            collisionHandler.OnCollisionEnterEvent += OnCollisionEnter;
-            collisionHandler.OnCollisionExitEvent += OnCollisionExit;
         }
 
         protected void Attack()
@@ -32,7 +27,7 @@ namespace EnemyLib
             IsAttack = true;
         }
 
-        private void OnCollisionEnter(Collision collision)
+        public void OnCollisionEnter(Collision collision)
         {
             PlayerContainer target = collision.gameObject.GetComponent<PlayerContainer>();
 
@@ -42,7 +37,7 @@ namespace EnemyLib
                 Attack();
             }
         }
-        private void OnCollisionExit(Collision collision)
+        public void OnCollisionExit(Collision collision)
         {
             PlayerContainer target = collision.gameObject.GetComponent<PlayerContainer>();
 
