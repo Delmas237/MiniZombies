@@ -1,4 +1,3 @@
-public interface IEnemy
+public interface IEnemy : IEntity
 {
-    public HealthController HealthController { get; set; }
 }

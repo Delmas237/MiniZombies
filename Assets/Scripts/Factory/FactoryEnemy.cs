@@ -65,8 +65,7 @@ namespace Factory
             enemy.Agent.speed = enemy.MoveController.Speed;
             enemy.AnimationController.AttackSpeedX *= speedX;
 
-            if (enemy.TryGetComponent(out DropAmmoAfterDeath dropAmmoAfterDeath))
-                dropAmmoAfterDeath.AmmoPool = ammoPackPool;
+            enemy.DropAmmoAfterDeathModule.AmmoPool = ammoPackPool;
         }
         private Transform SearchFurthest(ref List<Transform> spawnDots)
         {

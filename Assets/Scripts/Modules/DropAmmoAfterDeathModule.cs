@@ -1,18 +1,27 @@
 using EnemyLib;
 using ObjectPool;
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Weapons
 {
-    public class DropAmmoAfterDeath : MonoBehaviour
+    [Serializable]
+    public class DropAmmoAfterDeathModule : IModule
     {
-        [SerializeField] private float dropChance = 1;
+        [field: SerializeField] public bool Enabled { get; set; } = true;
+        [Space(5)]
+        [SerializeField, Range(0f, 1f)] private float dropChance = 1;
         public IPool<AmmoPack> AmmoPool { get; set; }
+        private Transform transform;
 
-        private void Start()
+        public void Initialize(IEntity _entity, Transform _transform)
         {
-            EnemyContainer enemy = GetComponent<EnemyContainer>();
-            enemy.HealthController.Died += DropAmmo;
+            if (Enabled)
+            {
+                _entity.HealthController.Died += DropAmmo;
+                transform = _transform;
+            }
         }
 
         private void DropAmmo()

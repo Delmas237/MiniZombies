@@ -981,7 +981,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6242503882591638018}
   - component: {fileID: 3511786412900187598}
-  - component: {fileID: -1674827696294256203}
   - component: {fileID: 7672770542981001418}
   - component: {fileID: -6897803794748703077}
   - component: {fileID: 8370338607021414287}
@@ -1032,23 +1031,12 @@ MonoBehaviour:
       healSound: {fileID: 7900286978716372782}
       deathSound: {fileID: 173871650093976228}
   <AttackController>k__BackingField:
-    collisionHandler: {fileID: 0}
     damage: 15
   <MoveController>k__BackingField:
     <Speed>k__BackingField: 3.7
---- !u!114 &-1674827696294256203
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6767226442644146360}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b56c25d2797308742a080d0cd94f4643, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dropChance: 0.09
+  <DropAmmoAfterDeathModule>k__BackingField:
+    <Enabled>k__BackingField: 1
+    dropChance: 0.09
 --- !u!114 &7672770542981001418
 MonoBehaviour:
   m_ObjectHideFlags: 0

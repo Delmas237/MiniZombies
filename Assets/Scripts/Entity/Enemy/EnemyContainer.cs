@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using Weapons;
 
 namespace EnemyLib
 {
@@ -7,10 +8,14 @@ namespace EnemyLib
     {
         public NavMeshAgent Agent { get; set; }
 
+        [field: Header("Controllers")]
         [field: SerializeField] public HealthController HealthController { get; set; }
         [field: SerializeField] public EnemyAttackController AttackController { get; set; }
         [field: SerializeField] public EnemyMoveController MoveController { get; set; }
         [field: SerializeField] public EnemyAnimationController AnimationController { get; set; }
+        
+        [field: Header("Modules")]
+        [field: SerializeField] public DropAmmoAfterDeathModule DropAmmoAfterDeathModule { get; set; }
 
         protected virtual void Start()
         {
@@ -18,6 +23,8 @@ namespace EnemyLib
             AnimationController.Initialize(this);
             AttackController.Initialize(this);
             MoveController.Initialize(this);
+
+            DropAmmoAfterDeathModule.Initialize(this, transform);
         }
 
         protected virtual void Update()
