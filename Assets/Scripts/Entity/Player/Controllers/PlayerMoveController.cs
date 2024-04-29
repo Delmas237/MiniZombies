@@ -10,6 +10,7 @@ namespace PlayerLib
     [Serializable]
     public class PlayerMoveController
     {
+        private bool controllable = true;
         private Transform transform;
 
         [SerializeField] private float maxSpeed = 3.65f;
@@ -34,44 +35,52 @@ namespace PlayerLib
             transform = _transform;
 
             rb = player.GetComponent<Rigidbody>();
+            player.HealthController.Died += SetControllableFalse;
 
             player.StartCoroutine(UpdateClosestEnemy());
         }
+        private void SetControllableFalse() => controllable = false;
 
         public void Move()
         {
-            if (MoveJoystick.Horizontal == 0 || MoveJoystick.Vertical == 0)
+            if (controllable)
             {
-                rb.velocity = new Vector3(
-                    MoveJoystick.Horizontal * maxSpeed,
-                    rb.velocity.y,
-                    MoveJoystick.Vertical * maxSpeed);
-            }
-            else
-            {
-                rb.velocity = new Vector3(
-                    MoveJoystick.Horizontal * maxSpeed / 1.5f,
-                    rb.velocity.y,
-                    MoveJoystick.Vertical * maxSpeed / 1.5f);
+                if (MoveJoystick.Horizontal == 0 || MoveJoystick.Vertical == 0)
+                {
+                    rb.velocity = new Vector3(
+                        MoveJoystick.Horizontal * maxSpeed,
+                        rb.velocity.y,
+                        MoveJoystick.Vertical * maxSpeed);
+                }
+                else
+                {
+                    rb.velocity = new Vector3(
+                        MoveJoystick.Horizontal * maxSpeed / 1.5f,
+                        rb.velocity.y,
+                        MoveJoystick.Vertical * maxSpeed / 1.5f);
+                }
             }
         }
 
         public void Rotation()
         {
-            if (closestEnemy)
+            if (controllable)
             {
-                RotateToClosestEnemy(closestEnemy.transform.position);
-            }
-            else
-            {
-                if ((player.WeaponsController.AttackJoystick.Horizontal != 0 ||
-                    player.WeaponsController.AttackJoystick.Vertical != 0) && AutoRotate)
+                if (closestEnemy)
                 {
-                    RotateToJoystickDir(player.WeaponsController.AttackJoystick, rotationSmoothness);
+                    RotateToClosestEnemy(closestEnemy.transform.position);
                 }
-                else if (MoveJoystick.Horizontal != 0 || MoveJoystick.Vertical != 0)
+                else
                 {
-                    RotateToJoystickDir(MoveJoystick, rotationSmoothness);
+                    if ((player.WeaponsController.AttackJoystick.Horizontal != 0 ||
+                        player.WeaponsController.AttackJoystick.Vertical != 0) && AutoRotate)
+                    {
+                        RotateToJoystickDir(player.WeaponsController.AttackJoystick, rotationSmoothness);
+                    }
+                    else if (MoveJoystick.Horizontal != 0 || MoveJoystick.Vertical != 0)
+                    {
+                        RotateToJoystickDir(MoveJoystick, rotationSmoothness);
+                    }
                 }
             }
         }
