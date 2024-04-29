@@ -14,7 +14,7 @@ namespace Audio
         [SerializeField] private AudioSource betweenWavesMusic;
 
         [SerializeField] private SoundSettings soundSettings;
-        [SerializeField] private Player player;
+        [SerializeField] private PlayerContainer player;
 
         private MusicType currentMusic = MusicType.Battle;
         private bool isFirstWave = true;

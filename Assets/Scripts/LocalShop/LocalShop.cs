@@ -11,7 +11,7 @@ namespace LocalShopLib
         [SerializeField] private List<LocalShopItem> shopItems;
         [SerializeField] private List<LocalShopWeapon> shopWeapons;
         [Space(10f)]
-        [SerializeField] private Player player;
+        [SerializeField] private PlayerContainer player;
         [SerializeField] private PlayerGunSlots playerGunSlots;
 
         private List<int> weaponsLvl;

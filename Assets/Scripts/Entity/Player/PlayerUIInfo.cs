@@ -6,7 +6,7 @@ namespace PlayerLib
 {
     public class PlayerUIInfo : MonoBehaviour
     {
-        [SerializeField] private Player player;
+        [SerializeField] private PlayerContainer player;
 
         [SerializeField] private Image healthBar;
         [SerializeField] private TextMeshProUGUI bullets;

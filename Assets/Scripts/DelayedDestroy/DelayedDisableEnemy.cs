@@ -4,6 +4,6 @@ public class DelayedDisableEnemy : DelayedDestruction
 {
     protected override void Start()
     {
-        GetComponent<Enemy>().HealthController.Died += DelayedSetActiveFalse;
+        GetComponent<EnemyContainer>().HealthController.Died += DelayedSetActiveFalse;
     }
 }

@@ -5,7 +5,7 @@ namespace PlayerLib
 {
     public class PlayerGunSlots : MonoBehaviour
     {
-        [SerializeField] private Player player;
+        [SerializeField] private PlayerContainer player;
 
         [SerializeField] private GameObject[] gunsSlot2;
 

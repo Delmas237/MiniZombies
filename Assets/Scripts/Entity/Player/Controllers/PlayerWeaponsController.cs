@@ -16,9 +16,9 @@ namespace PlayerLib
 
         [field: SerializeField] public Joystick AttackJoystick { get; private set; }
 
-        private Player player;
+        private PlayerContainer player;
 
-        public void Initialize(Player _player)
+        public void Initialize(PlayerContainer _player)
         {
             player = _player;
 

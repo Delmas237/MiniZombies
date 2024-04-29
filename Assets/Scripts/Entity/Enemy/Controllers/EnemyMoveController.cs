@@ -8,11 +8,11 @@ namespace EnemyLib
     public class EnemyMoveController
     {
         [field: SerializeField] public float Speed { get; set; } = 3.5f;
-        public Player Target { get; set; }
+        public PlayerContainer Target { get; set; }
 
-        private Enemy enemy;
+        private EnemyContainer enemy;
 
-        public void Initialize(Enemy _enemy)
+        public void Initialize(EnemyContainer _enemy)
         {
             enemy = _enemy;
         }

@@ -7,10 +7,10 @@ namespace PlayerLib
     [Serializable]
     public class PlayerAnimationController
     {
-        private Player player;
+        private PlayerContainer player;
         private Animator animator;
 
-        public void Initialize(Player _player, Animator _animator)
+        public void Initialize(PlayerContainer _player, Animator _animator)
         {
             player = _player;
             animator = _animator;

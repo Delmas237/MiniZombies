@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 namespace EnemyLib
 {
-    public abstract class Enemy : MonoBehaviour, IEnemy
+    public abstract class EnemyContainer : MonoBehaviour, IEnemy
     {
         public NavMeshAgent Agent { get; set; }
 

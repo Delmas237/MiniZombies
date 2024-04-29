@@ -11,7 +11,7 @@ namespace Weapons
 
         private void Start()
         {
-            Enemy enemy = GetComponent<Enemy>();
+            EnemyContainer enemy = GetComponent<EnemyContainer>();
             enemy.HealthController.Died += DropAmmo;
         }
 

@@ -11,13 +11,13 @@ using Random = UnityEngine.Random;
 
 namespace Factory
 {
-    public class FactoryEnemy : FactoryBase<Enemy>
+    public class FactoryEnemy : FactoryBase<EnemyContainer>
     {
-        private readonly Player player;
+        private readonly PlayerContainer player;
         private readonly List<Transform> spawnDots;
         private readonly IPool<AmmoPack> ammoPackPool;
 
-        public FactoryEnemy(Enemy prefab, Transform parent, Player player, List<Transform> spawnDots, IPool<AmmoPack> ammoPackPool)
+        public FactoryEnemy(EnemyContainer prefab, Transform parent, PlayerContainer player, List<Transform> spawnDots, IPool<AmmoPack> ammoPackPool)
             : base(prefab, parent)
         {
             this.player = player;
@@ -25,7 +25,7 @@ namespace Factory
             this.ammoPackPool = ammoPackPool;
         }
 
-        public override void ReconstructToDefault(Enemy enemy)
+        public override void ReconstructToDefault(EnemyContainer enemy)
         {
             enemy.enabled = true;
 
@@ -43,7 +43,7 @@ namespace Factory
                 collider.height = 1.9f;
             }
         }
-        public override void Construct(Enemy enemy)
+        public override void Construct(EnemyContainer enemy)
         {
             List<Transform> spawnDotsCopy = new List<Transform>(spawnDots);
             List<Transform> spawnDotsFurthest = new List<Transform>

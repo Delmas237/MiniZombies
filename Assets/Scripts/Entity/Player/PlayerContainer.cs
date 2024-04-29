@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace PlayerLib
 {
-    public class Player : MonoBehaviour
+    public class PlayerContainer : MonoBehaviour
     {
         [field: Header("Controllers")]
         [field: SerializeField] public PlayerCurrencyController CurrencyController { get; set; }

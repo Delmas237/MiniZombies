@@ -11,14 +11,14 @@ namespace EnemyLib
         [SerializeField] private CollisionHandler collisionHandler;
 
         public bool IsAttack { get; set; }
-        private Player targetCollision;
+        private PlayerContainer targetCollision;
 
         [SerializeField] private int damage = 15;
         public int Damage => damage;
 
-        private Enemy enemy;
+        private EnemyContainer enemy;
 
-        public void Initialize(Enemy _enemy)
+        public void Initialize(EnemyContainer _enemy)
         {
             enemy = _enemy;
 
@@ -34,7 +34,7 @@ namespace EnemyLib
 
         private void OnCollisionEnter(Collision collision)
         {
-            Player target = collision.gameObject.GetComponent<Player>();
+            PlayerContainer target = collision.gameObject.GetComponent<PlayerContainer>();
 
             if (target != null && target.HealthController.Health > 0 && enemy.HealthController.Health > 0)
             {
@@ -44,7 +44,7 @@ namespace EnemyLib
         }
         private void OnCollisionExit(Collision collision)
         {
-            Player target = collision.gameObject.GetComponent<Player>();
+            PlayerContainer target = collision.gameObject.GetComponent<PlayerContainer>();
 
             if (target != null)
             {

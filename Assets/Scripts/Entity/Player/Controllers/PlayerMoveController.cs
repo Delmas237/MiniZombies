@@ -23,13 +23,13 @@ namespace PlayerLib
         [SerializeField] private float autoRotationSmoothness = 0.2f;
         public bool AutoRotate { get; set; }
 
-        private Player player;
+        private PlayerContainer player;
         private Rigidbody rb;
 
-        private Enemy closestEnemy;
+        private EnemyContainer closestEnemy;
         private const float timeToUpdateClosestEnemy = 0.35f;
 
-        public void Initialize(Player _player, Transform _transform)
+        public void Initialize(PlayerContainer _player, Transform _transform)
         {
             player = _player;
             transform = _transform;
@@ -111,14 +111,14 @@ namespace PlayerLib
         {
             while (true)
             {
-                ComponentSearcher<Enemy>.InRadius(
-                    transform.position, player.WeaponsController.CurrentGun.Distance, out List<Enemy> closestEnemies);
+                ComponentSearcher<EnemyContainer>.InRadius(
+                    transform.position, player.WeaponsController.CurrentGun.Distance, out List<EnemyContainer> closestEnemies);
 
                 bool enemyInRange = false;
-                Enemy closestEnemy = null;
+                EnemyContainer closestEnemy = null;
                 if (closestEnemies != null)
                 {
-                    closestEnemy = ComponentSearcher<Enemy>.Closest(transform.position, closestEnemies);
+                    closestEnemy = ComponentSearcher<EnemyContainer>.Closest(transform.position, closestEnemies);
 
                     if (closestEnemy && closestEnemy.HealthController.Health > 0)
                     {

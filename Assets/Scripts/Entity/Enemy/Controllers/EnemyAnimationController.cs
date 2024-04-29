@@ -9,10 +9,10 @@ namespace EnemyLib
     {
         public float AttackSpeedX { get; set; } = 1;
 
-        private Enemy enemy;
+        private EnemyContainer enemy;
         private Animator animator;
 
-        public void Initialize(Enemy _enemy)
+        public void Initialize(EnemyContainer _enemy)
         {
             enemy = _enemy;
             animator = enemy.GetComponent<Animator>();

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace EnemyLib
 {
-    public class Zombie : Enemy
+    public class ZombieContainer : EnemyContainer
     {
         protected override void Start()
         {

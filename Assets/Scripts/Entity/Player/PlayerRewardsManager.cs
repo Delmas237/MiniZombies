@@ -5,7 +5,7 @@ namespace PlayerLib
 {
     public class PlayerRewardsManager : MonoBehaviour
     {
-        [SerializeField] private Player player;
+        [SerializeField] private PlayerContainer player;
 
         private void Start()
         {

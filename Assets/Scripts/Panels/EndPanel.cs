@@ -15,7 +15,7 @@ namespace Panels
         [SerializeField] private TextMeshProUGUI wavesCompleted;
         [SerializeField] private TextMeshProUGUI moneyPlus;
 
-        [SerializeField] private Player player;
+        [SerializeField] private PlayerContainer player;
 
         private void Start()
         {

@@ -11,7 +11,7 @@ namespace Weapons
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent(out Player player))
+            if (other.TryGetComponent(out PlayerContainer player))
             {
                 player.WeaponsController.Bullets += magnitude;
 
