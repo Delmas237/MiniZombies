@@ -32,10 +32,10 @@ namespace Factory
             if (enemy.TryGetComponent(out Rigidbody rb))
                 Object.Destroy(rb);
 
-            if (enemy.Agent == null)
-                enemy.Agent = enemy.GetComponent<NavMeshAgent>();
+            if (enemy.MoveController.Agent == null)
+                enemy.MoveController.Agent = enemy.GetComponent<NavMeshAgent>();
             else
-                enemy.Agent.enabled = true;
+                enemy.MoveController.Agent.enabled = true;
 
             if (enemy.TryGetComponent(out CapsuleCollider collider))
             {
@@ -62,7 +62,7 @@ namespace Factory
 
             float speedX = (float)Math.Round(Random.Range(0.9f, 1.15f), 2);
             enemy.MoveController.Speed *= speedX;
-            enemy.Agent.speed = enemy.MoveController.Speed;
+            enemy.MoveController.Agent.speed = enemy.MoveController.Speed;
             enemy.AnimationController.AttackSpeedX *= speedX;
 
             enemy.DropAmmoAfterDeathModule.AmmoPool = ammoPackPool;

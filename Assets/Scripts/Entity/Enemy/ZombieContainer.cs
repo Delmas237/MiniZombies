@@ -21,7 +21,7 @@ namespace EnemyLib
                 rb.mass = 10f;
             }
 
-            Agent.enabled = false;
+            MoveController.Agent.enabled = false;
             AttackController.IsAttack = false;
 
             enabled = false;

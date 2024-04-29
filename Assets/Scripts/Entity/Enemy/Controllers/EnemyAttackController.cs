@@ -23,7 +23,7 @@ namespace EnemyLib
 
         protected void Attack()
         {
-            enemy.Agent.isStopped = true;
+            enemy.MoveController.Agent.isStopped = true;
             IsAttack = true;
         }
 
@@ -52,8 +52,8 @@ namespace EnemyLib
         {
             yield return new WaitForSeconds(delay);
 
-            if (enemy.Agent.enabled)
-                enemy.Agent.isStopped = false;
+            if (enemy.MoveController.Agent.enabled)
+                enemy.MoveController.Agent.isStopped = false;
 
             IsAttack = false;
         }

@@ -1,32 +1,27 @@
 using PlayerLib;
 using System;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace EnemyLib
 {
     [Serializable]
     public class EnemyMoveController
     {
-        [field: SerializeField] public float Speed { get; set; } = 3.5f;
+        public NavMeshAgent Agent { get; set; }
         public PlayerContainer Target { get; set; }
-
-        private EnemyContainer enemy;
-
-        public void Initialize(EnemyContainer _enemy)
-        {
-            enemy = _enemy;
-        }
+        [field: SerializeField] public float Speed { get; set; } = 3.5f;
 
         public void Move()
         {
             if (Target && Target.HealthController.Health > 0)
             {
-                if (enemy.Agent.enabled)
-                    enemy.Agent.SetDestination(Target.transform.position);
+                if (Agent.enabled)
+                    Agent.SetDestination(Target.transform.position);
             }
             else
             {
-                enemy.Agent.enabled = false;
+                Agent.enabled = false;
             }
         }
     }

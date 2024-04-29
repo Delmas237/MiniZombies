@@ -1,13 +1,10 @@
 using UnityEngine;
-using UnityEngine.AI;
 using Weapons;
 
 namespace EnemyLib
 {
     public abstract class EnemyContainer : MonoBehaviour, IEnemy
     {
-        public NavMeshAgent Agent { get; set; }
-
         [field: Header("Controllers")]
         [field: SerializeField] public HealthController HealthController { get; set; }
         [field: SerializeField] public EnemyAttackController AttackController { get; set; }
@@ -22,7 +19,6 @@ namespace EnemyLib
             HealthController.Initialize();
             AnimationController.Initialize(this);
             AttackController.Initialize(this);
-            MoveController.Initialize(this);
 
             DropAmmoAfterDeathModule.Initialize(this, transform);
         }
