@@ -1,85 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &7371549725607492157
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5790364308773922667}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65a5049351e429248ac10452af24a46f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <Damage>k__BackingField: 28
-  <Cooldown>k__BackingField: 0.5
-  <Distance>k__BackingField: 6
-  <Consumption>k__BackingField: 4
-  <Type>k__BackingField: 2
-  shootDir: {fileID: 0}
-  muzzle: {fileID: 7371549726180331902}
-  shotPool: {fileID: 0}
---- !u!114 &7371549726035719926
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5790364308859192879}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3078d6cbc5af07438a485d0990c789a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <Damage>k__BackingField: 25
-  <Cooldown>k__BackingField: 0.25
-  <Distance>k__BackingField: 5
-  <Consumption>k__BackingField: 0
-  <Type>k__BackingField: 0
-  shootDir: {fileID: 0}
-  muzzle: {fileID: 7371549725795301826}
-  shotPool: {fileID: 0}
---- !u!114 &7371549726179397746
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5790364309024809406}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3078d6cbc5af07438a485d0990c789a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <Damage>k__BackingField: 100
-  <Cooldown>k__BackingField: 1.6
-  <Distance>k__BackingField: 7.9
-  <Consumption>k__BackingField: 2
-  <Type>k__BackingField: 3
-  shootDir: {fileID: 0}
-  muzzle: {fileID: 7371549724949992766}
-  shotPool: {fileID: 0}
---- !u!114 &60767804659289434
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5790364309663493236}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3078d6cbc5af07438a485d0990c789a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <Damage>k__BackingField: 15
-  <Cooldown>k__BackingField: 0.1
-  <Distance>k__BackingField: 5
-  <Consumption>k__BackingField: 1
-  <Type>k__BackingField: 1
-  shootDir: {fileID: 0}
-  muzzle: {fileID: 7371549725190715488}
-  shotPool: {fileID: 0}
 --- !u!1 &7371549724676782838
 GameObject:
   m_ObjectHideFlags: 0
@@ -103,16 +23,17 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7371549724676782838}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6561833741664607381}
   - {fileID: 6561833741934130894}
   - {fileID: 6561833741581401553}
   - {fileID: 6561833741498874628}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7371549724949992761
 GameObject:
@@ -137,12 +58,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7371549724949992761}
+  serializedVersion: 2
   m_LocalRotation: {x: -0.048594166, y: 0.71486795, z: 0.02764177, w: 0.697021}
   m_LocalPosition: {x: 0.62880015, y: 0.26885846, z: 0.0067219436}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6561833741498874628}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -32.682, y: 92.525, z: -5.674}
 --- !u!1 &7371549725190715491
 GameObject:
@@ -167,12 +89,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7371549725190715491}
+  serializedVersion: 2
   m_LocalRotation: {x: -0.22859713, y: 0.68284935, z: 0.1701964, w: 0.6726764}
   m_LocalPosition: {x: 0.3159, y: 0.4427, z: 0.0008}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6561833741934130894}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -32.682, y: 92.525, z: -5.674}
 --- !u!1 &7371549725795301885
 GameObject:
@@ -197,12 +120,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7371549725795301885}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0.246, y: 0.2431, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6561833741664607381}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &7371549726180331897
 GameObject:
@@ -227,18 +151,20 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7371549726180331897}
+  serializedVersion: 2
   m_LocalRotation: {x: 0.016913204, y: 0.7236782, z: 0.0055277054, w: 0.68990827}
   m_LocalPosition: {x: 0.631, y: 0.315, z: -0.03}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6561833741581401553}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0.879, y: 92.751, z: 1.84}
 --- !u!1001 &6672901403513098533
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 7371549724676782839}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: c23d3442f6622184391da15c29ca1ced, type: 3}
@@ -326,12 +252,42 @@ PrefabInstance:
       value: 24.909
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: c23d3442f6622184391da15c29ca1ced, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7371549725190715488}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c23d3442f6622184391da15c29ca1ced, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 60767804659289434}
   m_SourcePrefab: {fileID: 100100000, guid: c23d3442f6622184391da15c29ca1ced, type: 3}
 --- !u!1 &5790364309663493236 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c23d3442f6622184391da15c29ca1ced, type: 3}
   m_PrefabInstance: {fileID: 6672901403513098533}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &60767804659289434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5790364309663493236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3078d6cbc5af07438a485d0990c789a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Type>k__BackingField: 1
+  <FireType>k__BackingField: 1
+  <Damage>k__BackingField: 15
+  <Cooldown>k__BackingField: 0.1
+  <Distance>k__BackingField: 5
+  <Consumption>k__BackingField: 1
+  shootDir: {fileID: 0}
+  muzzle: {fileID: 7371549725190715488}
+  shotPool: {fileID: 0}
 --- !u!4 &6561833741934130894 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c23d3442f6622184391da15c29ca1ced, type: 3}
@@ -342,6 +298,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 7371549724676782839}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: e78b5fe8c1b1d9047985c3b3edf2fcc3, type: 3}
@@ -397,12 +354,42 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: e78b5fe8c1b1d9047985c3b3edf2fcc3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7371549725795301826}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e78b5fe8c1b1d9047985c3b3edf2fcc3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7371549726035719926}
   m_SourcePrefab: {fileID: 100100000, guid: e78b5fe8c1b1d9047985c3b3edf2fcc3, type: 3}
 --- !u!1 &5790364308859192879 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e78b5fe8c1b1d9047985c3b3edf2fcc3, type: 3}
   m_PrefabInstance: {fileID: 6672901403782560638}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7371549726035719926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5790364308859192879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3078d6cbc5af07438a485d0990c789a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Type>k__BackingField: 0
+  <FireType>k__BackingField: 0
+  <Damage>k__BackingField: 25
+  <Cooldown>k__BackingField: 0.25
+  <Distance>k__BackingField: 5
+  <Consumption>k__BackingField: 0
+  shootDir: {fileID: 0}
+  muzzle: {fileID: 7371549725795301826}
+  shotPool: {fileID: 0}
 --- !u!4 &6561833741664607381 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e78b5fe8c1b1d9047985c3b3edf2fcc3, type: 3}
@@ -413,6 +400,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 7371549724676782839}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 1095122123249c540bb2057691d50174, type: 3}
@@ -468,12 +456,42 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1095122123249c540bb2057691d50174, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7371549726180331902}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1095122123249c540bb2057691d50174, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7371549725607492157}
   m_SourcePrefab: {fileID: 100100000, guid: 1095122123249c540bb2057691d50174, type: 3}
 --- !u!1 &5790364308773922667 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 1095122123249c540bb2057691d50174, type: 3}
   m_PrefabInstance: {fileID: 6672901403832015418}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7371549725607492157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5790364308773922667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65a5049351e429248ac10452af24a46f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Type>k__BackingField: 2
+  <FireType>k__BackingField: 0
+  <Damage>k__BackingField: 28
+  <Cooldown>k__BackingField: 0.5
+  <Distance>k__BackingField: 6
+  <Consumption>k__BackingField: 4
+  shootDir: {fileID: 0}
+  muzzle: {fileID: 7371549726180331902}
+  shotPool: {fileID: 0}
 --- !u!4 &6561833741581401553 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1095122123249c540bb2057691d50174, type: 3}
@@ -484,6 +502,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 7371549724676782839}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 63e373aaeb7076e47a42154dfe1512e9, type: 3}
@@ -539,12 +558,42 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 63e373aaeb7076e47a42154dfe1512e9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7371549724949992766}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 63e373aaeb7076e47a42154dfe1512e9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7371549726179397746}
   m_SourcePrefab: {fileID: 100100000, guid: 63e373aaeb7076e47a42154dfe1512e9, type: 3}
 --- !u!1 &5790364309024809406 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 63e373aaeb7076e47a42154dfe1512e9, type: 3}
   m_PrefabInstance: {fileID: 6672901403948293359}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7371549726179397746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5790364309024809406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3078d6cbc5af07438a485d0990c789a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Type>k__BackingField: 3
+  <FireType>k__BackingField: 0
+  <Damage>k__BackingField: 100
+  <Cooldown>k__BackingField: 1.6
+  <Distance>k__BackingField: 7.9
+  <Consumption>k__BackingField: 2
+  shootDir: {fileID: 0}
+  muzzle: {fileID: 7371549724949992766}
+  shotPool: {fileID: 0}
 --- !u!4 &6561833741498874628 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 63e373aaeb7076e47a42154dfe1512e9, type: 3}

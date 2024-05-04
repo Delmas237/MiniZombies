@@ -17,6 +17,13 @@ namespace PlayerLib
 
             player.WeaponsController.GunChanged += CurrentGunAnim;
             player.HealthController.Died += DeathAnim;
+            player.HealthController.Died += OnDeath;
+        }
+        private void OnDeath()
+        {
+            player.WeaponsController.GunChanged -= CurrentGunAnim;
+            player.HealthController.Died -= DeathAnim;
+            player.HealthController.Died -= OnDeath;
         }
 
         public void MoveAnim()
@@ -33,9 +40,9 @@ namespace PlayerLib
             }
         }
 
-        private void CurrentGunAnim()
+        private void CurrentGunAnim(Gun gun)
         {
-            if (player.WeaponsController.CurrentGun.Type == GunType.Pistol)
+            if (gun.Type == GunType.Pistol)
             {
                 animator.SetBool("PistolInHands", true);
             }

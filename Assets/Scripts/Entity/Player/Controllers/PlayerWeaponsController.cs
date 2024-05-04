@@ -12,7 +12,7 @@ namespace PlayerLib
 
         [field: SerializeField] public Gun[] Guns { get; private set; }
         public Gun CurrentGun { get; private set; }
-        public event Action GunChanged;
+        public event Action<Gun> GunChanged;
 
         [field: SerializeField] public Joystick AttackJoystick { get; private set; }
 
@@ -29,7 +29,7 @@ namespace PlayerLib
             AttackJoystick.OnUp += PullTrigger;
             AttackJoystick.OnClamped += PullAutoTrigger;
         }
-        public void OnDeath()
+        private void OnDeath()
         {
             player.HealthController.Died -= OnDeath;
             AttackJoystick.OnUpNotInDeadZone -= player.MoveController.RotateToAttackJoystickDir;
@@ -48,7 +48,7 @@ namespace PlayerLib
         private void PullAutoTrigger()
         {
             if (Bullets - CurrentGun.Consumption >= 0
-                && CurrentGun.Type == GunType.MachineGun)
+                && CurrentGun.FireType == GunFireType.Auto)
             {
                 if (CurrentGun.ShootRequest())
                     Bullets -= CurrentGun.Consumption;
@@ -58,26 +58,19 @@ namespace PlayerLib
         public void ChangeGun(GunType gunType)
         {
             CurrentGun = Guns[(int)gunType];
-            GunChanged.Invoke();
+            GunChanged.Invoke(CurrentGun);
 
-            UpdateGuns(gunType);
+            UpdateGunsVisible();
 
-            player.MoveController.AutoRotate = gunType switch
-            {
-                GunType.MachineGun => true,
-                _ => false,
-            };
+            player.MoveController.AutoRotate = CurrentGun.FireType == GunFireType.Auto;
         }
 
-        private void UpdateGuns(GunType gunInHands)
+        private void UpdateGunsVisible()
         {
+            int currentGunIndex = (int)CurrentGun.Type;
+            
             for (int i = 0; i < Guns.Length; i++)
-            {
-                if (i == (int)gunInHands)
-                    Guns[i].gameObject.SetActive(true);
-                else
-                    Guns[i].gameObject.SetActive(false);
-            }
+                Guns[i].gameObject.SetActive(i == currentGunIndex);
         }
     }
 }

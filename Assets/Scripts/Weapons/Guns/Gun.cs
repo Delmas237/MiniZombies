@@ -1,4 +1,3 @@
-using EnemyLib;
 using ObjectPool;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,18 +8,22 @@ namespace Weapons
     public class Gun : MonoBehaviour
     {
         [field: SerializeField] public GunType Type { get; private set; }
+        [field: SerializeField] public GunFireType FireType { get; private set; }
         [field: Space(5)]
         [field: SerializeField] public float Damage { get; set; }
 
         [field: SerializeField] public float Cooldown { get; set; }
-        public float CurrentCooldown => currentCooldown;
+        
         protected float currentCooldown;
+        public float CurrentCooldown => currentCooldown;
         protected bool canShoot = true;
 
         [field: SerializeField] public float Distance { get; set; } = 4;
         [field: SerializeField] public int Consumption { get; set; } = 1;
 
-        //% of damage reduction on the next penetration
+        /// <summary>
+        /// % of damage reduction on the next penetration
+        /// </summary>
         public const float MinusPiercingDamage = 5;
 
         protected LayerMask layerMask = 183; //all without player
@@ -50,7 +53,8 @@ namespace Weapons
             {
                 Shoot(shootDir.position);
 
-                SoundPitch(shotSound.pitch = Random.Range(shotSound.pitch - 0.02f, shotSound.pitch + 0.02f));
+                float randomRange = 0.02f;
+                SoundPitch(shotSound.pitch = Random.Range(shotSound.pitch - randomRange, shotSound.pitch + randomRange));
 
                 canShoot = false;
                 currentCooldown = Cooldown;

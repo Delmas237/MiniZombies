@@ -7,4 +7,10 @@ namespace Weapons
         Shotgun,
         Riffle
     }
+
+    public enum GunFireType
+    {
+        Single,
+        Auto
+    }
 }
