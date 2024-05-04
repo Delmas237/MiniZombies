@@ -39,18 +39,16 @@ namespace EnemyLib
         }
         public void OnCollisionExit(Collision collision)
         {
-            PlayerContainer target = collision.gameObject.GetComponent<PlayerContainer>();
-
-            if (target != null)
+            if (collision.gameObject.TryGetComponent(out PlayerContainer player))
             {
-                targetCollision = null;
-                enemy.StartCoroutine(StopAttack(1));
+                enemy.StartCoroutine(StopAttack(0.3f));
             }
         }
 
         private IEnumerator StopAttack(float delay)
         {
             yield return new WaitForSeconds(delay);
+            targetCollision = null;
 
             if (enemy.MoveController.Agent.enabled)
                 enemy.MoveController.Agent.isStopped = false;
