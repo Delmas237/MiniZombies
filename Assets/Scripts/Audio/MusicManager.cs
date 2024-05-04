@@ -10,31 +10,26 @@ namespace Audio
     {
         [SerializeField] private AudioMixerGroup mixer;
 
+        [SerializeField] private AudioSource calmMusic;
         [SerializeField] private AudioSource battleMusic;
-        [SerializeField] private AudioSource betweenWavesMusic;
 
         [SerializeField] private SoundSettings soundSettings;
         [SerializeField] private PlayerContainer player;
 
-        private MusicType currentMusic = MusicType.Battle;
-        private bool isFirstWave = true;
+        private MusicType state = MusicType.Calm;
 
         private void Start()
         {
-            EnemyWaveManager.WaveFinished += IsFirstWaveFalse;
             EnemyWaveManager.WaveStarted += Change;
             EnemyWaveManager.WaveFinished += Change;
             player.HealthController.Died += Stop;
         }
         private void OnDestroy()
         {
-            EnemyWaveManager.WaveFinished -= IsFirstWaveFalse;
             EnemyWaveManager.WaveStarted -= Change;
             EnemyWaveManager.WaveFinished -= Change;
             player.HealthController.Died -= Stop;
         }
-
-        private void IsFirstWaveFalse() => isFirstWave = false;
 
         private void Play(MusicType musicType)
         {
@@ -45,8 +40,8 @@ namespace Audio
                 case MusicType.Battle:
                     battleMusic.Play();
                     break;
-                case MusicType.BetweenWaves:
-                    betweenWavesMusic.Play();
+                case MusicType.Calm:
+                    calmMusic.Play();
                     break;
             }
         }
@@ -54,49 +49,51 @@ namespace Audio
         private void Stop()
         {
             battleMusic.Stop();
-            betweenWavesMusic.Stop();
+            calmMusic.Stop();
         }
 
         public void Pause()
         {
             battleMusic.Pause();
-            betweenWavesMusic.Pause();
+            calmMusic.Pause();
         }
 
         public void UnPause()
         {
-            switch (currentMusic)
+            switch (state)
             {
                 case MusicType.Battle:
                     battleMusic.UnPause();
                     break;
-                case MusicType.BetweenWaves:
-                    betweenWavesMusic.UnPause();
+                case MusicType.Calm:
+                    calmMusic.UnPause();
                     break;
             }
         }
 
         private void Change()
         {
-            if (isFirstWave == false)
+            float timeBtwSteps = 0f;
+
+            switch (state)
             {
-                switch (currentMusic)
-                {
-                    case MusicType.Battle:
-                        StartCoroutine(VolumeTransition(-20, 1, 0.03f, MusicType.BetweenWaves));
-                        currentMusic = MusicType.BetweenWaves;
-                        break;
-                    case MusicType.BetweenWaves:
-                        StartCoroutine(VolumeTransition(-20, 1, 0.01f, MusicType.Battle));
-                        currentMusic = MusicType.Battle;
-                        break;
-                }
+                case MusicType.Battle:
+                    timeBtwSteps = 0.03f;
+                    state = MusicType.Calm;
+                    break;
+                case MusicType.Calm:
+                    timeBtwSteps = 0.01f;
+                    state = MusicType.Battle;
+                    break;
             }
+
+            StartCoroutine(VolumeTransition(-20, 1, timeBtwSteps, state));
         }
 
         private IEnumerator VolumeTransition(float value, float step, float timeBtwSteps, MusicType musicType)
         {
-            mixer.audioMixer.GetFloat("MusicVolume", out float volume);
+            string musicVolume = "MusicVolume";
+            mixer.audioMixer.GetFloat(musicVolume, out float volume);
 
             if (value <= volume)
             {
@@ -104,7 +101,7 @@ namespace Audio
                 {
                     yield return new WaitForSeconds(timeBtwSteps);
                     volume -= step;
-                    mixer.audioMixer.SetFloat("MusicVolume", volume);
+                    mixer.audioMixer.SetFloat(musicVolume, volume);
                 }
                 StartCoroutine(VolumeTransition(soundSettings.MusicVolume, step, timeBtwSteps, musicType));
             }
@@ -114,7 +111,7 @@ namespace Audio
                 {
                     yield return new WaitForSeconds(timeBtwSteps);
                     volume += step;
-                    mixer.audioMixer.SetFloat("MusicVolume", volume);
+                    mixer.audioMixer.SetFloat(musicVolume, volume);
                 }
             }
 
@@ -123,8 +120,8 @@ namespace Audio
 
         private enum MusicType
         {
-            Battle,
-            BetweenWaves
+            Calm,
+            Battle
         }
     }
 }

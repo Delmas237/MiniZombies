@@ -3462,8 +3462,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1842378327}
   - {fileID: 354902578}
+  - {fileID: 1842378327}
   m_Father: {fileID: 985776684}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &76883906
@@ -3479,8 +3479,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mixer: {fileID: 24300002, guid: d6a77dfbd95dffe4d944edd3821d7204, type: 2}
+  calmMusic: {fileID: 354902579}
   battleMusic: {fileID: 1842378328}
-  betweenWavesMusic: {fileID: 354902579}
   soundSettings: {fileID: 23125302}
   player: {fileID: 7560204000705171858}
 --- !u!1001 &77496619
@@ -15009,7 +15009,7 @@ GameObject:
   - component: {fileID: 354902578}
   - component: {fileID: 354902579}
   m_Layer: 0
-  m_Name: BetweenWavesMusic
+  m_Name: CalmMusic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75741,7 +75741,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 408111155980488928, guid: d6a77dfbd95dffe4d944edd3821d7204, type: 2}
   m_audioClip: {fileID: 8300000, guid: 57ffccc073b69374aa3e643ba4ef205b, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.4
   m_Pitch: 1
   Loop: 1
