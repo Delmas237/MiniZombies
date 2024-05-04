@@ -58,12 +58,13 @@ namespace Factory
             enemy.transform.SetPositionAndRotation(randSpawnDot.position, Quaternion.identity);
 
             enemy.MoveController.Target = player;
-            enemy.HealthController.Health = 100;
+            enemy.HealthController.MaxHealth = 70 + EnemyWaveManager.CurrentWaveIndex * 2;
+            enemy.HealthController.Health = enemy.HealthController.MaxHealth;
 
-            float speedX = (float)Math.Round(Random.Range(0.9f, 1.15f), 2);
-            enemy.MoveController.Speed *= speedX;
+            float speedX = (float)Math.Round(Random.Range(0.9f, 1.15f) + EnemyWaveManager.CurrentWaveIndex * 0.01f, 2);
+            enemy.MoveController.Speed = enemy.MoveController.DefaultSpeed * speedX;
             enemy.MoveController.Agent.speed = enemy.MoveController.Speed;
-            enemy.AnimationController.AttackSpeedX *= speedX;
+            enemy.AnimationController.AttackSpeedX = speedX;
 
             enemy.DropAmmoAfterDeathModule.AmmoPool = ammoPackPool;
         }

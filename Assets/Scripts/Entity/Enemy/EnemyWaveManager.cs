@@ -88,7 +88,7 @@ namespace EnemyLib
                 {
                     case WaveType.EnemyAmount:
                         waves[i] = new Wave(
-                            amount: 12 + i * 6,
+                            amount: 12 + i * 4,
                             spawnSpeed: 1.2f - i * 0.008f);
                         break;
 

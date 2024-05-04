@@ -5,7 +5,7 @@ using UnityEngine;
 [Serializable]
 public class HealthController
 {
-    [field: SerializeField] public float MaxHealth { get; private set; } = 100;
+    [field: SerializeField] public float MaxHealth { get; set; } = 100;
     private float health;
     public float Health
     {

@@ -10,7 +10,8 @@ namespace EnemyLib
     {
         public NavMeshAgent Agent { get; set; }
         public PlayerContainer Target { get; set; }
-        [field: SerializeField] public float Speed { get; set; } = 3.5f;
+        [field: SerializeField] public float DefaultSpeed { get; set; } = 3.7f;
+        public float Speed { get; set; }
 
         public void Move()
         {

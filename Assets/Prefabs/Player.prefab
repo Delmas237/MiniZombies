@@ -853,7 +853,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67de7fec0da88f9479f4531fa3197e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Coins>k__BackingField: 0
+  <CurrencyController>k__BackingField:
+    <Coins>k__BackingField: 0
   <HealthController>k__BackingField:
     <MaxHealth>k__BackingField: 100
     <AudioController>k__BackingField:
@@ -872,7 +873,7 @@ MonoBehaviour:
     maxSpeed: 3.65
     <MoveJoystick>k__BackingField: {fileID: 0}
     rotationSmoothness: 0.25
-    autoRotationSmoothness: 0.2
+    autoRotationSmoothness: 0.23
 --- !u!54 &4240113845284777554
 Rigidbody:
   m_ObjectHideFlags: 0
