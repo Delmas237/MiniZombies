@@ -82956,18 +82956,21 @@ MonoBehaviour:
   - Name: MachineGun
     Price: 300
     PriceText: {fileID: 1767509391}
-    DamageLvlBoost: 1
+    PriceLvlBoost: 200
+    DamageLvlBoost: 2
     DamageText: {fileID: 423799913}
     LvlText: {fileID: 990496108}
   - Name: Shotgun
-    Price: 300
+    Price: 250
     PriceText: {fileID: 1569906788}
-    DamageLvlBoost: 1
+    PriceLvlBoost: 180
+    DamageLvlBoost: 2
     DamageText: {fileID: 1711031887}
     LvlText: {fileID: 754253867}
   - Name: Riffle
-    Price: 300
+    Price: 275
     PriceText: {fileID: 23998717}
+    PriceLvlBoost: 175
     DamageLvlBoost: 2
     DamageText: {fileID: 47522134}
     LvlText: {fileID: 758106291}

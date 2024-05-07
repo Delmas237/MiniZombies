@@ -97,9 +97,9 @@ namespace LocalShopLib
         }
         private void GunLvlUp(int ID)
         {
-            if (player.CurrencyController.Coins >= 100)
+            if (player.CurrencyController.Coins >= shopWeapons[ID].PriceLvlBoost)
             {
-                player.CurrencyController.Coins -= 100;
+                player.CurrencyController.Coins -= shopWeapons[ID].PriceLvlBoost;
 
                 weaponsLvl[ID]++;
                 player.WeaponsController.Guns[ID + 1].Damage += shopWeapons[ID].DamageLvlBoost;
@@ -120,7 +120,7 @@ namespace LocalShopLib
 
         private void UpdateLotText(int ID)
         {
-            shopWeapons[ID].PriceText.text = "100$";
+            shopWeapons[ID].PriceText.text = shopWeapons[ID].PriceLvlBoost + "$";
             shopWeapons[ID].DamageText.text = $"{player.WeaponsController.Guns[ID + 1].Damage}dmg";
             shopWeapons[ID].LvlText.text = $"{weaponsLvl[ID]} lvl";
         }
