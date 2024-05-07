@@ -27,7 +27,7 @@ namespace EnemyLib
 
         public static event Action AllWavesFinished;
 
-        private int currentWaveEnemiesDied => spawnManager.EnemiesDied - enemiesDiedBeforeWave;
+        public int CurrentWaveEnemiesDied => spawnManager.EnemiesDied - enemiesDiedBeforeWave;
         private int enemiesDiedBeforeWave;
 
         private void Start()
@@ -57,7 +57,7 @@ namespace EnemyLib
                     }
                     else if (currentWave.EnemyAmount > 0 || spawnManager.EnemiesOnScene > 0)
                     {
-                        waveUIInfo.text = (currentWave.StartEnemyAmount - currentWaveEnemiesDied).ToString();
+                        waveUIInfo.text = (currentWave.StartEnemyAmount - CurrentWaveEnemiesDied).ToString();
                     }
                     else
                     {
@@ -176,7 +176,7 @@ namespace EnemyLib
         private void StartWave()
         {
             currentWave = waves[CurrentWaveIndex];
-            enemiesDiedBeforeWave += currentWaveEnemiesDied;
+            enemiesDiedBeforeWave += CurrentWaveEnemiesDied;
 
             spawnManager.Cooldown = currentWave.SpawnSpeed;
 

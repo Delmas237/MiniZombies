@@ -81016,6 +81016,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 7560204000705171858}
+  enemyWaveManager: {fileID: 1480877429}
 --- !u!1001 &1972743624
 PrefabInstance:
   m_ObjectHideFlags: 0
