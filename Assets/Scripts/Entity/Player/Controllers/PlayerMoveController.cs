@@ -45,20 +45,10 @@ namespace PlayerLib
         {
             if (controllable)
             {
-                if (MoveJoystick.Horizontal == 0 || MoveJoystick.Vertical == 0)
-                {
-                    rb.velocity = new Vector3(
-                        MoveJoystick.Horizontal * maxSpeed,
-                        rb.velocity.y,
-                        MoveJoystick.Vertical * maxSpeed);
-                }
-                else
-                {
-                    rb.velocity = new Vector3(
-                        MoveJoystick.Horizontal * maxSpeed / 1.5f,
-                        rb.velocity.y,
-                        MoveJoystick.Vertical * maxSpeed / 1.5f);
-                }
+                float speedFactor = (MoveJoystick.Horizontal == 0 || MoveJoystick.Vertical == 0) ? 1 : 1.5f;
+
+                rb.velocity = new Vector3(MoveJoystick.Horizontal * maxSpeed / speedFactor, rb.velocity.y, 
+                    MoveJoystick.Vertical * maxSpeed / speedFactor);
             }
         }
 
@@ -66,21 +56,17 @@ namespace PlayerLib
         {
             if (controllable)
             {
-                if (closestEnemy)
+                if (player.WeaponsController.AttackJoystick.Direction != Vector2.zero)
+                {
+                    RotateToJoystickDir(player.WeaponsController.AttackJoystick, rotationSmoothness);
+                }
+                else if (closestEnemy && player.WeaponsController.AttackJoystick.UnPressedOrInDeadZoneTime > 0.15f)
                 {
                     RotateToClosestEnemy(closestEnemy.transform.position);
                 }
-                else
+                else if (MoveJoystick.Direction != Vector2.zero && player.WeaponsController.AttackJoystick.UnPressedOrInDeadZoneTime > 0.05f)
                 {
-                    if ((player.WeaponsController.AttackJoystick.Horizontal != 0 ||
-                        player.WeaponsController.AttackJoystick.Vertical != 0) && AutoRotate)
-                    {
-                        RotateToJoystickDir(player.WeaponsController.AttackJoystick, rotationSmoothness);
-                    }
-                    else if (MoveJoystick.Horizontal != 0 || MoveJoystick.Vertical != 0)
-                    {
-                        RotateToJoystickDir(MoveJoystick, rotationSmoothness);
-                    }
+                    RotateToJoystickDir(MoveJoystick, rotationSmoothness);
                 }
             }
         }
@@ -100,11 +86,6 @@ namespace PlayerLib
 
             transform.rotation = Quaternion.Lerp(
                 transform.rotation, Quaternion.LookRotation(moveDir), rotationSmoothness);
-        }
-        public void RotateToAttackJoystickDir()
-        {
-            if (closestEnemy == null)
-                RotateToJoystickDir(player.WeaponsController.AttackJoystick, 1);
         }
 
         private IEnumerator UpdateClosestEnemy()

@@ -25,6 +25,7 @@ namespace PlayerLib
             AnimationController.MoveAnim();
 
             MoveController.Rotation();
+            WeaponsController.UpdateShootLine();
         }
     }
 }

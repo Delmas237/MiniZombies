@@ -15,6 +15,8 @@ namespace PlayerLib
         public event Action<Gun> GunChanged;
 
         [field: SerializeField] public Joystick AttackJoystick { get; private set; }
+        [Space(10)]
+        [SerializeField] private Transform shootLineRoot;
 
         private PlayerContainer player;
 
@@ -25,14 +27,12 @@ namespace PlayerLib
             ChangeGun(GunType.Pistol);
 
             player.HealthController.Died += OnDeath;
-            AttackJoystick.OnUpNotInDeadZone += player.MoveController.RotateToAttackJoystickDir;
             AttackJoystick.OnUp += PullTrigger;
             AttackJoystick.OnClamped += PullAutoTrigger;
         }
         private void OnDeath()
         {
             player.HealthController.Died -= OnDeath;
-            AttackJoystick.OnUpNotInDeadZone -= player.MoveController.RotateToAttackJoystickDir;
             AttackJoystick.OnUp -= PullTrigger;
             AttackJoystick.OnClamped -= PullAutoTrigger;
         }
@@ -61,6 +61,7 @@ namespace PlayerLib
             GunChanged.Invoke(CurrentGun);
 
             UpdateGunsVisible();
+            UpdateShootLineScale();
 
             player.MoveController.AutoRotate = CurrentGun.FireType == GunFireType.Auto;
         }
@@ -71,6 +72,24 @@ namespace PlayerLib
             
             for (int i = 0; i < Guns.Length; i++)
                 Guns[i].gameObject.SetActive(i == currentGunIndex);
+        }
+
+        private void UpdateShootLineScale()
+        {
+            shootLineRoot.localScale = new Vector3(1, 1, CurrentGun.Distance);
+        }
+
+        public void UpdateShootLine()
+        {
+            if (AttackJoystick.Direction != Vector2.zero)
+            {
+                shootLineRoot.gameObject.SetActive(true);
+                shootLineRoot.rotation = Quaternion.LookRotation(new Vector3(AttackJoystick.Horizontal, 0, AttackJoystick.Vertical));
+            }
+            else
+            {
+                shootLineRoot.gameObject.SetActive(false);
+            }
         }
     }
 }

@@ -23,7 +23,19 @@ namespace JoystickLib
         }
         public bool InDeadZoneOnPointerUp { get; private set; }
 
+        public float DeadZoneWhenPressed { get; private set; }
+        public float DeadZoneWhenUnPressed { get; private set; }
         public bool Pressed { get; private set; }
+
+
+        private float pressedTime;
+        public float PressedTime => pressedTime;
+
+        private float unPressedTime;
+        public float UnPressedTime => unPressedTime;
+
+        private float unPressedOrInDeadZoneTime;
+        public float UnPressedOrInDeadZoneTime => unPressedOrInDeadZoneTime;
 
         public AxisOptions AxisOptions { get { return AxisOptions; } set { axisOptions = value; } }
         public bool SnapX { get { return snapX; } set { snapX = value; } }
@@ -34,6 +46,8 @@ namespace JoystickLib
         [SerializeField] private AxisOptions axisOptions = AxisOptions.Both;
         [SerializeField] private bool snapX = false;
         [SerializeField] private bool snapY = false;
+        [SerializeField] private float deadZoneWhenPressed = 0f;
+        [SerializeField] private float deadZoneWhenUnPressed = 0f;
 
         [SerializeField] protected RectTransform background = null;
         [SerializeField] private RectTransform handle = null;
@@ -53,7 +67,10 @@ namespace JoystickLib
         protected virtual void Start()
         {
             HandleRange = handleRange;
+            deadZone = deadZoneWhenUnPressed;
             DeadZone = deadZone;
+            DeadZoneWhenPressed = deadZoneWhenPressed;
+            DeadZoneWhenUnPressed = deadZoneWhenUnPressed;
             baseRect = GetComponent<RectTransform>();
             canvas = GetComponentInParent<Canvas>();
             if (canvas == null)
@@ -92,6 +109,32 @@ namespace JoystickLib
         {
             if (OnClamped != null && Pressed)
                 OnClamped.Invoke();
+
+            TimeManagement();
+        }
+
+        private void TimeManagement()
+        {
+            if (Pressed)
+            {
+                pressedTime += Time.deltaTime;
+                unPressedTime = 0;
+
+                if (deadZone == deadZoneWhenUnPressed)
+                {
+                    unPressedOrInDeadZoneTime += Time.deltaTime;
+                }
+                else
+                {
+                    unPressedOrInDeadZoneTime = 0;
+                }
+            }
+            else
+            {
+                unPressedTime += Time.deltaTime;
+                unPressedOrInDeadZoneTime += Time.deltaTime;
+                pressedTime = 0;
+            }
         }
 
         public void OnDrag(PointerEventData eventData)
@@ -114,9 +157,14 @@ namespace JoystickLib
             {
                 if (magnitude > 1)
                     input = normalized;
+
+                deadZone = deadZoneWhenPressed;
             }
             else
+            {
                 input = Vector2.zero;
+                deadZone = deadZoneWhenUnPressed;
+            }
         }
 
         private void FormatInput()
@@ -174,6 +222,7 @@ namespace JoystickLib
             OnUp?.Invoke();
 
             Pressed = false;
+            deadZone = deadZoneWhenUnPressed;
 
             input = Vector2.zero;
             handle.anchoredPosition = Vector2.zero;
