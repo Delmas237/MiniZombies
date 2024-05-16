@@ -14,16 +14,18 @@ namespace EnemyLib
         [SerializeField] private int damage = 15;
         public int Damage => damage;
 
-        private EnemyContainer enemy;
+        private HealthController healthController;
+        private EnemyMoveController moveController;
 
-        public void Initialize(EnemyContainer _enemy)
+        public void Initialize(HealthController _healthController, EnemyMoveController _moveController)
         {
-            enemy = _enemy;
+            healthController = _healthController;
+            moveController = _moveController;
         }
 
         protected void Attack()
         {
-            enemy.MoveController.Agent.isStopped = true;
+            moveController.Agent.isStopped = true;
             IsAttack = true;
         }
 
@@ -31,7 +33,7 @@ namespace EnemyLib
         {
             IPlayer target = collision.gameObject.GetComponent<IPlayer>();
 
-            if (target != null && target.HealthController.Health > 0 && enemy.HealthController.Health > 0)
+            if (target != null && target.HealthController.Health > 0 && healthController.Health > 0)
             {
                 targetCollision = target;
                 Attack();
@@ -41,7 +43,7 @@ namespace EnemyLib
         {
             if (collision.gameObject.TryGetComponent(out IPlayer player))
             {
-                enemy.StartCoroutine(StopAttack(0.3f));
+                CoroutineHelper.StartRoutine(StopAttack(0.3f));
             }
         }
 
@@ -50,8 +52,8 @@ namespace EnemyLib
             yield return new WaitForSeconds(delay);
             targetCollision = null;
 
-            if (enemy.MoveController.Agent.enabled)
-                enemy.MoveController.Agent.isStopped = false;
+            if (moveController.Agent.enabled)
+                moveController.Agent.isStopped = false;
 
             IsAttack = false;
         }
@@ -61,7 +63,7 @@ namespace EnemyLib
             if (targetCollision != null && targetCollision.HealthController.Health > 0)
                 targetCollision.HealthController.Health -= Damage;
             else
-                enemy.StartCoroutine(StopAttack(0));
+                CoroutineHelper.StartRoutine(StopAttack(0));
         }
     }
 }

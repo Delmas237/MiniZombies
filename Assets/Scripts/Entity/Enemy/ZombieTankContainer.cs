@@ -1,26 +1,22 @@
 using UnityEngine;
-using Weapons;
+using UnityEngine.AI;
 
 namespace EnemyLib
 {
-    public abstract class EnemyContainer : MonoBehaviour, IEnemy
+    public class ZombieTankContainer : ZombieContainer
     {
+        [field: Space(10)]
         [field: Header("Controllers")]
-        [field: SerializeField] public HealthController HealthController { get; set; }
         [field: SerializeField] public EnemyAttackController AttackController { get; set; }
-        [field: SerializeField] public EnemyMoveController MoveController { get; set; }
-        [field: SerializeField] public EnemyAnimationController AnimationController { get; set; }
-        
-        [field: Header("Modules")]
-        [field: SerializeField] public DropAmmoAfterDeathModule DropAmmoAfterDeathModule { get; set; }
 
-        protected virtual void Start()
+        protected override void Start()
         {
             HealthController.Initialize();
-            AnimationController.Initialize(this);
-            AttackController.Initialize(this);
+            AnimationController.Initialize(HealthController, MoveController, AttackController, GetComponent<Animator>());
+            AttackController.Initialize(HealthController, MoveController);
+            MoveController.Initialize(GetComponent<NavMeshAgent>());
 
-            DropAmmoAfterDeathModule.Initialize(this, transform);
+            DropAmmoAfterDeathModule.Initialize(HealthController, transform);
         }
 
         protected virtual void Update()
@@ -39,6 +35,15 @@ namespace EnemyLib
         private void OnCollisionExit(Collision collision)
         {
             AttackController.OnCollisionExit(collision);
+        }
+
+        protected override void OnDeath()
+        {
+            base.OnDeath();
+
+            MoveController.Agent.enabled = false;
+            AttackController.IsAttack = false;
+            enabled = false;
         }
 
         private void DealDamage() => AttackController.DealDamage();

@@ -14,11 +14,11 @@ namespace Weapons
         public IPool<AmmoPack> AmmoPool { get; set; }
         private Transform transform;
 
-        public void Initialize(IEntity _entity, Transform _transform)
+        public void Initialize(HealthController _healthController, Transform _transform)
         {
             if (Enabled)
             {
-                _entity.HealthController.Died += DropAmmo;
+                _healthController.Died += DropAmmo;
                 transform = _transform;
             }
         }

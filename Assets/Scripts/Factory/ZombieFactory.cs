@@ -4,20 +4,19 @@ using PlayerLib;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 using Weapons;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
 namespace Factory
 {
-    public class FactoryEnemy : FactoryBase<EnemyContainer>
+    public class ZombieFactory : FactoryBase<ZombieContainer>
     {
         private readonly PlayerContainer player;
         private readonly List<Transform> spawnDots;
         private readonly IPool<AmmoPack> ammoPackPool;
 
-        public FactoryEnemy(EnemyContainer prefab, Transform parent, PlayerContainer player, List<Transform> spawnDots, IPool<AmmoPack> ammoPackPool)
+        public ZombieFactory(ZombieContainer prefab, Transform parent, PlayerContainer player, List<Transform> spawnDots, IPool<AmmoPack> ammoPackPool)
             : base(prefab, parent)
         {
             this.player = player;
@@ -25,16 +24,12 @@ namespace Factory
             this.ammoPackPool = ammoPackPool;
         }
 
-        public override void ReconstructToDefault(EnemyContainer enemy)
+        public override void ReconstructToDefault(ZombieContainer enemy)
         {
-            enemy.enabled = true;
-
             if (enemy.TryGetComponent(out Rigidbody rb))
                 Object.Destroy(rb);
 
-            if (enemy.MoveController.Agent == null)
-                enemy.MoveController.Agent = enemy.GetComponent<NavMeshAgent>();
-            else
+            if (enemy.MoveController.Agent != null)
                 enemy.MoveController.Agent.enabled = true;
 
             if (enemy.TryGetComponent(out CapsuleCollider collider))
@@ -43,7 +38,7 @@ namespace Factory
                 collider.height = 1.9f;
             }
         }
-        public override void Construct(EnemyContainer enemy)
+        public override void Construct(ZombieContainer enemy)
         {
             List<Transform> spawnDotsCopy = new List<Transform>(spawnDots);
             List<Transform> spawnDotsFurthest = new List<Transform>
@@ -63,10 +58,11 @@ namespace Factory
 
             float speedX = (float)Math.Round(Random.Range(0.9f, 1.15f) + EnemyWaveManager.CurrentWaveIndex * 0.01f, 2);
             enemy.MoveController.Speed = enemy.MoveController.DefaultSpeed * speedX;
-            enemy.MoveController.Agent.speed = enemy.MoveController.Speed;
             enemy.AnimationController.AttackSpeedX = speedX;
 
             enemy.DropAmmoAfterDeathModule.AmmoPool = ammoPackPool;
+
+            enemy.enabled = true;
         }
         private Transform SearchFurthest(ref List<Transform> spawnDots)
         {

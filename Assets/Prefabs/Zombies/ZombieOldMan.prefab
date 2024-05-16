@@ -73,7 +73,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 477521500200552015}
-  - component: {fileID: -301051384682500517}
+  - component: {fileID: -1710904305303764804}
   - component: {fileID: -1848398006467348512}
   - component: {fileID: 6004752277940655587}
   - component: {fileID: 8885856824367871616}
@@ -105,7 +105,7 @@ Transform:
   - {fileID: 651209995861926069}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-301051384682500517
+--- !u!114 &-1710904305303764804
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -114,7 +114,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1003088765245234421}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3dd603282057a5f4d994efc5fbd02ecc, type: 3}
+  m_Script: {fileID: 11500000, guid: 0d91960c0a3e8994b9201b20272c11d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   <HealthController>k__BackingField:
@@ -123,13 +123,13 @@ MonoBehaviour:
       damageSound: {fileID: 4313272231693252511}
       healSound: {fileID: 2244451784809278005}
       deathSound: {fileID: 2837525364688832580}
-  <AttackController>k__BackingField:
-    damage: 15
   <MoveController>k__BackingField:
-    <Speed>k__BackingField: 3.7
+    <DefaultSpeed>k__BackingField: 3.7
   <DropAmmoAfterDeathModule>k__BackingField:
     <Enabled>k__BackingField: 1
     dropChance: 0.09
+  <AttackController>k__BackingField:
+    damage: 15
 --- !u!114 &-1848398006467348512
 MonoBehaviour:
   m_ObjectHideFlags: 0

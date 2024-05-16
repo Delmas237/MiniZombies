@@ -18,8 +18,8 @@ namespace EnemyLib
 
         [SerializeField] private List<Transform> spawnDots;
 
-        [SerializeField] private PoolEnemy[] enemyPools;
-        private List<EnemyContainer> enemiesOnScene = new List<EnemyContainer>();
+        [SerializeField] private ZombiePool[] enemyPools;
+        private List<ZombieContainer> enemiesOnScene = new List<ZombieContainer>();
 
         [SerializeField] private PlayerContainer player;
         [SerializeField] private PoolAmmoPack ammoPackPool;
@@ -57,7 +57,7 @@ namespace EnemyLib
             {
                 int rnd = Random.Range(0, enemyPools.Length);
 
-                EnemyContainer enemy = enemyPools[rnd].GetFreeElement();
+                ZombieContainer enemy = enemyPools[rnd].GetFreeElement();
                 enemiesOnScene.Add(enemy);
             }
         }

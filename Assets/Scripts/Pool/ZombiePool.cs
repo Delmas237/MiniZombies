@@ -7,27 +7,27 @@ using Weapons;
 
 namespace ObjectPool
 {
-    public class PoolEnemy : MonoBehaviour, IPool<EnemyContainer>
+    public class ZombiePool : MonoBehaviour, IPool<ZombieContainer>
     {
-        [SerializeField] private EnemyContainer Enemy;
+        [SerializeField] private ZombieContainer Enemy;
         [SerializeField] private int amount = 20;
         [SerializeField] private bool autoExpand = true;
 
-        private PoolBase<EnemyContainer> pool;
-        private FactoryEnemy factory;
+        private PoolBase<ZombieContainer> pool;
+        private ZombieFactory factory;
 
         public void Initialize(List<Transform> spawnDots, PlayerContainer player, IPool<AmmoPack> ammoPackPool, Transform parent)
         {
-            factory = new FactoryEnemy(Enemy, parent, player, spawnDots, ammoPackPool);
-            pool = new PoolBase<EnemyContainer>(Enemy, amount, factory)
+            factory = new ZombieFactory(Enemy, parent, player, spawnDots, ammoPackPool);
+            pool = new PoolBase<ZombieContainer>(Enemy, amount, factory)
             {
                 AutoExpand = autoExpand
             };
         }
 
-        public EnemyContainer GetFreeElement()
+        public ZombieContainer GetFreeElement()
         {
-            EnemyContainer enemy = pool.GetFreeElement();
+            ZombieContainer enemy = pool.GetFreeElement();
 
             factory.ReconstructToDefault(enemy);
             factory.Construct(enemy);

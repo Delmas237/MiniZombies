@@ -7,28 +7,35 @@ namespace PlayerLib
     [Serializable]
     public class PlayerAnimationController
     {
-        private PlayerContainer player;
         private Animator animator;
 
-        public void Initialize(PlayerContainer _player, Animator _animator)
+        private HealthController healthController;
+        private PlayerWeaponsController weaponsController;
+        private PlayerMoveController moveController;
+
+        public void Initialize(HealthController _healthController, PlayerWeaponsController _weaponsController, PlayerMoveController _moveController, 
+            Animator _animator)
         {
-            player = _player;
+            healthController = _healthController;
+            weaponsController = _weaponsController;
+            moveController = _moveController;
+
             animator = _animator;
 
-            player.WeaponsController.GunChanged += CurrentGunAnim;
-            player.HealthController.Died += DeathAnim;
-            player.HealthController.Died += OnDeath;
+            weaponsController.GunChanged += CurrentGunAnim;
+            healthController.Died += DeathAnim;
+            healthController.Died += OnDeath;
         }
         private void OnDeath()
         {
-            player.WeaponsController.GunChanged -= CurrentGunAnim;
-            player.HealthController.Died -= DeathAnim;
-            player.HealthController.Died -= OnDeath;
+            weaponsController.GunChanged -= CurrentGunAnim;
+            healthController.Died -= DeathAnim;
+            healthController.Died -= OnDeath;
         }
 
         public void MoveAnim()
         {
-            if (player.MoveController.Walks)
+            if (moveController.Walks)
             {
                 animator.SetFloat("SpeedPistol", 1);
                 animator.SetFloat("Speed", 1.7f);

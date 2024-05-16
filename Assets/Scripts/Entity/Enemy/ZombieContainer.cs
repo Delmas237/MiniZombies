@@ -1,17 +1,24 @@
 using UnityEngine;
+using Weapons;
 
 namespace EnemyLib
 {
-    public class ZombieContainer : EnemyContainer
+    public class ZombieContainer : MonoBehaviour, IEnemy
     {
-        protected override void Start()
-        {
-            base.Start();
+        [field: Header("Base Controllers")]
+        [field: SerializeField] public HealthController HealthController { get; set; }
+        [field: SerializeField] public EnemyMoveController MoveController { get; set; }
+        [field: SerializeField] public EnemyAnimationController AnimationController { get; set; }
+        
+        [field: Header("Base Modules")]
+        [field: SerializeField] public DropAmmoAfterDeathModule DropAmmoAfterDeathModule { get; set; }
 
-            HealthController.Died += Death;
+        protected virtual void Start()
+        {
+            HealthController.Died += OnDeath;
         }
 
-        protected void Death()
+        protected virtual void OnDeath()
         {
             if (GetComponent<Rigidbody>() == false)
             {
@@ -20,11 +27,6 @@ namespace EnemyLib
                 rb.freezeRotation = true;
                 rb.mass = 10f;
             }
-
-            MoveController.Agent.enabled = false;
-            AttackController.IsAttack = false;
-
-            enabled = false;
         }
     }
 }

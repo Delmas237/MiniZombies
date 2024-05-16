@@ -23,21 +23,26 @@ namespace PlayerLib
         [SerializeField] private float autoRotationSmoothness = 0.2f;
         public bool AutoRotate { get; set; }
 
-        private PlayerContainer player;
         private Rigidbody rb;
 
-        private EnemyContainer closestEnemy;
+        private HealthController healthController;
+        private PlayerWeaponsController weaponsController;
+
+        private ZombieContainer closestEnemy;
         private const float timeToUpdateClosestEnemy = 0.35f;
+        private Coroutine ClosestEnemyCoroutine;
 
-        public void Initialize(PlayerContainer _player, Transform _transform)
+        public void Initialize(HealthController _healthController, PlayerWeaponsController _weaponsController, Transform _transform, 
+            Rigidbody _rigidbody)
         {
-            player = _player;
+            healthController = _healthController;
+            weaponsController = _weaponsController;
             transform = _transform;
+            rb = _rigidbody;
 
-            rb = player.GetComponent<Rigidbody>();
-            player.HealthController.Died += SetControllableFalse;
+            healthController.Died += SetControllableFalse;
 
-            player.StartCoroutine(UpdateClosestEnemy());
+            ClosestEnemyCoroutine = CoroutineHelper.StartRoutine(UpdateClosestEnemy());
         }
         private void SetControllableFalse() => controllable = false;
 
@@ -56,15 +61,15 @@ namespace PlayerLib
         {
             if (controllable)
             {
-                if (player.WeaponsController.AttackJoystick.Direction != Vector2.zero)
+                if (weaponsController.AttackJoystick.Direction != Vector2.zero)
                 {
-                    RotateToJoystickDir(player.WeaponsController.AttackJoystick, rotationSmoothness);
+                    RotateToJoystickDir(weaponsController.AttackJoystick, rotationSmoothness);
                 }
-                else if (closestEnemy && player.WeaponsController.AttackJoystick.UnPressedOrInDeadZoneTime > 0.15f)
+                else if (closestEnemy && weaponsController.AttackJoystick.UnPressedOrInDeadZoneTime > 0.15f)
                 {
                     RotateToClosestEnemy(closestEnemy.transform.position);
                 }
-                else if (MoveJoystick.Direction != Vector2.zero && player.WeaponsController.AttackJoystick.UnPressedOrInDeadZoneTime > 0.05f)
+                else if (MoveJoystick.Direction != Vector2.zero && weaponsController.AttackJoystick.UnPressedOrInDeadZoneTime > 0.05f)
                 {
                     RotateToJoystickDir(MoveJoystick, rotationSmoothness);
                 }
@@ -92,19 +97,19 @@ namespace PlayerLib
         {
             while (true)
             {
-                ComponentSearcher<EnemyContainer>.InRadius(
-                    transform.position, player.WeaponsController.CurrentGun.Distance, out List<EnemyContainer> closestEnemies);
+                ComponentSearcher<ZombieContainer>.InRadius(
+                    transform.position, weaponsController.CurrentGun.Distance, out List<ZombieContainer> closestEnemies);
 
                 bool enemyInRange = false;
-                EnemyContainer closestEnemy = null;
+                ZombieContainer closestEnemy = null;
                 if (closestEnemies != null)
                 {
-                    closestEnemy = ComponentSearcher<EnemyContainer>.Closest(transform.position, closestEnemies);
+                    closestEnemy = ComponentSearcher<ZombieContainer>.Closest(transform.position, closestEnemies);
 
                     if (closestEnemy && closestEnemy.HealthController.Health > 0)
                     {
                         float distanceToEnemy = Vector3.Distance(transform.position, closestEnemy.transform.position);
-                        enemyInRange = distanceToEnemy <= player.WeaponsController.CurrentGun.Distance;
+                        enemyInRange = distanceToEnemy <= weaponsController.CurrentGun.Distance;
                     }
                 }
                 if (enemyInRange)
@@ -114,6 +119,11 @@ namespace PlayerLib
 
                 yield return new WaitForSeconds(timeToUpdateClosestEnemy);
             }
+        }
+
+        public void OnDestroy()
+        {
+            CoroutineHelper.StopRoutine(ClosestEnemyCoroutine);
         }
     }
 }

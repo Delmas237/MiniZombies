@@ -9,24 +9,29 @@ namespace EnemyLib
     {
         public float AttackSpeedX { get; set; } = 1;
 
-        private EnemyContainer enemy;
+        private HealthController healthController;
+        private EnemyMoveController moveController;
+        private EnemyAttackController attackController;
         private Animator animator;
 
-        public void Initialize(EnemyContainer _enemy)
+        public void Initialize(HealthController _healthController, EnemyMoveController _moveController, EnemyAttackController _attackController, 
+            Animator _animator)
         {
-            enemy = _enemy;
-            animator = enemy.GetComponent<Animator>();
+            healthController = _healthController;
+            moveController = _moveController;
+            attackController = _attackController;
+            animator = _animator;
 
-            enemy.HealthController.Died += DeathAnim;
+            healthController.Died += DeathAnim;
         }
 
         public void MoveAnim()
         {
-            if (enemy.HealthController.Health > 0)
+            if (healthController.Health > 0)
             {
-                if (enemy.MoveController.Target && enemy.MoveController.Target.HealthController.Health > 0)
+                if (moveController.Target && moveController.Target.HealthController.Health > 0)
                 {
-                    if (enemy.AttackController.IsAttack == false)
+                    if (attackController.IsAttack == false)
                         animator.SetBool("Run", true);
 
                     animator.SetBool("Idle", false);
@@ -41,7 +46,7 @@ namespace EnemyLib
 
         public void AttackAnim()
         {
-            if (enemy.HealthController.Health > 0 && enemy.AttackController.IsAttack)
+            if (healthController.Health > 0 && attackController.IsAttack)
             {
                 animator.SetFloat("AttackSpeed", AttackSpeedX);
                 animator.SetBool("Attack", true);

@@ -6545,7 +6545,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d999090a4dd050f4290fc927d9a430f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Enemy: {fileID: 3511786412900187598, guid: 6db528ec6fc99994ca868cc2c215fd8f, type: 3}
+  Enemy: {fileID: 386480403880364309, guid: 6db528ec6fc99994ca868cc2c215fd8f, type: 3}
   amount: 20
   autoExpand: 1
 --- !u!1 &155369980
@@ -17846,7 +17846,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d999090a4dd050f4290fc927d9a430f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Enemy: {fileID: 6668128838232304807, guid: d342bbb6cc2d7194a8e05c060d853646, type: 3}
+  Enemy: {fileID: 1000177481691126542, guid: d342bbb6cc2d7194a8e05c060d853646, type: 3}
   amount: 20
   autoExpand: 1
 --- !u!1001 &435745599
@@ -58828,6 +58828,50 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c35000bb8b63924c8a995a773a5aba1, type: 3}
+--- !u!1 &1423519604
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1423519605}
+  - component: {fileID: 1423519606}
+  m_Layer: 0
+  m_Name: CoroutineHelper
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1423519605
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1423519604}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1423519606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1423519604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc9a7d32b7b8c7142b08f6eb639cf3fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1429041608
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -61892,7 +61936,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d999090a4dd050f4290fc927d9a430f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Enemy: {fileID: -301051384682500517, guid: e1810b681bfc5e74893bff9ba30f1b24, type: 3}
+  Enemy: {fileID: -1710904305303764804, guid: e1810b681bfc5e74893bff9ba30f1b24, type: 3}
   amount: 20
   autoExpand: 1
 --- !u!4 &1499118310 stripped
@@ -91332,3 +91376,4 @@ SceneRoots:
   - {fileID: 949424464}
   - {fileID: 522940242}
   - {fileID: 985776684}
+  - {fileID: 1423519605}

@@ -18,21 +18,23 @@ namespace PlayerLib
         [Space(10)]
         [SerializeField] private Transform shootLineRoot;
 
-        private PlayerContainer player;
+        private HealthController healthController;
+        private PlayerMoveController moveController;
 
-        public void Initialize(PlayerContainer _player)
+        public void Initialize(HealthController _healthController, PlayerMoveController _moveController)
         {
-            player = _player;
+            healthController = _healthController;
+            moveController = _moveController;
 
             ChangeGun(GunType.Pistol);
 
-            player.HealthController.Died += OnDeath;
+            healthController.Died += OnDeath;
             AttackJoystick.OnUp += PullTrigger;
             AttackJoystick.OnClamped += PullAutoTrigger;
         }
         private void OnDeath()
         {
-            player.HealthController.Died -= OnDeath;
+            healthController.Died -= OnDeath;
             AttackJoystick.OnUp -= PullTrigger;
             AttackJoystick.OnClamped -= PullAutoTrigger;
         }
@@ -63,7 +65,7 @@ namespace PlayerLib
             UpdateGunsVisible();
             UpdateShootLineScale();
 
-            player.MoveController.AutoRotate = CurrentGun.FireType == GunFireType.Auto;
+            moveController.AutoRotate = CurrentGun.FireType == GunFireType.Auto;
         }
 
         private void UpdateGunsVisible()

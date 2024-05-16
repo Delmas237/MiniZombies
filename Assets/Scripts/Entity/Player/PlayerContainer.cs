@@ -14,9 +14,9 @@ namespace PlayerLib
         private void Start()
         {
             HealthController.Initialize();
-            AnimationController.Initialize(this, GetComponent<Animator>());
-            WeaponsController.Initialize(this);
-            MoveController.Initialize(this, transform);
+            AnimationController.Initialize(HealthController, WeaponsController, MoveController, GetComponent<Animator>());
+            WeaponsController.Initialize(HealthController, MoveController);
+            MoveController.Initialize(HealthController, WeaponsController, transform, GetComponent<Rigidbody>());
         }
 
         private void Update()
@@ -26,6 +26,11 @@ namespace PlayerLib
 
             MoveController.Rotation();
             WeaponsController.UpdateShootLine();
+        }
+
+        private void OnDestroy()
+        {
+            MoveController.OnDestroy();
         }
     }
 }
