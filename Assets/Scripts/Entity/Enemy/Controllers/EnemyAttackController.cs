@@ -9,7 +9,7 @@ namespace EnemyLib
     public class EnemyAttackController
     {
         public bool IsAttack { get; set; }
-        private PlayerContainer targetCollision;
+        private IPlayer targetCollision;
 
         [SerializeField] private int damage = 15;
         public int Damage => damage;
@@ -29,7 +29,7 @@ namespace EnemyLib
 
         public void OnCollisionEnter(Collision collision)
         {
-            PlayerContainer target = collision.gameObject.GetComponent<PlayerContainer>();
+            IPlayer target = collision.gameObject.GetComponent<IPlayer>();
 
             if (target != null && target.HealthController.Health > 0 && enemy.HealthController.Health > 0)
             {
@@ -39,7 +39,7 @@ namespace EnemyLib
         }
         public void OnCollisionExit(Collision collision)
         {
-            if (collision.gameObject.TryGetComponent(out PlayerContainer player))
+            if (collision.gameObject.TryGetComponent(out IPlayer player))
             {
                 enemy.StartCoroutine(StopAttack(0.3f));
             }

@@ -14,7 +14,7 @@ public class HealthController
         {
             value = Mathf.Clamp(value, 0, MaxHealth);
 
-            if (value <= 0 && health > 0)
+            if (value == 0 && health > 0)
                 Death();
 
             if (value < health)
