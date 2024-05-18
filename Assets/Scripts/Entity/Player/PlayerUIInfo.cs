@@ -12,14 +12,46 @@ namespace PlayerLib
         [SerializeField] private TextMeshProUGUI _bullets;
         [SerializeField] private TextMeshProUGUI _coins;
 
-        private void Update()
+        private void Start()
         {
             if (_player != null)
             {
-                _healthBar.fillAmount = _player.HealthController.Health / _player.HealthController.MaxHealth;
-                _bullets.text = _player.WeaponsController.Bullets.ToString();
-                _coins.text = _player.CurrencyController.Coins.ToString();
+                UpdateHealthBar();
+                UpdateCoinsText(_player.CurrencyController.Coins);
+                UpdateBulletsText(_player.WeaponsController.Bullets);
+
+                _player.HealthController.Healed += UpdateHealthBar;
+                _player.HealthController.Damaged += UpdateHealthBar;
+
+                _player.CurrencyController.CoinsChanged += UpdateCoinsText;
+                _player.WeaponsController.BulletsChanged += UpdateBulletsText;
             }
+        }
+        private void OnDestroy()
+        {
+            if (_player != null)
+            {
+                _player.HealthController.Healed -= UpdateHealthBar;
+                _player.HealthController.Damaged -= UpdateHealthBar;
+
+                _player.CurrencyController.CoinsChanged -= UpdateCoinsText;
+                _player.WeaponsController.BulletsChanged -= UpdateBulletsText;
+            }
+        }
+
+        private void UpdateHealthBar()
+        {
+            _healthBar.fillAmount = _player.HealthController.Health / _player.HealthController.MaxHealth;
+        }
+
+        private void UpdateCoinsText(int amount)
+        {
+            _coins.text = amount.ToString();
+        }
+
+        private void UpdateBulletsText(int amount)
+        {
+            _bullets.text = amount.ToString();
         }
     }
 }

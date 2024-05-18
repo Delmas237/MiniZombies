@@ -21,7 +21,7 @@ namespace PlayerLib
 
         public Transform Transform => transform;
 
-        private void Start()
+        private void Awake()
         {
             _healthController.Initialize();
             _animationController.Initialize(HealthController, WeaponsController, MoveController, GetComponent<Animator>());

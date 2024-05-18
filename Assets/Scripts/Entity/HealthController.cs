@@ -1,4 +1,3 @@
-using PlayerLib;
 using System;
 using UnityEngine;
 
@@ -18,11 +17,15 @@ public class HealthController : IHealthController
                 Death();
 
             if (value < _health)
+            {
+                _health = value;
                 Damaged?.Invoke();
-            if (value > _health)
+            }
+            else if (value > _health)
+            {
+                _health = value;
                 Healed?.Invoke();
-
-            _health = value;
+            }
         }
     }
 

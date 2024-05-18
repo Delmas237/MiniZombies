@@ -11,6 +11,7 @@ namespace PlayerLib
     {
         [SerializeField] private int _bullets = 100;
         public int Bullets => _bullets;
+        public event Action<int> BulletsChanged;
 
         [SerializeField] private List<Gun> _guns;
         public IReadOnlyList<Gun> Guns => _guns;
@@ -104,14 +105,16 @@ namespace PlayerLib
                 return;
 
             _bullets += amount;
+            BulletsChanged?.Invoke(_bullets);
         }
 
         public void SpendBullets(int amount)
         {
-            if (amount >= 0)
+            if (amount <= 0)
                 return;
 
             _bullets -= amount;
+            BulletsChanged?.Invoke(_bullets);
         }
     }
 }

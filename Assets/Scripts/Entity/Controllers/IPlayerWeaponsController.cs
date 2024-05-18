@@ -8,6 +8,8 @@ namespace PlayerLib
     public interface IPlayerWeaponsController
     {
         public int Bullets { get; }
+        public event Action<int> BulletsChanged;
+
         public IReadOnlyList<Gun> Guns { get; }
         public Gun CurrentGun { get; }
         public event Action<Gun> GunChanged;
