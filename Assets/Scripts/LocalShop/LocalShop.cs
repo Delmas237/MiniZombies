@@ -111,9 +111,7 @@ namespace LocalShopLib
         {
             if (_weaponsLvl[ID] >= 0 && _playerGunSlots.GunSlot2 != (GunType)ID + 1)
             {
-                _playerGunSlots.GunSlot2 = (GunType)ID + 1;
-                _player.WeaponsController.ChangeGun(_playerGunSlots.GunSlot2);
-
+                _playerGunSlots.SetSecondSlot((GunType)ID + 1);
                 _getGunSound.Play();
             }
         }

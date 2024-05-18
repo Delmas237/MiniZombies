@@ -24,9 +24,8 @@ namespace Weapons
         /// <summary>
         /// % of damage reduction on the next penetration
         /// </summary>
-        public const float MinusPiercingDamage = 5;
+        public const float MINUS_PIERCING_DAMAGE = 5;
 
-        protected LayerMask _layerMask = 183; //all without player
         [Space(5)]
         [SerializeField] protected Transform _shootDir;
         [SerializeField] protected Transform _muzzle;
@@ -73,20 +72,20 @@ namespace Weapons
                 shot.transform.SetPositionAndRotation(_muzzle.position, _muzzle.rotation);
 
                 Ray ray = new Ray(vector, _shootDir.forward);
-                RaycastHit[] hits = Physics.RaycastAll(ray, Distance, _layerMask).OrderBy(hit => hit.distance).ToArray();
+                RaycastHit[] hits = Physics.RaycastAll(ray, Distance).OrderBy(hit => hit.distance).ToArray();
 
-                List<IEnemy> enemies = new List<IEnemy>();
+                List<IEntity> entities = new List<IEntity>();
                 for (int i = 0; i < hits.Length; i++)
                 {
-                    if (hits[i].collider.gameObject.TryGetComponent(out IEnemy enemy))
-                        enemies.Add(enemy);
+                    if (hits[i].collider.gameObject.TryGetComponent(out IEntity entity))
+                        entities.Add(entity);
                 }
 
                 float piercingDamage = Damage;
-                for (int i = 0; i < enemies.Count; i++)
+                for (int i = 0; i < entities.Count; i++)
                 {
-                    enemies[i].HealthController.Health -= piercingDamage;
-                    piercingDamage -= (piercingDamage / 100) * MinusPiercingDamage;
+                    entities[i].HealthController.Health -= piercingDamage;
+                    piercingDamage -= (piercingDamage / 100) * MINUS_PIERCING_DAMAGE;
                 }
             }
         }

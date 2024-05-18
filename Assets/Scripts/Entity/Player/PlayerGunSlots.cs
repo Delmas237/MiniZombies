@@ -11,19 +11,21 @@ namespace PlayerLib
         [SerializeField] private List<GameObject> _gunsSlot2;
 
         public GunType GunSlot1 { get; private set; } = GunType.Pistol;
-        public GunType GunSlot2 { get; set; }
+        public GunType GunSlot2 { get; private set; }
 
         [SerializeField] private AudioSource _getGunSound;
 
-        private void Update()
+        private void Start()
         {
-            for (int i = 0; i < _gunsSlot2.Count; i++)
-            {
-                if (i == (int)GunSlot2 - 1)
-                    _gunsSlot2[i].SetActive(true);
-                else
-                    _gunsSlot2[i].SetActive(false);
-            }
+            UpdateSlotsImages();
+        }
+
+        public void SetSecondSlot(GunType gunType)
+        {
+            GunSlot2 = gunType;
+            _player.WeaponsController.ChangeGun(gunType);
+
+            UpdateSlotsImages();
         }
 
         public void ChangeGunSlot(int slot)
@@ -37,6 +39,16 @@ namespace PlayerLib
             {
                 _player.WeaponsController.ChangeGun(GunSlot2);
                 _getGunSound.Play();
+            }
+            UpdateSlotsImages();
+        }
+
+        private void UpdateSlotsImages()
+        {
+            int current = (int)GunSlot2 - 1;
+            for (int i = 0; i < _gunsSlot2.Count; i++)
+            {
+                _gunsSlot2[i].SetActive(i == current);
             }
         }
     }
