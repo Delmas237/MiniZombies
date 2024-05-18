@@ -679,6 +679,7 @@ MonoBehaviour:
       _damageSound: {fileID: 2121223428630922208}
       _healSound: {fileID: 3972599543114636993}
       _deathSound: {fileID: 1014445706431755128}
+      _deathPitchRandomRange: 0.15
   _moveController:
     <DefaultSpeed>k__BackingField: 3.7
   _dropAmmoAfterDeathModule:
@@ -699,7 +700,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _delay: 3
-  _ifDisabledDestroy: 0
+  _destroyWhenDisabled: 0
 --- !u!195 &3273963864776120562
 NavMeshAgent:
   m_ObjectHideFlags: 0
