@@ -11,20 +11,22 @@ namespace EnemyLib
 
         protected override void Start()
         {
-            HealthController.Initialize();
-            AnimationController.Initialize(HealthController, MoveController, AttackController, GetComponent<Animator>());
+            base.Start();
+
+            _healthController.Initialize();
+            _animationController.Initialize(HealthController, MoveController, AttackController, GetComponent<Animator>());
             AttackController.Initialize(HealthController, MoveController);
-            MoveController.Initialize(GetComponent<NavMeshAgent>());
+            _moveController.Initialize(GetComponent<NavMeshAgent>());
 
             DropAmmoAfterDeathModule.Initialize(HealthController, transform);
         }
 
         protected virtual void Update()
         {
-            MoveController.Move();
-            AnimationController.MoveAnim();
+            _moveController.Move();
+            _animationController.MoveAnim();
 
-            AnimationController.AttackAnim();
+            _animationController.AttackAnim();
         }
 
         private void OnCollisionEnter(Collision collision)
@@ -41,7 +43,7 @@ namespace EnemyLib
         {
             base.OnDeath();
 
-            MoveController.Agent.enabled = false;
+            _moveController.Agent.enabled = false;
             AttackController.IsAttack = false;
             enabled = false;
         }

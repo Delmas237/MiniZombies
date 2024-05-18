@@ -12,16 +12,16 @@ namespace Factory
 {
     public class ZombieFactory : FactoryBase<ZombieContainer>
     {
-        private readonly PlayerContainer player;
-        private readonly List<Transform> spawnDots;
-        private readonly IPool<AmmoPack> ammoPackPool;
+        private readonly PlayerContainer _player;
+        private readonly List<Transform> _spawnDots;
+        private readonly IPool<AmmoPack> _ammoPackPool;
 
         public ZombieFactory(ZombieContainer prefab, Transform parent, PlayerContainer player, List<Transform> spawnDots, IPool<AmmoPack> ammoPackPool)
             : base(prefab, parent)
         {
-            this.player = player;
-            this.spawnDots = spawnDots;
-            this.ammoPackPool = ammoPackPool;
+            _player = player;
+            _spawnDots = spawnDots;
+            _ammoPackPool = ammoPackPool;
         }
 
         public override void ReconstructToDefault(ZombieContainer enemy)
@@ -40,7 +40,7 @@ namespace Factory
         }
         public override void Construct(ZombieContainer enemy)
         {
-            List<Transform> spawnDotsCopy = new List<Transform>(spawnDots);
+            List<Transform> spawnDotsCopy = new List<Transform>(_spawnDots);
             List<Transform> spawnDotsFurthest = new List<Transform>
             {
                 SearchFurthest(ref spawnDotsCopy),
@@ -52,7 +52,7 @@ namespace Factory
             
             enemy.transform.SetPositionAndRotation(randSpawnDot.position, Quaternion.identity);
 
-            enemy.MoveController.Target = player;
+            enemy.MoveController.Target = _player;
             enemy.HealthController.MaxHealth = 70 + EnemyWaveManager.CurrentWaveIndex * 2;
             enemy.HealthController.Health = enemy.HealthController.MaxHealth;
 
@@ -60,13 +60,13 @@ namespace Factory
             enemy.MoveController.Speed = enemy.MoveController.DefaultSpeed * speedX;
             enemy.AnimationController.AttackSpeedX = speedX;
 
-            enemy.DropAmmoAfterDeathModule.AmmoPool = ammoPackPool;
+            enemy.DropAmmoAfterDeathModule.AmmoPool = _ammoPackPool;
 
             enemy.enabled = true;
         }
         private Transform SearchFurthest(ref List<Transform> spawnDots)
         {
-            Transform transform = ComponentSearcher<Transform>.Furthest(player.transform.position, spawnDots);
+            Transform transform = ComponentSearcher<Transform>.Furthest(_player.transform.position, spawnDots);
             spawnDots.Remove(transform);
             return transform;
         }

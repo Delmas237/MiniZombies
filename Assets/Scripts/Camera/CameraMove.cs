@@ -5,15 +5,15 @@ namespace CameraLib
 {
     public class CameraMove : MonoBehaviour
     {
-        [SerializeField] private Transform target;
-        [SerializeField] private float smoothness = 0.05f;
+        [SerializeField] private Transform _target;
+        [SerializeField] private float _smoothness = 0.1f;
 
-        private Vector3 targetDistance;
+        private Vector3 _targetDistance;
 
         private void Start()
         {
-            if (target)
-                targetDistance = transform.position - target.position;
+            if (_target)
+                _targetDistance = transform.position - _target.position;
             else
                 throw new NullReferenceException("Camera has no target");
         }
@@ -21,10 +21,10 @@ namespace CameraLib
         private void FixedUpdate()
         {
             Vector3 endPos = new Vector3(
-                target.position.x + targetDistance.x, transform.position.y,
-                target.position.z + targetDistance.z);
+                _target.position.x + _targetDistance.x, transform.position.y,
+                _target.position.z + _targetDistance.z);
 
-            transform.position = Vector3.Lerp(transform.position, endPos, smoothness);
+            transform.position = Vector3.Lerp(transform.position, endPos, _smoothness);
         }
     }
 }

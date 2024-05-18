@@ -1,40 +1,44 @@
 using JoystickLib;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Weapons;
 
 namespace PlayerLib
 {
     [Serializable]
-    public class PlayerWeaponsController
+    public class PlayerWeaponsController : IPlayerWeaponsController
     {
-        [field: SerializeField] public int Bullets { get; set; } = 100;
+        [SerializeField] private int _bullets = 100;
+        public int Bullets => _bullets;
 
-        [field: SerializeField] public Gun[] Guns { get; private set; }
+        [SerializeField] private List<Gun> _guns;
+        public IReadOnlyList<Gun> Guns => _guns;
+
         public Gun CurrentGun { get; private set; }
         public event Action<Gun> GunChanged;
 
         [field: SerializeField] public Joystick AttackJoystick { get; private set; }
         [Space(10)]
-        [SerializeField] private Transform shootLineRoot;
+        [SerializeField] private Transform _shootLineRoot;
 
-        private HealthController healthController;
-        private PlayerMoveController moveController;
+        private IHealthController _healthController;
+        private IPlayerMoveController _moveController;
 
-        public void Initialize(HealthController _healthController, PlayerMoveController _moveController)
+        public void Initialize(IHealthController healthController, IPlayerMoveController moveController)
         {
-            healthController = _healthController;
-            moveController = _moveController;
+            _healthController = healthController;
+            _moveController = moveController;
 
             ChangeGun(GunType.Pistol);
 
-            healthController.Died += OnDeath;
+            _healthController.Died += OnDeath;
             AttackJoystick.OnUp += PullTrigger;
             AttackJoystick.OnClamped += PullAutoTrigger;
         }
         private void OnDeath()
         {
-            healthController.Died -= OnDeath;
+            _healthController.Died -= OnDeath;
             AttackJoystick.OnUp -= PullTrigger;
             AttackJoystick.OnClamped -= PullAutoTrigger;
         }
@@ -44,7 +48,7 @@ namespace PlayerLib
             if (Bullets - CurrentGun.Consumption >= 0)
             {
                 if (CurrentGun.ShootRequest())
-                    Bullets -= CurrentGun.Consumption;
+                    SpendBullets(CurrentGun.Consumption);
             }
         }
         private void PullAutoTrigger()
@@ -53,45 +57,61 @@ namespace PlayerLib
                 && CurrentGun.FireType == GunFireType.Auto)
             {
                 if (CurrentGun.ShootRequest())
-                    Bullets -= CurrentGun.Consumption;
+                    SpendBullets(CurrentGun.Consumption);
             }
         }
 
         public void ChangeGun(GunType gunType)
         {
-            CurrentGun = Guns[(int)gunType];
+            CurrentGun = _guns[(int)gunType];
             GunChanged.Invoke(CurrentGun);
 
             UpdateGunsVisible();
             UpdateShootLineScale();
 
-            moveController.AutoRotate = CurrentGun.FireType == GunFireType.Auto;
+            _moveController.AutoRotate = CurrentGun.FireType == GunFireType.Auto;
         }
 
         private void UpdateGunsVisible()
         {
             int currentGunIndex = (int)CurrentGun.Type;
             
-            for (int i = 0; i < Guns.Length; i++)
-                Guns[i].gameObject.SetActive(i == currentGunIndex);
+            for (int i = 0; i < Guns.Count; i++)
+                _guns[i].gameObject.SetActive(i == currentGunIndex);
         }
 
         private void UpdateShootLineScale()
         {
-            shootLineRoot.localScale = new Vector3(1, 1, CurrentGun.Distance);
+            _shootLineRoot.localScale = new Vector3(1, 1, CurrentGun.Distance);
         }
 
         public void UpdateShootLine()
         {
             if (AttackJoystick.Direction != Vector2.zero)
             {
-                shootLineRoot.gameObject.SetActive(true);
-                shootLineRoot.rotation = Quaternion.LookRotation(new Vector3(AttackJoystick.Horizontal, 0, AttackJoystick.Vertical));
+                _shootLineRoot.gameObject.SetActive(true);
+                _shootLineRoot.rotation = Quaternion.LookRotation(new Vector3(AttackJoystick.Horizontal, 0, AttackJoystick.Vertical));
             }
             else
             {
-                shootLineRoot.gameObject.SetActive(false);
+                _shootLineRoot.gameObject.SetActive(false);
             }
+        }
+
+        public void AddBullets(int amount)
+        {
+            if (amount <= 0)
+                return;
+
+            _bullets += amount;
+        }
+
+        public void SpendBullets(int amount)
+        {
+            if (amount >= 0)
+                return;
+
+            _bullets -= amount;
         }
     }
 }

@@ -1,24 +1,21 @@
 using System;
 using UnityEngine;
 
-namespace PlayerLib
+[Serializable]
+public class HealthAudioController
 {
-    [Serializable]
-    public class HealthAudioController
-    {
-        [SerializeField] protected AudioSource damageSound;
-        [SerializeField] protected AudioSource healSound;
-        [SerializeField] protected AudioSource deathSound;
+    [SerializeField] protected AudioSource _damageSound;
+    [SerializeField] protected AudioSource _healSound;
+    [SerializeField] protected AudioSource _deathSound;
 
-        public virtual void Initialize(HealthController _healthController)
-        {
-            _healthController.Died += OnDeath;
-            _healthController.Healed += healSound.Play;
-            _healthController.Damaged += damageSound.Play;
-        }
-        public virtual void OnDeath()
-        {
-            deathSound.Play();
-        }
+    public virtual void Initialize(IHealthController _healthController)
+    {
+        _healthController.Died += OnDeath;
+        _healthController.Healed += _healSound.Play;
+        _healthController.Damaged += _damageSound.Play;
+    }
+    public virtual void OnDeath()
+    {
+        _deathSound.Play();
     }
 }

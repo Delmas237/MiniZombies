@@ -4,15 +4,15 @@ namespace CameraLib
 {
     public class CameraSwing : MonoBehaviour
     {
-        [SerializeField] private Vector3 rotationAngle;
-        [SerializeField] private Vector3 rotationSpeed;
-        private Vector3 startRotation;
+        [SerializeField] private Vector3 _rotationAngle;
+        [SerializeField] private Vector3 _rotationSpeed;
+        private Vector3 _startRotation;
 
-        private Vector3 rotateDir = Vector3.one;
+        private Vector3 _rotationDir = Vector3.one;
 
         private void Start()
         {
-            startRotation = transform.eulerAngles;
+            _startRotation = transform.eulerAngles;
         }
 
         private void FixedUpdate()
@@ -22,14 +22,14 @@ namespace CameraLib
 
         private void Rotate()
         {
-            RotateInDir(ref rotateDir.x, transform.eulerAngles.x, rotationAngle.x, startRotation.x);
-            RotateInDir(ref rotateDir.y, transform.eulerAngles.y, rotationAngle.y, startRotation.y);
-            RotateInDir(ref rotateDir.z, transform.eulerAngles.z, rotationAngle.z, startRotation.z);
+            RotateInDir(ref _rotationDir.x, transform.eulerAngles.x, _rotationAngle.x, _startRotation.x);
+            RotateInDir(ref _rotationDir.y, transform.eulerAngles.y, _rotationAngle.y, _startRotation.y);
+            RotateInDir(ref _rotationDir.z, transform.eulerAngles.z, _rotationAngle.z, _startRotation.z);
 
             Quaternion rotation = Quaternion.Euler(
-                rotateDir.x * rotationSpeed.x,
-                rotateDir.y * rotationSpeed.y,
-                rotateDir.z * rotationSpeed.z);
+                _rotationDir.x * _rotationSpeed.x,
+                _rotationDir.y * _rotationSpeed.y,
+                _rotationDir.z * _rotationSpeed.z);
 
             transform.rotation *= rotation;
         }

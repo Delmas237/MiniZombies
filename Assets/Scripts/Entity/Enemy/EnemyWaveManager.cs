@@ -8,18 +8,18 @@ namespace EnemyLib
 {
     public class EnemyWaveManager : MonoBehaviour
     {
-        [SerializeField] private float timeBtwWaves;
+        [SerializeField] private float _timeBtwWaves = 10;
 
         [Tooltip("Minimum currentWave for night version")]
-        [SerializeField] private int minWaveForNight = 2;
+        [SerializeField] private int _minWaveForNight = 2;
         [Space(10)]
-        [SerializeField] private EnemySpawnManager spawnManager;
-        [SerializeField] private LightManager lightManager;
-        [SerializeField] private TextMeshProUGUI waveUIInfo;
+        [SerializeField] private EnemySpawnManager _spawnManager;
+        [SerializeField] private LightManager _lightManager;
+        [SerializeField] private TextMeshProUGUI _waveUIInfo;
 
-        private readonly Wave[] waves = new Wave[100];
+        private readonly Wave[] _waves = new Wave[100];
 
-        private Wave currentWave;
+        private Wave _currentWave;
         public static int CurrentWaveIndex { get; private set; } = 0;
 
         public static event Action WaveStarted;
@@ -27,8 +27,8 @@ namespace EnemyLib
 
         public static event Action AllWavesFinished;
 
-        public int CurrentWaveEnemiesDied => spawnManager.EnemiesDied - enemiesDiedBeforeWave;
-        private int enemiesDiedBeforeWave;
+        public int CurrentWaveEnemiesDied => _spawnManager.EnemiesDied - _enemiesDiedBeforeWave;
+        private int _enemiesDiedBeforeWave;
 
         private void Start()
         {
@@ -48,31 +48,31 @@ namespace EnemyLib
 
         private void UpdateUIInfo()
         {
-            switch (currentWave.Type)
+            switch (_currentWave.Type)
             {
                 case WaveType.EnemyAmount:
-                    if (currentWave.EnemyAmount <= 0 && spawnManager.EnemiesOnScene > 0)
+                    if (_currentWave.EnemyAmount <= 0 && _spawnManager.EnemiesOnScene > 0)
                     {
-                        waveUIInfo.text = spawnManager.EnemiesOnScene.ToString();
+                        _waveUIInfo.text = _spawnManager.EnemiesOnScene.ToString();
                     }
-                    else if (currentWave.EnemyAmount > 0 || spawnManager.EnemiesOnScene > 0)
+                    else if (_currentWave.EnemyAmount > 0 || _spawnManager.EnemiesOnScene > 0)
                     {
-                        waveUIInfo.text = (currentWave.StartEnemyAmount - CurrentWaveEnemiesDied).ToString();
+                        _waveUIInfo.text = (_currentWave.StartEnemyAmount - CurrentWaveEnemiesDied).ToString();
                     }
                     else
                     {
-                        waveUIInfo.text = string.Empty;
+                        _waveUIInfo.text = string.Empty;
                     }
                     break;
 
                 case WaveType.Duration:
-                    if (currentWave.DurationSec > 0)
+                    if (_currentWave.DurationSec > 0)
                     {
-                        waveUIInfo.text = Utilities.Watch((int)currentWave.DurationSec);
+                        _waveUIInfo.text = Utilities.Watch((int)_currentWave.DurationSec);
                     }
                     else
                     {
-                        waveUIInfo.text = string.Empty;
+                        _waveUIInfo.text = string.Empty;
                     }
                     break;
             }
@@ -80,39 +80,39 @@ namespace EnemyLib
 
         private void WavesConstruct()
         {
-            for (int i = 0; i < waves.Length; i++)
+            for (int i = 0; i < _waves.Length; i++)
             {
                 WaveType waveType = (WaveType)UnityEngine.Random.Range(0, 2);
 
                 switch (waveType)
                 {
                     case WaveType.EnemyAmount:
-                        waves[i] = new Wave(
+                        _waves[i] = new Wave(
                             amount: 12 + i * 4,
                             spawnSpeed: 1.2f - i * 0.008f);
                         break;
 
                     case WaveType.Duration:
-                        waves[i] = new Wave(
+                        _waves[i] = new Wave(
                             durationSec: 16 + i * 2,
                             spawnSpeed: 1.5f - i * 0.012f);
                         break;
                 }
 
-                if (i < minWaveForNight)
-                    waves[i].TimesOfDay = TimesOfDay.Day;
+                if (i < _minWaveForNight)
+                    _waves[i].TimesOfDay = TimesOfDay.Day;
             }
         }
         
         private IEnumerator WaveController()
         {
-            switch (currentWave.Type)
+            switch (_currentWave.Type)
             {
                 case WaveType.EnemyAmount:
-                    if (currentWave.EnemyAmount > 0)
+                    if (_currentWave.EnemyAmount > 0)
                     {
-                        yield return new WaitForSeconds(currentWave.SpawnSpeed);
-                        currentWave.EnemyAmount--;
+                        yield return new WaitForSeconds(_currentWave.SpawnSpeed);
+                        _currentWave.EnemyAmount--;
 
                         StartCoroutine(WaveController());
                     }
@@ -123,10 +123,10 @@ namespace EnemyLib
                     break;
 
                 case WaveType.Duration:
-                    if (currentWave.DurationSec > 0)
+                    if (_currentWave.DurationSec > 0)
                     {
                         yield return new WaitForSeconds(1);
-                        currentWave.DurationSec--;
+                        _currentWave.DurationSec--;
 
                         StartCoroutine(WaveController());
                     }
@@ -140,13 +140,13 @@ namespace EnemyLib
 
         private IEnumerator NextWaveOrRecheck()
         {
-            if (spawnManager.EnemiesOnScene <= 0)
+            if (_spawnManager.EnemiesOnScene <= 0)
             {
                 StartCoroutine(WaveTransition());
             }
             else //all enemies spawned, but not all died
             {
-                spawnManager.Spawn = false;
+                _spawnManager.Spawn = false;
 
                 yield return new WaitForSeconds(1f);
                 StartCoroutine(WaveController());
@@ -155,32 +155,32 @@ namespace EnemyLib
 
         private IEnumerator WaveTransition()
         {
-            spawnManager.Spawn = false;
+            _spawnManager.Spawn = false;
             yield return new WaitForSeconds(1);
 
             CurrentWaveIndex++;
-            if (CurrentWaveIndex == waves.Length)
+            if (CurrentWaveIndex == _waves.Length)
             {
                 AllWavesFinished?.Invoke();
                 yield break;
             }
             WaveFinished?.Invoke();
             
-            lightManager.SetTimesOfDay(currentWave.TimesOfDay);
+            _lightManager.SetTimesOfDay(_currentWave.TimesOfDay);
 
-            yield return new WaitForSeconds(timeBtwWaves);
+            yield return new WaitForSeconds(_timeBtwWaves);
 
             StartWave();
         }
 
         private void StartWave()
         {
-            currentWave = waves[CurrentWaveIndex];
-            enemiesDiedBeforeWave += CurrentWaveEnemiesDied;
+            _currentWave = _waves[CurrentWaveIndex];
+            _enemiesDiedBeforeWave += CurrentWaveEnemiesDied;
 
-            spawnManager.Cooldown = currentWave.SpawnSpeed;
+            _spawnManager.Cooldown = _currentWave.SpawnSpeed;
 
-            spawnManager.Spawn = true;
+            _spawnManager.Spawn = true;
             WaveStarted?.Invoke();
 
             StartCoroutine(WaveController());

@@ -5,26 +5,26 @@ namespace ObjectPool
 {
     public class PoolAudioSource : MonoBehaviour,  IPool<AudioSource>
     {
-        [SerializeField] private AudioSource audioSource;
-        [SerializeField] private int amount = 20;
-        [SerializeField] private bool autoExpand = true;
+        [SerializeField] private AudioSource _audioSource;
+        [SerializeField] private int _amount = 3;
+        [SerializeField] private bool _autoExpand = true;
 
-        private PoolBase<AudioSource> pool;
-        private FactoryAudioSource factory;
+        private PoolBase<AudioSource> _pool;
+        private FactoryAudioSource _factory;
 
         private void Awake()
         {
-            factory = new FactoryAudioSource(audioSource, transform);
-            pool = new PoolBase<AudioSource>(audioSource, amount, factory)
+            _factory = new FactoryAudioSource(_audioSource, transform);
+            _pool = new PoolBase<AudioSource>(_audioSource, _amount, _factory)
             {
-                AutoExpand = autoExpand
+                AutoExpand = _autoExpand
             };
         }
 
         public AudioSource GetFreeElement()
         {
-            AudioSource audioSource = pool.GetFreeElement();
-            factory.Construct(audioSource);
+            AudioSource audioSource = _pool.GetFreeElement();
+            _factory.Construct(audioSource);
             return audioSource;
         }
     }

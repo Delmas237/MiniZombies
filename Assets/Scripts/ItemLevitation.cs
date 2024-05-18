@@ -2,20 +2,20 @@ using UnityEngine;
 
 public class ItemLevitation : MonoBehaviour
 {
-    [SerializeField] private Vector3 moveArea;
-    private Vector3 startPos;
-    [SerializeField] private Vector3 speed;
-    private Vector3 currentSpeed;
-    [SerializeField] private Vector3 rotationSpeed;
+    [SerializeField] private Vector3 _moveArea;
+    private Vector3 _startPos;
+    [SerializeField] private Vector3 _speed;
+    private Vector3 _currentSpeed;
+    [SerializeField] private Vector3 _rotationSpeed;
 
-    private Rigidbody rb;
+    private Rigidbody _rb;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        _rb = GetComponent<Rigidbody>();
 
-        startPos = transform.position;
-        currentSpeed = speed;
+        _startPos = transform.position;
+        _currentSpeed = _speed;
     }
 
     private void Update()
@@ -28,11 +28,11 @@ public class ItemLevitation : MonoBehaviour
     {
         if (Time.timeScale > 0)
         {
-            MoveInDir(ref currentSpeed.x, speed.x, startPos.x, transform.position.x, moveArea.x);
-            MoveInDir(ref currentSpeed.y, speed.y, startPos.y, transform.position.y, moveArea.y);
-            MoveInDir(ref currentSpeed.z, speed.z, startPos.z, transform.position.z, moveArea.z);
+            MoveInDir(ref _currentSpeed.x, _speed.x, _startPos.x, transform.position.x, _moveArea.x);
+            MoveInDir(ref _currentSpeed.y, _speed.y, _startPos.y, transform.position.y, _moveArea.y);
+            MoveInDir(ref _currentSpeed.z, _speed.z, _startPos.z, transform.position.z, _moveArea.z);
 
-            rb.velocity = currentSpeed;
+            _rb.velocity = _currentSpeed;
         }
     }
 
@@ -47,6 +47,6 @@ public class ItemLevitation : MonoBehaviour
     private void Rotate()
     {
         if (Time.timeScale > 0)
-            transform.Rotate(rotationSpeed);
+            transform.Rotate(_rotationSpeed);
     }
 }

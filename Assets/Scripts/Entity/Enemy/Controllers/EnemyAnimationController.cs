@@ -9,58 +9,58 @@ namespace EnemyLib
     {
         public float AttackSpeedX { get; set; } = 1;
 
-        private HealthController healthController;
-        private EnemyMoveController moveController;
-        private EnemyAttackController attackController;
-        private Animator animator;
+        private IHealthController _healthController;
+        private IEnemyMoveController _moveController;
+        private EnemyAttackController _attackController;
+        private Animator _animator;
 
-        public void Initialize(HealthController _healthController, EnemyMoveController _moveController, EnemyAttackController _attackController, 
-            Animator _animator)
+        public void Initialize(IHealthController healthController, IEnemyMoveController moveController, EnemyAttackController attackController, 
+            Animator animator)
         {
-            healthController = _healthController;
-            moveController = _moveController;
-            attackController = _attackController;
-            animator = _animator;
+            _healthController = healthController;
+            _moveController = moveController;
+            _attackController = attackController;
+            _animator = animator;
 
-            healthController.Died += DeathAnim;
+            _healthController.Died += DeathAnim;
         }
 
         public void MoveAnim()
         {
-            if (healthController.Health > 0)
+            if (_healthController.Health > 0)
             {
-                if (moveController.Target && moveController.Target.HealthController.Health > 0)
+                if (_moveController.Target != null && _moveController.Target.HealthController.Health > 0)
                 {
-                    if (attackController.IsAttack == false)
-                        animator.SetBool("Run", true);
+                    if (_attackController.IsAttack == false)
+                        _animator.SetBool("Run", true);
 
-                    animator.SetBool("Idle", false);
+                    _animator.SetBool("Idle", false);
                 }
                 else
                 {
-                    animator.SetBool("Idle", true);
-                    animator.SetBool("Run", false);
+                    _animator.SetBool("Idle", true);
+                    _animator.SetBool("Run", false);
                 }
             }
         }
 
         public void AttackAnim()
         {
-            if (healthController.Health > 0 && attackController.IsAttack)
+            if (_healthController.Health > 0 && _attackController.IsAttack)
             {
-                animator.SetFloat("AttackSpeed", AttackSpeedX);
-                animator.SetBool("Attack", true);
+                _animator.SetFloat("AttackSpeed", AttackSpeedX);
+                _animator.SetBool("Attack", true);
             }
             else
             {
-                animator.SetBool("Attack", false);
+                _animator.SetBool("Attack", false);
             }
         }
 
         private void DeathAnim()
         {
             int rnd = Random.Range(1, 3);
-            animator.SetBool("Death" + rnd, true);
+            _animator.SetBool("Death" + rnd, true);
         }
     }
 }

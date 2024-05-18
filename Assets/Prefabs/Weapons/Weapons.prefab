@@ -286,7 +286,7 @@ MonoBehaviour:
   <Distance>k__BackingField: 5
   <Consumption>k__BackingField: 1
   shootDir: {fileID: 0}
-  muzzle: {fileID: 7371549725190715488}
+  _muzzle: {fileID: 7371549725190715488}
   shotPool: {fileID: 0}
 --- !u!4 &6561833741934130894 stripped
 Transform:
@@ -388,7 +388,7 @@ MonoBehaviour:
   <Distance>k__BackingField: 5
   <Consumption>k__BackingField: 0
   shootDir: {fileID: 0}
-  muzzle: {fileID: 7371549725795301826}
+  _muzzle: {fileID: 7371549725795301826}
   shotPool: {fileID: 0}
 --- !u!4 &6561833741664607381 stripped
 Transform:
@@ -490,7 +490,7 @@ MonoBehaviour:
   <Distance>k__BackingField: 6
   <Consumption>k__BackingField: 4
   shootDir: {fileID: 0}
-  muzzle: {fileID: 7371549726180331902}
+  _muzzle: {fileID: 7371549726180331902}
   shotPool: {fileID: 0}
 --- !u!4 &6561833741581401553 stripped
 Transform:
@@ -592,7 +592,7 @@ MonoBehaviour:
   <Distance>k__BackingField: 7.9
   <Consumption>k__BackingField: 2
   shootDir: {fileID: 0}
-  muzzle: {fileID: 7371549724949992766}
+  _muzzle: {fileID: 7371549724949992766}
   shotPool: {fileID: 0}
 --- !u!4 &6561833741498874628 stripped
 Transform:

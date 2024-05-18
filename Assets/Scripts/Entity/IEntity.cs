@@ -1,4 +1,4 @@
 public interface IEntity
 {
-    public HealthController HealthController { get; set; }
+    public IHealthController HealthController { get; }
 }

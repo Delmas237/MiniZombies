@@ -692,19 +692,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d91960c0a3e8994b9201b20272c11d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <HealthController>k__BackingField:
+  _healthController:
     <MaxHealth>k__BackingField: 100
     <AudioController>k__BackingField:
-      damageSound: {fileID: 3179848695585510845}
-      healSound: {fileID: 6981525330893697395}
-      deathSound: {fileID: 5029291613290675646}
-  <MoveController>k__BackingField:
+      _damageSound: {fileID: 3179848695585510845}
+      _healSound: {fileID: 6981525330893697395}
+      _deathSound: {fileID: 5029291613290675646}
+  _moveController:
     <DefaultSpeed>k__BackingField: 3.7
-  <DropAmmoAfterDeathModule>k__BackingField:
+  _dropAmmoAfterDeathModule:
     <Enabled>k__BackingField: 1
-    dropChance: 0.09
+    _dropChance: 0.09
   <AttackController>k__BackingField:
-    damage: 15
+    _damage: 15
 --- !u!114 &575886998735810861
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -717,8 +717,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 901c29415b1fd9343af95cacd993e080, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delay: 3
-  ifDisabledDestroy: 0
+  _delay: 3
+  _ifDisabledDestroy: 0
 --- !u!195 &5025186694292919038
 NavMeshAgent:
   m_ObjectHideFlags: 0

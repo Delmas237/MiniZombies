@@ -5,11 +5,11 @@ namespace LightLib
 {
     public class LampPost : MonoBehaviour
     {
-        private Light lamp;
+        private Light _lamp;
 
         private void Start()
         {
-            lamp = GetComponentInChildren<Light>();
+            _lamp = GetComponentInChildren<Light>();
 
             LightManager.TimesOfDayChanged += Controller;
         }
@@ -28,12 +28,12 @@ namespace LightLib
             {
                 case TimesOfDay.Day:
                     yield return new WaitForSeconds(0.3f);
-                    lamp.enabled = false;
+                    _lamp.enabled = false;
                     break;
 
                 case TimesOfDay.Night:
                     yield return new WaitForSeconds(3);
-                    lamp.enabled = true;
+                    _lamp.enabled = true;
                     break;
             }
         }

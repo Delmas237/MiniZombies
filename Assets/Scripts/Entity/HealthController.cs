@@ -3,26 +3,26 @@ using System;
 using UnityEngine;
 
 [Serializable]
-public class HealthController
+public class HealthController : IHealthController
 {
     [field: SerializeField] public float MaxHealth { get; set; } = 100;
-    private float health;
+    private float _health;
     public float Health
     {
-        get { return health; }
+        get { return _health; }
         set
         {
             value = Mathf.Clamp(value, 0, MaxHealth);
 
-            if (value == 0 && health > 0)
+            if (value == 0 && _health > 0)
                 Death();
 
-            if (value < health)
+            if (value < _health)
                 Damaged?.Invoke();
-            if (value > health)
+            if (value > _health)
                 Healed?.Invoke();
 
-            health = value;
+            _health = value;
         }
     }
 
@@ -35,7 +35,7 @@ public class HealthController
     public void Initialize()
     {
         AudioController.Initialize(this);
-        health = MaxHealth;
+        _health = MaxHealth;
     }
     private void Death()
     {

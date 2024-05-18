@@ -9,22 +9,22 @@ namespace Panels
 {
     public class EndPanel : MonoBehaviour, IIntermediatePanel
     {
-        [SerializeField] private float timeToOpen;
+        [SerializeField] private float _timeToOpen;
         [Space(10)]
-        [SerializeField] private GameObject endPanel;
-        [SerializeField] private TextMeshProUGUI wavesCompleted;
-        [SerializeField] private TextMeshProUGUI moneyPlus;
+        [SerializeField] private GameObject _endPanel;
+        [SerializeField] private TextMeshProUGUI _wavesCompleted;
+        [SerializeField] private TextMeshProUGUI _moneyPlus;
 
-        [SerializeField] private PlayerContainer player;
+        [SerializeField] private PlayerContainer _player;
 
         private void Start()
         {
-            player.HealthController.Died += Open;
+            _player.HealthController.Died += Open;
             EnemyWaveManager.AllWavesFinished += Open;
         }
         private void OnDestroy()
         {
-            player.HealthController.Died -= Open;
+            _player.HealthController.Died -= Open;
             EnemyWaveManager.AllWavesFinished -= Open;
         }
 
@@ -34,13 +34,13 @@ namespace Panels
         }
         private IEnumerator OpenCor()
         {
-            yield return new WaitForSeconds(timeToOpen);
+            yield return new WaitForSeconds(_timeToOpen);
 
-            endPanel.SetActive(true);
+            _endPanel.SetActive(true);
             int moneyWon = PlayerRewardsManager.GlobalCoinsWon();
 
-            wavesCompleted.text = $"You completed {EnemyWaveManager.CurrentWaveIndex} waves!";
-            moneyPlus.text = moneyWon.ToString();
+            _wavesCompleted.text = $"You completed {EnemyWaveManager.CurrentWaveIndex} waves!";
+            _moneyPlus.text = moneyWon.ToString();
 
             PlayerPrefs.SetInt("MaxWave", EnemyWaveManager.CurrentWaveIndex);
             Bank.Coins += moneyWon;

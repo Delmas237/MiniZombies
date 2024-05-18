@@ -6,24 +6,19 @@ namespace Panels
 {
     public class PausePanel : MonoBehaviour, IIntermediatePanel
     {
-        [SerializeField] private MusicManager musicManager;
-
-        private void OnDestroy()
-        {
-            Time.timeScale = 1f;
-        }
+        [SerializeField] private MusicManager _musicManager;
 
         public void Pause(bool value)
         {
             if (value)
             {
                 Time.timeScale = 0f;
-                musicManager.Pause();
+                _musicManager.Pause();
             }
             else
             {
                 Time.timeScale = 1f;
-                musicManager.UnPause();
+                _musicManager.UnPause();
             }
         }
 
@@ -35,6 +30,11 @@ namespace Panels
         public void GoLobby()
         {
             SceneManager.LoadScene("Lobby");
+        }
+
+        private void OnDestroy()
+        {
+            Time.timeScale = 1f;
         }
     }
 }

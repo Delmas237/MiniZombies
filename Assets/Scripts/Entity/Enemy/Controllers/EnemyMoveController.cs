@@ -1,25 +1,25 @@
-using PlayerLib;
 using System;
 using UnityEngine;
 using UnityEngine.AI;
-using static UnityEngine.EventSystems.EventTrigger;
 
 namespace EnemyLib
 {
     [Serializable]
-    public class EnemyMoveController
+    public class EnemyMoveController : IEnemyMoveController
     {
-        private NavMeshAgent agent;
-        public NavMeshAgent Agent => agent;
+        private NavMeshAgent _agent;
+        public NavMeshAgent Agent => _agent;
 
-        public PlayerContainer Target { get; set; }
+        public IPlayer Target { get; set; }
+
         [field: SerializeField] public float DefaultSpeed { get; set; } = 3.7f;
         public float Speed { get; set; }
 
-        public void Initialize(NavMeshAgent _agent)
+        public void Initialize(NavMeshAgent agent)
         {
-            agent = _agent;
+            _agent = agent;
         }
+
         public void OnEnable()
         {
             Agent.speed = Speed;
@@ -27,10 +27,10 @@ namespace EnemyLib
 
         public void Move()
         {
-            if (Target && Target.HealthController.Health > 0)
+            if (Target != null && Target.HealthController.Health > 0)
             {
                 if (Agent.enabled)
-                    Agent.SetDestination(Target.transform.position);
+                    Agent.SetDestination(Target.Transform.position);
             }
             else
             {

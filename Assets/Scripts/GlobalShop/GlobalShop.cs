@@ -6,17 +6,17 @@ namespace GlobalShopLib
 {
     public class GlobalShop : MonoBehaviour
     {
-        [SerializeField] private GunsData gunsData;
-        [SerializeField] private GameObject localWeapons;
-        [SerializeField] private List<GlobalShopItem> items;
+        [SerializeField] private GunsData _gunsData;
+        [SerializeField] private GameObject _localWeapons;
+        [SerializeField] private List<GlobalShopItem> _items;
 
         private void Awake()
         {
-            GunsManager.Load(gunsData.Guns);
-            Gun[] guns = GunsManager.GameObjectToGuns(localWeapons);
+            GunsManager.Load(_gunsData.Guns);
+            Gun[] guns = GunsManager.GameObjectToGuns(_localWeapons);
             GunsManager.CopyGunsValuesTo(ref guns);
 
-            foreach (var item in items)
+            foreach (var item in _items)
             {
                 item.Intialize();
                 item.Updated += GunsManager.Save;
@@ -25,7 +25,7 @@ namespace GlobalShopLib
 
         private void OnDestroy()
         {
-            foreach (var item in items)
+            foreach (var item in _items)
                 item.OnDestroy();
         }
 

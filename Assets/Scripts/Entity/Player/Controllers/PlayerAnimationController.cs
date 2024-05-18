@@ -7,43 +7,43 @@ namespace PlayerLib
     [Serializable]
     public class PlayerAnimationController
     {
-        private Animator animator;
+        private Animator _animator;
 
-        private HealthController healthController;
-        private PlayerWeaponsController weaponsController;
-        private PlayerMoveController moveController;
+        private IHealthController _healthController;
+        private IPlayerWeaponsController _weaponsController;
+        private IPlayerMoveController _moveController;
 
-        public void Initialize(HealthController _healthController, PlayerWeaponsController _weaponsController, PlayerMoveController _moveController, 
-            Animator _animator)
+        public void Initialize(IHealthController healthController, IPlayerWeaponsController weaponsController, IPlayerMoveController moveController, 
+            Animator animator)
         {
-            healthController = _healthController;
-            weaponsController = _weaponsController;
-            moveController = _moveController;
+            _healthController = healthController;
+            _weaponsController = weaponsController;
+            _moveController = moveController;
 
-            animator = _animator;
+            _animator = animator;
 
-            weaponsController.GunChanged += CurrentGunAnim;
-            healthController.Died += DeathAnim;
-            healthController.Died += OnDeath;
+            _weaponsController.GunChanged += CurrentGunAnim;
+            _healthController.Died += DeathAnim;
+            _healthController.Died += OnDeath;
         }
         private void OnDeath()
         {
-            weaponsController.GunChanged -= CurrentGunAnim;
-            healthController.Died -= DeathAnim;
-            healthController.Died -= OnDeath;
+            _weaponsController.GunChanged -= CurrentGunAnim;
+            _healthController.Died -= DeathAnim;
+            _healthController.Died -= OnDeath;
         }
 
         public void MoveAnim()
         {
-            if (moveController.Walks)
+            if (_moveController.Walks)
             {
-                animator.SetFloat("SpeedPistol", 1);
-                animator.SetFloat("Speed", 1.7f);
+                _animator.SetFloat("SpeedPistol", 1);
+                _animator.SetFloat("Speed", 1.7f);
             }
             else
             {
-                animator.SetFloat("SpeedPistol", 0);
-                animator.SetFloat("Speed", 0);
+                _animator.SetFloat("SpeedPistol", 0);
+                _animator.SetFloat("Speed", 0);
             }
         }
 
@@ -51,14 +51,14 @@ namespace PlayerLib
         {
             if (gun.Type == GunType.Pistol)
             {
-                animator.SetBool("PistolInHands", true);
+                _animator.SetBool("PistolInHands", true);
             }
             else
             {
-                animator.SetBool("PistolInHands", false);
+                _animator.SetBool("PistolInHands", false);
             }
         }
 
-        private void DeathAnim() => animator.SetBool("Died", true);
+        private void DeathAnim() => _animator.SetBool("Died", true);
     }
 }

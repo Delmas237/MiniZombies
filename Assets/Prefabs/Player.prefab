@@ -970,28 +970,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67de7fec0da88f9479f4531fa3197e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <CurrencyController>k__BackingField:
-    <Coins>k__BackingField: 0
-  <HealthController>k__BackingField:
+  _currencyController:
+    _coins: 0
+  _healthController:
     <MaxHealth>k__BackingField: 100
     <AudioController>k__BackingField:
-      damageSound: {fileID: 303503531}
-      healSound: {fileID: 377062677}
-      deathSound: {fileID: 175399891}
-  <WeaponsController>k__BackingField:
-    <Bullets>k__BackingField: 100
-    <Guns>k__BackingField:
+      _damageSound: {fileID: 303503531}
+      _healSound: {fileID: 377062677}
+      _deathSound: {fileID: 175399891}
+  _weaponsController:
+    _bullets: 100
+    _guns:
     - {fileID: 835748756}
     - {fileID: 7393470864971495480}
     - {fileID: 391794527}
     - {fileID: 950084880}
     <AttackJoystick>k__BackingField: {fileID: 0}
-    shootLineRoot: {fileID: 2306417906408800393}
-  <MoveController>k__BackingField:
+    _shootLineRoot: {fileID: 2306417906408800393}
+  _moveController:
     maxSpeed: 3.65
     <MoveJoystick>k__BackingField: {fileID: 0}
     rotationSmoothness: 0.25
-    autoRotationSmoothness: 0.23
+    autoRotationSmoothness: 0.2
 --- !u!54 &4240113845284777554
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1647,6 +1647,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 265933496}
     - target: {fileID: 60767804659289434, guid: 817032021e65a1a428bad43472a5e0ac, type: 3}
+      propertyPath: _shootDir
+      value: 
+      objectReference: {fileID: 265933496}
+    - target: {fileID: 60767804659289434, guid: 817032021e65a1a428bad43472a5e0ac, type: 3}
       propertyPath: <Damage>k__BackingField
       value: 15
       objectReference: {fileID: 0}
@@ -1714,6 +1718,10 @@ PrefabInstance:
       propertyPath: shootDir
       value: 
       objectReference: {fileID: 265933496}
+    - target: {fileID: 7371549725607492157, guid: 817032021e65a1a428bad43472a5e0ac, type: 3}
+      propertyPath: _shootDir
+      value: 
+      objectReference: {fileID: 265933496}
     - target: {fileID: 7371549726035719926, guid: 817032021e65a1a428bad43472a5e0ac, type: 3}
       propertyPath: cooldown
       value: 0.25
@@ -1722,12 +1730,20 @@ PrefabInstance:
       propertyPath: shootDir
       value: 
       objectReference: {fileID: 265933496}
+    - target: {fileID: 7371549726035719926, guid: 817032021e65a1a428bad43472a5e0ac, type: 3}
+      propertyPath: _shootDir
+      value: 
+      objectReference: {fileID: 265933496}
     - target: {fileID: 7371549726179397746, guid: 817032021e65a1a428bad43472a5e0ac, type: 3}
       propertyPath: cooldown
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7371549726179397746, guid: 817032021e65a1a428bad43472a5e0ac, type: 3}
       propertyPath: shootDir
+      value: 
+      objectReference: {fileID: 265933496}
+    - target: {fileID: 7371549726179397746, guid: 817032021e65a1a428bad43472a5e0ac, type: 3}
+      propertyPath: _shootDir
       value: 
       objectReference: {fileID: 265933496}
     m_RemovedComponents: []
@@ -1788,8 +1804,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8916842549bf1514c8be71cc9ac7a3c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunsData: {fileID: 0}
-  localWeapons: {fileID: 0}
+  _gunsData: {fileID: 11400000, guid: afc016a82bde51c4583df8fe000e8d4d, type: 2}
+  _localWeapons: {fileID: 1590742932}
 --- !u!4 &1590742933 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7371549724676782839, guid: 817032021e65a1a428bad43472a5e0ac, type: 3}

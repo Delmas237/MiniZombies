@@ -1,28 +1,31 @@
+using System;
 using UnityEngine;
 
 public static class Bank
 {
-    private static int coins;
+    private static int _coins;
     public static int Coins
     {
-        get { return coins; }
+        get { return _coins; }
         set
         {
-            coins = Mathf.Clamp(value, 0, MaxCoins);
+            _coins = Mathf.Clamp(value, 0, MaxCoins);
+            CoinsChanged?.Invoke(_coins);
             Save();
         }
     }
+    public static event Action<int> CoinsChanged;
 
     public const int MaxCoins = 999999;
 
     public static void Load()
     {
-        Coins = PlayerPrefs.GetInt(nameof(coins));
+        Coins = PlayerPrefs.GetInt(nameof(_coins));
     }
 
     public static void Save()
     {
-        PlayerPrefs.SetInt(nameof(coins), coins);
+        PlayerPrefs.SetInt(nameof(_coins), _coins);
         PlayerPrefs.Save();
     }
 }

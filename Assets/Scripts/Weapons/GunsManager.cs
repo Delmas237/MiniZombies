@@ -6,12 +6,12 @@ namespace Weapons
 {
     public static class GunsManager
     {
-        private static GunData[] guns;
-        public static IReadOnlyList<GunData> Guns => guns;
+        private static GunData[] _guns;
+        public static IReadOnlyList<GunData> Guns => _guns;
 
         public static void Load(GunData[] guns)
         {
-            GunsManager.guns = guns;
+            _guns = guns;
             LoadValuesFromJSON();
         }
 
@@ -39,17 +39,17 @@ namespace Weapons
         }
         private static void CopyGunsValues(GunsJSON gunsJSON)
         {
-            for (int i = 0; i < guns.Length; i++)
+            for (int i = 0; i < _guns.Length; i++)
             {
-                guns[i].Damage = gunsJSON.Damage[i];
-                guns[i].Cooldown = gunsJSON.Cooldown[i];
-                guns[i].Distance = gunsJSON.Distance[i];
+                _guns[i].Damage = gunsJSON.Damage[i];
+                _guns[i].Cooldown = gunsJSON.Cooldown[i];
+                _guns[i].Distance = gunsJSON.Distance[i];
             }
         }
 
         public static void Save()
         {
-            GunsJSON gunsJSON = new GunsJSON(guns);
+            GunsJSON gunsJSON = new GunsJSON(_guns);
             File.WriteAllText(GunsJSON.GetPath(), JsonUtility.ToJson(gunsJSON));
 
             Debug.Log($"Guns json saved: {JsonUtility.ToJson(gunsJSON)}");

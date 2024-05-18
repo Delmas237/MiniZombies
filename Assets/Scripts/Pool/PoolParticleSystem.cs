@@ -4,20 +4,20 @@ namespace ObjectPool
 {
     public class PoolParticleSystem : MonoBehaviour, IPool<ParticleSystem>
     {
-        [SerializeField] private ParticleSystem particlesSystem;
-        [SerializeField] private int amount = 20;
-        [SerializeField] private bool autoExpand = true;
+        [SerializeField] private ParticleSystem _particlesSystem;
+        [SerializeField] private int _amount = 20;
+        [SerializeField] private bool _autoExpand = true;
 
-        private PoolBase<ParticleSystem> pool;
+        private PoolBase<ParticleSystem> _pool;
 
         private void Awake()
         {
-            pool = new PoolBase<ParticleSystem>(particlesSystem, amount, transform)
+            _pool = new PoolBase<ParticleSystem>(_particlesSystem, _amount, transform)
             {
-                AutoExpand = autoExpand
+                AutoExpand = _autoExpand
             };
         }
 
-        public ParticleSystem GetFreeElement() => pool.GetFreeElement();
+        public ParticleSystem GetFreeElement() => _pool.GetFreeElement();
     }
 }

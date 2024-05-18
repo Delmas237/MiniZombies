@@ -9,28 +9,28 @@ namespace ObjectPool
 {
     public class ZombiePool : MonoBehaviour, IPool<ZombieContainer>
     {
-        [SerializeField] private ZombieContainer Enemy;
-        [SerializeField] private int amount = 20;
-        [SerializeField] private bool autoExpand = true;
+        [SerializeField] private ZombieContainer _zombie;
+        [SerializeField] private int _amount = 20;
+        [SerializeField] private bool _autoExpand = true;
 
-        private PoolBase<ZombieContainer> pool;
-        private ZombieFactory factory;
+        private PoolBase<ZombieContainer> _pool;
+        private ZombieFactory _factory;
 
         public void Initialize(List<Transform> spawnDots, PlayerContainer player, IPool<AmmoPack> ammoPackPool, Transform parent)
         {
-            factory = new ZombieFactory(Enemy, parent, player, spawnDots, ammoPackPool);
-            pool = new PoolBase<ZombieContainer>(Enemy, amount, factory)
+            _factory = new ZombieFactory(_zombie, parent, player, spawnDots, ammoPackPool);
+            _pool = new PoolBase<ZombieContainer>(_zombie, _amount, _factory)
             {
-                AutoExpand = autoExpand
+                AutoExpand = _autoExpand
             };
         }
 
         public ZombieContainer GetFreeElement()
         {
-            ZombieContainer enemy = pool.GetFreeElement();
+            ZombieContainer enemy = _pool.GetFreeElement();
 
-            factory.ReconstructToDefault(enemy);
-            factory.Construct(enemy);
+            _factory.ReconstructToDefault(enemy);
+            _factory.Construct(enemy);
 
             return enemy;
         }

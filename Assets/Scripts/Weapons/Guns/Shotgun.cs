@@ -6,17 +6,17 @@ namespace Weapons
     {
         public override bool ShootRequest()
         {
-            if (canShoot)
+            if (_canShoot)
             {
                 float pitch = Random.Range(0.98f, 1.02f);
                 
-                Shoot(shootDir.position + Vector3.left * 0.15f);
+                Shoot(_shootDir.position + Vector3.left * 0.15f);
                 SoundPitch(pitch);
-                Shoot(shootDir.position + Vector3.right * 0.15f);
+                Shoot(_shootDir.position + Vector3.right * 0.15f);
                 SoundPitch(pitch);
 
-                canShoot = false;
-                currentCooldown = Cooldown;
+                _canShoot = false;
+                _currentCooldown = Cooldown;
                 return true;
             }
 

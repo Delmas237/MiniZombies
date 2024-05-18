@@ -5,26 +5,26 @@ namespace ObjectPool
 {
     public class PoolAmmoPack : MonoBehaviour, IPool<AmmoPack>
     {
-        [SerializeField] private AmmoPack ammoPack;
-        [SerializeField] private int amount = 5;
-        [SerializeField] private bool autoExpand = true;
+        [SerializeField] private AmmoPack _ammoPack;
+        [SerializeField] private int _amount = 5;
+        [SerializeField] private bool _autoExpand = true;
         [Space(10)]
-        [SerializeField] private PoolAudioSource destroySoundPool;
+        [SerializeField] private PoolAudioSource _destroySoundPool;
 
-        private PoolBase<AmmoPack> pool;
+        private PoolBase<AmmoPack> _pool;
 
         private void Awake()
         {
-            pool = new PoolBase<AmmoPack>(ammoPack, amount, transform)
+            _pool = new PoolBase<AmmoPack>(_ammoPack, _amount, transform)
             {
-                AutoExpand = autoExpand
+                AutoExpand = _autoExpand
             };
         }
 
         public AmmoPack GetFreeElement()
         {
-            AmmoPack ammoPack = pool.GetFreeElement();
-            ammoPack.DestroySoundPool = destroySoundPool;
+            AmmoPack ammoPack = _pool.GetFreeElement();
+            ammoPack.Intialize(_destroySoundPool);
             return ammoPack;
         }
     }

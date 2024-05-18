@@ -4,18 +4,21 @@ using UnityEngine.SceneManagement;
 
 public class LobbyUI : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI coinsText;
-    [SerializeField] private TextMeshProUGUI maxWaveText;
+    [SerializeField] private TextMeshProUGUI _coinsText;
+    [SerializeField] private TextMeshProUGUI _maxWaveText;
 
     private void Awake()
     {
         Bank.Load();
-        maxWaveText.text = PlayerPrefs.GetInt("MaxWave").ToString();
+        _maxWaveText.text = PlayerPrefs.GetInt("MaxWave").ToString();
+        
+        UpdateText(Bank.Coins);
+        Bank.CoinsChanged += UpdateText;
     }
 
-    private void Update()
+    private void UpdateText(int amount)
     {
-        coinsText.text = Bank.Coins.ToString();
+        _coinsText.text = amount.ToString();
     }
 
     public void Play() => SceneManager.LoadScene("Game");

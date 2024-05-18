@@ -14,9 +14,9 @@ namespace Weapons
 
         [field: SerializeField] public float Cooldown { get; set; }
         
-        protected float currentCooldown;
-        public float CurrentCooldown => currentCooldown;
-        protected bool canShoot = true;
+        protected float _currentCooldown;
+        public float CurrentCooldown => _currentCooldown;
+        protected bool _canShoot = true;
 
         [field: SerializeField] public float Distance { get; set; } = 4;
         [field: SerializeField] public int Consumption { get; set; } = 1;
@@ -26,13 +26,13 @@ namespace Weapons
         /// </summary>
         public const float MinusPiercingDamage = 5;
 
-        protected LayerMask layerMask = 183; //all without player
+        protected LayerMask _layerMask = 183; //all without player
         [Space(5)]
-        [SerializeField] protected Transform shootDir;
-        [SerializeField] protected Transform muzzle;
+        [SerializeField] protected Transform _shootDir;
+        [SerializeField] protected Transform _muzzle;
 
-        [SerializeField] protected PoolParticleSystem shotPool;
-        protected AudioSource shotSound;
+        [SerializeField] protected PoolParticleSystem _shotPool;
+        protected AudioSource _shotSound;
 
         protected virtual void Update()
         {
@@ -41,23 +41,23 @@ namespace Weapons
 
         protected virtual void CooldownCheck()
         {
-            Utilities.Timer(ref currentCooldown, delegate ()
+            Utilities.Timer(ref _currentCooldown, delegate ()
             {
-                canShoot = true;
+                _canShoot = true;
             });
         }
 
         public virtual bool ShootRequest()
         {
-            if (canShoot)
+            if (_canShoot)
             {
-                Shoot(shootDir.position);
+                Shoot(_shootDir.position);
 
                 float randomRange = 0.02f;
-                SoundPitch(shotSound.pitch = Random.Range(shotSound.pitch - randomRange, shotSound.pitch + randomRange));
+                SoundPitch(_shotSound.pitch = Random.Range(_shotSound.pitch - randomRange, _shotSound.pitch + randomRange));
 
-                canShoot = false;
-                currentCooldown = Cooldown;
+                _canShoot = false;
+                _currentCooldown = Cooldown;
                 return true;
             }
 
@@ -68,12 +68,12 @@ namespace Weapons
         {
             if (gameObject.activeInHierarchy)
             {
-                GameObject shot = shotPool.GetFreeElement().gameObject;
-                shotSound = shot.GetComponent<AudioSource>();
-                shot.transform.SetPositionAndRotation(muzzle.position, muzzle.rotation);
+                GameObject shot = _shotPool.GetFreeElement().gameObject;
+                _shotSound = shot.GetComponent<AudioSource>();
+                shot.transform.SetPositionAndRotation(_muzzle.position, _muzzle.rotation);
 
-                Ray ray = new Ray(vector, shootDir.forward);
-                RaycastHit[] hits = Physics.RaycastAll(ray, Distance, layerMask).OrderBy(hit => hit.distance).ToArray();
+                Ray ray = new Ray(vector, _shootDir.forward);
+                RaycastHit[] hits = Physics.RaycastAll(ray, Distance, _layerMask).OrderBy(hit => hit.distance).ToArray();
 
                 List<IEnemy> enemies = new List<IEnemy>();
                 for (int i = 0; i < hits.Length; i++)
@@ -91,6 +91,6 @@ namespace Weapons
             }
         }
 
-        protected void SoundPitch(float pitch) => shotSound.pitch = pitch;
+        protected void SoundPitch(float pitch) => _shotSound.pitch = pitch;
     }
 }

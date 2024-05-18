@@ -1,4 +1,3 @@
-using PlayerLib;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -9,23 +8,23 @@ namespace EnemyLib
     public class EnemyAttackController
     {
         public bool IsAttack { get; set; }
-        private IPlayer targetCollision;
+        private IPlayer _targetCollision;
 
-        [SerializeField] private int damage = 15;
-        public int Damage => damage;
+        [SerializeField] private int _damage = 15;
+        public int Damage => _damage;
 
-        private HealthController healthController;
-        private EnemyMoveController moveController;
+        private IHealthController _healthController;
+        private IEnemyMoveController _moveController;
 
-        public void Initialize(HealthController _healthController, EnemyMoveController _moveController)
+        public void Initialize(IHealthController healthController, IEnemyMoveController moveController)
         {
-            healthController = _healthController;
-            moveController = _moveController;
+            _healthController = healthController;
+            _moveController = moveController;
         }
 
         protected void Attack()
         {
-            moveController.Agent.isStopped = true;
+            _moveController.Agent.isStopped = true;
             IsAttack = true;
         }
 
@@ -33,15 +32,15 @@ namespace EnemyLib
         {
             IPlayer target = collision.gameObject.GetComponent<IPlayer>();
 
-            if (target != null && target.HealthController.Health > 0 && healthController.Health > 0)
+            if (target != null && target.HealthController.Health > 0 && _healthController.Health > 0)
             {
-                targetCollision = target;
+                _targetCollision = target;
                 Attack();
             }
         }
         public void OnCollisionExit(Collision collision)
         {
-            if (collision.gameObject.TryGetComponent(out IPlayer player))
+            if (collision.gameObject.GetComponent<IPlayer>() != null)
             {
                 CoroutineHelper.StartRoutine(StopAttack(0.3f));
             }
@@ -50,20 +49,23 @@ namespace EnemyLib
         private IEnumerator StopAttack(float delay)
         {
             yield return new WaitForSeconds(delay);
-            targetCollision = null;
+            _targetCollision = null;
 
-            if (moveController.Agent.enabled)
-                moveController.Agent.isStopped = false;
+            if (_moveController.Agent.enabled)
+                _moveController.Agent.isStopped = false;
 
             IsAttack = false;
         }
 
         public void DealDamage()
         {
-            if (targetCollision != null && targetCollision.HealthController.Health > 0)
-                targetCollision.HealthController.Health -= Damage;
-            else
+            if (_targetCollision == null || _targetCollision.HealthController.Health <= 0)
+            {
                 CoroutineHelper.StartRoutine(StopAttack(0));
+                return;
+            }
+
+            _targetCollision.HealthController.Health -= Damage;
         }
     }
 }

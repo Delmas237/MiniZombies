@@ -7,64 +7,64 @@ namespace GlobalShopLib
     [Serializable]
     public class GlobalShopItem
     {
-        [SerializeField] private GunType gunType;
-        private GunData gunData;
+        [SerializeField] private GunType _gunType;
+        private GunData _gunData;
 
-        [SerializeField] private GlobalShopParameter damageParameter;
-        [SerializeField] private GlobalShopParameter cooldownParameter;
-        [SerializeField] private GlobalShopParameter distanceParameter;
+        [SerializeField] private GlobalShopParameter _damageParameter;
+        [SerializeField] private GlobalShopParameter _cooldownParameter;
+        [SerializeField] private GlobalShopParameter _distanceParameter;
 
         public event Action Updated;
 
         public void Intialize()
         {
-            gunData = GunsManager.Guns[(int)gunType];
+            _gunData = GunsManager.Guns[(int)_gunType];
             UpdateInfo();
 
-            damageParameter.Initialize();
-            cooldownParameter.Initialize();
-            distanceParameter.Initialize();
+            _damageParameter.Initialize();
+            _cooldownParameter.Initialize();
+            _distanceParameter.Initialize();
 
-            damageParameter.Purchased += UpgradeDamage;
-            cooldownParameter.Purchased += UpgradeCooldown;
-            distanceParameter.Purchased += UpgradeDistance;
+            _damageParameter.Purchased += UpgradeDamage;
+            _cooldownParameter.Purchased += UpgradeCooldown;
+            _distanceParameter.Purchased += UpgradeDistance;
         }
         public void OnDestroy()
         {
-            damageParameter.Purchased -= UpgradeDamage;
-            cooldownParameter.Purchased -= UpgradeCooldown;
-            distanceParameter.Purchased -= UpgradeDistance;
+            _damageParameter.Purchased -= UpgradeDamage;
+            _cooldownParameter.Purchased -= UpgradeCooldown;
+            _distanceParameter.Purchased -= UpgradeDistance;
         }
 
         private void UpdateInfo()
         {
-            damageParameter.Info.Value = gunData.Damage;
-            cooldownParameter.Info.Value = gunData.Cooldown;
-            distanceParameter.Info.Value = gunData.Distance;
+            _damageParameter.Info.Value = _gunData.Damage;
+            _cooldownParameter.Info.Value = _gunData.Cooldown;
+            _distanceParameter.Info.Value = _gunData.Distance;
 
-            damageParameter.UpdateText();
-            cooldownParameter.UpdateText();
-            distanceParameter.UpdateText();
+            _damageParameter.UpdateText();
+            _cooldownParameter.UpdateText();
+            _distanceParameter.UpdateText();
         }
 
         private void UpgradeDamage()
         {
-            gunData.Damage += damageParameter.Up.Value;
-            damageParameter.Info.Value += damageParameter.Up.Value;
+            _gunData.Damage += _damageParameter.Up.Value;
+            _damageParameter.Info.Value += _damageParameter.Up.Value;
 
             Updated?.Invoke();
         }
         private void UpgradeCooldown()
         {
-            gunData.Cooldown -= cooldownParameter.Up.Value;
-            cooldownParameter.Info.Value -= cooldownParameter.Up.Value;
+            _gunData.Cooldown -= _cooldownParameter.Up.Value;
+            _cooldownParameter.Info.Value -= _cooldownParameter.Up.Value;
 
             Updated?.Invoke();
         }
         private void UpgradeDistance()
         {
-            gunData.Distance += distanceParameter.Up.Value;
-            distanceParameter.Info.Value += distanceParameter.Up.Value;
+            _gunData.Distance += _distanceParameter.Up.Value;
+            _distanceParameter.Info.Value += _distanceParameter.Up.Value;
 
             Updated?.Invoke();
         }

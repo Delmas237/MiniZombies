@@ -6,12 +6,12 @@ namespace Weapons
 {
     public class CooldownCircle : MonoBehaviour
     {
-        [SerializeField] private PlayerContainer player;
-        private Image image;
+        [SerializeField] private PlayerContainer _player;
+        private Image _image;
 
         private void Start()
         {
-            image = GetComponent<Image>();
+            _image = GetComponent<Image>();
         }
 
         private void Update()
@@ -21,8 +21,8 @@ namespace Weapons
 
         private void UpdateCircle()
         {
-            Gun gun = player.WeaponsController.CurrentGun;
-            image.fillAmount = gun.CurrentCooldown / gun.Cooldown;
+            Gun gun = _player.WeaponsController.CurrentGun;
+            _image.fillAmount = gun.CurrentCooldown / gun.Cooldown;
         }
     }
 }

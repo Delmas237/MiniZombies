@@ -3,20 +3,20 @@ using UnityEngine;
 
 public class DelayedDestruction : MonoBehaviour
 {
-    [SerializeField] protected float delay = 2f;
-    [SerializeField] protected bool ifDisabledDestroy;
+    [SerializeField] protected float _delay = 2f;
+    [SerializeField] protected bool _destroyWhenDisabled;
 
-    protected void DelayedDestroy() => Destroy(gameObject, delay);
-    protected void DelayedSetActiveFalse() => StartCoroutine(SetActiveFalse(delay));
+    protected void DelayedDestroy() => Destroy(gameObject, _delay);
+    protected void DelayedSetActiveFalse() => StartCoroutine(SetActiveFalse(_delay));
 
     protected virtual void Start()
     {
-        Destroy(gameObject, delay);
+        Destroy(gameObject, _delay);
     }
 
     protected void OnDisable()
     {
-        if (ifDisabledDestroy)
+        if (_destroyWhenDisabled)
             Destroy(gameObject);
     }
 

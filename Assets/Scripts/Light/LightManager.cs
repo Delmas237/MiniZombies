@@ -5,31 +5,31 @@ namespace LightLib
 {
     public class LightManager : MonoBehaviour
     {
-        private Light generalLight;
+        private Light _generalLight;
 
-        [SerializeField] private float rotationSpeed = 0.02f;
+        [SerializeField] private float _rotationSpeed = 0.02f;
 
-        [SerializeField] private Vector3 dayRotation;
-        [SerializeField] private Vector3 nightRotation;
+        [SerializeField] private Vector3 _dayRotation;
+        [SerializeField] private Vector3 _nightRotation;
 
         public static event Action<TimesOfDay> TimesOfDayChanged;
 
-        private TimesOfDay timesOfDay;
+        private TimesOfDay _timesOfDay;
 
         private void Start()
         {
-            generalLight = GetComponent<Light>();
+            _generalLight = GetComponent<Light>();
         }
 
         private void Update()
         {
-            switch (timesOfDay)
+            switch (_timesOfDay)
             {
                 case TimesOfDay.Day:
-                    RotateSunTo(dayRotation);
+                    RotateSunTo(_dayRotation);
                     break;
                 case TimesOfDay.Night:
-                    RotateSunTo(nightRotation);
+                    RotateSunTo(_nightRotation);
                     break;
             }
 
@@ -49,14 +49,14 @@ namespace LightLib
 
         public void SetTimesOfDay(TimesOfDay timesOfDay)
         {
-            this.timesOfDay = timesOfDay;
+            _timesOfDay = timesOfDay;
             TimesOfDayChanged?.Invoke(timesOfDay);
         }
 
-        private void RotateSunTo(Vector3 vector3)
+        private void RotateSunTo(Vector3 vector)
         {
-            generalLight.transform.rotation = Quaternion.Lerp(
-                transform.rotation, Quaternion.Euler(vector3), rotationSpeed);
+            _generalLight.transform.rotation = Quaternion.Lerp(
+                transform.rotation, Quaternion.Euler(vector), _rotationSpeed);
         }
     }
 }

@@ -4,16 +4,16 @@ using System;
 
 public class CoroutineHelper : MonoBehaviour
 {
-    private static CoroutineHelper instance;
+    private static CoroutineHelper _instance;
 
     private void Awake()
     {
-        if (instance == null)
+        if (_instance == null)
         {
-            instance = this;
+            _instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        else if (instance != this)
+        else if (_instance != this)
         {
             Destroy(gameObject);
         }
@@ -21,9 +21,9 @@ public class CoroutineHelper : MonoBehaviour
 
     public static Coroutine StartRoutine(IEnumerator routine)
     {
-        if (instance != null)
+        if (_instance != null)
         {
-            return instance.StartCoroutine(routine);
+            return _instance.StartCoroutine(routine);
         }
         else
         {
@@ -33,7 +33,7 @@ public class CoroutineHelper : MonoBehaviour
     }
     public static void StopRoutine(Coroutine coroutine)
     {
-        if (instance != null)
-            instance.StopCoroutine(coroutine);
+        if (_instance != null)
+            _instance.StopCoroutine(coroutine);
     }
 }

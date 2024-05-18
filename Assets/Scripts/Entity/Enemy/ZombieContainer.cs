@@ -5,13 +5,19 @@ namespace EnemyLib
 {
     public class ZombieContainer : MonoBehaviour, IEnemy
     {
-        [field: Header("Base Controllers")]
-        [field: SerializeField] public HealthController HealthController { get; set; }
-        [field: SerializeField] public EnemyMoveController MoveController { get; set; }
-        [field: SerializeField] public EnemyAnimationController AnimationController { get; set; }
-        
+        [Header("Base Controllers")]
+        [SerializeField] protected HealthController _healthController;
+        public IHealthController HealthController => _healthController;
+
+        [SerializeField] protected EnemyMoveController _moveController;
+        public IEnemyMoveController MoveController => _moveController;
+
+        [SerializeField] protected EnemyAnimationController _animationController;
+        public EnemyAnimationController AnimationController => _animationController;
+
         [field: Header("Base Modules")]
-        [field: SerializeField] public DropAmmoAfterDeathModule DropAmmoAfterDeathModule { get; set; }
+        [SerializeField] protected DropAmmoAfterDeathModule _dropAmmoAfterDeathModule;
+        public DropAmmoAfterDeathModule DropAmmoAfterDeathModule => _dropAmmoAfterDeathModule;
 
         protected virtual void Start()
         {

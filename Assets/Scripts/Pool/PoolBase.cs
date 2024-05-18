@@ -11,19 +11,19 @@ namespace ObjectPool
         public T Prefab { get; }
         public bool AutoExpand { get; set; }
 
-        private readonly List<T> pool;
+        private readonly List<T> _pool;
 
-        private readonly bool hasFactory;
-        private readonly FactoryBase<T> factory;
-        private readonly Transform parent;
+        private readonly bool _hasFactory;
+        private readonly FactoryBase<T> _factory;
+        private readonly Transform _parent;
 
         public PoolBase(T prefab, int count, FactoryBase<T> factory)
         {
             Prefab = prefab;
 
-            pool = new List<T>();
-            this.factory = factory;
-            hasFactory = true;
+            _pool = new List<T>();
+            _factory = factory;
+            _hasFactory = true;
 
             for (int i = 0; i < count; i++)
                 CreateObject();
@@ -32,9 +32,9 @@ namespace ObjectPool
         {
             Prefab = prefab;
 
-            pool = new List<T>();
-            this.parent = parent;
-            hasFactory = false;
+            _pool = new List<T>();
+            _parent = parent;
+            _hasFactory = false;
 
             for (int i = 0; i < count; i++)
                 CreateObject();
@@ -55,19 +55,19 @@ namespace ObjectPool
         {
             T createdObject;
 
-            if (hasFactory)
-                createdObject = factory.NewInstance();
+            if (_hasFactory)
+                createdObject = _factory.NewInstance();
             else
-                createdObject = Object.Instantiate(Prefab, parent);
+                createdObject = Object.Instantiate(Prefab, _parent);
 
             createdObject.gameObject.SetActive(isActiveByDefault);
-            pool.Add(createdObject);
+            _pool.Add(createdObject);
             return createdObject;
         }
 
         public bool HasFreeElement(out T element)
         {
-            foreach (T component in pool)
+            foreach (T component in _pool)
             {
                 if (component.gameObject.activeInHierarchy == false)
                 {

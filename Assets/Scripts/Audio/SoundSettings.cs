@@ -6,53 +6,53 @@ namespace Audio
 {
     public class SoundSettings : MonoBehaviour
     {
-        [SerializeField] private AudioMixerGroup mixer;
+        [SerializeField] private AudioMixerGroup _mixer;
 
-        [SerializeField] private Slider soundsSlider;
-        [SerializeField] private Slider musicSlider;
+        [SerializeField] private Slider _soundsSlider;
+        [SerializeField] private Slider _musicSlider;
 
-        public float SoundsVolume => soundsSlider.value;
-        public float MusicVolume => musicSlider.value;
+        public float SoundsVolume => _soundsSlider.value;
+        public float MusicVolume => _musicSlider.value;
 
         private void Start()
         {
             Load();
 
-            soundsSlider.onValueChanged.AddListener(Save);
-            musicSlider.onValueChanged.AddListener(Save);
-            soundsSlider.onValueChanged.AddListener(UpdateVolume);
-            musicSlider.onValueChanged.AddListener(UpdateVolume);
+            _soundsSlider.onValueChanged.AddListener(Save);
+            _musicSlider.onValueChanged.AddListener(Save);
+            _soundsSlider.onValueChanged.AddListener(UpdateVolume);
+            _musicSlider.onValueChanged.AddListener(UpdateVolume);
         }
         private void Save(float value) => Save();
         private void UpdateVolume(float value) => UpdateVolume();
 
         private void Load()
         {
-            soundsSlider.value = PlayerPrefs.GetFloat("SoundsVolume");
-            musicSlider.value = PlayerPrefs.GetFloat("MusicVolume");
+            _soundsSlider.value = PlayerPrefs.GetFloat("SoundsVolume");
+            _musicSlider.value = PlayerPrefs.GetFloat("MusicVolume");
 
             UpdateVolume();
         }
         private void Save()
         {
-            PlayerPrefs.SetFloat("SoundsVolume", soundsSlider.value);
-            PlayerPrefs.SetFloat("MusicVolume", musicSlider.value);
+            PlayerPrefs.SetFloat("SoundsVolume", _soundsSlider.value);
+            PlayerPrefs.SetFloat("MusicVolume", _musicSlider.value);
         }
 
         private void UpdateVolume()
         {
-            SetVolume("SoundsVolume", soundsSlider.value);
-            SetVolume("MusicVolume", musicSlider.value);
+            SetVolume("SoundsVolume", _soundsSlider.value);
+            SetVolume("MusicVolume", _musicSlider.value);
         }
         private void SetVolume(string nameVolume, float value)
         {
             if (value <= -40)
             {
-                mixer.audioMixer.SetFloat(nameVolume, -80);
+                _mixer.audioMixer.SetFloat(nameVolume, -80);
                 return;
             }
 
-            mixer.audioMixer.SetFloat(nameVolume, value);
+            _mixer.audioMixer.SetFloat(nameVolume, value);
         }
     }
 }

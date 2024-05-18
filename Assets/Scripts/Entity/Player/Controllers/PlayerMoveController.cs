@@ -8,89 +8,89 @@ using UnityEngine;
 namespace PlayerLib
 {
     [Serializable]
-    public class PlayerMoveController
+    public class PlayerMoveController : IPlayerMoveController
     {
-        private bool controllable = true;
-        private Transform transform;
+        private bool _controllable = true;
 
-        [SerializeField] private float maxSpeed = 3.65f;
+        [SerializeField] private float _maxSpeed = 3.65f;
         public bool Walks => MoveJoystick.Horizontal != 0 || MoveJoystick.Vertical != 0;
 
         [field: SerializeField] public Joystick MoveJoystick { get; private set; }
 
         [Header("Rotation Smoothness")]
-        [SerializeField] private float rotationSmoothness = 0.25f;
-        [SerializeField] private float autoRotationSmoothness = 0.2f;
+        [SerializeField] private float _rotationSmoothness = 0.25f;
+        [SerializeField] private float _autoRotationSmoothness = 0.2f;
         public bool AutoRotate { get; set; }
 
-        private Rigidbody rb;
+        private Rigidbody _rb;
+        private Transform _transform;
 
-        private HealthController healthController;
-        private PlayerWeaponsController weaponsController;
+        private IHealthController _healthController;
+        private IPlayerWeaponsController _weaponsController;
 
-        private ZombieContainer closestEnemy;
-        private const float timeToUpdateClosestEnemy = 0.35f;
+        private ZombieContainer _closestEnemy;
+        private const float TIME_TO_UPDATE_CLOSEST_ENEMY = 0.35f;
         private Coroutine ClosestEnemyCoroutine;
 
-        public void Initialize(HealthController _healthController, PlayerWeaponsController _weaponsController, Transform _transform, 
-            Rigidbody _rigidbody)
+        public void Initialize(IHealthController healthController, IPlayerWeaponsController weaponsController, Transform transform, 
+            Rigidbody rigidbody)
         {
-            healthController = _healthController;
-            weaponsController = _weaponsController;
-            transform = _transform;
-            rb = _rigidbody;
+            _healthController = healthController;
+            _weaponsController = weaponsController;
+            _transform = transform;
+            _rb = rigidbody;
 
-            healthController.Died += SetControllableFalse;
+            _healthController.Died += SetControllableFalse;
 
             ClosestEnemyCoroutine = CoroutineHelper.StartRoutine(UpdateClosestEnemy());
         }
-        private void SetControllableFalse() => controllable = false;
+        private void SetControllableFalse() => _controllable = false;
 
         public void Move()
         {
-            if (controllable)
+            if (_controllable)
             {
                 float speedFactor = (MoveJoystick.Horizontal == 0 || MoveJoystick.Vertical == 0) ? 1 : 1.5f;
 
-                rb.velocity = new Vector3(MoveJoystick.Horizontal * maxSpeed / speedFactor, rb.velocity.y, 
-                    MoveJoystick.Vertical * maxSpeed / speedFactor);
+                _rb.velocity = new Vector3(MoveJoystick.Horizontal * _maxSpeed / speedFactor, _rb.velocity.y, 
+                    MoveJoystick.Vertical * _maxSpeed / speedFactor);
             }
         }
 
         public void Rotation()
         {
-            if (controllable)
+            if (_controllable)
             {
-                if (weaponsController.AttackJoystick.Direction != Vector2.zero)
+                if (_weaponsController.AttackJoystick.Direction != Vector2.zero)
                 {
-                    RotateToJoystickDir(weaponsController.AttackJoystick, rotationSmoothness);
+                    RotateToJoystickDir(_weaponsController.AttackJoystick, _rotationSmoothness);
                 }
-                else if (closestEnemy && weaponsController.AttackJoystick.UnPressedOrInDeadZoneTime > 0.15f)
+                else if (_closestEnemy && _weaponsController.AttackJoystick.UnPressedOrInDeadZoneTime > 0.15f)
                 {
-                    RotateToClosestEnemy(closestEnemy.transform.position);
+                    RotateToClosestEnemy(_closestEnemy.transform.position);
                 }
-                else if (MoveJoystick.Direction != Vector2.zero && weaponsController.AttackJoystick.UnPressedOrInDeadZoneTime > 0.05f)
+                else if (MoveJoystick.Direction != Vector2.zero && _weaponsController.AttackJoystick.UnPressedOrInDeadZoneTime > 0.05f)
                 {
-                    RotateToJoystickDir(MoveJoystick, rotationSmoothness);
+                    RotateToJoystickDir(MoveJoystick, _rotationSmoothness);
                 }
             }
         }
 
         private void RotateToClosestEnemy(Vector3 closestEnemy)
         {
-            closestEnemy -= transform.position;
+            closestEnemy -= _transform.position;
             closestEnemy = new Vector3(closestEnemy.x, 0, closestEnemy.z);
 
-            transform.rotation = Quaternion.Lerp(
-                transform.rotation, Quaternion.LookRotation(closestEnemy), autoRotationSmoothness);
+            _transform.rotation = Quaternion.Lerp(
+                _transform.rotation, Quaternion.LookRotation(closestEnemy), _autoRotationSmoothness);
         }
 
         private void RotateToJoystickDir(Joystick joystick, float rotationSmoothness)
         {
             Vector3 moveDir = new Vector3(joystick.Horizontal, 0, joystick.Vertical);
 
-            transform.rotation = Quaternion.Lerp(
-                transform.rotation, Quaternion.LookRotation(moveDir), rotationSmoothness);
+            _transform.rotation = Quaternion.Lerp(
+                _transform.rotation, Quaternion.LookRotation(moveDir), rotationSmoothness);
         }
 
         private IEnumerator UpdateClosestEnemy()
@@ -98,26 +98,26 @@ namespace PlayerLib
             while (true)
             {
                 ComponentSearcher<ZombieContainer>.InRadius(
-                    transform.position, weaponsController.CurrentGun.Distance, out List<ZombieContainer> closestEnemies);
+                    _transform.position, _weaponsController.CurrentGun.Distance, out List<ZombieContainer> closestEnemies);
 
                 bool enemyInRange = false;
                 ZombieContainer closestEnemy = null;
                 if (closestEnemies != null)
                 {
-                    closestEnemy = ComponentSearcher<ZombieContainer>.Closest(transform.position, closestEnemies);
+                    closestEnemy = ComponentSearcher<ZombieContainer>.Closest(_transform.position, closestEnemies);
 
                     if (closestEnemy && closestEnemy.HealthController.Health > 0)
                     {
-                        float distanceToEnemy = Vector3.Distance(transform.position, closestEnemy.transform.position);
-                        enemyInRange = distanceToEnemy <= weaponsController.CurrentGun.Distance;
+                        float distanceToEnemy = Vector3.Distance(_transform.position, closestEnemy.transform.position);
+                        enemyInRange = distanceToEnemy <= _weaponsController.CurrentGun.Distance;
                     }
                 }
                 if (enemyInRange)
-                    this.closestEnemy = closestEnemy;
+                    this._closestEnemy = closestEnemy;
                 else
-                    this.closestEnemy = null;
+                    this._closestEnemy = null;
 
-                yield return new WaitForSeconds(timeToUpdateClosestEnemy);
+                yield return new WaitForSeconds(TIME_TO_UPDATE_CLOSEST_ENEMY);
             }
         }
 

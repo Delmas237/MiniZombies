@@ -6599,6 +6599,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 386480403880364309, guid: 6db528ec6fc99994ca868cc2c215fd8f, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 931542319371266074, guid: 6db528ec6fc99994ca868cc2c215fd8f, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -7748,8 +7752,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9afaf670ae0f51438ca939ac7c0a8b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coinsText: {fileID: 251421626}
-  maxWaveText: {fileID: 1428712007}
+  _coinsText: {fileID: 251421626}
+  _maxWaveText: {fileID: 1428712007}
 --- !u!1 &1079237610
 GameObject:
   m_ObjectHideFlags: 0
@@ -9704,6 +9708,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 146485615}
     m_Modifications:
+    - target: {fileID: -1710904305303764804, guid: e1810b681bfc5e74893bff9ba30f1b24, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -301051384682500517, guid: e1810b681bfc5e74893bff9ba30f1b24, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -11567,8 +11575,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5f4e816bdfc3914582463317295244c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationAngle: {x: 1, y: 6, z: 0}
-  rotationSpeed: {x: 0.002, y: 0.005, z: 0}
+  _rotationAngle: {x: 1, y: 6, z: 0}
+  _rotationSpeed: {x: 0.002, y: 0.005, z: 0}
 --- !u!1001 &1475240985
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13070,6 +13078,10 @@ PrefabInstance:
     - target: {fileID: 774102368624648612, guid: d342bbb6cc2d7194a8e05c060d853646, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000177481691126542, guid: d342bbb6cc2d7194a8e05c060d853646, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1177211906028745975, guid: d342bbb6cc2d7194a8e05c060d853646, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -16599,11 +16611,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 144c421e385d28541a9de5883ba41611, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunsData: {fileID: 11400000, guid: afc016a82bde51c4583df8fe000e8d4d, type: 2}
-  localWeapons: {fileID: 1979931240}
-  items:
-  - gunType: 1
-    damageParameter:
+  _gunsData: {fileID: 11400000, guid: afc016a82bde51c4583df8fe000e8d4d, type: 2}
+  _localWeapons: {fileID: 1979931240}
+  _items:
+  - _gunType: 1
+    _damageParameter:
       Price:
         Value: 180
         Text: {fileID: 1510013966}
@@ -16614,7 +16626,7 @@ MonoBehaviour:
         Value: 30
         Text: {fileID: 294443351}
       PurchaseButton: {fileID: 706006658}
-    cooldownParameter:
+    _cooldownParameter:
       Price:
         Value: 350
         Text: {fileID: 55765033}
@@ -16625,7 +16637,7 @@ MonoBehaviour:
         Value: 0.1
         Text: {fileID: 641386690}
       PurchaseButton: {fileID: 1727827048}
-    distanceParameter:
+    _distanceParameter:
       Price:
         Value: 200
         Text: {fileID: 1603719515}
@@ -16636,8 +16648,8 @@ MonoBehaviour:
         Value: 5
         Text: {fileID: 479065488}
       PurchaseButton: {fileID: 346319677}
-  - gunType: 2
-    damageParameter:
+  - _gunType: 2
+    _damageParameter:
       Price:
         Value: 180
         Text: {fileID: 741143036}
@@ -16648,7 +16660,7 @@ MonoBehaviour:
         Value: 28
         Text: {fileID: 1514597985}
       PurchaseButton: {fileID: 1066914885}
-    cooldownParameter:
+    _cooldownParameter:
       Price:
         Value: 150
         Text: {fileID: 1966434345}
@@ -16659,7 +16671,7 @@ MonoBehaviour:
         Value: 0.5
         Text: {fileID: 482571823}
       PurchaseButton: {fileID: 1276499530}
-    distanceParameter:
+    _distanceParameter:
       Price:
         Value: 200
         Text: {fileID: 355792099}
@@ -16670,8 +16682,8 @@ MonoBehaviour:
         Value: 4
         Text: {fileID: 1465189095}
       PurchaseButton: {fileID: 319769475}
-  - gunType: 3
-    damageParameter:
+  - _gunType: 3
+    _damageParameter:
       Price:
         Value: 180
         Text: {fileID: 968183110}
@@ -16682,7 +16694,7 @@ MonoBehaviour:
         Value: 62
         Text: {fileID: 2115064089}
       PurchaseButton: {fileID: 2132235955}
-    cooldownParameter:
+    _cooldownParameter:
       Price:
         Value: 150
         Text: {fileID: 1943281634}
@@ -16693,7 +16705,7 @@ MonoBehaviour:
         Value: 0.5
         Text: {fileID: 1894089650}
       PurchaseButton: {fileID: 369239720}
-    distanceParameter:
+    _distanceParameter:
       Price:
         Value: 190
         Text: {fileID: 1617404209}

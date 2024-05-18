@@ -5,8 +5,8 @@ namespace PlayerLib
 {
     public class PlayerRewardsManager : MonoBehaviour
     {
-        [SerializeField] private PlayerContainer player;
-        [SerializeField] private EnemyWaveManager enemyWaveManager;
+        [SerializeField] private PlayerContainer _player;
+        [SerializeField] private EnemyWaveManager _enemyWaveManager;
 
         private void Start()
         {
@@ -17,7 +17,7 @@ namespace PlayerLib
             EnemyWaveManager.WaveFinished -= LocalCoinsWon;
         }
 
-        private void LocalCoinsWon() => player.CurrencyController.Coins += enemyWaveManager.CurrentWaveEnemiesDied * 5;
+        private void LocalCoinsWon() => _player.CurrencyController.Add(_enemyWaveManager.CurrentWaveEnemiesDied * 5);
 
         public static int GlobalCoinsWon()
         {

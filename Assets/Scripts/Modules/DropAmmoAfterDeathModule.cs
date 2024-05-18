@@ -10,16 +10,16 @@ namespace Weapons
     {
         [field: SerializeField] public bool Enabled { get; set; } = true;
         [Space(5)]
-        [SerializeField, Range(0f, 1f)] private float dropChance = 1;
+        [SerializeField, Range(0f, 1f)] private float _dropChance = 1;
         public IPool<AmmoPack> AmmoPool { get; set; }
-        private Transform transform;
+        private Transform _transform;
 
-        public void Initialize(HealthController _healthController, Transform _transform)
+        public void Initialize(IHealthController healthController, Transform transform)
         {
             if (Enabled)
             {
-                _healthController.Died += DropAmmo;
-                transform = _transform;
+                healthController.Died += DropAmmo;
+                _transform = transform;
             }
         }
 
@@ -27,11 +27,11 @@ namespace Weapons
         {
             float rnd = Random.Range(0f, 1f);
 
-            if (rnd < dropChance)
+            if (rnd < _dropChance)
             {
                 AmmoPack ammo = AmmoPool.GetFreeElement();
 
-                Vector3 defaultSpawnPos = transform.position + 0.7f * Vector3.up;
+                Vector3 defaultSpawnPos = _transform.position + 0.7f * Vector3.up;
                 ammo.transform.SetPositionAndRotation(defaultSpawnPos, Quaternion.identity);
             }
         }

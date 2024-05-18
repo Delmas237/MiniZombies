@@ -8,19 +8,19 @@ namespace LocalShopLib
 {
     public class LocalShop : MonoBehaviour
     {
-        [SerializeField] private List<LocalShopItem> shopItems;
-        [SerializeField] private List<LocalShopWeapon> shopWeapons;
+        [SerializeField] private List<LocalShopItem> _shopItems;
+        [SerializeField] private List<LocalShopWeapon> _shopWeapons;
         [Space(10f)]
-        [SerializeField] private PlayerContainer player;
-        [SerializeField] private PlayerGunSlots playerGunSlots;
+        [SerializeField] private PlayerContainer _player;
+        [SerializeField] private PlayerGunSlots _playerGunSlots;
 
-        private List<int> weaponsLvl;
+        private List<int> _weaponsLvl;
 
         [Space(10f)]
-        [SerializeField] private GameObject shopButton;
-        [SerializeField] private GameObject shopPanel;
+        [SerializeField] private GameObject _shopButton;
+        [SerializeField] private GameObject _shopPanel;
 
-        [SerializeField] private AudioSource getGunSound;
+        [SerializeField] private AudioSource _getGunSound;
 
         private void Start()
         {
@@ -34,16 +34,16 @@ namespace LocalShopLib
 
         private void UpdatePrice()
         {
-            for (int i = 0; i < shopWeapons.Count; i++)
-                shopWeapons[i].PriceText.text = shopWeapons[i].Price.ToString() + "$";
+            for (int i = 0; i < _shopWeapons.Count; i++)
+                _shopWeapons[i].PriceText.text = _shopWeapons[i].Price.ToString() + "$";
         }
 
         private void GunsLvlInitialize()
         {
-            weaponsLvl = new List<int>(shopWeapons.Count);
+            _weaponsLvl = new List<int>(_shopWeapons.Count);
 
-            for (int i = 0; i < shopWeapons.Count; i++)
-                weaponsLvl.Add(-1);
+            for (int i = 0; i < _shopWeapons.Count; i++)
+                _weaponsLvl.Add(-1);
         }
 
         private void OnDestroy()
@@ -54,12 +54,12 @@ namespace LocalShopLib
 
         private void ShopEnable()
         {
-            shopButton.SetActive(true);
+            _shopButton.SetActive(true);
         }
         private void ShopDisable()
         {
-            shopButton.SetActive(false);
-            shopPanel.SetActive(false);
+            _shopButton.SetActive(false);
+            _shopPanel.SetActive(false);
         }
 
         private void Update()
@@ -72,24 +72,24 @@ namespace LocalShopLib
         private void Cheats()
         {
             if (Input.GetKeyDown(KeyCode.N))
-                player.CurrencyController.Coins += 100;
+                _player.CurrencyController.Add(100);
             if (Input.GetKeyDown(KeyCode.M))
-                player.CurrencyController.Coins -= 100;
+                _player.CurrencyController.Spend(100);
         }
 
         public void PurchaseGun(int ID)
         {
-            if (weaponsLvl[ID] >= 0)
+            if (_weaponsLvl[ID] >= 0)
             {
                 GunLvlUp(ID);
                 return;
             }
 
-            if (player.CurrencyController.Coins >= shopWeapons[ID].Price)
+            if (_player.CurrencyController.Coins >= _shopWeapons[ID].Price)
             {
-                player.CurrencyController.Coins -= shopWeapons[ID].Price;
+                _player.CurrencyController.Spend(_shopWeapons[ID].Price);
 
-                weaponsLvl[ID]++;
+                _weaponsLvl[ID]++;
 
                 UpdateLotText(ID);
                 GetGun(ID);
@@ -97,41 +97,41 @@ namespace LocalShopLib
         }
         private void GunLvlUp(int ID)
         {
-            if (player.CurrencyController.Coins >= shopWeapons[ID].PriceLvlBoost)
+            if (_player.CurrencyController.Coins >= _shopWeapons[ID].PriceLvlBoost)
             {
-                player.CurrencyController.Coins -= shopWeapons[ID].PriceLvlBoost;
+                _player.CurrencyController.Spend(_shopWeapons[ID].PriceLvlBoost);
 
-                weaponsLvl[ID]++;
-                player.WeaponsController.Guns[ID + 1].Damage += shopWeapons[ID].DamageLvlBoost;
+                _weaponsLvl[ID]++;
+                _player.WeaponsController.Guns[ID + 1].Damage += _shopWeapons[ID].DamageLvlBoost;
 
                 UpdateLotText(ID);
             }
         }
         public void GetGun(int ID)
         {
-            if (weaponsLvl[ID] >= 0 && playerGunSlots.GunSlot2 != (GunType)ID + 1)
+            if (_weaponsLvl[ID] >= 0 && _playerGunSlots.GunSlot2 != (GunType)ID + 1)
             {
-                playerGunSlots.GunSlot2 = (GunType)ID + 1;
-                player.WeaponsController.ChangeGun(playerGunSlots.GunSlot2);
+                _playerGunSlots.GunSlot2 = (GunType)ID + 1;
+                _player.WeaponsController.ChangeGun(_playerGunSlots.GunSlot2);
 
-                getGunSound.Play();
+                _getGunSound.Play();
             }
         }
 
         private void UpdateLotText(int ID)
         {
-            shopWeapons[ID].PriceText.text = shopWeapons[ID].PriceLvlBoost + "$";
-            shopWeapons[ID].DamageText.text = $"{player.WeaponsController.Guns[ID + 1].Damage}dmg";
-            shopWeapons[ID].LvlText.text = $"{weaponsLvl[ID]} lvl";
+            _shopWeapons[ID].PriceText.text = _shopWeapons[ID].PriceLvlBoost + "$";
+            _shopWeapons[ID].DamageText.text = $"{_player.WeaponsController.Guns[ID + 1].Damage}dmg";
+            _shopWeapons[ID].LvlText.text = $"{_weaponsLvl[ID]} lvl";
         }
 
         public void PurchaseMedKit(int ID)
         {
-            if (player.CurrencyController.Coins >= shopItems[ID].Price &&
-                player.HealthController.Health < player.HealthController.MaxHealth)
+            if (_player.CurrencyController.Coins >= _shopItems[ID].Price &&
+                _player.HealthController.Health < _player.HealthController.MaxHealth)
             {
-                player.CurrencyController.Coins -= shopItems[ID].Price;
-                player.HealthController.Health = player.HealthController.MaxHealth;
+                _player.CurrencyController.Spend(_shopItems[ID].Price);
+                _player.HealthController.Health = _player.HealthController.MaxHealth;
             }
         }
     }

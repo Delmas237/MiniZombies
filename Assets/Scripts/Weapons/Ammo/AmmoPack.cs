@@ -6,16 +6,21 @@ namespace Weapons
 {
     public class AmmoPack : MonoBehaviour
     {
-        [SerializeField] private int magnitude;
-        public IPool<AudioSource> DestroySoundPool { get; set; }
+        [SerializeField] private int _magnitude = 100;
+        private IPool<AudioSource> _destroySoundPool;
+
+        public void Intialize(IPool<AudioSource> destroySoundPool)
+        {
+            _destroySoundPool = destroySoundPool;
+        }
 
         private void OnTriggerEnter(Collider other)
         {
             if (other.TryGetComponent(out PlayerContainer player))
             {
-                player.WeaponsController.Bullets += magnitude;
+                player.WeaponsController.AddBullets(_magnitude);
 
-                AudioSource audioSource = DestroySoundPool.GetFreeElement();
+                AudioSource audioSource = _destroySoundPool.GetFreeElement();
                 audioSource.transform.position = transform.position;
 
                 gameObject.SetActive(false);
