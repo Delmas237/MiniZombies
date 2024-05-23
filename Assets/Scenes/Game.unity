@@ -335,6 +335,7 @@ Transform:
   - {fileID: 1498937195}
   - {fileID: 435148744}
   - {fileID: 149138798}
+  - {fileID: 1308993748}
   m_Father: {fileID: 655441476}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &6241627 stripped
@@ -44992,10 +44993,12 @@ MonoBehaviour:
   - {fileID: 1452131743}
   - {fileID: 847929229}
   - {fileID: 64070230}
-  _enemyPools:
+  _zombiePools:
   - {fileID: 1498937196}
   - {fileID: 435148745}
   - {fileID: 149138799}
+  _zombieShooterPools:
+  - {fileID: 1308993749}
   _player: {fileID: 7560204000705171858}
   _ammoPackPool: {fileID: 1605113706}
 --- !u!1 &1110599362
@@ -53762,6 +53765,54 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 97e952bd26ec47d4cbbef6db60bf1335, type: 3}
   m_PrefabInstance: {fileID: 1307200652}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1308993747
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1308993748}
+  - component: {fileID: 1308993749}
+  m_Layer: 0
+  m_Name: PoolZombiePoliceMan
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1308993748
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1308993747}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4840894}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1308993749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1308993747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 871252b22ff39dd459caa183476472b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _zombie: {fileID: 3714704166370655154, guid: 8b371915b8919114792a046d54000db8, type: 3}
+  _amount: 10
+  _autoExpand: 1
+  _poolParticleSystem: {fileID: 164567635}
 --- !u!1 &1309087563
 GameObject:
   m_ObjectHideFlags: 0

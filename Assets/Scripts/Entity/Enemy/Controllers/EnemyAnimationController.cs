@@ -11,10 +11,10 @@ namespace EnemyLib
 
         private IHealthController _healthController;
         private IEnemyMoveController _moveController;
-        private EnemyAttackController _attackController;
+        private IEnemyAttackController _attackController;
         private Animator _animator;
 
-        public void Initialize(IHealthController healthController, IEnemyMoveController moveController, EnemyAttackController attackController, 
+        public void Initialize(IHealthController healthController, IEnemyMoveController moveController, IEnemyAttackController attackController, 
             Animator animator)
         {
             _healthController = healthController;

@@ -10,10 +10,10 @@ namespace PlayerLib
         private Animator _animator;
 
         private IHealthController _healthController;
-        private IPlayerWeaponsController _weaponsController;
+        private IWeaponsController _weaponsController;
         private IPlayerMoveController _moveController;
 
-        public void Initialize(IHealthController healthController, IPlayerWeaponsController weaponsController, IPlayerMoveController moveController, 
+        public void Initialize(IHealthController healthController, IWeaponsController weaponsController, IPlayerMoveController moveController, 
             Animator animator)
         {
             _healthController = healthController;

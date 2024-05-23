@@ -978,6 +978,7 @@ MonoBehaviour:
       _damageSound: {fileID: 303503531}
       _healSound: {fileID: 377062677}
       _deathSound: {fileID: 175399891}
+      _deathPitchRandomRange: 0
   _weaponsController:
     _bullets: 100
     _guns:
@@ -988,10 +989,10 @@ MonoBehaviour:
     <AttackJoystick>k__BackingField: {fileID: 0}
     _shootLineRoot: {fileID: 2306417906408800393}
   _moveController:
-    maxSpeed: 3.65
+    _maxSpeed: 3.65
     <MoveJoystick>k__BackingField: {fileID: 0}
-    rotationSmoothness: 0.25
-    autoRotationSmoothness: 0.2
+    _rotationSmoothness: 0.25
+    _autoRotationSmoothness: 0.2
 --- !u!54 &4240113845284777554
 Rigidbody:
   m_ObjectHideFlags: 0

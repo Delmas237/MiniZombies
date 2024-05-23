@@ -20,7 +20,6 @@ namespace PlayerLib
         [Header("Rotation Smoothness")]
         [SerializeField] private float _rotationSmoothness = 0.25f;
         [SerializeField] private float _autoRotationSmoothness = 0.2f;
-        public bool AutoRotate { get; set; }
 
         private Rigidbody _rb;
         private Transform _transform;
@@ -113,9 +112,9 @@ namespace PlayerLib
                     }
                 }
                 if (enemyInRange)
-                    this._closestEnemy = closestEnemy;
+                    _closestEnemy = closestEnemy;
                 else
-                    this._closestEnemy = null;
+                    _closestEnemy = null;
 
                 yield return new WaitForSeconds(TIME_TO_UPDATE_CLOSEST_ENEMY);
             }

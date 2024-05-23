@@ -18,7 +18,9 @@ namespace EnemyLib
 
         [SerializeField] private List<Transform> _spawnDots;
 
-        [SerializeField] private List<ZombiePool> _enemyPools;
+        [SerializeField] private List<ZombiePool> _zombiePools;
+        [SerializeField] private List<ZombieShooterPool> _zombieShooterPools;
+
         private List<ZombieContainer> _enemiesOnScene = new List<ZombieContainer>();
 
         [SerializeField] private PlayerContainer _player;
@@ -26,8 +28,11 @@ namespace EnemyLib
 
         private void Start()
         {
-            for (int i = 0; i < _enemyPools.Count; i++)
-                _enemyPools[i].Initialize(_spawnDots, _player, _ammoPackPool, _enemyPools[i].transform);
+            for (int i = 0; i < _zombiePools.Count; i++)
+                _zombiePools[i].Initialize(_spawnDots, _player, _ammoPackPool, _zombiePools[i].transform);
+            
+            for (int i = 0; i < _zombieShooterPools.Count; i++)
+                _zombieShooterPools[i].Initialize(_spawnDots, _player, _ammoPackPool, _zombieShooterPools[i].transform);
 
             StartCoroutine(SpawnTimer());
 
@@ -54,11 +59,11 @@ namespace EnemyLib
 
         private void SpawnEnemy()
         {
-            if (_player)
+            if (_player != null)
             {
-                int rnd = Random.Range(0, _enemyPools.Count);
+                int rnd = Random.Range(0, _zombieShooterPools.Count);
 
-                ZombieContainer enemy = _enemyPools[rnd].GetFreeElement();
+                ZombieContainer enemy = _zombieShooterPools[rnd].GetFreeElement();
                 _enemiesOnScene.Add(enemy);
             }
         }

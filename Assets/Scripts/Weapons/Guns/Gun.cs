@@ -30,7 +30,7 @@ namespace Weapons
         [SerializeField] protected Transform _shootDir;
         [SerializeField] protected Transform _muzzle;
 
-        [SerializeField] protected PoolParticleSystem _shotPool;
+        public IPool<ParticleSystem> ShotPool { get; set; }
         protected AudioSource _shotSound;
 
         protected virtual void Update()
@@ -67,7 +67,7 @@ namespace Weapons
         {
             if (gameObject.activeInHierarchy)
             {
-                GameObject shot = _shotPool.GetFreeElement().gameObject;
+                GameObject shot = ShotPool.GetFreeElement().gameObject;
                 _shotSound = shot.GetComponent<AudioSource>();
                 shot.transform.SetPositionAndRotation(_muzzle.position, _muzzle.rotation);
 

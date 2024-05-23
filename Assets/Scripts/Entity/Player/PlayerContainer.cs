@@ -25,7 +25,7 @@ namespace PlayerLib
         {
             _healthController.Initialize();
             _animationController.Initialize(HealthController, WeaponsController, MoveController, GetComponent<Animator>());
-            _weaponsController.Initialize(HealthController, MoveController);
+            _weaponsController.Initialize(HealthController);
             _moveController.Initialize(HealthController, WeaponsController, transform, GetComponent<Rigidbody>());
         }
 

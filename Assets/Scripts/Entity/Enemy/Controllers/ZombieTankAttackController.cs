@@ -5,7 +5,7 @@ using UnityEngine;
 namespace EnemyLib
 {
     [Serializable]
-    public class EnemyAttackController
+    public class ZombieTankAttackController : IEnemyAttackController
     {
         public bool IsAttack { get; set; }
         private IPlayer _targetCollision;
