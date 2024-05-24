@@ -8,26 +8,30 @@ namespace GlobalShopLib
     public class GlobalShopItem
     {
         [SerializeField] private GunType _gunType;
-        private GunData _gunData;
+        private GunSaveableData _gunData;
 
         [SerializeField] private GlobalShopParameter _damageParameter;
         [SerializeField] private GlobalShopParameter _cooldownParameter;
         [SerializeField] private GlobalShopParameter _distanceParameter;
 
-        public event Action Updated;
+        public event Action<GunSaveableData> Updated;
 
         public void Intialize()
         {
-            _gunData = GunsDataSaver.GunsData[(int)_gunType];
-            UpdateInfo();
+            if (GunsDataSaver.GunsSaveableData.ContainsKey(_gunType))
+            {
+                _gunData = GunsDataSaver.GunsSaveableData[_gunType];
 
-            _damageParameter.Initialize();
-            _cooldownParameter.Initialize();
-            _distanceParameter.Initialize();
+                UpdateInfo();
 
-            _damageParameter.Purchased += UpgradeDamage;
-            _cooldownParameter.Purchased += UpgradeCooldown;
-            _distanceParameter.Purchased += UpgradeDistance;
+                _damageParameter.Initialize();
+                _cooldownParameter.Initialize();
+                _distanceParameter.Initialize();
+
+                _damageParameter.Purchased += UpgradeDamage;
+                _cooldownParameter.Purchased += UpgradeCooldown;
+                _distanceParameter.Purchased += UpgradeDistance;
+            }
         }
         public void OnDestroy()
         {
@@ -52,21 +56,21 @@ namespace GlobalShopLib
             _gunData.Damage += _damageParameter.Up.Value;
             _damageParameter.Info.Value += _damageParameter.Up.Value;
 
-            Updated?.Invoke();
+            Updated?.Invoke(_gunData);
         }
         private void UpgradeCooldown()
         {
             _gunData.Cooldown -= _cooldownParameter.Up.Value;
             _cooldownParameter.Info.Value -= _cooldownParameter.Up.Value;
 
-            Updated?.Invoke();
+            Updated?.Invoke(_gunData);
         }
         private void UpgradeDistance()
         {
             _gunData.Distance += _distanceParameter.Up.Value;
             _distanceParameter.Info.Value += _distanceParameter.Up.Value;
 
-            Updated?.Invoke();
+            Updated?.Invoke(_gunData);
         }
     }
 }

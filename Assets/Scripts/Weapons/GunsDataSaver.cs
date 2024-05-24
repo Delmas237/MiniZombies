@@ -1,87 +1,92 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using UnityEngine;
 
 namespace Weapons
 {
     public static class GunsDataSaver
     {
-        private static List<GunData> _gunsData = new List<GunData>();
-        public static IReadOnlyList<GunData> GunsData => _gunsData;
+        private static bool _initialized;
+        private const string RESOURCES_DATA_PATH = "Data/Guns";
+        private static readonly Dictionary<GunType, GunData> _gunsData = new Dictionary<GunType, GunData>();
 
-        public static void Load(List<GunData> guns)
+        private static readonly Dictionary<GunType, GunSaveableData> _gunsSaveableData = new Dictionary<GunType, GunSaveableData>();
+        public static IReadOnlyDictionary<GunType, GunSaveableData> GunsSaveableData
         {
-            _gunsData = guns;
+            get
+            {
+                if (!_initialized)
+                    Initialize();
+                return _gunsSaveableData;
+            }
+        }
+
+        private static void Initialize()
+        {
+            if (_initialized) 
+                return;
+
+            _initialized = true;
+            GunData[] gunsData = Resources.LoadAll<GunData>(RESOURCES_DATA_PATH);
+
+            foreach (GunData gunData in gunsData)
+                _gunsData.Add(gunData.Type, gunData);
 
             int allGunTypes = Enum.GetValues(typeof(GunType)).Length;
 
-            List<GunJSONData> gunsJSONData = new List<GunJSONData>();
             for (int i = 0; i < allGunTypes; i++)
             {
-                string path = GetPathForGun((GunType)i);
+                GunType currentType = (GunType)i;
+                string path = GetPathForGun(currentType);
 
                 if (!File.Exists(path))
-                    Save();
+                {
+                    GunSaveableData gunSaveableData = new GunSaveableData(_gunsData[currentType]);
+                    SaveData(gunSaveableData);
+                }
 
                 string serializedGun = File.ReadAllText(path);
-                GunJSONData gunData = JsonUtility.FromJson<GunJSONData>(serializedGun);
-                gunsJSONData.Add(gunData);
-            }
-            CopyJSONToGunsData(gunsJSONData);
-        }
-
-        public static void CopyToGunsData(List<Gun> guns)
-        {
-            for (int i = 0; i < guns.Count; i++)
-            {
-                if (GunsData.Any(g => g.Type == guns[i].Type))
-                {
-                    Gun gun = guns[i];
-                    GunData gunData = GunsData.First(g => g.Type == gun.Type);
-
-                    gun.Damage = gunData.Damage;
-                    gun.Cooldown = gunData.Cooldown;
-                    gun.Distance = gunData.Distance;
-                }
-            }
-        }
-        private static void CopyJSONToGunsData(List<GunJSONData> gunsJSONData)
-        {
-            for (int i = 0; i < _gunsData.Count; i++)
-            {
-                if (gunsJSONData.Any(g => g.Type == _gunsData[i].Type))
-                {
-                    GunData gunData = _gunsData[i];
-                    GunJSONData gunJSONData = gunsJSONData.First(g => g.Type == _gunsData[i].Type);
-
-                    gunData.Damage = gunJSONData.Damage;
-                    gunData.Cooldown = gunJSONData.Cooldown;
-                    gunData.Distance = gunJSONData.Distance;
-                }
+                GunSaveableData gunData = JsonUtility.FromJson<GunSaveableData>(serializedGun);
+                _gunsSaveableData.Add(gunData.Type, gunData);
             }
         }
 
-        public static void Save()
+        public static bool LoadData(Gun gun)
         {
-            List<GunJSONData> gunsJSONData = new List<GunJSONData>();
-            foreach (GunData gunData in _gunsData)
+            if (!_initialized)
+                Initialize();
+
+            if (_gunsSaveableData.ContainsKey(gun.Type))
             {
-                GunJSONData gunJSONData = new GunJSONData(gunData.Type, gunData.Damage, gunData.Cooldown, gunData.Distance);
-                gunsJSONData.Add(gunJSONData);
+                GunSaveableData gunSaveableData = _gunsSaveableData[gun.Type];
 
-                string serialzedGun = JsonUtility.ToJson(gunJSONData);
+                gun.Damage = gunSaveableData.Damage;
+                gun.Cooldown = gunSaveableData.Cooldown;
+                gun.Distance = gunSaveableData.Distance;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
-                string path = GetPathForGun(gunJSONData.Type);
-                ValidateDirectory(path);
+        public static void SaveData(GunSaveableData gunSaveableData)
+        {
+            if (!_initialized)
+                Initialize();
 
-                File.WriteAllText(path, serialzedGun);
+            string serializedGun = JsonUtility.ToJson(gunSaveableData);
+
+            string path = GetPathForGun(gunSaveableData.Type);
+            ValidateDirectory(path);
+
+            File.WriteAllText(path, serializedGun);
 
 #if UNITY_EDITOR
-                Debug.Log($"Gun json saved: {serialzedGun}");
+            Debug.Log($"Gun json saved: {serializedGun}");
 #endif
-            }
         }
 
         private static void ValidateDirectory(string path)
