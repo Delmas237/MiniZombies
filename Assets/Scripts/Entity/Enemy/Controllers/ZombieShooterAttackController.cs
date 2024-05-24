@@ -13,6 +13,8 @@ namespace EnemyLib
         public int Damage => _damage;
 
         [SerializeField] private float _cooldown = 1f;
+        [Space(10)]
+        [SerializeField, Tooltip("Delay before firing")] private float _shootDelay = 1f;
 
         private IEnemyMoveController _moveController;
         private IWeaponsController _weaponsController;
@@ -55,18 +57,19 @@ namespace EnemyLib
         private void GetIntoPosition()
         {
             IsAttack = true;
-            CoroutineHelper.StartRoutine(Shoot());
+            CoroutineHelper.StartRoutine(ShootDelay(_shootDelay));
 
             if (_moveController.Agent.enabled)
                 _moveController.Agent.isStopped = true;
         }
-        private IEnumerator Shoot()
+
+        private IEnumerator ShootDelay(float delay)
         {
-            while (IsAttack && _moveController.Target.HealthController.Health > 0)
-            {
-                _weaponsController.PullTrigger();
-                yield return new WaitForSeconds(_cooldown + 0.01f);
-            }
+            float speedX = _animationController.AttackSpeedX;
+
+            _animationController.AttackSpeedX = 0;
+            yield return new WaitForSeconds(delay);
+            _animationController.AttackSpeedX = speedX;
         }
 
         private void GetOutPosition()

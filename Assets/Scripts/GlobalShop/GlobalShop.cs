@@ -20,7 +20,10 @@ namespace GlobalShopLib
         private void OnDestroy()
         {
             foreach (var item in _items)
+            {
+                item.Updated -= GunsDataSaver.SaveData;
                 item.OnDestroy();
+            }
         }
 
         private void Update()

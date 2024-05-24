@@ -693,6 +693,7 @@ MonoBehaviour:
   <AttackController>k__BackingField:
     _damage: 15
     _cooldown: 2
+    _shootDelay: 0.5
 --- !u!114 &5410159688505459878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1562,6 +1563,10 @@ PrefabInstance:
     - target: {fileID: 7371549726179397746, guid: 817032021e65a1a428bad43472a5e0ac, type: 3}
       propertyPath: cooldown
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7744849533872488209, guid: 817032021e65a1a428bad43472a5e0ac, type: 3}
+      propertyPath: _loadData
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -8,17 +8,24 @@ namespace Weapons
 {
     public class GunsLoader : MonoBehaviour
     {
+        [SerializeField] private bool _loadData = true;
         [SerializeField] private List<GunInitializeData> _guns;
 
         private void Awake()
         {
             foreach (GunInitializeData gunInitializeData in _guns)
-                gunInitializeData.Gun.ShotPool = gunInitializeData.ShotPool;
+            {
+                if (gunInitializeData != null && gunInitializeData.ShotPool != null)
+                    gunInitializeData.Gun.ShotPool = gunInitializeData.ShotPool;
+            }
 
-            List<Gun> guns = _guns.Select(g => g.Gun).ToList();
+            if (_loadData)
+            {
+                List<Gun> guns = _guns.Select(g => g.Gun).ToList();
 
-            foreach (Gun gun in guns)
-                GunsDataSaver.LoadData(gun);
+                foreach (Gun gun in guns)
+                    GunsDataSaver.LoadData(gun);
+            }
         }
     }
 

@@ -40,5 +40,7 @@ namespace EnemyLib
             AttackController.IsAttack = false;
             enabled = false;
         }
+
+        private void Shoot() => WeaponsController.PullTrigger();
     }
 }
