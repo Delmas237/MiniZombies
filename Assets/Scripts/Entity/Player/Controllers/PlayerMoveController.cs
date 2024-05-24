@@ -29,7 +29,7 @@ namespace PlayerLib
 
         private ZombieContainer _closestEnemy;
         private const float TIME_TO_UPDATE_CLOSEST_ENEMY = 0.35f;
-        private Coroutine ClosestEnemyCoroutine;
+        private Coroutine _closestEnemyCoroutine;
 
         public void Initialize(IHealthController healthController, IPlayerWeaponsController weaponsController, Transform transform, 
             Rigidbody rigidbody)
@@ -41,7 +41,7 @@ namespace PlayerLib
 
             _healthController.Died += SetControllableFalse;
 
-            ClosestEnemyCoroutine = CoroutineHelper.StartRoutine(UpdateClosestEnemy());
+            _closestEnemyCoroutine = CoroutineHelper.StartRoutine(UpdateClosestEnemy());
         }
         private void SetControllableFalse() => _controllable = false;
 
@@ -122,7 +122,7 @@ namespace PlayerLib
 
         public void OnDestroy()
         {
-            CoroutineHelper.StopRoutine(ClosestEnemyCoroutine);
+            CoroutineHelper.StopRoutine(_closestEnemyCoroutine);
         }
     }
 }

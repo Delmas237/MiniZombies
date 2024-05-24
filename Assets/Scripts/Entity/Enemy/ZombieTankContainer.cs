@@ -16,9 +16,14 @@ namespace EnemyLib
             _healthController.Initialize();
             _animationController.Initialize(HealthController, MoveController, AttackController, GetComponent<Animator>());
             AttackController.Initialize(HealthController, MoveController);
-            _moveController.Initialize(GetComponent<NavMeshAgent>());
+            _moveController.Initialize(GetComponent<NavMeshAgent>(), transform, AttackController);
 
             DropAmmoAfterDeathModule.Initialize(HealthController, transform);
+        }
+
+        private void OnEnable()
+        {
+            _moveController.OnEnable();
         }
 
         protected virtual void Update()
