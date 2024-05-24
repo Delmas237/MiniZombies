@@ -7,19 +7,18 @@ namespace GlobalShopLib
     public class GlobalShop : MonoBehaviour
     {
         [SerializeField] private GunsData _gunsData;
-        [SerializeField] private GameObject _localWeapons;
+        [SerializeField] private List<Gun> _guns;
         [SerializeField] private List<GlobalShopItem> _items;
 
         private void Awake()
         {
-            GunsManager.Load(_gunsData.Guns);
-            Gun[] guns = GunsManager.GameObjectToGuns(_localWeapons);
-            GunsManager.CopyGunsValuesTo(ref guns);
+            GunsDataSaver.Load(_gunsData.Guns);
+            GunsDataSaver.CopyToGunsData(_guns);
 
             foreach (var item in _items)
             {
                 item.Intialize();
-                item.Updated += GunsManager.Save;
+                item.Updated += GunsDataSaver.Save;
             }
         }
 
@@ -41,7 +40,7 @@ namespace GlobalShopLib
             if (Input.GetKeyDown(KeyCode.N))
                 Bank.Coins += 100;
             if (Input.GetKeyDown(KeyCode.B))
-                GunsManager.Save();
+                GunsDataSaver.Save();
         }
     }
 }

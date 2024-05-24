@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7371549724676782839}
+  - component: {fileID: 7744849533872488209}
   m_Layer: 0
   m_Name: Weapons
   m_TagString: Untagged
@@ -35,6 +36,28 @@ Transform:
   - {fileID: 6561833741498874628}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7744849533872488209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7371549724676782838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8916842549bf1514c8be71cc9ac7a3c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gunsData: {fileID: 11400000, guid: afc016a82bde51c4583df8fe000e8d4d, type: 2}
+  _guns:
+  - Gun: {fileID: 7371549726035719926}
+    ShotsPool: {fileID: 0}
+  - Gun: {fileID: 60767804659289434}
+    ShotsPool: {fileID: 0}
+  - Gun: {fileID: 7371549725607492157}
+    ShotsPool: {fileID: 0}
+  - Gun: {fileID: 7371549726179397746}
+    ShotsPool: {fileID: 0}
 --- !u!1 &7371549724949992761
 GameObject:
   m_ObjectHideFlags: 0
@@ -285,9 +308,8 @@ MonoBehaviour:
   <Cooldown>k__BackingField: 0.1
   <Distance>k__BackingField: 5
   <Consumption>k__BackingField: 1
-  shootDir: {fileID: 0}
+  _shootDir: {fileID: 0}
   _muzzle: {fileID: 7371549725190715488}
-  shotPool: {fileID: 0}
 --- !u!4 &6561833741934130894 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c23d3442f6622184391da15c29ca1ced, type: 3}
@@ -387,9 +409,8 @@ MonoBehaviour:
   <Cooldown>k__BackingField: 0.25
   <Distance>k__BackingField: 5
   <Consumption>k__BackingField: 0
-  shootDir: {fileID: 0}
+  _shootDir: {fileID: 0}
   _muzzle: {fileID: 7371549725795301826}
-  shotPool: {fileID: 0}
 --- !u!4 &6561833741664607381 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e78b5fe8c1b1d9047985c3b3edf2fcc3, type: 3}
@@ -489,9 +510,8 @@ MonoBehaviour:
   <Cooldown>k__BackingField: 0.5
   <Distance>k__BackingField: 6
   <Consumption>k__BackingField: 4
-  shootDir: {fileID: 0}
+  _shootDir: {fileID: 0}
   _muzzle: {fileID: 7371549726180331902}
-  shotPool: {fileID: 0}
 --- !u!4 &6561833741581401553 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1095122123249c540bb2057691d50174, type: 3}
@@ -591,9 +611,8 @@ MonoBehaviour:
   <Cooldown>k__BackingField: 1.6
   <Distance>k__BackingField: 7.9
   <Consumption>k__BackingField: 2
-  shootDir: {fileID: 0}
+  _shootDir: {fileID: 0}
   _muzzle: {fileID: 7371549724949992766}
-  shotPool: {fileID: 0}
 --- !u!4 &6561833741498874628 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 63e373aaeb7076e47a42154dfe1512e9, type: 3}

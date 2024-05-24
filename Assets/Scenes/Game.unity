@@ -90730,16 +90730,20 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 640186035}
     m_Modifications:
-    - target: {fileID: 391794527, guid: bfd8f93b916326940acee567443496c6, type: 3}
-      propertyPath: _shotPool
-      value: 
-      objectReference: {fileID: 2015627715}
-    - target: {fileID: 835748756, guid: bfd8f93b916326940acee567443496c6, type: 3}
-      propertyPath: _shotPool
+    - target: {fileID: 952013202575428211, guid: bfd8f93b916326940acee567443496c6, type: 3}
+      propertyPath: _guns.Array.data[0].ShotPool
       value: 
       objectReference: {fileID: 164567635}
-    - target: {fileID: 950084880, guid: bfd8f93b916326940acee567443496c6, type: 3}
-      propertyPath: _shotPool
+    - target: {fileID: 952013202575428211, guid: bfd8f93b916326940acee567443496c6, type: 3}
+      propertyPath: _guns.Array.data[1].ShotPool
+      value: 
+      objectReference: {fileID: 1871039307}
+    - target: {fileID: 952013202575428211, guid: bfd8f93b916326940acee567443496c6, type: 3}
+      propertyPath: _guns.Array.data[2].ShotPool
+      value: 
+      objectReference: {fileID: 2015627715}
+    - target: {fileID: 952013202575428211, guid: bfd8f93b916326940acee567443496c6, type: 3}
+      propertyPath: _guns.Array.data[3].ShotPool
       value: 
       objectReference: {fileID: 300614173}
     - target: {fileID: 3897444098375238019, guid: bfd8f93b916326940acee567443496c6, type: 3}
@@ -90794,10 +90798,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7393470864971495480, guid: bfd8f93b916326940acee567443496c6, type: 3}
-      propertyPath: _shotPool
+    - target: {fileID: 7560204000705171854, guid: bfd8f93b916326940acee567443496c6, type: 3}
+      propertyPath: _guns.Array.data[0].ShotsPool
+      value: 
+      objectReference: {fileID: 164567635}
+    - target: {fileID: 7560204000705171854, guid: bfd8f93b916326940acee567443496c6, type: 3}
+      propertyPath: _guns.Array.data[1].ShotsPool
       value: 
       objectReference: {fileID: 1871039307}
+    - target: {fileID: 7560204000705171854, guid: bfd8f93b916326940acee567443496c6, type: 3}
+      propertyPath: _guns.Array.data[2].ShotsPool
+      value: 
+      objectReference: {fileID: 2015627715}
+    - target: {fileID: 7560204000705171854, guid: bfd8f93b916326940acee567443496c6, type: 3}
+      propertyPath: _guns.Array.data[3].ShotsPool
+      value: 
+      objectReference: {fileID: 300614173}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

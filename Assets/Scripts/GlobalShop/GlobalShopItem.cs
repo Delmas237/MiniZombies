@@ -18,7 +18,7 @@ namespace GlobalShopLib
 
         public void Intialize()
         {
-            _gunData = GunsManager.Guns[(int)_gunType];
+            _gunData = GunsDataSaver.GunsData[(int)_gunType];
             UpdateInfo();
 
             _damageParameter.Initialize();

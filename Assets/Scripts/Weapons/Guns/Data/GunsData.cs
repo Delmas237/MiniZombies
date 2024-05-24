@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Weapons
@@ -5,6 +6,6 @@ namespace Weapons
     [CreateAssetMenu(fileName = "GunsData", menuName = "Weapons/Guns")]
     public class GunsData : ScriptableObject
     {
-        public GunData[] Guns;
+        public List<GunData> Guns;
     }
 }
