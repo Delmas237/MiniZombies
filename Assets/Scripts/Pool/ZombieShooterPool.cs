@@ -21,14 +21,14 @@ namespace ObjectPool
 
         public void Initialize(List<Transform> spawnDots, IPlayer player, IPool<AmmoPack> ammoPackPool)
         {
+            if (_parent == null)
+                _parent = transform;
+
             _factory = new ZombieShooterFactory(_zombie, player, spawnDots, ammoPackPool, _poolParticleSystem);
-            _pool = new PoolBase<ZombieShooterContainer>(_zombie, _amount, _factory)
+            _pool = new PoolBase<ZombieShooterContainer>(_zombie, _amount, _factory, _parent)
             {
                 AutoExpand = _autoExpand
             };
-
-            if (_parent == null)
-                _parent = transform;
         }
 
         public ZombieShooterContainer GetFreeElement()
@@ -37,8 +37,6 @@ namespace ObjectPool
 
             _factory.ReconstructToDefault(enemy);
             _factory.Construct(enemy);
-
-            enemy.transform.SetParent(_parent);
 
             return enemy;
         }

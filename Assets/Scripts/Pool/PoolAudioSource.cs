@@ -15,14 +15,14 @@ namespace ObjectPool
 
         private void Awake()
         {
+            if (_parent == null)
+                _parent = transform;
+
             _factory = new FactoryAudioSource(_audioSource);
-            _pool = new PoolBase<AudioSource>(_audioSource, _amount, _factory)
+            _pool = new PoolBase<AudioSource>(_audioSource, _amount, _factory, _parent)
             {
                 AutoExpand = _autoExpand
             };
-
-            if (_parent == null)
-                _parent = transform;
         }
 
         public AudioSource GetFreeElement()
@@ -31,8 +31,6 @@ namespace ObjectPool
 
             _factory.ReconstructToDefault(audioSource);
             _factory.Construct(audioSource);
-
-            audioSource.transform.SetParent(_parent);
 
             return audioSource;
         }

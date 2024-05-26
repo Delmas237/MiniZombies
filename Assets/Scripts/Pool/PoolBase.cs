@@ -17,11 +17,12 @@ namespace ObjectPool
         private readonly FactoryBase<T> _factory;
         private readonly Transform _parent;
 
-        public PoolBase(T prefab, int count, FactoryBase<T> factory)
+        public PoolBase(T prefab, int count, FactoryBase<T> factory, Transform parent)
         {
             Prefab = prefab;
 
             _pool = new List<T>();
+            _parent = parent;
             _factory = factory;
             _hasFactory = true;
 
@@ -58,8 +59,9 @@ namespace ObjectPool
             if (_hasFactory)
                 createdObject = _factory.NewInstance();
             else
-                createdObject = Object.Instantiate(Prefab, _parent);
+                createdObject = Object.Instantiate(Prefab);
 
+            createdObject.transform.SetParent(_parent);
             createdObject.gameObject.SetActive(isActiveByDefault);
             _pool.Add(createdObject);
             return createdObject;
