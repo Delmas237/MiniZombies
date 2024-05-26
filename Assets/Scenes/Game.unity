@@ -44940,7 +44940,7 @@ GameObject:
   - component: {fileID: 1110232203}
   - component: {fileID: 1110232204}
   m_Layer: 0
-  m_Name: EnemySpawnManager
+  m_Name: EnemySpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44978,7 +44978,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1110232202}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4647d986968071f41afa67c8fe245a35, type: 3}
+  m_Script: {fileID: 11500000, guid: c68de97d1958eb544be3878d053fb83c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   <Spawn>k__BackingField: 1

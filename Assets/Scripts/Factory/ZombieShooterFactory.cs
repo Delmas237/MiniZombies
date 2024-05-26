@@ -1,6 +1,5 @@
 using EnemyLib;
 using ObjectPool;
-using PlayerLib;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,14 +11,14 @@ namespace Factory
 {
     public class ZombieShooterFactory : FactoryBase<ZombieShooterContainer>
     {
-        private readonly PlayerContainer _player;
+        private readonly IPlayer _player;
         private readonly List<Transform> _spawnDots;
         private readonly IPool<AmmoPack> _ammoPackPool;
         private readonly IPool<ParticleSystem> _shotPool;
 
-        public ZombieShooterFactory(ZombieShooterContainer prefab, Transform parent, PlayerContainer player, List<Transform> spawnDots, 
+        public ZombieShooterFactory(ZombieShooterContainer prefab, IPlayer player, List<Transform> spawnDots, 
             IPool<AmmoPack> ammoPackPool, IPool<ParticleSystem> shotPool)
-            : base(prefab, parent)
+            : base(prefab)
         {
             _player = player;
             _spawnDots = spawnDots;
@@ -74,7 +73,7 @@ namespace Factory
 
         private Transform SearchFurthest(ref List<Transform> spawnDots)
         {
-            Transform transform = ComponentSearcher<Transform>.Furthest(_player.transform.position, spawnDots);
+            Transform transform = ComponentSearcher<Transform>.Furthest(_player.Transform.position, spawnDots);
             spawnDots.Remove(transform);
             return transform;
         }

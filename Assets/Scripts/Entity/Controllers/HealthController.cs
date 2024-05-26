@@ -14,9 +14,12 @@ public class HealthController : IHealthController
             value = Mathf.Clamp(value, 0, MaxHealth);
 
             if (value == 0 && _health > 0)
-                Death();
-
-            if (value < _health)
+            {
+                _health = value;
+                Damaged?.Invoke();
+                Died?.Invoke();
+            }
+            else if (value < _health)
             {
                 _health = value;
                 Damaged?.Invoke();
@@ -39,9 +42,5 @@ public class HealthController : IHealthController
     {
         AudioController.Initialize(this);
         _health = MaxHealth;
-    }
-    private void Death()
-    {
-        Died?.Invoke();
     }
 }

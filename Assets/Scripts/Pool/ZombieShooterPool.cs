@@ -12,19 +12,23 @@ namespace ObjectPool
         [SerializeField] private ZombieShooterContainer _zombie;
         [SerializeField] private int _amount = 20;
         [SerializeField] private bool _autoExpand = true;
+        [SerializeField] private Transform _parent;
         [Space(10)]
         [SerializeField] private PoolParticleSystem _poolParticleSystem;
 
         private PoolBase<ZombieShooterContainer> _pool;
         private ZombieShooterFactory _factory;
 
-        public void Initialize(List<Transform> spawnDots, PlayerContainer player, IPool<AmmoPack> ammoPackPool, Transform parent)
+        public void Initialize(List<Transform> spawnDots, IPlayer player, IPool<AmmoPack> ammoPackPool)
         {
-            _factory = new ZombieShooterFactory(_zombie, parent, player, spawnDots, ammoPackPool, _poolParticleSystem);
+            _factory = new ZombieShooterFactory(_zombie, player, spawnDots, ammoPackPool, _poolParticleSystem);
             _pool = new PoolBase<ZombieShooterContainer>(_zombie, _amount, _factory)
             {
                 AutoExpand = _autoExpand
             };
+
+            if (_parent == null)
+                _parent = transform;
         }
 
         public ZombieShooterContainer GetFreeElement()
@@ -33,6 +37,8 @@ namespace ObjectPool
 
             _factory.ReconstructToDefault(enemy);
             _factory.Construct(enemy);
+
+            enemy.transform.SetParent(_parent);
 
             return enemy;
         }

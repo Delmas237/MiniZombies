@@ -13,7 +13,7 @@ namespace EnemyLib
         [Tooltip("Minimum currentWave for night version")]
         [SerializeField] private int _minWaveForNight = 2;
         [Space(10)]
-        [SerializeField] private EnemySpawnManager _spawnManager;
+        [SerializeField] private EnemySpawner _spawnManager;
         [SerializeField] private LightManager _lightManager;
         [SerializeField] private TextMeshProUGUI _waveUIInfo;
 
@@ -146,7 +146,7 @@ namespace EnemyLib
             }
             else //all enemies spawned, but not all died
             {
-                _spawnManager.Spawn = false;
+                _spawnManager.IsSpawn = false;
 
                 yield return new WaitForSeconds(1f);
                 StartCoroutine(WaveController());
@@ -155,7 +155,7 @@ namespace EnemyLib
 
         private IEnumerator WaveTransition()
         {
-            _spawnManager.Spawn = false;
+            _spawnManager.IsSpawn = false;
             yield return new WaitForSeconds(1);
 
             CurrentWaveIndex++;
@@ -180,7 +180,7 @@ namespace EnemyLib
 
             _spawnManager.Cooldown = _currentWave.SpawnSpeed;
 
-            _spawnManager.Spawn = true;
+            _spawnManager.IsSpawn = true;
             WaveStarted?.Invoke();
 
             StartCoroutine(WaveController());

@@ -4,7 +4,7 @@ namespace Factory
 {
     public class FactoryAudioSource : FactoryBase<AudioSource>
     {
-        public FactoryAudioSource(AudioSource prefab, Transform parent) : base(prefab, parent) { }
+        public FactoryAudioSource(AudioSource prefab) : base(prefab) { }
 
         public override void ReconstructToDefault(AudioSource audioSource) { }
 
