@@ -3,6 +3,7 @@ using JoystickLib;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace PlayerLib
@@ -96,20 +97,18 @@ namespace PlayerLib
         {
             while (true)
             {
-                ComponentSearcher<ZombieContainer>.InRadius(
-                    _transform.position, _weaponsController.CurrentGun.Distance, out List<ZombieContainer> closestEnemies);
+                IReadOnlyList<IEnemy> closestEnemies = EnemySpawner.EnemiesOnScene;
 
                 bool enemyInRange = false;
                 IEnemy closestEnemy = null;
-                if (closestEnemies != null)
+                if (closestEnemies.Count > 0)
                 {
-                    closestEnemy = ComponentSearcher<ZombieContainer>.Closest(_transform.position, closestEnemies);
+                    List<Transform> enemiesTransform = closestEnemies.Select(e => e.Transform).ToList();
+                    Transform transform = ComponentSearcher<Transform>.Closest(_transform.position, enemiesTransform);
+                    closestEnemy = closestEnemies[enemiesTransform.IndexOf(transform)];
 
-                    if (closestEnemy != null && closestEnemy.HealthController.Health > 0)
-                    {
-                        float distanceToEnemy = Vector3.Distance(_transform.position, closestEnemy.Transform.position);
-                        enemyInRange = distanceToEnemy <= _weaponsController.CurrentGun.Distance;
-                    }
+                    float distanceToEnemy = Vector3.Distance(_transform.position, closestEnemy.Transform.position);
+                    enemyInRange = distanceToEnemy <= _weaponsController.CurrentGun.Distance;
                 }
                 if (enemyInRange)
                     _closestEnemy = closestEnemy;

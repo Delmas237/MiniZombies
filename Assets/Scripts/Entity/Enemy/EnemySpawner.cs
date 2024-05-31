@@ -14,10 +14,10 @@ namespace EnemyLib
         [field: SerializeField] public float Cooldown { get; set; } = 3;
 
         [SerializeField] private int _maxEnemiesOnScene = 50;
-        public int EnemiesOnScene => _enemiesOnScene.Count;
         public int EnemiesDied { get; private set; }
 
-        private readonly List<IEnemy> _enemiesOnScene = new List<IEnemy>();
+        private static readonly List<IEnemy> _enemiesOnScene = new List<IEnemy>();
+        public static IReadOnlyList<IEnemy> EnemiesOnScene => _enemiesOnScene;
 
         [SerializeField] private List<Transform> _spawnDots;
 
@@ -49,12 +49,16 @@ namespace EnemyLib
 
             void StopSpawn() => IsSpawn = false;
         }
+        private void OnDestroy()
+        {
+            _enemiesOnScene.Clear();
+        }
 
         private IEnumerator SpawnController()
         {
             while (true)
             {
-                if (IsSpawn && EnemiesOnScene < _maxEnemiesOnScene)
+                if (IsSpawn && _enemiesOnScene.Count < _maxEnemiesOnScene)
                     Spawn();
 
                 yield return new WaitForSeconds(Cooldown);
@@ -73,7 +77,7 @@ namespace EnemyLib
         private void RemoveDiedEnemies()
         {
             List<IEnemy> enemiesForRemove = new List<IEnemy>();
-            foreach (var enemy in _enemiesOnScene)
+            foreach (var enemy in EnemiesOnScene)
             {
                 if (enemy == null || enemy.HealthController.Health <= 0)
                     enemiesForRemove.Add(enemy);

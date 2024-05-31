@@ -51,11 +51,11 @@ namespace EnemyLib
             switch (_currentWave.Type)
             {
                 case WaveType.EnemyAmount:
-                    if (_currentWave.EnemyAmount <= 0 && _spawnManager.EnemiesOnScene > 0)
+                    if (_currentWave.EnemyAmount <= 0 && EnemySpawner.EnemiesOnScene.Count > 0)
                     {
-                        _waveUIInfo.text = _spawnManager.EnemiesOnScene.ToString();
+                        _waveUIInfo.text = EnemySpawner.EnemiesOnScene.Count.ToString();
                     }
-                    else if (_currentWave.EnemyAmount > 0 || _spawnManager.EnemiesOnScene > 0)
+                    else if (_currentWave.EnemyAmount > 0 || EnemySpawner.EnemiesOnScene.Count > 0)
                     {
                         _waveUIInfo.text = (_currentWave.StartEnemyAmount - CurrentWaveEnemiesDied).ToString();
                     }
@@ -140,7 +140,7 @@ namespace EnemyLib
 
         private IEnumerator NextWaveOrRecheck()
         {
-            if (_spawnManager.EnemiesOnScene <= 0)
+            if (EnemySpawner.EnemiesOnScene.Count <= 0)
             {
                 StartCoroutine(WaveTransition());
             }
