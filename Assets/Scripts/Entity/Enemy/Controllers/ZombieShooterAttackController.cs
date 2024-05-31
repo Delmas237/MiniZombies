@@ -37,8 +37,9 @@ namespace EnemyLib
         public void UpdateState()
         {
             float distanceToTarget = Vector3.Distance(_moveController.Target.Transform.position, _transform.position);
+            bool targetDied = _moveController.Target.HealthController.Health <= 0;
 
-            if (!IsAttack)
+            if (!IsAttack && !targetDied)
             {
                 if (distanceToTarget < _weaponsController.CurrentGun.Distance / 2)
                 {
@@ -47,7 +48,7 @@ namespace EnemyLib
             }
             else
             {
-                if (distanceToTarget > _weaponsController.CurrentGun.Distance || _moveController.Target.HealthController.Health <= 0)
+                if (distanceToTarget > _weaponsController.CurrentGun.Distance || targetDied)
                 {
                     GetOutPosition();
                 }
