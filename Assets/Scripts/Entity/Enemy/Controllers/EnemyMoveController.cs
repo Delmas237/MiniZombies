@@ -13,7 +13,7 @@ namespace EnemyLib
         private Transform _transform;
         private IEnemyAttackController _attackController;
 
-        public IPlayer Target { get; set; }
+        public IEntity Target { get; set; }
 
         [field: SerializeField] public float DefaultSpeed { get; set; } = 3.7f;
         public float Speed { get; set; }
@@ -25,13 +25,11 @@ namespace EnemyLib
             _agent = agent;
             _transform = transform;
             _attackController = attackController;
-            Agent.speed = Speed;
         }
 
         public void OnEnable()
         {
-            if (Agent != null)
-                Agent.speed = Speed;
+            Agent.speed = Speed;
         }
 
         public void Move()

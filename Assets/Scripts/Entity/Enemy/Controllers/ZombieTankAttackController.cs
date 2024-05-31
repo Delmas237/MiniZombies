@@ -8,7 +8,8 @@ namespace EnemyLib
     public class ZombieTankAttackController : IEnemyAttackController
     {
         public bool IsAttack { get; set; }
-        private IPlayer _targetCollision;
+        private IEntity _targetCollision;
+        public float AttackSpeed { get; set; } = 1;
 
         [SerializeField] private int _damage = 15;
         public int Damage => _damage;
@@ -30,17 +31,16 @@ namespace EnemyLib
 
         public void OnCollisionEnter(Collision collision)
         {
-            IPlayer target = collision.gameObject.GetComponent<IPlayer>();
-
-            if (target != null && target.HealthController.Health > 0 && _healthController.Health > 0)
+            if (collision.gameObject.TryGetComponent(out IEntity entity) && entity == _moveController.Target && 
+                entity.HealthController.Health > 0 && _healthController.Health > 0)
             {
-                _targetCollision = target;
+                _targetCollision = entity;
                 Attack();
             }
         }
         public void OnCollisionExit(Collision collision)
         {
-            if (collision.gameObject.GetComponent<IPlayer>() != null)
+            if (collision.gameObject.TryGetComponent(out IEntity entity) && entity == _moveController.Target)
             {
                 CoroutineHelper.StartRoutine(StopAttack(0.3f));
             }

@@ -5,18 +5,21 @@ namespace EnemyLib
 {
     public class ZombieShooterContainer : ZombieContainer
     {
-        [field: Space(10), Header("Controllers")]
-        [field: SerializeField] public WeaponsController WeaponsController { get; set; }
-        [field: SerializeField] public ZombieShooterAttackController AttackController { get; set; }
+        [Space(10), Header("Controllers")]
+        [SerializeField] protected ZombieShooterAttackController _attackController;
+        public override IEnemyAttackController AttackController => _attackController;
+        
+        [SerializeField] protected WeaponsController _weaponsController;
+        public IWeaponsController WeaponsController => _weaponsController;
 
-        protected override void Start()
+        protected override void Awake()
         {
-            base.Start();
+            base.Awake();
 
             _healthController.Initialize();
             _animationController.Initialize(HealthController, MoveController, AttackController, GetComponent<Animator>());
-            WeaponsController.Initialize(HealthController);
-            AttackController.Initialize(MoveController, WeaponsController, AnimationController, transform);
+            _weaponsController.Initialize(HealthController);
+            _attackController.Initialize(MoveController, _weaponsController, transform);
             _moveController.Initialize(GetComponent<NavMeshAgent>(), transform, AttackController);
 
             DropAmmoAfterDeathModule.Initialize(HealthController, transform);
@@ -33,7 +36,7 @@ namespace EnemyLib
             _animationController.MoveAnim();
             _moveController.Rotation();
 
-            AttackController.UpdateState();
+            _attackController.UpdateState();
             _animationController.AttackAnim();
         }
 
@@ -46,6 +49,6 @@ namespace EnemyLib
             enabled = false;
         }
 
-        private void Shoot() => WeaponsController.PullTrigger();
+        private void Shoot() => _weaponsController.PullTrigger();
     }
 }

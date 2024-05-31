@@ -11,7 +11,7 @@ namespace Factory
         protected IPool<ParticleSystem> _shotPool;
 
         public ZombieShooterFactory(IPool<ZombieShooterContainer> pool, IPool<AmmoPack> ammoPackPool, List<Transform> spawnDots, 
-            IPlayer player, IPool<ParticleSystem> shotPool) : base(pool, ammoPackPool, spawnDots, player)
+            IEntity target, IPool<ParticleSystem> shotPool) : base(pool, ammoPackPool, spawnDots, target)
         {
             _shotPool = shotPool;
         }

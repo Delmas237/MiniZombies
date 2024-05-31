@@ -27,7 +27,7 @@ namespace PlayerLib
         private IHealthController _healthController;
         private IPlayerWeaponsController _weaponsController;
 
-        private ZombieContainer _closestEnemy;
+        private IEnemy _closestEnemy;
         private const float TIME_TO_UPDATE_CLOSEST_ENEMY = 0.35f;
         private Coroutine _closestEnemyCoroutine;
 
@@ -64,9 +64,9 @@ namespace PlayerLib
                 {
                     RotateToJoystickDir(_weaponsController.AttackJoystick, _rotationSmoothness);
                 }
-                else if (_closestEnemy && _weaponsController.AttackJoystick.UnPressedOrInDeadZoneTime > 0.15f)
+                else if (_closestEnemy != null && _weaponsController.AttackJoystick.UnPressedOrInDeadZoneTime > 0.15f)
                 {
-                    RotateToClosestEnemy(_closestEnemy.transform.position);
+                    RotateToClosestEnemy(_closestEnemy.Transform.position);
                 }
                 else if (MoveJoystick.Direction != Vector2.zero && _weaponsController.AttackJoystick.UnPressedOrInDeadZoneTime > 0.05f)
                 {
@@ -100,14 +100,14 @@ namespace PlayerLib
                     _transform.position, _weaponsController.CurrentGun.Distance, out List<ZombieContainer> closestEnemies);
 
                 bool enemyInRange = false;
-                ZombieContainer closestEnemy = null;
+                IEnemy closestEnemy = null;
                 if (closestEnemies != null)
                 {
                     closestEnemy = ComponentSearcher<ZombieContainer>.Closest(_transform.position, closestEnemies);
 
-                    if (closestEnemy && closestEnemy.HealthController.Health > 0)
+                    if (closestEnemy != null && closestEnemy.HealthController.Health > 0)
                     {
-                        float distanceToEnemy = Vector3.Distance(_transform.position, closestEnemy.transform.position);
+                        float distanceToEnemy = Vector3.Distance(_transform.position, closestEnemy.Transform.position);
                         enemyInRange = distanceToEnemy <= _weaponsController.CurrentGun.Distance;
                     }
                 }

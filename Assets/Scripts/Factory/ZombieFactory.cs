@@ -11,7 +11,7 @@ namespace Factory
 {
     public class ZombieFactory : FactoryBase<ZombieContainer>, IFactory<IEnemy>
     {
-        protected IPlayer _player;
+        protected IEntity _target;
         protected List<Transform> _spawnDots;
         protected IPool<AmmoPack> _ammoPackPool;
 
@@ -19,12 +19,37 @@ namespace Factory
         public IPool<ZombieContainer> Pool => _pool;
 
         public ZombieFactory(IPool<ZombieContainer> pool, IPool<AmmoPack> ammoPackPool, List<Transform> spawnDots, 
-            IPlayer player) : base(pool.Prefab)
+            IEntity target) : base(pool.Prefab)
         {
             _pool = pool;
             _ammoPackPool = ammoPackPool;
             _spawnDots = spawnDots;
-            _player = player;
+            _target = target;
+
+            foreach (ZombieContainer enemy in Pool.Pool)
+                enemy.MoveController.Speed = enemy.MoveController.DefaultSpeed;
+
+            EnemyWaveManager.WaveFinished += BoostEnemies;
+            _target.HealthController.Died += Unsubscribe;
+        }
+        private void Unsubscribe()
+        {
+            _target.HealthController.Died -= Unsubscribe;
+            EnemyWaveManager.WaveFinished -= BoostEnemies;
+        }
+
+        private void BoostEnemies()
+        {
+            foreach (ZombieContainer enemy in Pool.Pool)
+            {
+                enemy.HealthController.MaxHealth *= 1.03f;
+
+                float randomX = Random.Range(0.9f, 1.15f);
+                float boosterValue = EnemyWaveManager.CurrentWaveIndex * 0.01f;
+                float speedX = (float)Math.Round(randomX + boosterValue, 2);
+                enemy.MoveController.Speed = enemy.MoveController.DefaultSpeed * speedX;
+                enemy.AttackController.AttackSpeed = speedX;
+            }
         }
 
         public virtual IEnemy GetInstance()
@@ -64,22 +89,16 @@ namespace Factory
             };
 
             Transform randSpawnDot = spawnDotsFurthest[Random.Range(0, spawnDotsFurthest.Count)];
-            
             enemy.transform.SetPositionAndRotation(randSpawnDot.position, Quaternion.identity);
 
-            enemy.MoveController.Target = _player;
-            enemy.HealthController.MaxHealth = 70 + EnemyWaveManager.CurrentWaveIndex * 2;
+            enemy.MoveController.Target = _target;
             enemy.HealthController.Health = enemy.HealthController.MaxHealth;
-
-            float speedX = (float)Math.Round(Random.Range(0.9f, 1.15f) + EnemyWaveManager.CurrentWaveIndex * 0.01f, 2);
-            enemy.MoveController.Speed = enemy.MoveController.DefaultSpeed * speedX;
-            enemy.AnimationController.AttackSpeedX = speedX;
 
             enemy.DropAmmoAfterDeathModule.AmmoPool = _ammoPackPool;
         }
         private Transform SearchFurthest(ref List<Transform> spawnDots)
         {
-            Transform transform = ComponentSearcher<Transform>.Furthest(_player.Transform.position, spawnDots);
+            Transform transform = ComponentSearcher<Transform>.Furthest(_target.Transform.position, spawnDots);
             spawnDots.Remove(transform);
             return transform;
         }

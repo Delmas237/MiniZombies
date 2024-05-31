@@ -16,6 +16,7 @@ namespace ObjectPool
         [SerializeField] private int _count = 5;
 
         private List<T> _pool = new List<T>();
+        public IReadOnlyList<T> Pool => _pool;
         [field: Space(10)]
         [field: SerializeField] public Transform Parent { get; set; }
 
@@ -31,7 +32,10 @@ namespace ObjectPool
                 return element;
 
             if (_autoExpand)
+            {
+                _count++;
                 return CreateObject(true);
+            }
 
             throw new Exception("There is no free elements in pool");
         }

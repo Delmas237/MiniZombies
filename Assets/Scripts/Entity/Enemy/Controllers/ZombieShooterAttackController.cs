@@ -8,6 +8,7 @@ namespace EnemyLib
     public class ZombieShooterAttackController : IEnemyAttackController
     {
         public bool IsAttack { get; set; }
+        public float AttackSpeed { get; set; } = 1;
 
         [SerializeField] private int _damage = 15;
         public int Damage => _damage;
@@ -18,20 +19,17 @@ namespace EnemyLib
 
         private IEnemyMoveController _moveController;
         private IWeaponsController _weaponsController;
-        private EnemyAnimationController _animationController;
         private Transform _transform;
 
-        public void Initialize(IEnemyMoveController moveController, IWeaponsController weaponsController, EnemyAnimationController animationController,
-            Transform transform)
+        public void Initialize(IEnemyMoveController moveController, IWeaponsController weaponsController, Transform transform)
         {
             _moveController = moveController;
             _weaponsController = weaponsController;
-            _animationController = animationController;
             _transform = transform;
 
             _weaponsController.CurrentGun.Damage = _damage;
             _weaponsController.CurrentGun.Cooldown = _cooldown;
-            _animationController.AttackSpeedX /= _cooldown;
+            AttackSpeed /= _cooldown;
         }
 
         public void UpdateState()
@@ -66,11 +64,11 @@ namespace EnemyLib
 
         private IEnumerator ShootDelay(float delay)
         {
-            float speedX = _animationController.AttackSpeedX;
+            float speedX = AttackSpeed;
 
-            _animationController.AttackSpeedX = 0;
+            AttackSpeed = 0;
             yield return new WaitForSeconds(delay);
-            _animationController.AttackSpeedX = speedX;
+            AttackSpeed = speedX;
         }
 
         private void GetOutPosition()

@@ -675,7 +675,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _healthController:
-    <MaxHealth>k__BackingField: 100
+    <MaxHealth>k__BackingField: 60
     <AudioController>k__BackingField:
       _damageSound: {fileID: 2121223428630922208}
       _healSound: {fileID: 3972599543114636993}
@@ -687,14 +687,14 @@ MonoBehaviour:
   _dropAmmoAfterDeathModule:
     <Enabled>k__BackingField: 1
     _dropChance: 0.15
-  <WeaponsController>k__BackingField:
-    _bullets: 9999
-    _guns:
-    - {fileID: 7498342157292042901}
-  <AttackController>k__BackingField:
+  _attackController:
     _damage: 15
     _cooldown: 2
     _shootDelay: 0.5
+  _weaponsController:
+    _bullets: 9999
+    _guns:
+    - {fileID: 7498342157292042901}
 --- !u!114 &5410159688505459878
 MonoBehaviour:
   m_ObjectHideFlags: 0

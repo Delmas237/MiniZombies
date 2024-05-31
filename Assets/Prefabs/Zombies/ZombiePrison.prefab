@@ -693,7 +693,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _healthController:
-    <MaxHealth>k__BackingField: 100
+    <MaxHealth>k__BackingField: 70
     <AudioController>k__BackingField:
       _damageSound: {fileID: 3179848695585510845}
       _healSound: {fileID: 6981525330893697395}

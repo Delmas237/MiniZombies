@@ -5,17 +5,18 @@ namespace EnemyLib
 {
     public class ZombieTankContainer : ZombieContainer
     {
-        [field: Space(10), Header("Controllers")]
-        [field: SerializeField] public ZombieTankAttackController AttackController { get; set; }
+        [Space(10), Header("Controllers")]
+        [SerializeField] protected ZombieTankAttackController _attackController;
+        public override IEnemyAttackController AttackController => _attackController;
 
-        protected override void Start()
+        protected override void Awake()
         {
-            base.Start();
+            base.Awake();
 
             _healthController.Initialize();
-            _animationController.Initialize(HealthController, MoveController, AttackController, GetComponent<Animator>());
-            AttackController.Initialize(HealthController, MoveController);
-            _moveController.Initialize(GetComponent<NavMeshAgent>(), transform, AttackController);
+            _animationController.Initialize(HealthController, MoveController, _attackController, GetComponent<Animator>());
+            _attackController.Initialize(HealthController, MoveController);
+            _moveController.Initialize(GetComponent<NavMeshAgent>(), transform, _attackController);
 
             DropAmmoAfterDeathModule.Initialize(HealthController, transform);
         }
@@ -35,12 +36,12 @@ namespace EnemyLib
 
         private void OnCollisionEnter(Collision collision)
         {
-            AttackController.OnCollisionEnter(collision);
+            _attackController.OnCollisionEnter(collision);
         }
 
         private void OnCollisionExit(Collision collision)
         {
-            AttackController.OnCollisionExit(collision);
+            _attackController.OnCollisionExit(collision);
         }
 
         protected override void OnDeath()
@@ -48,10 +49,10 @@ namespace EnemyLib
             base.OnDeath();
 
             _moveController.Agent.enabled = false;
-            AttackController.IsAttack = false;
+            _attackController.IsAttack = false;
             enabled = false;
         }
 
-        private void DealDamage() => AttackController.DealDamage();
+        private void DealDamage() => _attackController.DealDamage();
     }
 }

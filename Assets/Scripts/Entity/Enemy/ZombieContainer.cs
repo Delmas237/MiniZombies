@@ -3,7 +3,7 @@ using Weapons;
 
 namespace EnemyLib
 {
-    public class ZombieContainer : MonoBehaviour, IEnemy
+    public abstract class ZombieContainer : MonoBehaviour, IEnemy
     {
         [Header("Base Controllers")]
         [SerializeField] protected HealthController _healthController;
@@ -11,15 +11,17 @@ namespace EnemyLib
 
         [SerializeField] protected EnemyMoveController _moveController;
         public IEnemyMoveController MoveController => _moveController;
+        public abstract IEnemyAttackController AttackController { get; }
 
         [SerializeField] protected EnemyAnimationController _animationController;
-        public EnemyAnimationController AnimationController => _animationController;
 
         [field: Header("Base Modules")]
         [SerializeField] protected DropAmmoAfterDeathModule _dropAmmoAfterDeathModule;
         public DropAmmoAfterDeathModule DropAmmoAfterDeathModule => _dropAmmoAfterDeathModule;
 
-        protected virtual void Start()
+        public Transform Transform => transform;
+
+        protected virtual void Awake()
         {
             HealthController.Died += OnDeath;
         }

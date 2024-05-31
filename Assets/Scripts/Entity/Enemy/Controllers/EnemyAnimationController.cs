@@ -7,8 +7,6 @@ namespace EnemyLib
     [Serializable]
     public class EnemyAnimationController
     {
-        public float AttackSpeedX { get; set; } = 1;
-
         private IHealthController _healthController;
         private IEnemyMoveController _moveController;
         private IEnemyAttackController _attackController;
@@ -48,7 +46,7 @@ namespace EnemyLib
         {
             if (_healthController.Health > 0 && _attackController.IsAttack)
             {
-                _animator.SetFloat("AttackSpeed", AttackSpeedX);
+                _animator.SetFloat("AttackSpeed", _attackController.AttackSpeed);
                 _animator.SetBool("Attack", true);
             }
             else

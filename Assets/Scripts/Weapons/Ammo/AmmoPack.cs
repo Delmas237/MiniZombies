@@ -1,6 +1,5 @@
-using PlayerLib;
-using UnityEngine;
 using ObjectPool;
+using UnityEngine;
 
 namespace Weapons
 {
@@ -16,7 +15,7 @@ namespace Weapons
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent(out PlayerContainer player))
+            if (other.TryGetComponent(out IPlayer player))
             {
                 player.WeaponsController.AddBullets(_magnitude);
 
