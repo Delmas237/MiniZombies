@@ -6642,10 +6642,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d999090a4dd050f4290fc927d9a430f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _zombie: {fileID: 386480403880364309, guid: 6db528ec6fc99994ca868cc2c215fd8f, type: 3}
-  _amount: 20
-  _autoExpand: 1
-  _parent: {fileID: 0}
+  _pool:
+    _autoExpand: 1
+    _prefab: {fileID: 386480403880364309, guid: 6db528ec6fc99994ca868cc2c215fd8f, type: 3}
+    _count: 20
+    <Parent>k__BackingField: {fileID: 0}
 --- !u!1 &155369980
 GameObject:
   m_ObjectHideFlags: 0
@@ -6804,12 +6805,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 164567633}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c0f081db7fbf9948bea5039a9d71d26, type: 3}
+  m_Script: {fileID: 11500000, guid: 7559410faa7de0349979f5659aa3b912, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _particlesSystem: {fileID: 6548025837557359238, guid: dd102199c12a8e94abce1afb0960887a, type: 3}
-  _amount: 4
-  _autoExpand: 1
+  _pool:
+    _autoExpand: 1
+    _prefab: {fileID: 6548025837557359238, guid: dd102199c12a8e94abce1afb0960887a, type: 3}
+    _count: 5
+    <Parent>k__BackingField: {fileID: 0}
 --- !u!4 &166396300 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 96d7977f77668bf4583fb13a66ae6cc5, type: 3}
@@ -12624,12 +12627,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 300614171}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c0f081db7fbf9948bea5039a9d71d26, type: 3}
+  m_Script: {fileID: 11500000, guid: 7559410faa7de0349979f5659aa3b912, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _particlesSystem: {fileID: 3484824252968840237, guid: b0a83af5d2c7fe94c902246bd049bf2d, type: 3}
-  _amount: 2
-  _autoExpand: 1
+  _pool:
+    _autoExpand: 1
+    _prefab: {fileID: 3484824252968840237, guid: b0a83af5d2c7fe94c902246bd049bf2d, type: 3}
+    _count: 2
+    <Parent>k__BackingField: {fileID: 0}
 --- !u!1001 &302706937
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18096,10 +18101,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d999090a4dd050f4290fc927d9a430f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _zombie: {fileID: 1000177481691126542, guid: d342bbb6cc2d7194a8e05c060d853646, type: 3}
-  _amount: 20
-  _autoExpand: 1
-  _parent: {fileID: 0}
+  _pool:
+    _autoExpand: 1
+    _prefab: {fileID: 1000177481691126542, guid: d342bbb6cc2d7194a8e05c060d853646, type: 3}
+    _count: 20
+    <Parent>k__BackingField: {fileID: 0}
 --- !u!1001 &435745599
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -45627,14 +45633,14 @@ MonoBehaviour:
   - {fileID: 1452131743}
   - {fileID: 847929229}
   - {fileID: 64070230}
-  _zombiePools:
+  _enemyPools:
   - {fileID: 1498937196}
   - {fileID: 435148745}
   - {fileID: 149138799}
-  _zombieShooterPools:
   - {fileID: 1308993749}
   _player: {fileID: 7560204000705171858}
   _ammoPackPool: {fileID: 1605113706}
+  _pistolShotPool: {fileID: 164567635}
 --- !u!1 &1110599362
 GameObject:
   m_ObjectHideFlags: 0
@@ -54555,11 +54561,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 871252b22ff39dd459caa183476472b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _zombie: {fileID: 3714704166370655154, guid: 8b371915b8919114792a046d54000db8, type: 3}
-  _amount: 10
-  _autoExpand: 1
-  _parent: {fileID: 0}
-  _poolParticleSystem: {fileID: 164567635}
+  _shooterPool:
+    _autoExpand: 1
+    _prefab: {fileID: 3714704166370655154, guid: 8b371915b8919114792a046d54000db8, type: 3}
+    _count: 5
+    <Parent>k__BackingField: {fileID: 0}
 --- !u!1 &1309087563
 GameObject:
   m_ObjectHideFlags: 0
@@ -62809,10 +62815,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d999090a4dd050f4290fc927d9a430f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _zombie: {fileID: -1710904305303764804, guid: e1810b681bfc5e74893bff9ba30f1b24, type: 3}
-  _amount: 20
-  _autoExpand: 1
-  _parent: {fileID: 0}
+  _pool:
+    _autoExpand: 1
+    _prefab: {fileID: -1710904305303764804, guid: e1810b681bfc5e74893bff9ba30f1b24, type: 3}
+    _count: 20
+    <Parent>k__BackingField: {fileID: 0}
 --- !u!4 &1499118310 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 96d7977f77668bf4583fb13a66ae6cc5, type: 3}
@@ -67061,10 +67068,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a8d7968db5c28429dcba27540f4e21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ammoPack: {fileID: -8411384728274281473, guid: 9339a9e80ac36ed4c875e2740f372f95, type: 3}
-  _amount: 5
-  _autoExpand: 1
-  _destroySoundPool: {fileID: 1746660317}
+  _pool:
+    _autoExpand: 1
+    _prefab: {fileID: -8411384728274281473, guid: 9339a9e80ac36ed4c875e2740f372f95, type: 3}
+    _count: 5
+    <Parent>k__BackingField: {fileID: 0}
 --- !u!1001 &1605877986
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -73522,7 +73530,7 @@ GameObject:
   - component: {fileID: 1746660316}
   - component: {fileID: 1746660317}
   m_Layer: 0
-  m_Name: AudioSourcePool
+  m_Name: AmmoDestroySoundPool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73555,10 +73563,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ea8828a445334248aa1d66eda02e8cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioSource: {fileID: 3560198019423220351, guid: e5f366d64fbcdb645a3d0c73905e3dfc, type: 3}
-  _amount: 3
-  _autoExpand: 1
-  _parent: {fileID: 0}
+  _pool:
+    _autoExpand: 1
+    _prefab: {fileID: 3560198019423220351, guid: e5f366d64fbcdb645a3d0c73905e3dfc, type: 3}
+    _count: 5
+    <Parent>k__BackingField: {fileID: 0}
 --- !u!1001 &1752423530
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -77555,12 +77564,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1871039305}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c0f081db7fbf9948bea5039a9d71d26, type: 3}
+  m_Script: {fileID: 11500000, guid: 7559410faa7de0349979f5659aa3b912, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _particlesSystem: {fileID: 4056651398268564508, guid: 46655e367694d5e46b5213de8c49fd9c, type: 3}
-  _amount: 10
-  _autoExpand: 1
+  _pool:
+    _autoExpand: 1
+    _prefab: {fileID: 4056651398268564508, guid: 46655e367694d5e46b5213de8c49fd9c, type: 3}
+    _count: 10
+    <Parent>k__BackingField: {fileID: 0}
 --- !u!4 &1872812023 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 85cddcbb826e5444aacd0cbb6d92364d, type: 3}
@@ -83375,12 +83386,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 2015627713}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c0f081db7fbf9948bea5039a9d71d26, type: 3}
+  m_Script: {fileID: 11500000, guid: 7559410faa7de0349979f5659aa3b912, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _particlesSystem: {fileID: 8671346155850300226, guid: 70c93a8df5914c04db98bcc3d67ccf3f, type: 3}
-  _amount: 4
-  _autoExpand: 1
+  _pool:
+    _autoExpand: 1
+    _prefab: {fileID: 8671346155850300226, guid: 70c93a8df5914c04db98bcc3d67ccf3f, type: 3}
+    _count: 5
+    <Parent>k__BackingField: {fileID: 0}
 --- !u!1001 &2016862125
 PrefabInstance:
   m_ObjectHideFlags: 0

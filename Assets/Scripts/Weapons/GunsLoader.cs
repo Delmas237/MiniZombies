@@ -16,7 +16,7 @@ namespace Weapons
             foreach (GunInitializeData gunInitializeData in _guns)
             {
                 if (gunInitializeData != null && gunInitializeData.ShotPool != null)
-                    gunInitializeData.Gun.ShotPool = gunInitializeData.ShotPool;
+                    gunInitializeData.Gun.ShotPool = gunInitializeData.ShotPool.Pool;
             }
 
             if (_loadData)
@@ -33,6 +33,6 @@ namespace Weapons
     public class GunInitializeData
     {
         public Gun Gun;
-        public PoolParticleSystem ShotPool;
+        public ParticleSystemPool ShotPool;
     }
 }

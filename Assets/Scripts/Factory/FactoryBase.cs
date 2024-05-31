@@ -13,7 +13,7 @@ namespace Factory
 
         public virtual T NewInstance() => Object.Instantiate(Prefab);
 
-        public abstract void ReconstructToDefault(T prefab);
-        public abstract void Construct(T prefab);
+        protected abstract void ReconstructToDefault(T prefab);
+        protected abstract void Construct(T prefab);
     }
 }

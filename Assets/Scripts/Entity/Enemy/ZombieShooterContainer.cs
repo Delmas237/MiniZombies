@@ -5,8 +5,7 @@ namespace EnemyLib
 {
     public class ZombieShooterContainer : ZombieContainer
     {
-        [field: Space(10)]
-        [field: Header("Controllers")]
+        [field: Space(10), Header("Controllers")]
         [field: SerializeField] public WeaponsController WeaponsController { get; set; }
         [field: SerializeField] public ZombieShooterAttackController AttackController { get; set; }
 

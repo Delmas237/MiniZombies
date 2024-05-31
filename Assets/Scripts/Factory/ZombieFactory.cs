@@ -9,21 +9,35 @@ using Random = UnityEngine.Random;
 
 namespace Factory
 {
-    public class ZombieFactory : FactoryBase<ZombieContainer>
+    public class ZombieFactory : FactoryBase<ZombieContainer>, IFactory<IEnemy>
     {
-        private readonly IPlayer _player;
-        private readonly List<Transform> _spawnDots;
-        private readonly IPool<AmmoPack> _ammoPackPool;
+        protected IPlayer _player;
+        protected List<Transform> _spawnDots;
+        protected IPool<AmmoPack> _ammoPackPool;
 
-        public ZombieFactory(ZombieContainer prefab, IPlayer player, List<Transform> spawnDots, IPool<AmmoPack> ammoPackPool)
-            : base(prefab)
+        protected IPool<ZombieContainer> _pool;
+        public IPool<ZombieContainer> Pool => _pool;
+
+        public ZombieFactory(IPool<ZombieContainer> pool, IPool<AmmoPack> ammoPackPool, List<Transform> spawnDots, 
+            IPlayer player) : base(pool.Prefab)
         {
-            _player = player;
-            _spawnDots = spawnDots;
+            _pool = pool;
             _ammoPackPool = ammoPackPool;
+            _spawnDots = spawnDots;
+            _player = player;
         }
 
-        public override void ReconstructToDefault(ZombieContainer enemy)
+        public virtual IEnemy GetInstance()
+        {
+            ZombieContainer instance = _pool.GetFreeElement();
+
+            ReconstructToDefault(instance);
+            Construct(instance);
+
+            return instance;
+        }
+
+        protected override void ReconstructToDefault(ZombieContainer enemy)
         {
             if (enemy.TryGetComponent(out Rigidbody rb))
                 Object.Destroy(rb);
@@ -37,8 +51,10 @@ namespace Factory
                 collider.height = 1.9f;
             }
         }
-        public override void Construct(ZombieContainer enemy)
+        protected override void Construct(ZombieContainer enemy)
         {
+            enemy.enabled = true;
+
             List<Transform> spawnDotsCopy = new List<Transform>(_spawnDots);
             List<Transform> spawnDotsFurthest = new List<Transform>
             {
@@ -60,8 +76,6 @@ namespace Factory
             enemy.AnimationController.AttackSpeedX = speedX;
 
             enemy.DropAmmoAfterDeathModule.AmmoPool = _ammoPackPool;
-
-            enemy.enabled = true;
         }
         private Transform SearchFurthest(ref List<Transform> spawnDots)
         {

@@ -1,12 +1,11 @@
-using EnemyLib;
 using UnityEngine;
 
 namespace ObjectPool
 {
-    public class ZombiePool : EnemyPool
+    public class AudioSourcePool : MonoBehaviour
     {
-        [SerializeField] private PoolBase<ZombieContainer> _pool;
-        public override IPool<ZombieContainer> Pool => _pool;
+        [SerializeField] private PoolBase<AudioSource> _pool;
+        public IPool<AudioSource> Pool => _pool;
 
         private void Awake()
         {

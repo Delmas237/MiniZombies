@@ -1,3 +1,4 @@
+using Factory;
 using ObjectPool;
 using PlayerLib;
 using System.Collections;
@@ -20,19 +21,27 @@ namespace EnemyLib
 
         [SerializeField] private List<Transform> _spawnDots;
 
-        [SerializeField] private List<ZombiePool> _zombiePools;
-        [SerializeField] private List<ZombieShooterPool> _zombieShooterPools;
+        [SerializeField] private List<EnemyPool> _enemyPools;
+        private readonly List<IFactory<IEnemy>> _factories = new List<IFactory<IEnemy>>();
 
         [SerializeField] private PlayerContainer _player;
-        [SerializeField] private PoolAmmoPack _ammoPackPool;
+        [SerializeField] private AmmoPackPool _ammoPackPool;
+
+        [SerializeField] private ParticleSystemPool _pistolShotPool;
 
         private void Start()
         {
-            for (int i = 0; i < _zombiePools.Count; i++)
-                _zombiePools[i].Initialize(_spawnDots, _player, _ammoPackPool);
-            
-            for (int i = 0; i < _zombieShooterPools.Count; i++)
-                _zombieShooterPools[i].Initialize(_spawnDots, _player, _ammoPackPool);
+            foreach (var pool in _enemyPools)
+            {
+                if (pool.Pool is IPool<ZombieShooterContainer> shooterPool)
+                {
+                    _factories.Add(new ZombieShooterFactory(shooterPool, _ammoPackPool.Pool, _spawnDots, _player, _pistolShotPool.Pool));
+                }
+                else
+                {
+                    _factories.Add(new ZombieFactory(pool.Pool, _ammoPackPool.Pool, _spawnDots, _player));
+                }
+            }
 
             StartCoroutine(SpawnController());
 
@@ -54,9 +63,9 @@ namespace EnemyLib
 
         private void Spawn()
         {
-            int rnd = Random.Range(0, _zombieShooterPools.Count);
+            int rnd = Random.Range(0, _factories.Count);
 
-            IEnemy enemy = _zombieShooterPools[rnd].GetFreeElement();
+            IEnemy enemy = _factories[rnd].GetInstance();
             _enemiesOnScene.Add(enemy);
             enemy.HealthController.Died += RemoveDiedEnemies;
         }

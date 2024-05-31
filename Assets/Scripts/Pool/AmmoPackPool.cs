@@ -1,12 +1,13 @@
 using EnemyLib;
 using UnityEngine;
+using Weapons;
 
 namespace ObjectPool
 {
-    public class ZombiePool : EnemyPool
+    public class AmmoPackPool : MonoBehaviour
     {
-        [SerializeField] private PoolBase<ZombieContainer> _pool;
-        public override IPool<ZombieContainer> Pool => _pool;
+        [SerializeField] private PoolBase<AmmoPack> _pool;
+        public IPool<AmmoPack> Pool => _pool;
 
         private void Awake()
         {

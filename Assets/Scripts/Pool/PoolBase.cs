@@ -1,4 +1,3 @@
-using Factory;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,38 +5,23 @@ using Object = UnityEngine.Object;
 
 namespace ObjectPool
 {
+    [Serializable]
     public class PoolBase<T> : IPool<T> where T : Component
     {
-        public T Prefab { get; }
-        public bool AutoExpand { get; set; }
+        [SerializeField] private bool _autoExpand = true;
 
-        private readonly List<T> _pool;
+        [SerializeField] protected T _prefab;
+        public T Prefab => _prefab;
 
-        private readonly bool _hasFactory;
-        private readonly FactoryBase<T> _factory;
-        private readonly Transform _parent;
+        [SerializeField] private int _count = 5;
 
-        public PoolBase(T prefab, int count, FactoryBase<T> factory, Transform parent)
+        private List<T> _pool = new List<T>();
+        [field: Space(10)]
+        [field: SerializeField] public Transform Parent { get; set; }
+
+        public void Initialize()
         {
-            Prefab = prefab;
-
-            _pool = new List<T>();
-            _parent = parent;
-            _factory = factory;
-            _hasFactory = true;
-
-            for (int i = 0; i < count; i++)
-                CreateObject();
-        }
-        public PoolBase(T prefab, int count, Transform parent)
-        {
-            Prefab = prefab;
-
-            _pool = new List<T>();
-            _parent = parent;
-            _hasFactory = false;
-
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i < _count; i++)
                 CreateObject();
         }
 
@@ -46,7 +30,7 @@ namespace ObjectPool
             if (HasFreeElement(out T element))
                 return element;
 
-            if (AutoExpand)
+            if (_autoExpand)
                 return CreateObject(true);
 
             throw new Exception("There is no free elements in pool");
@@ -54,14 +38,11 @@ namespace ObjectPool
 
         private T CreateObject(bool isActiveByDefault = false)
         {
-            T createdObject;
+            T createdObject = Object.Instantiate(Prefab);
 
-            if (_hasFactory)
-                createdObject = _factory.NewInstance();
-            else
-                createdObject = Object.Instantiate(Prefab);
+            if (Parent != null)
+                createdObject.transform.SetParent(Parent);
 
-            createdObject.transform.SetParent(_parent);
             createdObject.gameObject.SetActive(isActiveByDefault);
             _pool.Add(createdObject);
             return createdObject;
