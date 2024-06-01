@@ -46,9 +46,14 @@ namespace EnemyLib
             StartCoroutine(SpawnController());
 
             _player.HealthController.Died += StopSpawn;
-
-            void StopSpawn() => IsSpawn = false;
         }
+
+        private void StopSpawn()
+        {
+            _player.HealthController.Died -= StopSpawn;
+            IsSpawn = false;
+        }
+
         private void OnDestroy()
         {
             _enemiesOnScene.Clear();

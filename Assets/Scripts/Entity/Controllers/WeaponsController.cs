@@ -16,19 +16,9 @@ public class WeaponsController : IWeaponsController
     public Gun CurrentGun { get; private set; }
     public event Action<Gun> GunChanged;
 
-    private IHealthController _healthController;
-
-    public virtual void Initialize(IHealthController healthController)
+    public virtual void Initialize()
     {
-        _healthController = healthController;
-
         ChangeGun(GunType.Pistol);
-
-        _healthController.Died += OnDeath;
-    }
-    protected virtual void OnDeath()
-    {
-        _healthController.Died -= OnDeath;
     }
 
     public void PullTrigger()

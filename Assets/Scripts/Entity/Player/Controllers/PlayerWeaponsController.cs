@@ -12,17 +12,21 @@ namespace PlayerLib
         [Space(10)]
         [SerializeField] private Transform _shootLineRoot;
 
-        public override void Initialize(IHealthController healthController)
-        {
-            base.Initialize(healthController);
+        private IHealthController _healthController;
 
+        public void Initialize(IHealthController healthController)
+        {
+            base.Initialize();
+
+            _healthController = healthController;
+
+            _healthController.Died += OnDeath;
             AttackJoystick.OnUp += PullTrigger;
             AttackJoystick.OnClamped += PullAutoTrigger;
         }
-        protected override void OnDeath()
+        protected void OnDeath()
         {
-            base.OnDeath();
-
+            _healthController.Died -= OnDeath;
             AttackJoystick.OnUp -= PullTrigger;
             AttackJoystick.OnClamped -= PullAutoTrigger;
         }

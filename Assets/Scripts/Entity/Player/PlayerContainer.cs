@@ -34,7 +34,7 @@ namespace PlayerLib
             _moveController.Move();
             _animationController.MoveAnim();
 
-            _moveController.Rotation();
+            _moveController.Rotate();
             _weaponsController.UpdateShootLine();
         }
 

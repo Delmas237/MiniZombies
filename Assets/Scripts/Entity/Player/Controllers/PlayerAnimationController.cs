@@ -49,14 +49,7 @@ namespace PlayerLib
 
         private void CurrentGunAnim(Gun gun)
         {
-            if (gun.Type == GunType.Pistol)
-            {
-                _animator.SetBool("PistolInHands", true);
-            }
-            else
-            {
-                _animator.SetBool("PistolInHands", false);
-            }
+            _animator.SetBool("PistolInHands", gun.Type == GunType.Pistol);
         }
 
         private void DeathAnim() => _animator.SetBool("Died", true);

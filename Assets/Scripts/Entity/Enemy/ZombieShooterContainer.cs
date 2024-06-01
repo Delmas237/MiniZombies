@@ -18,7 +18,7 @@ namespace EnemyLib
 
             _healthController.Initialize();
             _animationController.Initialize(HealthController, MoveController, AttackController, GetComponent<Animator>());
-            _weaponsController.Initialize(HealthController);
+            _weaponsController.Initialize();
             _attackController.Initialize(MoveController, _weaponsController, transform);
             _moveController.Initialize(GetComponent<NavMeshAgent>(), transform, AttackController);
 
@@ -34,7 +34,7 @@ namespace EnemyLib
         {
             _moveController.Move();
             _animationController.MoveAnim();
-            _moveController.Rotation();
+            _moveController.Rotate();
 
             _attackController.UpdateState();
             _animationController.AttackAnim();

@@ -45,7 +45,7 @@ namespace EnemyLib
             }
         }
 
-        public void Rotation()
+        public void Rotate()
         {
             if (Target != null && Target.HealthController.Health > 0 && _rotateTowardsTarget)
             {

@@ -44,7 +44,11 @@ namespace PlayerLib
 
             _closestEnemyCoroutine = CoroutineHelper.StartRoutine(UpdateClosestEnemy());
         }
-        private void SetControllableFalse() => _controllable = false;
+        private void SetControllableFalse()
+        {
+            _healthController.Died -= SetControllableFalse;
+            _controllable = false;
+        }
 
         public void Move()
         {
@@ -57,7 +61,7 @@ namespace PlayerLib
             }
         }
 
-        public void Rotation()
+        public void Rotate()
         {
             if (_controllable)
             {
