@@ -1,5 +1,3 @@
-using Factory;
-using ObjectPool;
 using PlayerLib;
 using System.Collections;
 using System.Collections.Generic;
@@ -19,29 +17,15 @@ namespace EnemyLib
         private static readonly List<IEnemy> _enemiesOnScene = new List<IEnemy>();
         public static IReadOnlyList<IEnemy> EnemiesOnScene => _enemiesOnScene;
 
+        [SerializeField] private List<EnemySpawnData> _spawnData;
         [SerializeField] private List<Transform> _spawnDots;
 
-        [SerializeField] private List<EnemyPool> _enemyPools;
-        private readonly List<IFactory<IEnemy>> _factories = new List<IFactory<IEnemy>>();
-
         [SerializeField] private PlayerContainer _player;
-        [SerializeField] private AmmoPackPool _ammoPackPool;
-
-        [SerializeField] private ParticleSystemPool _pistolShotPool;
 
         private void Start()
         {
-            foreach (var pool in _enemyPools)
-            {
-                if (pool.Pool is IPool<ZombieShooterContainer> shooterPool)
-                {
-                    _factories.Add(new ZombieShooterFactory(shooterPool, _ammoPackPool.Pool, _spawnDots, _player, _pistolShotPool.Pool));
-                }
-                else
-                {
-                    _factories.Add(new ZombieFactory(pool.Pool, _ammoPackPool.Pool, _spawnDots, _player));
-                }
-            }
+            foreach (var spawnData in _spawnData)
+                spawnData.Initialize(_spawnDots, _player);
 
             StartCoroutine(SpawnController());
 
@@ -72,9 +56,9 @@ namespace EnemyLib
 
         private void Spawn()
         {
-            int rnd = Random.Range(0, _factories.Count);
+            int rnd = Random.Range(0, _spawnData.Count);
 
-            IEnemy enemy = _factories[rnd].GetInstance();
+            IEnemy enemy = _spawnData[rnd].Factory.GetInstance();
             _enemiesOnScene.Add(enemy);
             enemy.HealthController.Died += RemoveDiedEnemies;
         }

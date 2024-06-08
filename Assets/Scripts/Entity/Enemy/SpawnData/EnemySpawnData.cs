@@ -1,0 +1,18 @@
+using Factory;
+using ObjectPool;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace EnemyLib
+{
+    public abstract class EnemySpawnData : MonoBehaviour
+    {
+        [SerializeField] protected AmmoPackPool _ammoPool;
+
+        [SerializeField] protected EnemyPool _enemyPool;
+        public EnemyPool EnemyPool => _enemyPool;
+        public abstract IFactory<IEnemy> Factory { get; }
+
+        public abstract void Initialize(List<Transform> spawnPoses, IEntity target);
+    }
+}
