@@ -35,7 +35,7 @@ namespace PlayerLib
 
         public void MoveAnim()
         {
-            if (_moveController.Walks)
+            if (_moveController.IsMoving)
             {
                 _animator.SetFloat("SpeedPistol", 1);
                 _animator.SetFloat("Speed", 1.7f);

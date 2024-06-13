@@ -14,7 +14,7 @@ namespace PlayerLib
         private bool _controllable = true;
 
         [SerializeField] private float _maxSpeed = 3.65f;
-        public bool Walks => MoveJoystick.Horizontal != 0 || MoveJoystick.Vertical != 0;
+        public bool IsMoving => MoveJoystick.Horizontal != 0 || MoveJoystick.Vertical != 0;
 
         [field: SerializeField] public Joystick MoveJoystick { get; private set; }
 

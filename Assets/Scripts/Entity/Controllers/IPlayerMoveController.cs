@@ -4,7 +4,7 @@ namespace PlayerLib
 {
     public interface IPlayerMoveController : IMoveController
     {
-        public bool Walks { get; }
+        public bool IsMoving { get; }
         public Joystick MoveJoystick { get; }
     }
 }
