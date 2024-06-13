@@ -18,6 +18,7 @@ namespace EnemyLib
             _attackController.Initialize(HealthController, MoveController);
             _moveController.Initialize(GetComponent<NavMeshAgent>(), transform, _attackController);
 
+            DelayedDisableModule.Initialize(gameObject, this);
             DropAmmoAfterDeathModule.Initialize(HealthController, transform);
         }
 

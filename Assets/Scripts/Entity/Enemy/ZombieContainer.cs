@@ -16,6 +16,9 @@ namespace EnemyLib
         [SerializeField] protected EnemyAnimationController _animationController;
 
         [field: Header("Base Modules")]
+        [SerializeField] protected DelayedDisableEntityModule _delayedDisableModule;
+        public DelayedDisableEntityModule DelayedDisableModule => _delayedDisableModule;
+
         [SerializeField] protected DropAmmoAfterDeathModule _dropAmmoAfterDeathModule;
         public DropAmmoAfterDeathModule DropAmmoAfterDeathModule => _dropAmmoAfterDeathModule;
 

@@ -74,7 +74,6 @@ GameObject:
   m_Component:
   - component: {fileID: 477521500200552015}
   - component: {fileID: -1710904305303764804}
-  - component: {fileID: -1848398006467348512}
   - component: {fileID: 6004752277940655587}
   - component: {fileID: 8885856824367871616}
   - component: {fileID: 5782713811386309685}
@@ -127,25 +126,14 @@ MonoBehaviour:
   _moveController:
     <DefaultSpeed>k__BackingField: 3.7
     _rotateTowardsTarget: 0
+  _delayedDisableModule:
+    <Enabled>k__BackingField: 1
+    _delay: 3
   _dropAmmoAfterDeathModule:
     <Enabled>k__BackingField: 1
     _dropChance: 0.09
-  <AttackController>k__BackingField:
+  _attackController:
     _damage: 15
---- !u!114 &-1848398006467348512
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1003088765245234421}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 901c29415b1fd9343af95cacd993e080, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _delay: 3
-  _destroyWhenDisabled: 0
 --- !u!195 &6004752277940655587
 NavMeshAgent:
   m_ObjectHideFlags: 0
