@@ -45711,6 +45711,11 @@ MonoBehaviour:
   <IsSpawn>k__BackingField: 1
   <Cooldown>k__BackingField: 3
   _maxEnemiesOnScene: 50
+  _spawnData:
+  - {fileID: 1904218386}
+  - {fileID: 1907799287}
+  - {fileID: 507581730}
+  - {fileID: 590148789}
   _spawnDots:
   - {fileID: 412658978}
   - {fileID: 1179952000}
@@ -45720,11 +45725,6 @@ MonoBehaviour:
   - {fileID: 1452131743}
   - {fileID: 847929229}
   - {fileID: 64070230}
-  _spawnData:
-  - {fileID: 1904218386}
-  - {fileID: 1907799287}
-  - {fileID: 507581730}
-  - {fileID: 590148789}
   _player: {fileID: 7560204000705171858}
 --- !u!1 &1110599362
 GameObject:
@@ -67153,6 +67153,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1605113705}
+  - component: {fileID: 1605113707}
   - component: {fileID: 1605113706}
   m_Layer: 0
   m_Name: AmmoPackPool
@@ -67193,6 +67194,20 @@ MonoBehaviour:
     _prefab: {fileID: -8411384728274281473, guid: 9339a9e80ac36ed4c875e2740f372f95, type: 3}
     _count: 5
     <Parent>k__BackingField: {fileID: 0}
+--- !u!114 &1605113707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1605113704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13c74e407fbbc8249b889c8a073c2803, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ammoPackPool: {fileID: 1605113706}
+  _audioSourcePool: {fileID: 1746660318}
 --- !u!1001 &1605877986
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -73648,6 +73663,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1746660316}
+  - component: {fileID: 1746660318}
   - component: {fileID: 1746660317}
   m_Layer: 0
   m_Name: AmmoDestroySoundPool
@@ -73688,6 +73704,19 @@ MonoBehaviour:
     _prefab: {fileID: 3560198019423220351, guid: e5f366d64fbcdb645a3d0c73905e3dfc, type: 3}
     _count: 5
     <Parent>k__BackingField: {fileID: 0}
+--- !u!114 &1746660318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1746660315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ccab2cdae8a43a4ab325b9cca17cb83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioSourcePool: {fileID: 1746660317}
 --- !u!1001 &1752423530
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,7 +1,11 @@
 namespace Factory
 {
-    public interface IFactory<out T>
+    public interface IFactory<T>
     {
-        public T GetInstance();
+        public T Prefab { get; }
+
+        public T NewInstance();
+        public void ReconstructToDefault(T prefab);
+        public void Construct(T prefab);
     }
 }

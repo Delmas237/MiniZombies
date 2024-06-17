@@ -3,19 +3,25 @@ using UnityEngine;
 
 namespace Factory
 {
-    public class AudioSourceFactory : FactoryBase<AudioSource>, IFactory<AudioSource>
+    public class AudioSourceFactory : MonoBehaviour, IFactory<AudioSource>, IInstanceProvider<AudioSource>
     {
-        private readonly PoolBase<AudioSource> _pool;
-        public PoolBase<AudioSource> Pool => _pool;
+        [SerializeField] private AudioSourcePool _audioSourcePool;
 
-        public AudioSourceFactory(PoolBase<AudioSource> pool, AudioSource prefab) : base(prefab) 
+        private IPool<AudioSource> _pool;
+        public IPool<AudioSource> Pool => _pool;
+
+        private AudioSource _prefab;
+        public AudioSource Prefab => _prefab;
+
+        private void Awake()
         {
-            _pool = pool;
+            _pool = _audioSourcePool.Pool;
+            _prefab = _audioSourcePool.Pool.Prefab;
         }
 
         public AudioSource GetInstance()
         {
-            AudioSource instance = _pool.GetFreeElement();
+            AudioSource instance = _audioSourcePool.Pool.GetFreeElement();
 
             ReconstructToDefault(instance);
             Construct(instance);
@@ -23,11 +29,13 @@ namespace Factory
             return instance;
         }
 
-        protected override void ReconstructToDefault(AudioSource audioSource) { }
+        public void ReconstructToDefault(AudioSource audioSource) { }
 
-        protected override void Construct(AudioSource audioSource)
+        public void Construct(AudioSource audioSource)
         {
             audioSource.Play();
         }
+
+        public AudioSource NewInstance() => Instantiate(Prefab);
     }
 }

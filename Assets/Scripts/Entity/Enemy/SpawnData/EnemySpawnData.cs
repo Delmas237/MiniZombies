@@ -11,7 +11,7 @@ namespace EnemyLib
 
         [SerializeField] protected EnemyPool _enemyPool;
         public EnemyPool EnemyPool => _enemyPool;
-        public abstract IFactory<IEnemy> Factory { get; }
+        public abstract IInstanceProvider<IEnemy> Factory { get; }
 
         public abstract void Initialize(List<Transform> spawnPoses, IEntity target);
     }

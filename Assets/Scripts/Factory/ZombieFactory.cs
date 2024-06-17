@@ -9,7 +9,7 @@ using Random = UnityEngine.Random;
 
 namespace Factory
 {
-    public class ZombieFactory : FactoryBase<ZombieContainer>, IFactory<IEnemy>
+    public class ZombieFactory : IFactory<ZombieContainer>, IInstanceProvider<IEnemy>
     {
         protected IEntity _target;
         protected List<Transform> _spawnDots;
@@ -18,15 +18,19 @@ namespace Factory
         protected IPool<ZombieContainer> _pool;
         public IPool<ZombieContainer> Pool => _pool;
 
+        private ZombieContainer _prefab;
+        public ZombieContainer Prefab => _prefab;
+
         public ZombieFactory(IPool<ZombieContainer> pool, IPool<AmmoPack> ammoPackPool, List<Transform> spawnDots, 
-            IEntity target) : base(pool.Prefab)
+            IEntity target)
         {
+            _prefab = pool.Prefab;
             _pool = pool;
             _ammoPackPool = ammoPackPool;
             _spawnDots = spawnDots;
             _target = target;
 
-            foreach (ZombieContainer enemy in Pool.Pool)
+            foreach (ZombieContainer enemy in Pool.Elements)
                 enemy.MoveController.Speed = enemy.MoveController.DefaultSpeed;
 
             EnemyWaveManager.WaveFinished += BoostEnemies;
@@ -40,7 +44,7 @@ namespace Factory
 
         private void BoostEnemies()
         {
-            foreach (ZombieContainer enemy in Pool.Pool)
+            foreach (ZombieContainer enemy in Pool.Elements)
             {
                 enemy.HealthController.MaxHealth *= 1.03f;
 
@@ -62,7 +66,7 @@ namespace Factory
             return instance;
         }
 
-        protected override void ReconstructToDefault(ZombieContainer enemy)
+       public void ReconstructToDefault(ZombieContainer enemy)
         {
             if (enemy.TryGetComponent(out Rigidbody rb))
                 Object.Destroy(rb);
@@ -76,7 +80,7 @@ namespace Factory
                 collider.height = 1.9f;
             }
         }
-        protected override void Construct(ZombieContainer enemy)
+        public void Construct(ZombieContainer enemy)
         {
             enemy.enabled = true;
 
@@ -102,5 +106,7 @@ namespace Factory
             spawnDots.Remove(transform);
             return transform;
         }
+
+        public ZombieContainer NewInstance() => Object.Instantiate(Prefab);
     }
 }

@@ -10,8 +10,8 @@ namespace EnemyLib
         [SerializeField] private ParticleSystemPool _shotPool;
         public ParticleSystemPool ShotPool => _shotPool;
 
-        private IFactory<IEnemy> _factory;
-        public override IFactory<IEnemy> Factory => _factory;
+        private IInstanceProvider<IEnemy> _factory;
+        public override IInstanceProvider<IEnemy> Factory => _factory;
 
         public override void Initialize(List<Transform> spawnPoses, IEntity target)
         {

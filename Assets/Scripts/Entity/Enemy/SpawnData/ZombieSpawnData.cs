@@ -6,8 +6,8 @@ namespace EnemyLib
 {
     public class ZombieSpawnData : EnemySpawnData
     {
-        private IFactory<IEnemy> _factory;
-        public override IFactory<IEnemy> Factory => _factory;
+        private IInstanceProvider<IEnemy> _factory;
+        public override IInstanceProvider<IEnemy> Factory => _factory;
 
         public override void Initialize(List<Transform> spawnPoses, IEntity target)
         {
