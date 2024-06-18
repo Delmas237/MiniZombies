@@ -60,5 +60,10 @@ namespace EnemyLib
             int rnd = Random.Range(1, 3);
             _animator.SetBool("Death" + rnd, true);
         }
+
+        public void OnDestroy()
+        {
+            _healthController.Died -= DeathAnim;
+        }
     }
 }

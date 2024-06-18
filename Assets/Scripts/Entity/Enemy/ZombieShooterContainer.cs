@@ -50,6 +50,12 @@ namespace EnemyLib
             enabled = false;
         }
 
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            _animationController.OnDestroy();
+        }
+
         private void Shoot() => _weaponsController.PullTrigger();
     }
 }

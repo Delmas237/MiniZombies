@@ -28,6 +28,10 @@ namespace EnemyLib
         {
             HealthController.Died += OnDeath;
         }
+        protected virtual void OnDestroy()
+        {
+            HealthController.Died -= OnDeath;
+        }
 
         protected virtual void OnDeath()
         {

@@ -1,4 +1,5 @@
 using EnemyLib;
+using EventBusLib;
 using JoystickLib;
 using System;
 using System.Collections;
@@ -25,28 +26,32 @@ namespace PlayerLib
         private Rigidbody _rb;
         private Transform _transform;
 
-        private IHealthController _healthController;
         private IPlayerWeaponsController _weaponsController;
 
         private IEnemy _closestEnemy;
         private const float TIME_TO_UPDATE_CLOSEST_ENEMY = 0.35f;
         private Coroutine _closestEnemyCoroutine;
 
-        public void Initialize(IHealthController healthController, IPlayerWeaponsController weaponsController, Transform transform, 
+        public void Initialize(IPlayerWeaponsController weaponsController, Transform transform, 
             Rigidbody rigidbody)
         {
-            _healthController = healthController;
             _weaponsController = weaponsController;
             _transform = transform;
             _rb = rigidbody;
 
-            _healthController.Died += SetControllableFalse;
+            EventBus.Subscribe<GameOverEvent>(SetControllableFalse);
+            EventBus.Subscribe<GameExitEvent>(Unsubscribe);
 
             _closestEnemyCoroutine = CoroutineHelper.StartRoutine(UpdateClosestEnemy());
         }
-        private void SetControllableFalse()
+        private void Unsubscribe(GameExitEvent exitEvent)
         {
-            _healthController.Died -= SetControllableFalse;
+            EventBus.Unsubscribe<GameExitEvent>(Unsubscribe);
+            EventBus.Unsubscribe<GameOverEvent>(SetControllableFalse);
+        }
+
+        private void SetControllableFalse(GameOverEvent gameOverEvent)
+        {
             _controllable = false;
         }
 

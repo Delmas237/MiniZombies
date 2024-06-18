@@ -1,3 +1,4 @@
+using EventBusLib;
 using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -11,13 +12,27 @@ public class HealthAudioController
     [Space(10)]
     [SerializeField] protected float _deathPitchRandomRange;
 
-    public virtual void Initialize(IHealthController _healthController)
+    private IHealthController _healthController;
+
+    public virtual void Initialize(IHealthController healthController)
     {
+        _healthController = healthController;
+
         _healthController.Died += OnDeath;
         _healthController.Healed += _healSound.Play;
         _healthController.Damaged += _damageSound.Play;
+
+        EventBus.Subscribe<GameExitEvent>(Unsubscribe);
     }
-    public virtual void OnDeath()
+    private void Unsubscribe(GameExitEvent exitEvent)
+    {
+        EventBus.Unsubscribe<GameExitEvent>(Unsubscribe);
+        _healthController.Died -= OnDeath;
+        _healthController.Healed -= _healSound.Play;
+        _healthController.Damaged -= _damageSound.Play;
+    }
+
+    private void OnDeath()
     {
         _deathSound.pitch = Random.Range(_deathSound.pitch - _deathPitchRandomRange, _deathSound.pitch + _deathPitchRandomRange);
         _deathSound.Play();

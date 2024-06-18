@@ -54,6 +54,12 @@ namespace EnemyLib
             enabled = false;
         }
 
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            _animationController.OnDestroy();
+        }
+
         private void DealDamage() => _attackController.DealDamage();
     }
 }

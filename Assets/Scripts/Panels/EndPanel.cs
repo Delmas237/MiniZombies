@@ -1,4 +1,5 @@
 using EnemyLib;
+using EventBusLib;
 using PlayerLib;
 using System.Collections;
 using TMPro;
@@ -15,23 +16,19 @@ namespace Panels
         [SerializeField] private TextMeshProUGUI _wavesCompleted;
         [SerializeField] private TextMeshProUGUI _moneyPlus;
 
-        [SerializeField] private PlayerContainer _player;
-
         private void Start()
         {
-            _player.HealthController.Died += Open;
+            EventBus.Subscribe<GameOverEvent>(Open);
             EnemyWaveManager.AllWavesFinished += Open;
         }
         private void OnDestroy()
         {
-            _player.HealthController.Died -= Open;
+            EventBus.Unsubscribe<GameOverEvent>(Open);
             EnemyWaveManager.AllWavesFinished -= Open;
         }
 
-        private void Open()
-        {
-            StartCoroutine(OpenCor());
-        }
+        private void Open(GameOverEvent gameOverEvent) => Open();
+        private void Open() => StartCoroutine(OpenCor());
         private IEnumerator OpenCor()
         {
             yield return new WaitForSeconds(_timeToOpen);
@@ -49,11 +46,13 @@ namespace Panels
 
         public void Restart()
         {
+            EventBus.Invoke(new GameExitEvent());
             SceneManager.LoadScene("Game");
         }
 
         public void GoLobby()
         {
+            EventBus.Invoke(new GameExitEvent());
             SceneManager.LoadScene("Lobby");
         }
     }

@@ -1,3 +1,4 @@
+using EventBusLib;
 using PlayerLib;
 using System.Collections;
 using System.Collections.Generic;
@@ -29,12 +30,12 @@ namespace EnemyLib
 
             StartCoroutine(SpawnController());
 
-            _player.HealthController.Died += StopSpawn;
+            EventBus.Subscribe<GameOverEvent>(StopSpawn);
         }
 
-        private void StopSpawn()
+        private void StopSpawn(GameOverEvent gameOverEvent)
         {
-            _player.HealthController.Died -= StopSpawn;
+            EventBus.Unsubscribe<GameOverEvent>(StopSpawn);
             IsSpawn = false;
         }
 

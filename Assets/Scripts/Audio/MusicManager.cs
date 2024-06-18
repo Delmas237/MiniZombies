@@ -1,5 +1,5 @@
 using EnemyLib;
-using PlayerLib;
+using EventBusLib;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -14,7 +14,6 @@ namespace Audio
         [SerializeField] private AudioSource _battleMusic;
 
         [SerializeField] private SoundSettings _soundSettings;
-        [SerializeField] private PlayerContainer _player;
 
         private MusicType _state = MusicType.Calm;
 
@@ -22,13 +21,17 @@ namespace Audio
         {
             EnemyWaveManager.WaveStarted += Change;
             EnemyWaveManager.WaveFinished += Change;
-            _player.HealthController.Died += Stop;
+
+            EventBus.Subscribe<GameOverEvent>(Stop);
+            EventBus.Subscribe<GameExitEvent>(Unsubscribe);
         }
-        private void OnDestroy()
+        private void Unsubscribe(GameExitEvent gameExitEvent)
         {
+            EventBus.Unsubscribe<GameExitEvent>(Unsubscribe);
+            EventBus.Unsubscribe<GameOverEvent>(Stop);
+
             EnemyWaveManager.WaveStarted -= Change;
             EnemyWaveManager.WaveFinished -= Change;
-            _player.HealthController.Died -= Stop;
         }
 
         private void Play(MusicType musicType)
@@ -46,6 +49,7 @@ namespace Audio
             }
         }
 
+        private void Stop(GameOverEvent gameOverEvent) => Stop();
         private void Stop()
         {
             _battleMusic.Stop();

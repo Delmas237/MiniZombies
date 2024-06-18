@@ -1,3 +1,4 @@
+using EventBusLib;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -10,12 +11,25 @@ public class DelayedDisableEntityModule : IModule
     [SerializeField] protected float _delay = 3f;
 
     private GameObject _gameObject;
+    private IEntity _entity;
 
     public void Initialize(GameObject gameObject, IEntity entity)
     {
-        _gameObject = gameObject;
-        entity.HealthController.Died += DelayedSetActiveFalse;
+        if (Enabled)
+        {
+            _gameObject = gameObject;
+            _entity = entity;
+
+            entity.HealthController.Died += DelayedSetActiveFalse;
+            EventBus.Subscribe<GameExitEvent>(Unsubscribe);
+        }
     }
+    private void Unsubscribe(GameExitEvent exitEvent)
+    {
+        EventBus.Unsubscribe<GameExitEvent>(Unsubscribe);
+        _entity.HealthController.Died -= DelayedSetActiveFalse;
+    }
+
     private IEnumerator SetActiveFalse(float delay)
     {
         yield return new WaitForSeconds(delay);

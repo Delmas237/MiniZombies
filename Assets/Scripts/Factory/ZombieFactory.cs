@@ -1,4 +1,5 @@
 using EnemyLib;
+using EventBusLib;
 using ObjectPool;
 using System;
 using System.Collections.Generic;
@@ -37,11 +38,11 @@ namespace Factory
                 enemy.MoveController.Speed = enemy.MoveController.DefaultSpeed;
 
             EnemyWaveManager.WaveFinished += BoostEnemies;
-            _target.HealthController.Died += Unsubscribe;
+            EventBus.Subscribe<GameExitEvent>(Unsubscribe);
         }
-        private void Unsubscribe()
+        private void Unsubscribe(GameExitEvent gameOverEvent)
         {
-            _target.HealthController.Died -= Unsubscribe;
+            EventBus.Unsubscribe<GameExitEvent>(Unsubscribe);
             EnemyWaveManager.WaveFinished -= BoostEnemies;
         }
 

@@ -1,3 +1,4 @@
+using EventBusLib;
 using ObjectPool;
 using System;
 using UnityEngine;
@@ -14,13 +15,23 @@ namespace Weapons
         public IPool<AmmoPack> AmmoPool { get; set; }
         private Transform _transform;
 
+        private IHealthController _healthController;
+
         public void Initialize(IHealthController healthController, Transform transform)
         {
             if (Enabled)
             {
-                healthController.Died += DropAmmo;
+                _healthController = healthController;
                 _transform = transform;
+
+                healthController.Died += DropAmmo;
+                EventBus.Subscribe<GameExitEvent>(Unsubscribe);
             }
+        }
+        private void Unsubscribe(GameExitEvent exitEvent)
+        {
+            EventBus.Unsubscribe<GameExitEvent>(Unsubscribe);
+            _healthController.Died -= DropAmmo;
         }
 
         private void DropAmmo()

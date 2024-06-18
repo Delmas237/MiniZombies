@@ -1,3 +1,4 @@
+using EventBusLib;
 using UnityEngine;
 
 namespace PlayerLib
@@ -26,7 +27,9 @@ namespace PlayerLib
             _healthController.Initialize();
             _animationController.Initialize(HealthController, WeaponsController, MoveController, GetComponent<Animator>());
             _weaponsController.Initialize(HealthController);
-            _moveController.Initialize(HealthController, WeaponsController, transform, GetComponent<Rigidbody>());
+            _moveController.Initialize(WeaponsController, transform, GetComponent<Rigidbody>());
+
+            _healthController.Died += () => EventBus.Invoke(new GameOverEvent());
         }
 
         private void Update()
