@@ -21,14 +21,17 @@ namespace Factory
         private ZombieContainer _prefab;
         public ZombieContainer Prefab => _prefab;
 
+        private EnemyWaveBoostData _waveBoostData;
+
         public ZombieFactory(IPool<ZombieContainer> pool, IPool<AmmoPack> ammoPackPool, List<Transform> spawnDots, 
-            IEntity target)
+            IEntity target, EnemyWaveBoostData waveBoostData)
         {
             _prefab = pool.Prefab;
             _pool = pool;
             _ammoPackPool = ammoPackPool;
             _spawnDots = spawnDots;
             _target = target;
+            _waveBoostData = waveBoostData;
 
             foreach (ZombieContainer enemy in Pool.Elements)
                 enemy.MoveController.Speed = enemy.MoveController.DefaultSpeed;
@@ -46,10 +49,10 @@ namespace Factory
         {
             foreach (ZombieContainer enemy in Pool.Elements)
             {
-                enemy.HealthController.MaxHealth *= 1.03f;
+                enemy.HealthController.MaxHealth *= 1 + _waveBoostData.HpPercent;
 
                 float randomX = Random.Range(0.9f, 1.15f);
-                float boosterValue = EnemyWaveManager.CurrentWaveIndex * 0.01f;
+                float boosterValue = _waveBoostData.AdditionalSpeed;
                 float speedX = (float)Math.Round(randomX + boosterValue, 2);
                 enemy.MoveController.Speed = enemy.MoveController.DefaultSpeed * speedX;
                 enemy.AttackController.AttackSpeed = speedX;
