@@ -1,4 +1,5 @@
-using System;
+using EventBusLib;
+using System.Collections;
 using UnityEngine;
 
 namespace LightLib
@@ -12,27 +13,21 @@ namespace LightLib
         [SerializeField] private Vector3 _dayRotation;
         [SerializeField] private Vector3 _nightRotation;
 
-        public static event Action<TimesOfDay> TimesOfDayChanged;
-
         private TimesOfDay _timesOfDay;
 
         private void Start()
         {
             _generalLight = GetComponent<Light>();
+
+            EventBus.Subscribe<TimesOfDayChangedEvent>(SetTimesOfDay);
+        }
+        private void OnDestroy()
+        {
+            EventBus.Unsubscribe<TimesOfDayChangedEvent>(SetTimesOfDay);
         }
 
         private void Update()
         {
-            switch (_timesOfDay)
-            {
-                case TimesOfDay.Day:
-                    RotateSunTo(_dayRotation);
-                    break;
-                case TimesOfDay.Night:
-                    RotateSunTo(_nightRotation);
-                    break;
-            }
-
 #if UNITY_EDITOR
             Cheats();
 #endif
@@ -41,22 +36,36 @@ namespace LightLib
         private void Cheats()
         {
             if (Input.GetKeyDown(KeyCode.Z))
-                SetTimesOfDay(TimesOfDay.Day);
+                EventBus.Invoke(new TimesOfDayChangedEvent(TimesOfDay.Day));
 
             if (Input.GetKeyDown(KeyCode.X))
-                SetTimesOfDay(TimesOfDay.Night);
+                EventBus.Invoke(new TimesOfDayChangedEvent(TimesOfDay.Night));
         }
 
-        public void SetTimesOfDay(TimesOfDay timesOfDay)
+        private void SetTimesOfDay(TimesOfDayChangedEvent changedEvent)
         {
-            _timesOfDay = timesOfDay;
-            TimesOfDayChanged?.Invoke(timesOfDay);
+            _timesOfDay = changedEvent.TimesOfDay;
+
+            StopAllCoroutines();
+            switch (_timesOfDay)
+            {
+                case TimesOfDay.Day:
+                    StartCoroutine(RotateTo(_dayRotation));
+                    break;
+                case TimesOfDay.Night:
+                    StartCoroutine(RotateTo(_nightRotation));
+                    break;
+            }
         }
 
-        private void RotateSunTo(Vector3 vector)
+        private IEnumerator RotateTo(Vector3 vector)
         {
-            _generalLight.transform.rotation = Quaternion.Lerp(
-                transform.rotation, Quaternion.Euler(vector), _rotationSpeed);
+            while (Vector3.Distance(_generalLight.transform.eulerAngles, vector) % 360 > 1f)
+            {
+                _generalLight.transform.rotation = Quaternion.Lerp(
+                    transform.rotation, Quaternion.Euler(vector), _rotationSpeed);
+                yield return null;
+            }
         }
     }
 }

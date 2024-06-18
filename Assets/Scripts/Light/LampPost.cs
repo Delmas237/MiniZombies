@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using EventBusLib;
 
 namespace LightLib
 {
@@ -11,16 +12,16 @@ namespace LightLib
         {
             _lamp = GetComponentInChildren<Light>();
 
-            LightManager.TimesOfDayChanged += Controller;
+            EventBus.Subscribe<TimesOfDayChangedEvent>(Controller);
         }
         private void OnDestroy()
         {
-            LightManager.TimesOfDayChanged -= Controller;
+            EventBus.Unsubscribe<TimesOfDayChangedEvent>(Controller);
         }
 
-        private void Controller(TimesOfDay timesOfDay)
+        private void Controller(TimesOfDayChangedEvent changedEvent)
         {
-            StartCoroutine(ControllerCor(timesOfDay));
+            StartCoroutine(ControllerCor(changedEvent.TimesOfDay));
         }
         private IEnumerator ControllerCor(TimesOfDay timesOfDay)
         {

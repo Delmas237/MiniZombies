@@ -3,6 +3,7 @@ using UnityEngine;
 using TMPro;
 using System;
 using LightLib;
+using EventBusLib;
 
 namespace EnemyLib
 {
@@ -11,10 +12,9 @@ namespace EnemyLib
         [SerializeField] private float _timeBtwWaves = 10;
 
         [Tooltip("Minimum currentWave for night version")]
-        [SerializeField] private int _minWaveForNight = 2;
+        [SerializeField, Min(1)] private int _minWaveForNight = 2;
         [Space(10)]
         [SerializeField] private EnemySpawner _spawnManager;
-        [SerializeField] private LightManager _lightManager;
         [SerializeField] private TextMeshProUGUI _waveUIInfo;
 
         private readonly Wave[] _waves = new Wave[100];
@@ -165,8 +165,9 @@ namespace EnemyLib
                 yield break;
             }
             WaveFinished?.Invoke();
-            
-            _lightManager.SetTimesOfDay(_currentWave.TimesOfDay);
+
+            if (_waves[CurrentWaveIndex].TimesOfDay != _waves[CurrentWaveIndex - 1].TimesOfDay)
+                EventBus.Invoke(new TimesOfDayChangedEvent(_waves[CurrentWaveIndex].TimesOfDay));
 
             yield return new WaitForSeconds(_timeBtwWaves);
 
