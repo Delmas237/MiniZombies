@@ -1,9 +1,8 @@
-using System.Collections;
-using UnityEngine;
-using TMPro;
-using System;
-using LightLib;
 using EventBusLib;
+using LightLib;
+using System.Collections;
+using TMPro;
+using UnityEngine;
 
 namespace EnemyLib
 {
@@ -21,11 +20,6 @@ namespace EnemyLib
 
         private Wave _currentWave;
         public static int CurrentWaveIndex { get; private set; } = 0;
-
-        public static event Action WaveStarted;
-        public static event Action WaveFinished;
-
-        public static event Action AllWavesFinished;
 
         public int CurrentWaveEnemiesDied => _spawnManager.EnemiesDied - _enemiesDiedBeforeWave;
         private int _enemiesDiedBeforeWave;
@@ -161,10 +155,10 @@ namespace EnemyLib
             CurrentWaveIndex++;
             if (CurrentWaveIndex == _waves.Length)
             {
-                AllWavesFinished?.Invoke();
+                EventBus.Invoke(new AllWavesFinishedEvent());
                 yield break;
             }
-            WaveFinished?.Invoke();
+            EventBus.Invoke(new WaveFinishedEvent());
 
             if (_waves[CurrentWaveIndex].TimesOfDay != _waves[CurrentWaveIndex - 1].TimesOfDay)
                 EventBus.Invoke(new TimesOfDayChangedEvent(_waves[CurrentWaveIndex].TimesOfDay));
@@ -182,7 +176,7 @@ namespace EnemyLib
             _spawnManager.Cooldown = _currentWave.SpawnSpeed;
 
             _spawnManager.IsSpawn = true;
-            WaveStarted?.Invoke();
+            EventBus.Invoke(new WaveStartedEvent());
 
             StartCoroutine(WaveController());
         }

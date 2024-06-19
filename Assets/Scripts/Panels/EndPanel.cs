@@ -19,15 +19,16 @@ namespace Panels
         private void Start()
         {
             EventBus.Subscribe<GameOverEvent>(Open);
-            EnemyWaveManager.AllWavesFinished += Open;
+            EventBus.Subscribe<AllWavesFinishedEvent>(Open);
         }
         private void OnDestroy()
         {
             EventBus.Unsubscribe<GameOverEvent>(Open);
-            EnemyWaveManager.AllWavesFinished -= Open;
+            EventBus.Unsubscribe<AllWavesFinishedEvent>(Open);
         }
 
         private void Open(GameOverEvent gameOverEvent) => Open();
+        private void Open(AllWavesFinishedEvent gameOverEvent) => Open();
         private void Open() => StartCoroutine(OpenCor());
         private IEnumerator OpenCor()
         {

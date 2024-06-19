@@ -37,15 +37,16 @@ namespace Factory
             foreach (ZombieContainer enemy in Pool.Elements)
                 enemy.MoveController.Speed = enemy.MoveController.DefaultSpeed;
 
-            EnemyWaveManager.WaveFinished += BoostEnemies;
+            EventBus.Subscribe<WaveFinishedEvent>(BoostEnemies);
             EventBus.Subscribe<GameExitEvent>(Unsubscribe);
         }
         private void Unsubscribe(GameExitEvent gameOverEvent)
         {
+            EventBus.Unsubscribe<WaveFinishedEvent>(BoostEnemies);
             EventBus.Unsubscribe<GameExitEvent>(Unsubscribe);
-            EnemyWaveManager.WaveFinished -= BoostEnemies;
         }
 
+        private void BoostEnemies(WaveFinishedEvent finishedEvent) => BoostEnemies();
         private void BoostEnemies()
         {
             foreach (ZombieContainer enemy in Pool.Elements)

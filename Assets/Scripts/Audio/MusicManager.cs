@@ -1,4 +1,3 @@
-using EnemyLib;
 using EventBusLib;
 using System.Collections;
 using UnityEngine;
@@ -19,19 +18,19 @@ namespace Audio
 
         private void Start()
         {
-            EnemyWaveManager.WaveStarted += Change;
-            EnemyWaveManager.WaveFinished += Change;
+            EventBus.Subscribe<WaveStartedEvent>(Change);
+            EventBus.Subscribe<WaveFinishedEvent>(Change);
 
             EventBus.Subscribe<GameOverEvent>(Stop);
             EventBus.Subscribe<GameExitEvent>(Unsubscribe);
         }
         private void Unsubscribe(GameExitEvent gameExitEvent)
         {
-            EventBus.Unsubscribe<GameExitEvent>(Unsubscribe);
-            EventBus.Unsubscribe<GameOverEvent>(Stop);
+            EventBus.Unsubscribe<WaveStartedEvent>(Change);
+            EventBus.Unsubscribe<WaveFinishedEvent>(Change);
 
-            EnemyWaveManager.WaveStarted -= Change;
-            EnemyWaveManager.WaveFinished -= Change;
+            EventBus.Unsubscribe<GameOverEvent>(Stop);
+            EventBus.Unsubscribe<GameExitEvent>(Unsubscribe);
         }
 
         private void Play(MusicType musicType)
@@ -75,6 +74,8 @@ namespace Audio
             }
         }
 
+        private void Change(WaveStartedEvent startedEvent) => Change();
+        private void Change(WaveFinishedEvent finishedEvent) => Change();
         private void Change()
         {
             float timeBtwSteps = 0f;

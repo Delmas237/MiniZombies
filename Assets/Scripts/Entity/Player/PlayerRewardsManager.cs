@@ -1,4 +1,5 @@
 using EnemyLib;
+using EventBusLib;
 using UnityEngine;
 
 namespace PlayerLib
@@ -10,13 +11,14 @@ namespace PlayerLib
 
         private void Start()
         {
-            EnemyWaveManager.WaveFinished += LocalCoinsWon;
+            EventBus.Subscribe<WaveFinishedEvent>(LocalCoinsWon);
         }
         private void OnDestroy()
         {
-            EnemyWaveManager.WaveFinished -= LocalCoinsWon;
+            EventBus.Unsubscribe<WaveFinishedEvent>(LocalCoinsWon);
         }
 
+        private void LocalCoinsWon(WaveFinishedEvent waveFinishedEvent) => LocalCoinsWon();
         private void LocalCoinsWon() => _player.CurrencyController.Add(_enemyWaveManager.CurrentWaveEnemiesDied * 5);
 
         public static int GlobalCoinsWon()

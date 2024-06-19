@@ -1,4 +1,4 @@
-using EnemyLib;
+using EventBusLib;
 using PlayerLib;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,8 +28,13 @@ namespace LocalShopLib
 
             GunsLvlInitialize();
 
-            EnemyWaveManager.WaveStarted += ShopDisable;
-            EnemyWaveManager.WaveFinished += ShopEnable;
+            EventBus.Subscribe<WaveStartedEvent>(ShopDisable);
+            EventBus.Subscribe<WaveFinishedEvent>(ShopEnable);
+        }
+        private void OnDestroy()
+        {
+            EventBus.Unsubscribe<WaveStartedEvent>(ShopDisable);
+            EventBus.Unsubscribe<WaveFinishedEvent>(ShopEnable);
         }
 
         private void UpdatePrice()
@@ -46,17 +51,12 @@ namespace LocalShopLib
                 _weaponsLvl.Add(-1);
         }
 
-        private void OnDestroy()
-        {
-            EnemyWaveManager.WaveStarted -= ShopDisable;
-            EnemyWaveManager.WaveFinished -= ShopEnable;
-        }
-
-        private void ShopEnable()
+        private void ShopEnable(WaveFinishedEvent finishedEvent)
         {
             _shopButton.SetActive(true);
         }
-        private void ShopDisable()
+
+        private void ShopDisable(WaveStartedEvent startedEvent)
         {
             _shopButton.SetActive(false);
             _shopPanel.SetActive(false);
