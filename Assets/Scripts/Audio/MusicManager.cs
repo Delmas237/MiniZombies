@@ -48,7 +48,7 @@ namespace Audio
             }
         }
 
-        private void Stop(GameOverEvent gameOverEvent) => Stop();
+        private void Stop(IEvent e) => Stop();
         private void Stop()
         {
             _battleMusic.Stop();
@@ -74,8 +74,7 @@ namespace Audio
             }
         }
 
-        private void Change(WaveStartedEvent startedEvent) => Change();
-        private void Change(WaveFinishedEvent finishedEvent) => Change();
+        private void Change(IEvent e) => Change();
         private void Change()
         {
             float timeBtwSteps = 0f;

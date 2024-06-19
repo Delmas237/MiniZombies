@@ -1,4 +1,4 @@
 namespace EventBusLib
 {
-    public class WaveFinishedEvent { }
+    public class WaveFinishedEvent : IEvent { }
 }

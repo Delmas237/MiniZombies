@@ -1,4 +1,4 @@
 namespace EventBusLib
 {
-    public class GameExitEvent { }
+    public class GameExitEvent : IEvent { }
 }

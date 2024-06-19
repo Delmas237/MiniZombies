@@ -32,15 +32,11 @@ namespace EnemyLib
 
             EventBus.Subscribe<GameOverEvent>(StopSpawn);
         }
-
-        private void StopSpawn(GameOverEvent gameOverEvent)
-        {
-            EventBus.Unsubscribe<GameOverEvent>(StopSpawn);
-            IsSpawn = false;
-        }
+        private void StopSpawn(IEvent e) => IsSpawn = false;
 
         private void OnDestroy()
         {
+            EventBus.Unsubscribe<GameOverEvent>(StopSpawn);
             _enemiesOnScene.Clear();
         }
 

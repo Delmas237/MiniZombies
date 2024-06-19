@@ -51,12 +51,12 @@ namespace LocalShopLib
                 _weaponsLvl.Add(-1);
         }
 
-        private void ShopEnable(WaveFinishedEvent finishedEvent)
+        private void ShopEnable(IEvent e)
         {
             _shopButton.SetActive(true);
         }
 
-        private void ShopDisable(WaveStartedEvent startedEvent)
+        private void ShopDisable(IEvent e)
         {
             _shopButton.SetActive(false);
             _shopPanel.SetActive(false);

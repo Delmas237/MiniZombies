@@ -2,7 +2,7 @@ using LightLib;
 
 namespace EventBusLib
 {
-    public class TimesOfDayChangedEvent
+    public class TimesOfDayChangedEvent : IEvent
     {
         private TimesOfDay _timesOfDay;
         public TimesOfDay TimesOfDay => _timesOfDay;

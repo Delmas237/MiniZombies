@@ -27,8 +27,7 @@ namespace Panels
             EventBus.Unsubscribe<AllWavesFinishedEvent>(Open);
         }
 
-        private void Open(GameOverEvent gameOverEvent) => Open();
-        private void Open(AllWavesFinishedEvent gameOverEvent) => Open();
+        private void Open(IEvent e) => Open();
         private void Open() => StartCoroutine(OpenCor());
         private IEnumerator OpenCor()
         {

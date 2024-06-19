@@ -18,7 +18,7 @@ namespace PlayerLib
             EventBus.Unsubscribe<WaveFinishedEvent>(LocalCoinsWon);
         }
 
-        private void LocalCoinsWon(WaveFinishedEvent waveFinishedEvent) => LocalCoinsWon();
+        private void LocalCoinsWon(IEvent e) => LocalCoinsWon();
         private void LocalCoinsWon() => _player.CurrencyController.Add(_enemyWaveManager.CurrentWaveEnemiesDied * 5);
 
         public static int GlobalCoinsWon()

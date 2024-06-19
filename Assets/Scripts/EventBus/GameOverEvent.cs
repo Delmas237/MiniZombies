@@ -1,4 +1,4 @@
 namespace EventBusLib
 {
-    public class GameOverEvent { }
+    public class GameOverEvent : IEvent { }
 }

@@ -50,7 +50,7 @@ namespace PlayerLib
             EventBus.Unsubscribe<GameOverEvent>(SetControllableFalse);
         }
 
-        private void SetControllableFalse(GameOverEvent gameOverEvent)
+        private void SetControllableFalse(IEvent e)
         {
             _controllable = false;
         }

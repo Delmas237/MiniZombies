@@ -46,7 +46,7 @@ namespace Factory
             EventBus.Unsubscribe<GameExitEvent>(Unsubscribe);
         }
 
-        private void BoostEnemies(WaveFinishedEvent finishedEvent) => BoostEnemies();
+        private void BoostEnemies(IEvent e) => BoostEnemies();
         private void BoostEnemies()
         {
             foreach (ZombieContainer enemy in Pool.Elements)

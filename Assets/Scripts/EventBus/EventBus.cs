@@ -9,7 +9,7 @@ namespace EventBusLib
     {
         private static Dictionary<Type, List<object>> _eventCallbacks = new Dictionary<Type, List<object>>();
 
-        public static void Subscribe<T>(Action<T> callback)
+        public static void Subscribe<T>(Action<T> callback) where T : IEvent
         {
             Type type = typeof(T);
             if (_eventCallbacks.ContainsKey(type))
@@ -22,7 +22,7 @@ namespace EventBusLib
             }
         }
 
-        public static void Unsubscribe<T>(Action<T> callback)
+        public static void Unsubscribe<T>(Action<T> callback) where T : IEvent
         {
             Type type = typeof(T);
             if (_eventCallbacks.ContainsKey(type))
@@ -35,7 +35,7 @@ namespace EventBusLib
             }
         }
 
-        public static void Invoke<T>(T signal)
+        public static void Invoke<T>(T signal) where T : IEvent
         {
             Type type = typeof(T);
             if (_eventCallbacks.ContainsKey(type))
