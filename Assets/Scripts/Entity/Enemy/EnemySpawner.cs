@@ -2,6 +2,7 @@ using EventBusLib;
 using PlayerLib;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -53,11 +54,27 @@ namespace EnemyLib
 
         private void Spawn()
         {
-            int rnd = Random.Range(0, _spawnData.Count);
+            int prioritySum = (int)_spawnData.Sum(p => p.Priority);
+            if (prioritySum > 0)
+            {
+                int random = Random.Range(0, prioritySum);
 
-            IEnemy enemy = _spawnData[rnd].Factory.GetInstance();
-            _enemiesOnScene.Add(enemy);
-            enemy.HealthController.Died += RemoveDiedEnemies;
+                float current = 0;
+                foreach (var spawnData in _spawnData)
+                {
+                    if (spawnData.Priority <= 0)
+                        continue;
+
+                    if (random >= current && random <= spawnData.Priority + current)
+                    {
+                        IEnemy enemy = spawnData.Factory.GetInstance();
+                        _enemiesOnScene.Add(enemy);
+                        enemy.HealthController.Died += RemoveDiedEnemies;
+                        return;
+                    }
+                    current += spawnData.Priority;
+                }
+            }
         }
 
         private void RemoveDiedEnemies()

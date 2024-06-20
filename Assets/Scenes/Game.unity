@@ -3531,7 +3531,6 @@ MonoBehaviour:
   _calmMusic: {fileID: 354902579}
   _battleMusic: {fileID: 1842378328}
   _soundSettings: {fileID: 23125302}
-  _player: {fileID: 7560204000705171858}
 --- !u!1001 &77496619
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19032,7 +19031,6 @@ MonoBehaviour:
   _endPanel: {fileID: 1367528941}
   _wavesCompleted: {fileID: 373706648}
   _moneyPlus: {fileID: 985951481}
-  _player: {fileID: 7560204000705171858}
 --- !u!1001 &452094989
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21240,6 +21238,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f80df8cc00e72b442a34fbe981ee6067, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _priority: 100
+  _waveBoostData:
+    _hpPercent: 0.03
+    _waveMultiplierSpeed: 0.01
   _ammoPool: {fileID: 1605113706}
   _enemyPool: {fileID: 149138799}
 --- !u!1001 &513104101
@@ -24070,6 +24072,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5f21c9a0a3c02b4da9511643001b334, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _priority: 65
+  _waveBoostData:
+    _hpPercent: 0.03
+    _waveMultiplierSpeed: 0.01
   _ammoPool: {fileID: 1605113706}
   _enemyPool: {fileID: 1308993749}
   _shotPool: {fileID: 164567635}
@@ -61665,7 +61671,6 @@ MonoBehaviour:
   _timeBtwWaves: 10
   _minWaveForNight: 2
   _spawnManager: {fileID: 1110232204}
-  _lightManager: {fileID: 1851004387}
   _waveUIInfo: {fileID: 316855171}
 --- !u!65 &1482037548
 BoxCollider:
@@ -79531,6 +79536,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f80df8cc00e72b442a34fbe981ee6067, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _priority: 100
+  _waveBoostData:
+    _hpPercent: 0.03
+    _waveMultiplierSpeed: 0.01
   _ammoPool: {fileID: 1605113706}
   _enemyPool: {fileID: 1498937196}
 --- !u!1001 &1904334984
@@ -79792,6 +79801,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f80df8cc00e72b442a34fbe981ee6067, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _priority: 100
+  _waveBoostData:
+    _hpPercent: 0.03
+    _waveMultiplierSpeed: 0.01
   _ammoPool: {fileID: 1605113706}
   _enemyPool: {fileID: 435148745}
 --- !u!1 &1908124880
