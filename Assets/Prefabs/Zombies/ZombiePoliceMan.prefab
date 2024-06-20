@@ -1549,6 +1549,10 @@ PrefabInstance:
       propertyPath: _shootDir
       value: 
       objectReference: {fileID: 2805238932535356984}
+    - target: {fileID: 7371549726035719926, guid: 817032021e65a1a428bad43472a5e0ac, type: 3}
+      propertyPath: <Distance>k__BackingField
+      value: 5.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7371549726179397746, guid: 817032021e65a1a428bad43472a5e0ac, type: 3}
       propertyPath: cooldown
       value: 0.5
