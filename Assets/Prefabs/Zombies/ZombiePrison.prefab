@@ -42,7 +42,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7472286623215477934}
   - component: {fileID: 6981525330893697395}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: HealSound
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -296,7 +296,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6033372083139382124}
   - component: {fileID: 3179848695585510845}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: DamageSound
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1135,7 +1135,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1695505134919152471}
   - component: {fileID: 5029291613290675646}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: DeathSound
   m_TagString: Untagged
   m_Icon: {fileID: 0}
