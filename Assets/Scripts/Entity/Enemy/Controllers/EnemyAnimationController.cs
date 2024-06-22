@@ -28,7 +28,7 @@ namespace EnemyLib
         public void OnEnable()
         {
             _animator.SetFloat("MoveSpeed", ConvertMoveSpeed(_moveController.Speed));
-            _animator.SetFloat("AttackSpeed", _attackController.AttackSpeed);
+            _animator.SetFloat("AttackSpeed", _attackController.Speed);
         }
         private float ConvertMoveSpeed(float value)
         {

@@ -35,7 +35,10 @@ namespace Factory
             _waveBoostData = waveBoostData;
 
             foreach (ZombieContainer enemy in Pool.Elements)
+            {
                 enemy.MoveController.Speed = enemy.MoveController.DefaultSpeed;
+                enemy.AttackController.Speed = enemy.AttackController.DefaultSpeed;
+            }    
 
             EventBus.Subscribe<WaveFinishedEvent>(BoostEnemies);
             EventBus.Subscribe<GameExitEvent>(Unsubscribe);
@@ -57,7 +60,7 @@ namespace Factory
                 float boosterValue = _waveBoostData.AdditionalSpeed;
                 float speedX = (float)Math.Round(randomX + boosterValue, 2);
                 enemy.MoveController.Speed = enemy.MoveController.DefaultSpeed * speedX;
-                enemy.AttackController.AttackSpeed = speedX;
+                enemy.AttackController.Speed = speedX;
             }
         }
 

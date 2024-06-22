@@ -8,7 +8,10 @@ namespace EnemyLib
     public class ZombieShooterAttackController : IEnemyAttackController
     {
         public bool IsAttack { get; set; }
-        public float AttackSpeed { get; set; } = 1;
+
+        [SerializeField, Range(0.01f, 3f)] protected float _defaultSpeed = 1f;
+        public float DefaultSpeed => _defaultSpeed; 
+        public float Speed { get; set; }
 
         [SerializeField] private int _damage = 15;
         public int Damage => _damage;
@@ -29,7 +32,7 @@ namespace EnemyLib
 
             _weaponsController.CurrentGun.Damage = _damage;
             _weaponsController.CurrentGun.Cooldown = _cooldown;
-            AttackSpeed /= _cooldown;
+            Speed /= _cooldown;
         }
 
         public void UpdateState()
@@ -64,11 +67,11 @@ namespace EnemyLib
 
         private IEnumerator ShootDelay(float delay)
         {
-            float speedX = AttackSpeed;
+            float speedX = Speed;
 
-            AttackSpeed = 0;
+            Speed = 0;
             yield return new WaitForSeconds(delay);
-            AttackSpeed = speedX;
+            Speed = speedX;
         }
 
         private void GetOutPosition()

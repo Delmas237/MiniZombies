@@ -9,7 +9,10 @@ namespace EnemyLib
     {
         public bool IsAttack { get; set; }
         private IEntity _targetCollision;
-        public float AttackSpeed { get; set; } = 1;
+
+        [SerializeField, Range(0.01f, 3f)] protected float _defaultSpeed = 1f;
+        public float DefaultSpeed => _defaultSpeed;
+        public float Speed { get; set; }
 
         [SerializeField] private int _damage = 15;
         public int Damage => _damage;
