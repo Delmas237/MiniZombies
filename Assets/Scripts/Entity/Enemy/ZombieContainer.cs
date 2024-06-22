@@ -33,6 +33,11 @@ namespace EnemyLib
             HealthController.Died -= OnDeath;
         }
 
+        protected virtual void OnEnable()
+        {
+            _animationController.OnEnable();
+        }
+
         protected virtual void OnDeath()
         {
             if (GetComponent<Rigidbody>() == false)

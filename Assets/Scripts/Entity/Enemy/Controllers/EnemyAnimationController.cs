@@ -12,6 +12,8 @@ namespace EnemyLib
         private IEnemyAttackController _attackController;
         private Animator _animator;
 
+        public const float DEFAULT_MOVE_SPEED = 3.7f;
+
         public void Initialize(IHealthController healthController, IEnemyMoveController moveController, IEnemyAttackController attackController, 
             Animator animator)
         {
@@ -23,6 +25,18 @@ namespace EnemyLib
             _healthController.Died += DeathAnim;
         }
 
+        public void OnEnable()
+        {
+            _animator.SetFloat("MoveSpeed", ConvertMoveSpeed(_moveController.Speed));
+            _animator.SetFloat("AttackSpeed", _attackController.AttackSpeed);
+        }
+        private float ConvertMoveSpeed(float value)
+        {
+            float scaleFactor = 0.1f; // Коэффициент масштабирования
+            double result = 1 + scaleFactor * (value - DEFAULT_MOVE_SPEED);
+
+            return (float)Math.Round(result, 3);
+        }
         public void MoveAnim()
         {
             if (_healthController.Health > 0)
@@ -46,7 +60,6 @@ namespace EnemyLib
         {
             if (_healthController.Health > 0 && _attackController.IsAttack)
             {
-                _animator.SetFloat("AttackSpeed", _attackController.AttackSpeed);
                 _animator.SetBool("Attack", true);
             }
             else

@@ -26,8 +26,9 @@ namespace EnemyLib
             DropAmmoAfterDeathModule.Initialize(HealthController, transform);
         }
 
-        private void OnEnable()
+        protected override void OnEnable()
         {
+            base.OnEnable();
             _moveController.OnEnable();
         }
 
