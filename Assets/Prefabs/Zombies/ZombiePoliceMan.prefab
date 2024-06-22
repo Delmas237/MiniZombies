@@ -681,7 +681,7 @@ MonoBehaviour:
       _deathSound: {fileID: 1014445706431755128}
       _deathPitchRandomRange: 0.15
   _moveController:
-    <DefaultSpeed>k__BackingField: 2
+    _defaultSpeed: 2
     _rotateTowardsTarget: 1
   _delayedDisableModule:
     <Enabled>k__BackingField: 1

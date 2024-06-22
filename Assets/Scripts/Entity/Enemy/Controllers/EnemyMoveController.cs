@@ -15,7 +15,8 @@ namespace EnemyLib
 
         public IEntity Target { get; set; }
 
-        [field: SerializeField] public float DefaultSpeed { get; set; } = 3.7f;
+        [SerializeField] protected float _defaultSpeed = 3.7f;
+        public float DefaultSpeed => _defaultSpeed;
         public float Speed { get; set; }
         [Space(10)]
         [SerializeField] private bool _rotateTowardsTarget;
