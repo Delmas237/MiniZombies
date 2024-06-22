@@ -879,6 +879,7 @@ MonoBehaviour:
     <Enabled>k__BackingField: 1
     _dropChance: 0.2
   _attackController:
+    _defaultSpeed: 0.9
     _damage: 20
 --- !u!195 &5455859963059929375
 NavMeshAgent:

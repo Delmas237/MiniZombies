@@ -690,6 +690,7 @@ MonoBehaviour:
     <Enabled>k__BackingField: 1
     _dropChance: 0.15
   _attackController:
+    _defaultSpeed: 1
     _damage: 15
     _cooldown: 2
     _shootDelay: 0.5

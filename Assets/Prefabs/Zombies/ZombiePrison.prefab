@@ -699,7 +699,7 @@ MonoBehaviour:
       _deathSound: {fileID: 5029291613290675646}
       _deathPitchRandomRange: 0.15
   _moveController:
-    <DefaultSpeed>k__BackingField: 3.7
+    _defaultSpeed: 3.7
     _rotateTowardsTarget: 0
   _delayedDisableModule:
     <Enabled>k__BackingField: 1
@@ -708,6 +708,7 @@ MonoBehaviour:
     <Enabled>k__BackingField: 1
     _dropChance: 0.09
   _attackController:
+    _defaultSpeed: 1
     _damage: 15
 --- !u!195 &5025186694292919038
 NavMeshAgent:
