@@ -5,6 +5,11 @@ ModelImporter:
   internalIDToNameTable: []
   externalObjects:
   - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: palettemat
+    second: {fileID: 2100000, guid: 33dd23b96ced44742a1cd102c3eb4660, type: 2}
+  - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: MiniZombie4

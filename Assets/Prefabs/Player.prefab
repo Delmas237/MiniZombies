@@ -989,7 +989,7 @@ MonoBehaviour:
     <AttackJoystick>k__BackingField: {fileID: 0}
     _shootLineRoot: {fileID: 2306417906408800393}
   _moveController:
-    _maxSpeed: 3.65
+    _defaultSpeed: 3.65
     <MoveJoystick>k__BackingField: {fileID: 0}
     _rotationSmoothness: 0.25
     _autoRotationSmoothness: 0.2
@@ -1514,7 +1514,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -2729557045973369312, guid: 6c2c735e6e7705349b518d104f1df798, type: 3}
+  - {fileID: 2100000, guid: 41ce8b06030978246baab9ee499beb3e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
