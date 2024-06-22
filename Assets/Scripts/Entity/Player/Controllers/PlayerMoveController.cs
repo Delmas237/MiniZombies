@@ -14,7 +14,8 @@ namespace PlayerLib
     {
         private bool _controllable = true;
 
-        [SerializeField] private float _maxSpeed = 3.65f;
+        [SerializeField] private float _defaultSpeed = 3.65f;
+        public float DefaultSpeed => _defaultSpeed;
         public bool IsMoving => MoveJoystick.Horizontal != 0 || MoveJoystick.Vertical != 0;
 
         [field: SerializeField] public Joystick MoveJoystick { get; private set; }
@@ -61,8 +62,8 @@ namespace PlayerLib
             {
                 float speedFactor = (MoveJoystick.Horizontal == 0 || MoveJoystick.Vertical == 0) ? 1 : 1.5f;
 
-                _rb.velocity = new Vector3(MoveJoystick.Horizontal * _maxSpeed / speedFactor, _rb.velocity.y, 
-                    MoveJoystick.Vertical * _maxSpeed / speedFactor);
+                _rb.velocity = new Vector3(MoveJoystick.Horizontal * _defaultSpeed / speedFactor, _rb.velocity.y, 
+                    MoveJoystick.Vertical * _defaultSpeed / speedFactor);
             }
         }
 
