@@ -1,4 +1,5 @@
 using Audio;
+using EventBusLib;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -24,11 +25,13 @@ namespace Panels
 
         public void Restart()
         {
+            EventBus.Invoke(new GameExitEvent());
             SceneManager.LoadScene("Game");
         }
 
         public void GoLobby()
         {
+            EventBus.Invoke(new GameExitEvent());
             SceneManager.LoadScene("Lobby");
         }
 
