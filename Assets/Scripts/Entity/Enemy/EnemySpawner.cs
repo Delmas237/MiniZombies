@@ -1,9 +1,11 @@
 using EventBusLib;
 using PlayerLib;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
 namespace EnemyLib
@@ -15,6 +17,8 @@ namespace EnemyLib
 
         [SerializeField] private int _maxEnemiesOnScene = 50;
         public int EnemiesDied { get; private set; }
+
+        public event Action<IEnemy> Spawned;
 
         private static readonly List<IEnemy> _enemiesOnScene = new List<IEnemy>();
         public static IReadOnlyList<IEnemy> EnemiesOnScene => _enemiesOnScene;
@@ -45,10 +49,10 @@ namespace EnemyLib
         {
             while (true)
             {
+                yield return new WaitForSeconds(Cooldown);
+
                 if (IsSpawn && _enemiesOnScene.Count < _maxEnemiesOnScene)
                     Spawn();
-
-                yield return new WaitForSeconds(Cooldown);
             }
         }
 
@@ -69,6 +73,8 @@ namespace EnemyLib
                     {
                         IEnemy enemy = spawnData.Factory.GetInstance();
                         _enemiesOnScene.Add(enemy);
+                        Spawned?.Invoke(enemy);
+
                         enemy.HealthController.Died += RemoveDiedEnemies;
                         return;
                     }

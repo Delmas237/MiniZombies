@@ -29,10 +29,24 @@ namespace EnemyLib
             WavesConstruct();
 
             StartWave();
+
+            _spawnManager.Spawned += HandleSpawnedEnemy;
         }
         private void OnDestroy()
         {
+            _spawnManager.Spawned -= HandleSpawnedEnemy;
             CurrentWaveIndex = 0;
+        }
+
+        private void HandleSpawnedEnemy(IEnemy enemy)
+        {
+            if (_currentWave.Type == WaveType.EnemyAmount)
+            {
+                _currentWave.EnemyAmount--;
+
+                if (_currentWave.EnemyAmount <= 0)
+                    StartCoroutine(NextWaveOrRecheck());
+            }
         }
 
         private void Update()
@@ -76,7 +90,7 @@ namespace EnemyLib
         {
             for (int i = 0; i < _waves.Length; i++)
             {
-                WaveType waveType = (WaveType)UnityEngine.Random.Range(0, 2);
+                WaveType waveType = (WaveType)Random.Range(0, 2);
 
                 switch (waveType)
                 {
@@ -98,58 +112,36 @@ namespace EnemyLib
             }
         }
         
-        private IEnumerator WaveController()
+        private IEnumerator DurationWaveController()
         {
-            switch (_currentWave.Type)
+            if (_currentWave.Type == WaveType.Duration)
             {
-                case WaveType.EnemyAmount:
-                    if (_currentWave.EnemyAmount > 0)
-                    {
-                        yield return new WaitForSeconds(_currentWave.SpawnSpeed);
-                        _currentWave.EnemyAmount--;
+                if (_currentWave.DurationSec > 0)
+                {
+                    yield return new WaitForSeconds(1);
+                    _currentWave.DurationSec--;
 
-                        StartCoroutine(WaveController());
-                    }
-                    else
-                    {
-                        StartCoroutine(NextWaveOrRecheck());
-                    }
-                    break;
-
-                case WaveType.Duration:
-                    if (_currentWave.DurationSec > 0)
-                    {
-                        yield return new WaitForSeconds(1);
-                        _currentWave.DurationSec--;
-
-                        StartCoroutine(WaveController());
-                    }
-                    else
-                    {
-                        StartCoroutine(NextWaveOrRecheck());
-                    }
-                    break;
+                    StartCoroutine(DurationWaveController());
+                }
+                else
+                {
+                    StartCoroutine(NextWaveOrRecheck());
+                }
             }
         }
 
         private IEnumerator NextWaveOrRecheck()
         {
-            if (EnemySpawner.EnemiesOnScene.Count <= 0)
-            {
-                StartCoroutine(WaveTransition());
-            }
-            else //all enemies spawned, but not all died
-            {
-                _spawnManager.IsSpawn = false;
+            _spawnManager.IsSpawn = false;
 
+            while (EnemySpawner.EnemiesOnScene.Count > 0)
                 yield return new WaitForSeconds(1f);
-                StartCoroutine(WaveController());
-            }
+            
+            StartCoroutine(WaveTransition());
         }
 
         private IEnumerator WaveTransition()
         {
-            _spawnManager.IsSpawn = false;
             yield return new WaitForSeconds(1);
 
             CurrentWaveIndex++;
@@ -178,14 +170,14 @@ namespace EnemyLib
             _spawnManager.IsSpawn = true;
             EventBus.Invoke(new WaveStartedEvent());
 
-            StartCoroutine(WaveController());
+            StartCoroutine(DurationWaveController());
         }
     }
 
     public class Wave
     {
         public readonly WaveType Type;
-        public TimesOfDay TimesOfDay = (TimesOfDay)UnityEngine.Random.Range(0, 2);
+        public TimesOfDay TimesOfDay = (TimesOfDay)Random.Range(0, 2);
 
         public readonly int StartEnemyAmount;
         public int EnemyAmount;
