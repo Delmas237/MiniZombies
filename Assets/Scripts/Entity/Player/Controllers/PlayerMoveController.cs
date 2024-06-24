@@ -21,8 +21,8 @@ namespace PlayerLib
         [field: SerializeField] public Joystick MoveJoystick { get; private set; }
 
         [Header("Rotation Smoothness")]
-        [SerializeField] private float _rotationSmoothness = 0.25f;
-        [SerializeField] private float _autoRotationSmoothness = 0.2f;
+        [SerializeField] private float _rotationSmoothness = 13f;
+        [SerializeField] private float _autoRotationSmoothness = 12f;
 
         private Rigidbody _rb;
         private Transform _transform;
@@ -72,7 +72,7 @@ namespace PlayerLib
             {
                 if (_weaponsController.AttackJoystick.Direction != Vector2.zero)
                 {
-                    RotateToJoystickDir(_weaponsController.AttackJoystick, _rotationSmoothness);
+                    RotateToJoystickDir(_weaponsController.AttackJoystick, _rotationSmoothness * Time.deltaTime);
                 }
                 else if (_weaponsController.AttackJoystick.UnPressedOrInDeadZoneTime > 0.15f)
                 {
@@ -82,7 +82,7 @@ namespace PlayerLib
                     }
                     else if (MoveJoystick.Direction != Vector2.zero && _weaponsController.AttackJoystick.UnPressedOrInDeadZoneTime > 0.05f)
                     {
-                        RotateToJoystickDir(MoveJoystick, _rotationSmoothness);
+                        RotateToJoystickDir(MoveJoystick, _rotationSmoothness * Time.deltaTime);
                     }
                 }
             }
@@ -94,13 +94,13 @@ namespace PlayerLib
             closestEnemy = new Vector3(closestEnemy.x, 0, closestEnemy.z);
 
             _transform.rotation = Quaternion.Lerp(
-                _transform.rotation, Quaternion.LookRotation(closestEnemy), _autoRotationSmoothness);
+                _transform.rotation, Quaternion.LookRotation(closestEnemy), _autoRotationSmoothness * Time.deltaTime);
         }
 
         private void RotateToJoystickDir(Joystick joystick, float rotationSmoothness)
         {
             Vector3 moveDir = new Vector3(joystick.Horizontal, 0, joystick.Vertical);
-
+            
             _transform.rotation = Quaternion.Lerp(
                 _transform.rotation, Quaternion.LookRotation(moveDir), rotationSmoothness);
         }

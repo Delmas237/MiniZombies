@@ -991,8 +991,8 @@ MonoBehaviour:
   _moveController:
     _defaultSpeed: 3.65
     <MoveJoystick>k__BackingField: {fileID: 0}
-    _rotationSmoothness: 0.25
-    _autoRotationSmoothness: 0.2
+    _rotationSmoothness: 13
+    _autoRotationSmoothness: 12
 --- !u!54 &4240113845284777554
 Rigidbody:
   m_ObjectHideFlags: 0
