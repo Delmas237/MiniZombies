@@ -19,8 +19,8 @@ public class HealthAudioController
         _healthController = healthController;
 
         _healthController.Died += OnDeath;
-        _healthController.Healed += _healSound.Play;
-        _healthController.Damaged += _damageSound.Play;
+        _healthController.Healed += OnHeal;
+        _healthController.Damaged += OnDamage;
 
         EventBus.Subscribe<GameExitEvent>(Unsubscribe);
     }
@@ -28,13 +28,26 @@ public class HealthAudioController
     {
         EventBus.Unsubscribe<GameExitEvent>(Unsubscribe);
         _healthController.Died -= OnDeath;
-        _healthController.Healed -= _healSound.Play;
-        _healthController.Damaged -= _damageSound.Play;
+        _healthController.Healed -= OnHeal;
+        _healthController.Damaged -= OnDamage;
     }
 
     private void OnDeath()
     {
-        _deathSound.pitch = Random.Range(_deathSound.pitch - _deathPitchRandomRange, _deathSound.pitch + _deathPitchRandomRange);
-        _deathSound.Play();
+        if (_deathSound != null)
+        {
+            _deathSound.pitch = Random.Range(_deathSound.pitch - _deathPitchRandomRange, _deathSound.pitch + _deathPitchRandomRange);
+            _deathSound.Play();
+        }
+    }
+    private void OnHeal()
+    {
+        if (_healSound != null)
+            _healSound.Play();
+    }
+    private void OnDamage()
+    {
+        if (_damageSound != null)
+            _damageSound.Play();
     }
 }
