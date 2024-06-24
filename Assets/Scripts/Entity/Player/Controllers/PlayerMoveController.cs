@@ -33,8 +33,7 @@ namespace PlayerLib
         private const float TIME_TO_UPDATE_CLOSEST_ENEMY = 0.35f;
         private Coroutine _closestEnemyCoroutine;
 
-        public void Initialize(IPlayerWeaponsController weaponsController, Transform transform, 
-            Rigidbody rigidbody)
+        public void Initialize(IPlayerWeaponsController weaponsController, Transform transform, Rigidbody rigidbody)
         {
             _weaponsController = weaponsController;
             _transform = transform;
@@ -75,13 +74,16 @@ namespace PlayerLib
                 {
                     RotateToJoystickDir(_weaponsController.AttackJoystick, _rotationSmoothness);
                 }
-                else if (_closestEnemy != null && _weaponsController.AttackJoystick.UnPressedOrInDeadZoneTime > 0.15f)
+                else if (_weaponsController.AttackJoystick.UnPressedOrInDeadZoneTime > 0.15f)
                 {
-                    RotateToClosestEnemy(_closestEnemy.Transform.position);
-                }
-                else if (MoveJoystick.Direction != Vector2.zero && _weaponsController.AttackJoystick.UnPressedOrInDeadZoneTime > 0.05f)
-                {
-                    RotateToJoystickDir(MoveJoystick, _rotationSmoothness);
+                    if (_closestEnemy != null)
+                    {
+                        RotateToClosestEnemy(_closestEnemy.Transform.position);
+                    }
+                    else if (MoveJoystick.Direction != Vector2.zero && _weaponsController.AttackJoystick.UnPressedOrInDeadZoneTime > 0.05f)
+                    {
+                        RotateToJoystickDir(MoveJoystick, _rotationSmoothness);
+                    }
                 }
             }
         }
