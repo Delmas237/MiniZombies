@@ -33,9 +33,10 @@ namespace EnemyLib
             HealthController.Died -= OnDeath;
         }
 
-        protected virtual void OnEnable()
+        public virtual void UpdateData()
         {
-            _animationController.OnEnable();
+            _animationController.UpdateData();
+            _moveController.UpdateData();
         }
 
         protected virtual void OnDeath()

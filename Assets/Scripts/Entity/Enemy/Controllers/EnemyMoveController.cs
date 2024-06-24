@@ -28,7 +28,7 @@ namespace EnemyLib
             _attackController = attackController;
         }
 
-        public void OnEnable()
+        public void UpdateData()
         {
             Agent.speed = Speed;
         }

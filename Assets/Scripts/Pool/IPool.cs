@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +8,8 @@ namespace ObjectPool
     {
         public T Prefab { get; }
         public IReadOnlyList<T> Elements { get; }
+
+        public event Action<T> Expanded;
 
         public T GetFreeElement();
     }

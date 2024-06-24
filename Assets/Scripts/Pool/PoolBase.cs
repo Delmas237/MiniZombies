@@ -9,6 +9,7 @@ namespace ObjectPool
     public class PoolBase<T> : IPool<T> where T : Component
     {
         [SerializeField] private bool _autoExpand = true;
+        public event Action<T> Expanded;
 
         [SerializeField] protected T _prefab;
         public T Prefab => _prefab;
@@ -34,7 +35,10 @@ namespace ObjectPool
             if (_autoExpand)
             {
                 _count++;
-                return CreateObject(true);
+                T newElement = CreateObject(true);
+                Expanded.Invoke(newElement);
+
+                return newElement;
             }
 
             throw new Exception("There is no free elements in pool");

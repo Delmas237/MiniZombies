@@ -25,11 +25,12 @@ namespace EnemyLib
             _healthController.Died += DeathAnim;
         }
 
-        public void OnEnable()
+        public void UpdateData()
         {
             _animator.SetFloat("MoveSpeed", ConvertMoveSpeed(_moveController.Speed));
             _animator.SetFloat("AttackSpeed", _attackController.Speed);
         }
+
         private float ConvertMoveSpeed(float value)
         {
             float scaleFactor = 0.1f; // Коэффициент масштабирования
