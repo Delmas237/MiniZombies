@@ -24825,7 +24825,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5f21c9a0a3c02b4da9511643001b334, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _priority: 70
+  _priority: 60
   _waveBoostData:
     _hpPercent: 0.03
     _waveMultiplierSpeed: 0.01
@@ -85204,6 +85204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d81d406c754d03b49b07b3a725276b93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _killReward: 6
   _player: {fileID: 7560204000705171858}
   _enemyWaveManager: {fileID: 1480877429}
 --- !u!1001 &1972743624

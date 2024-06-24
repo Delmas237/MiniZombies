@@ -706,7 +706,7 @@ MonoBehaviour:
     _delay: 3
   _dropAmmoAfterDeathModule:
     <Enabled>k__BackingField: 1
-    _dropChance: 0.09
+    _dropChance: 0.07
   _attackController:
     _defaultSpeed: 1
     _damage: 15

@@ -36,7 +36,7 @@ namespace ObjectPool
             {
                 _count++;
                 T newElement = CreateObject(true);
-                Expanded.Invoke(newElement);
+                Expanded?.Invoke(newElement);
 
                 return newElement;
             }
