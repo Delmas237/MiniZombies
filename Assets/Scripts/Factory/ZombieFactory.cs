@@ -52,6 +52,7 @@ namespace Factory
         {
             enemy.MoveController.Speed = enemy.MoveController.DefaultSpeed;
             enemy.AttackController.Speed = enemy.AttackController.DefaultSpeed;
+            enemy.UpdateData();
         }
 
         private void BoostEnemies(IEvent e) => BoostEnemies();
