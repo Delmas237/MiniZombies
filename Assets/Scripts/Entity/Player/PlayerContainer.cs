@@ -29,7 +29,12 @@ namespace PlayerLib
             _weaponsController.Initialize(HealthController);
             _moveController.Initialize(WeaponsController, transform, GetComponent<Rigidbody>());
 
-            _healthController.Died += () => EventBus.Invoke(new GameOverEvent());
+            _healthController.Died += OnDeath;
+        }
+        private void OnDeath()
+        {
+            EventBus.Invoke(new GameOverEvent());
+            _moveController.Rigidbody.velocity /= 2;
         }
 
         private void Update()
@@ -43,6 +48,7 @@ namespace PlayerLib
 
         private void OnDestroy()
         {
+            _healthController.Died -= OnDeath;
             _moveController.OnDestroy();
         }
     }

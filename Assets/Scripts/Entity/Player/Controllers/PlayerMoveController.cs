@@ -24,7 +24,9 @@ namespace PlayerLib
         [SerializeField] private float _rotationSmoothness = 13f;
         [SerializeField] private float _autoRotationSmoothness = 12f;
 
-        private Rigidbody _rb;
+        private Rigidbody _rigidbody;
+        public Rigidbody Rigidbody => _rigidbody;
+
         private Transform _transform;
 
         private IPlayerWeaponsController _weaponsController;
@@ -37,7 +39,7 @@ namespace PlayerLib
         {
             _weaponsController = weaponsController;
             _transform = transform;
-            _rb = rigidbody;
+            _rigidbody = rigidbody;
 
             EventBus.Subscribe<GameOverEvent>(SetControllableFalse);
             EventBus.Subscribe<GameExitEvent>(Unsubscribe);
@@ -61,7 +63,7 @@ namespace PlayerLib
             {
                 float speedFactor = (MoveJoystick.Horizontal == 0 || MoveJoystick.Vertical == 0) ? 1 : 1.5f;
 
-                _rb.velocity = new Vector3(MoveJoystick.Horizontal * _defaultSpeed / speedFactor, _rb.velocity.y, 
+                _rigidbody.velocity = new Vector3(MoveJoystick.Horizontal * _defaultSpeed / speedFactor, _rigidbody.velocity.y, 
                     MoveJoystick.Vertical * _defaultSpeed / speedFactor);
             }
         }
