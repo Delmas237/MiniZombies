@@ -9,7 +9,6 @@ public class LobbyUI : MonoBehaviour
 
     private void Awake()
     {
-        Bank.Load();
         _maxWaveText.text = PlayerPrefs.GetInt("MaxWave").ToString();
         
         UpdateText(Bank.Coins);

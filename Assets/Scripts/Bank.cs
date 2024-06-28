@@ -6,7 +6,11 @@ public static class Bank
     private static int _coins;
     public static int Coins
     {
-        get { return _coins; }
+        get 
+        {
+            Load();
+            return _coins; 
+        }
         set
         {
             _coins = Mathf.Clamp(value, 0, MaxCoins);
@@ -18,9 +22,15 @@ public static class Bank
 
     public const int MaxCoins = 999999;
 
+    private static bool _initialized;
+
     public static void Load()
     {
+        if (_initialized)
+            return;
+
         Coins = PlayerPrefs.GetInt(nameof(_coins));
+        _initialized = true;
     }
 
     public static void Save()
