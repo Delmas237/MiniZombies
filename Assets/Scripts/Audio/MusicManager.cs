@@ -8,10 +8,10 @@ namespace Audio
     public class MusicManager : MonoBehaviour
     {
         [SerializeField] private AudioMixerGroup _mixer;
-
+        [Space(10)]
         [SerializeField] private AudioSource _calmMusic;
         [SerializeField] private AudioSource _battleMusic;
-
+        [Space(10)]
         [SerializeField] private SoundSettings _soundSettings;
 
         private MusicType _state = MusicType.Calm;

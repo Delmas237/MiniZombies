@@ -1,62 +1,45 @@
 using EventBusLib;
 using PlayerLib;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
 namespace EnemyLib
 {
-    public class EnemySpawner : MonoBehaviour
+    public class EnemySpawner : Spawner<IEnemy>
     {
-        [field: SerializeField] public bool IsSpawn { get; set; } = true;
-        [field: SerializeField] public float Cooldown { get; set; } = 3;
-
-        [SerializeField] private int _maxEnemiesOnScene = 50;
-        public int EnemiesDied { get; private set; }
-
-        public event Action<IEnemy> Spawned;
-
-        private static readonly List<IEnemy> _enemiesOnScene = new List<IEnemy>();
-        public static IReadOnlyList<IEnemy> EnemiesOnScene => _enemiesOnScene;
+        public override event Action<IEnemy> Spawned;
+        public override event Action Removed;
 
         [SerializeField] private List<EnemySpawnData> _spawnData;
-        [SerializeField] private List<Transform> _spawnDots;
-
         [SerializeField] private PlayerContainer _player;
 
-        private void Start()
+        protected override void Start()
         {
+            base.Start();
+
             foreach (var spawnData in _spawnData)
                 spawnData.Initialize(_spawnDots, _player);
 
-            StartCoroutine(SpawnController());
-
+            EventBus.Subscribe<WaveStartedEvent>(OnWaveStarted);
             EventBus.Subscribe<GameOverEvent>(StopSpawn);
+        }
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            EventBus.Unsubscribe<WaveStartedEvent>(OnWaveStarted);
+            EventBus.Unsubscribe<GameOverEvent>(StopSpawn);
+        }
+        private void OnWaveStarted(WaveStartedEvent waveStartedEvent)
+        {
+            IsSpawn = true;
+            Cooldown = waveStartedEvent.Wave.SpawnSpeed;
         }
         private void StopSpawn(IEvent e) => IsSpawn = false;
 
-        private void OnDestroy()
-        {
-            EventBus.Unsubscribe<GameOverEvent>(StopSpawn);
-            _enemiesOnScene.Clear();
-        }
-
-        private IEnumerator SpawnController()
-        {
-            while (true)
-            {
-                yield return new WaitForSeconds(Cooldown);
-
-                if (IsSpawn && _enemiesOnScene.Count < _maxEnemiesOnScene)
-                    Spawn();
-            }
-        }
-
-        private void Spawn()
+        protected override void Spawn()
         {
             int prioritySum = (int)_spawnData.Sum(p => p.Priority);
             if (prioritySum > 0)
@@ -72,7 +55,7 @@ namespace EnemyLib
                     if (random >= current && random <= spawnData.Priority + current)
                     {
                         IEnemy enemy = spawnData.Factory.GetInstance();
-                        _enemiesOnScene.Add(enemy);
+                        _objectsOnScene.Add(enemy);
                         Spawned?.Invoke(enemy);
 
                         enemy.HealthController.Died += RemoveDiedEnemies;
@@ -86,7 +69,7 @@ namespace EnemyLib
         private void RemoveDiedEnemies()
         {
             List<IEnemy> enemiesForRemove = new List<IEnemy>();
-            foreach (var enemy in EnemiesOnScene)
+            foreach (var enemy in ObjectsOnScene)
             {
                 if (enemy == null || enemy.HealthController.Health <= 0)
                     enemiesForRemove.Add(enemy);
@@ -95,8 +78,8 @@ namespace EnemyLib
             foreach (var enemy in enemiesForRemove)
             {
                 enemy.HealthController.Died -= RemoveDiedEnemies;
-                _enemiesOnScene.Remove(enemy);
-                EnemiesDied++;
+                _objectsOnScene.Remove(enemy);
+                Removed?.Invoke();
             }
         }
     }

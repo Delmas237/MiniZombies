@@ -1,4 +1,3 @@
-using EventBusLib;
 using UnityEngine;
 
 namespace PlayerLib
@@ -33,7 +32,6 @@ namespace PlayerLib
         }
         private void OnDeath()
         {
-            EventBus.Invoke(new GameOverEvent());
             _moveController.Rigidbody.velocity /= 2;
         }
 

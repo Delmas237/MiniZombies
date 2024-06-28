@@ -1,4 +1,3 @@
-using EnemyLib;
 using EventBusLib;
 using UnityEngine;
 
@@ -8,44 +7,43 @@ namespace PlayerLib
     {
         [SerializeField] private float _killReward = 6;
         [SerializeField] private PlayerContainer _player;
-        [SerializeField] private EnemyWaveManager _enemyWaveManager;
 
         private void Start()
         {
-            EventBus.Subscribe<WaveFinishedEvent>(LocalCoinsWon);
+            EventBus.Subscribe<WaveFinishedEvent>(GetLocalCoinsReward);
         }
         private void OnDestroy()
         {
-            EventBus.Unsubscribe<WaveFinishedEvent>(LocalCoinsWon);
+            EventBus.Unsubscribe<WaveFinishedEvent>(GetLocalCoinsReward);
         }
 
-        private void LocalCoinsWon(IEvent e) => LocalCoinsWon();
-        private void LocalCoinsWon() => _player.CurrencyController.Add(Mathf.RoundToInt(_enemyWaveManager.CurrentWaveEnemiesDied * _killReward));
-
-        public static int GlobalCoinsWon()
+        private void GetLocalCoinsReward(WaveFinishedEvent waveFinishedEvent)
         {
-            int numberOfWaves = EnemyWaveManager.CurrentWaveIndex;
+            _player.CurrencyController.Add(Mathf.RoundToInt(waveFinishedEvent.Wave.DestroyedObjects * _killReward));
+        }
 
-            if (numberOfWaves <= 5)
-                return numberOfWaves * 10;
+        public static int GetGlobalCoinsReward(int wave)
+        {
+            if (wave <= 5)
+                return wave * 10;
 
-            else if (numberOfWaves <= 10)
-                return numberOfWaves * 12;
+            else if (wave <= 10)
+                return wave * 12;
 
-            else if (numberOfWaves <= 20)
-                return numberOfWaves * 14;
+            else if (wave <= 20)
+                return wave * 14;
 
-            else if (numberOfWaves <= 35)
-                return numberOfWaves * 16;
+            else if (wave <= 35)
+                return wave * 16;
 
-            else if (numberOfWaves <= 60)
-                return numberOfWaves * 18;
+            else if (wave <= 60)
+                return wave * 18;
 
-            else if (numberOfWaves < 100)
-                return numberOfWaves * 20;
+            else if (wave < 100)
+                return wave * 20;
 
-            else if (numberOfWaves == 100)
-                return numberOfWaves * 20 + 1000;
+            else if (wave >= 100)
+                return wave * 20 + 1000;
 
             Debug.LogError("Number of waves out of range");
             return 0;

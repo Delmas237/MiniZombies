@@ -1,4 +1,3 @@
-using EnemyLib;
 using EventBusLib;
 using PlayerLib;
 using System.Collections;
@@ -27,21 +26,23 @@ namespace Panels
             EventBus.Unsubscribe<AllWavesFinishedEvent>(Open);
         }
 
-        private void Open(IEvent e) => Open();
-        private void Open() => StartCoroutine(OpenCor());
-        private IEnumerator OpenCor()
+        private void Open(GameOverEvent gameOverEvent) => Open(gameOverEvent.Wave);
+        private void Open(AllWavesFinishedEvent allWavesFinishedEvent) => Open(allWavesFinishedEvent.Number);
+        private void Open(int wave) => StartCoroutine(OpenCor(wave));
+        private IEnumerator OpenCor(int waveNumber)
         {
             yield return new WaitForSeconds(_timeToOpen);
 
             _endPanel.SetActive(true);
-            int moneyWon = PlayerRewardsManager.GlobalCoinsWon();
+            int moneyWon = PlayerRewardsManager.GetGlobalCoinsReward(waveNumber);
 
-            _wavesCompleted.text = $"You completed {EnemyWaveManager.CurrentWaveIndex} waves!";
+            _wavesCompleted.text = $"You completed {waveNumber} waves!";
             _moneyPlus.text = moneyWon.ToString();
 
-            PlayerPrefs.SetInt("MaxWave", EnemyWaveManager.CurrentWaveIndex);
+            if (PlayerPrefs.GetInt("MaxWave") < waveNumber)
+                PlayerPrefs.SetInt("MaxWave", waveNumber);
+
             Bank.Coins += moneyWon;
-            Bank.Save();
         }
 
         public void Restart()

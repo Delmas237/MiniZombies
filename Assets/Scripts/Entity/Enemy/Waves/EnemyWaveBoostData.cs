@@ -10,6 +10,6 @@ namespace EnemyLib
         public float HpPercent => _hpPercent;
 
         [SerializeField] private float _waveMultiplierSpeed = 0.01f;
-        public float AdditionalSpeed => EnemyWaveManager.CurrentWaveIndex * _waveMultiplierSpeed;
+        public float WaveMultiplierSpeed => _waveMultiplierSpeed;
     }
 }

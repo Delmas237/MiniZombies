@@ -55,15 +55,14 @@ namespace Factory
             enemy.UpdateData();
         }
 
-        private void BoostEnemies(IEvent e) => BoostEnemies();
-        private void BoostEnemies()
+        private void BoostEnemies(WaveFinishedEvent waveFinishedEvent)
         {
             foreach (ZombieContainer enemy in Pool.Elements)
             {
                 enemy.HealthController.MaxHealth *= 1 + _waveBoostData.HpPercent;
 
                 float randomX = Random.Range(0.9f, 1.15f);
-                float boosterValue = _waveBoostData.AdditionalSpeed;
+                float boosterValue = waveFinishedEvent.Number * _waveBoostData.WaveMultiplierSpeed;
                 float speedX = (float)Math.Round(randomX + boosterValue, 2);
                 enemy.MoveController.Speed = enemy.MoveController.DefaultSpeed * speedX;
                 enemy.MoveController.Agent.speed = speedX;
@@ -98,8 +97,6 @@ namespace Factory
         }
         public void Construct(ZombieContainer enemy)
         {
-            enemy.enabled = true;
-
             List<Transform> spawnDotsCopy = new List<Transform>(_spawnDots);
             List<Transform> spawnDotsFurthest = new List<Transform>
             {
@@ -115,6 +112,8 @@ namespace Factory
             enemy.HealthController.Health = enemy.HealthController.MaxHealth;
 
             enemy.DropAmmoAfterDeathModule.AmmoPool = _ammoPackPool;
+
+            enemy.enabled = true;
         }
         private Transform SearchFurthest(ref List<Transform> spawnDots)
         {

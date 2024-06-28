@@ -64,6 +64,7 @@ namespace ObjectPool
                 {
                     element = component;
                     component.gameObject.SetActive(true);
+                    component.transform.position = Vector3.zero;
                     return true;
                 }
             }

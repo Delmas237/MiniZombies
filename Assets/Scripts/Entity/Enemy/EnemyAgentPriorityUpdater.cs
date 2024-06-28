@@ -1,4 +1,3 @@
-using EnemyLib;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
@@ -19,7 +18,7 @@ public class EnemyAgentPriorityUpdater : MonoBehaviour
         {
             yield return new WaitForSeconds(_updateDelay);
 
-            var enemies = EnemySpawner.EnemiesOnScene.Where(
+            var enemies = Spawner<IEnemy>.ObjectsOnScene.Where(
                 e => Vector3.Distance(e.Transform.position, e.MoveController.Target.Transform.position) <= _radius).ToList();
 
             enemies.Sort((a, b) =>

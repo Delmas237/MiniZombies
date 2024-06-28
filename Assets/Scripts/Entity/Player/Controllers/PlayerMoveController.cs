@@ -1,4 +1,3 @@
-using EnemyLib;
 using EventBusLib;
 using JoystickLib;
 using System;
@@ -111,7 +110,7 @@ namespace PlayerLib
         {
             while (true)
             {
-                IReadOnlyList<IEnemy> closestEnemies = EnemySpawner.EnemiesOnScene;
+                IReadOnlyList<IEnemy> closestEnemies = Spawner<IEnemy>.ObjectsOnScene;
 
                 bool enemyInRange = false;
                 IEnemy closestEnemy = null;
