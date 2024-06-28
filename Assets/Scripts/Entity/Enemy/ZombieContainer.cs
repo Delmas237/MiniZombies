@@ -47,6 +47,7 @@ namespace EnemyLib
 
                 rb.freezeRotation = true;
                 rb.mass = 10f;
+                rb.velocity /= 2;
             }
         }
     }
