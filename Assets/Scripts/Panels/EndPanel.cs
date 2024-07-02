@@ -18,20 +18,20 @@ namespace Panels
 
         private void Start()
         {
-            EventBus.Subscribe<RewardedEvent>(Open);
-            EventBus.Subscribe<AllWavesFinishedEvent>(Open);
+            EventBus.Subscribe<AllWavesFinishedEvent>(SetWaveNumber);
             EventBus.Subscribe<GameOverEvent>(SetWaveNumber);
+            EventBus.Subscribe<RewardedEvent>(Open);
         }
         private void OnDestroy()
         {
-            EventBus.Unsubscribe<RewardedEvent>(Open);
-            EventBus.Unsubscribe<AllWavesFinishedEvent>(Open);
+            EventBus.Unsubscribe<AllWavesFinishedEvent>(SetWaveNumber);
             EventBus.Unsubscribe<GameOverEvent>(SetWaveNumber);
+            EventBus.Unsubscribe<RewardedEvent>(Open);
         }
         private void SetWaveNumber(GameOverEvent gameOverEvent) => _waveNumber = gameOverEvent.CompletedWaves;
+        private void SetWaveNumber(AllWavesFinishedEvent allWavesFinishedEvent) => _waveNumber = allWavesFinishedEvent.Number;
 
         private void Open(RewardedEvent rewardedEvent) => StartCoroutine(OpenCor(rewardedEvent.Reward));
-        private void Open(AllWavesFinishedEvent allWavesFinishedEvent) => StartCoroutine(OpenCor(allWavesFinishedEvent.Number));
         private IEnumerator OpenCor(int reward)
         {
             yield return new WaitForSeconds(_timeToOpen);

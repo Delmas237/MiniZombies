@@ -43,12 +43,12 @@ namespace WavesLib
 
         private IEnumerator Transition()
         {
-            if (CurrentWaveIndex >= _wavesAmount)
+            if (CurrentWaveIndex + 1 >= _wavesAmount)
             {
-                EventBus.Invoke(new AllWavesFinishedEvent(CurrentWave, CurrentWaveIndex));
+                EventBus.Invoke(new AllWavesFinishedEvent(CurrentWave, CurrentWaveIndex + 1));
                 yield break;
             }
-            EventBus.Invoke(new WaveFinishedEvent(CurrentWave, CurrentWaveIndex));
+            EventBus.Invoke(new WaveFinishedEvent(CurrentWave, CurrentWaveIndex + 1));
             
             _waves.Add(ConstructWave());
 
