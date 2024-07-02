@@ -1,4 +1,5 @@
 using EventBusLib;
+using System;
 using UnityEngine;
 
 namespace PlayerLib
@@ -24,29 +25,16 @@ namespace PlayerLib
 
         public static int GetGlobalCoinsReward(int wave)
         {
-            if (wave <= 5)
-                return wave * 10;
-
-            else if (wave <= 10)
-                return wave * 12;
-
-            else if (wave <= 20)
-                return wave * 14;
-
-            else if (wave <= 35)
-                return wave * 16;
-
-            else if (wave <= 60)
-                return wave * 18;
-
-            else if (wave < 100)
-                return wave * 20;
-
-            else if (wave >= 100)
-                return wave * 20 + 1000;
-
-            Debug.LogError("Number of waves out of range");
-            return 0;
+            return wave switch
+            {
+                <= 5 => wave * 12,
+                <= 10 => wave * 14,
+                <= 20 => wave * 16,
+                <= 35 => wave * 18,
+                <= 60 => wave * 20,
+                < 100 => wave * 22,
+                >= 100 => wave * 22 + 1000,
+            };
         }
     }
 }
