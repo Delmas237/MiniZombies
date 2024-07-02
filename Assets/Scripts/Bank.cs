@@ -32,6 +32,9 @@ public static class Bank
 
     public static void Add(int amount)
     {
+        if (!_initialized)
+            Load();
+
         if (amount <= 0)
             return;
 
@@ -42,6 +45,9 @@ public static class Bank
 
     public static bool Spend(int amount)
     {
+        if (!_initialized)
+            Load();
+
         if (amount < 0 || amount > _coins)
             return false;
 
