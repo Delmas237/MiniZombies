@@ -8,34 +8,46 @@ public static class Bank
     {
         get 
         {
-            Load();
+            if (!_initialized)
+                Load();
             return _coins; 
         }
-        set
-        {
-            _coins = Mathf.Clamp(value, 0, MaxCoins);
-            CoinsChanged?.Invoke(_coins);
-            Save();
-        }
     }
-    public static event Action<int> CoinsChanged;
 
-    public const int MaxCoins = 999999;
+    public static event Action<int> CoinsChanged;
 
     private static bool _initialized;
 
-    public static void Load()
+    private static void Load()
     {
-        if (_initialized)
-            return;
-
-        Coins = PlayerPrefs.GetInt(nameof(_coins));
+        _coins = PlayerPrefs.GetInt(nameof(_coins));
         _initialized = true;
     }
 
-    public static void Save()
+    private static void Save()
     {
         PlayerPrefs.SetInt(nameof(_coins), _coins);
         PlayerPrefs.Save();
+    }
+
+    public static void Add(int amount)
+    {
+        if (amount <= 0)
+            return;
+
+        _coins += amount;
+        CoinsChanged?.Invoke(_coins);
+        Save();
+    }
+
+    public static bool Spend(int amount)
+    {
+        if (amount < 0 || amount > _coins)
+            return false;
+
+        _coins -= amount;
+        CoinsChanged?.Invoke(_coins);
+        Save();
+        return true;
     }
 }

@@ -19,13 +19,14 @@ namespace PlayerLib
             CoinsChanged?.Invoke(_coins);
         }
 
-        public void Spend(int amount)
+        public bool Spend(int amount)
         {
-            if (amount <= 0)
-                return;
+            if (amount < 0 || amount > _coins)
+                return false;
 
             _coins -= amount;
             CoinsChanged?.Invoke(_coins);
+            return true;
         }
     }
 }

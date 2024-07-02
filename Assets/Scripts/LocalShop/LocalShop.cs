@@ -85,10 +85,8 @@ namespace LocalShopLib
                 return;
             }
 
-            if (_player.CurrencyController.Coins >= _shopWeapons[ID].Price)
+            if (_player.CurrencyController.Spend(_shopWeapons[ID].Price))
             {
-                _player.CurrencyController.Spend(_shopWeapons[ID].Price);
-
                 _weaponsLvl[ID]++;
 
                 UpdateLotText(ID);
@@ -97,10 +95,8 @@ namespace LocalShopLib
         }
         private void GunLvlUp(int ID)
         {
-            if (_player.CurrencyController.Coins >= _shopWeapons[ID].PriceLvlBoost)
+            if (_player.CurrencyController.Spend(_shopWeapons[ID].PriceLvlBoost))
             {
-                _player.CurrencyController.Spend(_shopWeapons[ID].PriceLvlBoost);
-
                 _weaponsLvl[ID]++;
                 _player.WeaponsController.Guns[ID + 1].Damage += _shopWeapons[ID].DamageLvlBoost;
 
@@ -125,10 +121,9 @@ namespace LocalShopLib
 
         public void PurchaseMedKit(int ID)
         {
-            if (_player.CurrencyController.Coins >= _shopItems[ID].Price &&
+            if (_player.CurrencyController.Spend(_shopItems[ID].Price) &&
                 _player.HealthController.Health < _player.HealthController.MaxHealth)
             {
-                _player.CurrencyController.Spend(_shopItems[ID].Price);
                 _player.HealthController.Health = _player.HealthController.MaxHealth;
             }
         }

@@ -22,12 +22,9 @@ namespace GlobalShopLib
 
         public void Purchase()
         {
-            if (Bank.Coins >= Price.Value && Info.Value > Up.Value)
+            if (Bank.Spend(Mathf.FloorToInt(Price.Value)) && Info.Value > Up.Value)
             {
-                Bank.Coins -= (int)Price.Value;
-
                 Purchased.Invoke();
-
                 UpdateText();
             }
         }

@@ -36,7 +36,7 @@ namespace GlobalShopLib
         private void Cheats()
         {
             if (Input.GetKeyDown(KeyCode.N))
-                Bank.Coins += 100;
+                Bank.Add(100);
         }
     }
 }

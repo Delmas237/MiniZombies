@@ -8,6 +8,6 @@ namespace PlayerLib
         public event Action<int> CoinsChanged;
 
         public void Add(int amount);
-        public void Spend(int amount);
+        public bool Spend(int amount);
     }
 }

@@ -42,7 +42,7 @@ namespace Panels
             if (PlayerPrefs.GetInt("MaxWave") < waveNumber)
                 PlayerPrefs.SetInt("MaxWave", waveNumber);
 
-            Bank.Coins += moneyWon;
+            Bank.Add(moneyWon);
         }
 
         public void Restart()
