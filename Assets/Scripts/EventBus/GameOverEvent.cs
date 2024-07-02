@@ -2,11 +2,11 @@ namespace EventBusLib
 {
     public class GameOverEvent : IEvent 
     {
-        public readonly int Wave;
+        public readonly int CompletedWaves;
 
-        public GameOverEvent(int wave)
+        public GameOverEvent(int completedWaves)
         {
-            Wave = wave;
+            CompletedWaves = completedWaves;
         }
     }
 }

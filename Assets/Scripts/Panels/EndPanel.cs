@@ -1,5 +1,4 @@
 using EventBusLib;
-using PlayerLib;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -15,34 +14,35 @@ namespace Panels
         [SerializeField] private TextMeshProUGUI _wavesCompleted;
         [SerializeField] private TextMeshProUGUI _moneyPlus;
 
+        private int _waveNumber;
+
         private void Start()
         {
-            EventBus.Subscribe<GameOverEvent>(Open);
+            EventBus.Subscribe<RewardedEvent>(Open);
             EventBus.Subscribe<AllWavesFinishedEvent>(Open);
+            EventBus.Subscribe<GameOverEvent>(SetWaveNumber);
         }
         private void OnDestroy()
         {
-            EventBus.Unsubscribe<GameOverEvent>(Open);
+            EventBus.Unsubscribe<RewardedEvent>(Open);
             EventBus.Unsubscribe<AllWavesFinishedEvent>(Open);
+            EventBus.Unsubscribe<GameOverEvent>(SetWaveNumber);
         }
+        private void SetWaveNumber(GameOverEvent gameOverEvent) => _waveNumber = gameOverEvent.CompletedWaves;
 
-        private void Open(GameOverEvent gameOverEvent) => Open(gameOverEvent.Wave);
-        private void Open(AllWavesFinishedEvent allWavesFinishedEvent) => Open(allWavesFinishedEvent.Number);
-        private void Open(int wave) => StartCoroutine(OpenCor(wave));
-        private IEnumerator OpenCor(int waveNumber)
+        private void Open(RewardedEvent rewardedEvent) => StartCoroutine(OpenCor(rewardedEvent.Reward));
+        private void Open(AllWavesFinishedEvent allWavesFinishedEvent) => StartCoroutine(OpenCor(allWavesFinishedEvent.Number));
+        private IEnumerator OpenCor(int reward)
         {
             yield return new WaitForSeconds(_timeToOpen);
 
             _endPanel.SetActive(true);
-            int moneyWon = PlayerRewardsManager.GetGlobalCoinsReward(waveNumber);
 
-            _wavesCompleted.text = $"You completed {waveNumber} waves!";
-            _moneyPlus.text = moneyWon.ToString();
+            _wavesCompleted.text = $"You completed {_waveNumber} waves!";
+            _moneyPlus.text = reward.ToString();
 
-            if (PlayerPrefs.GetInt("MaxWave") < waveNumber)
-                PlayerPrefs.SetInt("MaxWave", waveNumber);
-
-            Bank.Add(moneyWon);
+            if (PlayerPrefs.GetInt("MaxWave") < _waveNumber)
+                PlayerPrefs.SetInt("MaxWave", _waveNumber);
         }
 
         public void Restart()

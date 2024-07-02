@@ -1,40 +1,51 @@
 using EventBusLib;
-using System;
 using UnityEngine;
 
 namespace PlayerLib
 {
     public class PlayerRewardsManager : MonoBehaviour
     {
-        [SerializeField] private float _killReward = 6;
         [SerializeField] private PlayerContainer _player;
+        [Header("Local")]
+        [SerializeField] private float _localKillReward = 6f;
+        [Header("Global")]
+        [SerializeField] private float _globalWaveReward = 10f;
+        [SerializeField] private float _completedAllWavesReward = 500f;
 
         private void Start()
         {
-            EventBus.Subscribe<WaveFinishedEvent>(GetLocalCoinsReward);
+            EventBus.Subscribe<WaveFinishedEvent>(GetLocalReward);
+            EventBus.Subscribe<GameOverEvent>(GetGlobalReward);
+            EventBus.Subscribe<AllWavesFinishedEvent>(GetGlobalReward);
         }
         private void OnDestroy()
         {
-            EventBus.Unsubscribe<WaveFinishedEvent>(GetLocalCoinsReward);
+            EventBus.Unsubscribe<WaveFinishedEvent>(GetLocalReward);
+            EventBus.Unsubscribe<GameOverEvent>(GetGlobalReward);
+            EventBus.Unsubscribe<AllWavesFinishedEvent>(GetGlobalReward);
         }
 
-        private void GetLocalCoinsReward(WaveFinishedEvent waveFinishedEvent)
+        private void GetLocalReward(WaveFinishedEvent waveFinishedEvent)
         {
-            _player.CurrencyController.Add(Mathf.RoundToInt(waveFinishedEvent.Wave.DestroyedObjects * _killReward));
+            float reward = waveFinishedEvent.Wave.DestroyedObjects * _localKillReward;
+
+            int intReward = Mathf.RoundToInt(reward);
+            _player.CurrencyController.Add(intReward);
         }
 
-        public static int GetGlobalCoinsReward(int wave)
+        private void GetGlobalReward(GameOverEvent gameOverEvent) => GetGlobalReward(gameOverEvent.CompletedWaves);
+        private void GetGlobalReward(AllWavesFinishedEvent allWavesFinishedEvent) => GetGlobalReward(allWavesFinishedEvent.Number, true);
+        private void GetGlobalReward(int wave, bool allWavesFinished = false)
         {
-            return wave switch
-            {
-                <= 5 => wave * 12,
-                <= 10 => wave * 14,
-                <= 20 => wave * 16,
-                <= 35 => wave * 18,
-                <= 60 => wave * 20,
-                < 100 => wave * 22,
-                >= 100 => wave * 22 + 1000,
-            };
+            float reward = (wave * _globalWaveReward) + (Mathf.Pow(wave, 2) / 10f);
+
+            if (allWavesFinished)
+                reward += _completedAllWavesReward;
+
+            int intReward = Mathf.RoundToInt(reward);
+            Bank.Add(intReward);
+
+            EventBus.Invoke(new RewardedEvent(intReward));
         }
     }
 }

@@ -9,6 +9,8 @@ namespace WavesLib
     public class EnemyWaveManager : MonoBehaviour
     {
         [SerializeField, Min(1)] private int _wavesAmount = 100;
+        public int WavesAmount => _wavesAmount;
+
         [SerializeField, Min(0)] private float _timeBtwWaves = 10;
         [Space(10)]
         [SerializeField, Min(1)] private int _minWaveForNight = 2;
@@ -47,7 +49,7 @@ namespace WavesLib
                 yield break;
             }
             EventBus.Invoke(new WaveFinishedEvent(CurrentWave, CurrentWaveIndex));
-
+            
             _waves.Add(ConstructWave());
 
             yield return StartCoroutine(ChangeDayTime());
