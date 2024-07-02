@@ -22,7 +22,7 @@ namespace GlobalShopLib
 
         public void Purchase()
         {
-            if (Bank.Spend(Mathf.FloorToInt(Price.Value)) && Info.Value > Up.Value)
+            if (Info.Value > Up.Value && Bank.Spend(Mathf.FloorToInt(Price.Value)))
             {
                 Purchased.Invoke();
                 UpdateText();

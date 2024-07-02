@@ -24,9 +24,6 @@ namespace Weapons
 
         private static void Initialize()
         {
-            if (_initialized) 
-                return;
-
             _initialized = true;
             GunData[] gunsData = Resources.LoadAll<GunData>(RESOURCES_DATA_PATH);
 
@@ -92,10 +89,15 @@ namespace Weapons
         private static void ValidateDirectory(string path)
         {
             string directoryPath = Path.GetDirectoryName(path);
+            
             if (!Directory.Exists(directoryPath))
                 Directory.CreateDirectory(directoryPath);
         }
 
-        private static string GetPathForGun(GunType gunType) => $"{Application.dataPath}/JsonData/{gunType}.json";
+        private static string GetPathForGun(GunType gunType)
+        {
+            string dataPath = Application.isMobilePlatform ? Application.persistentDataPath : Application.dataPath;
+            return $"{dataPath}/JsonData/{gunType}.json";
+        }
     }
 }
