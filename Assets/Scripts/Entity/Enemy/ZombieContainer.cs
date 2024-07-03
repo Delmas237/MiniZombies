@@ -28,12 +28,13 @@ namespace EnemyLib
         {
             HealthController.Died += OnDeath;
         }
+
         protected virtual void OnDestroy()
         {
             HealthController.Died -= OnDeath;
         }
 
-        public virtual void UpdateData()
+        protected virtual void OnEnable()
         {
             _animationController.UpdateData();
             _moveController.UpdateData();

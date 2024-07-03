@@ -52,7 +52,6 @@ namespace Factory
         {
             enemy.MoveController.Speed = enemy.MoveController.DefaultSpeed;
             enemy.AttackController.Speed = enemy.AttackController.DefaultSpeed;
-            enemy.UpdateData();
         }
 
         private void BoostEnemies(WaveFinishedEvent waveFinishedEvent)
@@ -67,7 +66,6 @@ namespace Factory
                 enemy.MoveController.Speed = enemy.MoveController.DefaultSpeed * speedX;
                 enemy.MoveController.Agent.speed = speedX;
                 enemy.AttackController.Speed = speedX;
-                enemy.UpdateData();
             }
         }
 
