@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Object = UnityEngine.Object;
+using Random = UnityEngine.Random;
 
 namespace ObjectPool
 {
@@ -11,8 +12,8 @@ namespace ObjectPool
         [SerializeField] private bool _autoExpand = true;
         public event Action<T> Expanded;
 
-        [SerializeField] protected T _prefab;
-        public T Prefab => _prefab;
+        [SerializeField] protected T[] _prefabs;
+        public T[] Prefabs => _prefabs;
 
         [SerializeField] private int _count = 5;
 
@@ -46,7 +47,8 @@ namespace ObjectPool
 
         private T CreateObject(bool isActiveByDefault = false)
         {
-            T createdObject = Object.Instantiate(Prefab);
+            int rnd = Random.Range(0, Prefabs.Length);
+            T createdObject = Object.Instantiate(Prefabs[rnd]);
 
             if (Parent != null)
                 createdObject.transform.SetParent(Parent);

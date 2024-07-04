@@ -19,15 +19,15 @@ namespace Factory
         protected IPool<ZombieContainer> _pool;
         public IPool<ZombieContainer> Pool => _pool;
 
-        private ZombieContainer _prefab;
-        public ZombieContainer Prefab => _prefab;
+        private readonly ZombieContainer[] _prefabs;
+        public ZombieContainer[] Prefabs => _prefabs;
 
-        private EnemyWaveBoostData _waveBoostData;
+        private readonly EnemyWaveBoostData _waveBoostData;
 
         public ZombieFactory(IPool<ZombieContainer> pool, IPool<AmmoPack> ammoPackPool, List<Transform> spawnDots, 
             IEntity target, EnemyWaveBoostData waveBoostData)
         {
-            _prefab = pool.Prefab;
+            _prefabs = pool.Prefabs;
             _pool = pool;
             _ammoPackPool = ammoPackPool;
             _spawnDots = spawnDots;
@@ -120,6 +120,6 @@ namespace Factory
             return transform;
         }
 
-        public ZombieContainer NewInstance() => Object.Instantiate(Prefab);
+        public ZombieContainer NewInstance() => Object.Instantiate(Prefabs[Random.Range(0, Prefabs.Length)]);
     }
 }

@@ -10,13 +10,13 @@ namespace Factory
         private IPool<AudioSource> _pool;
         public IPool<AudioSource> Pool => _pool;
 
-        private AudioSource _prefab;
-        public AudioSource Prefab => _prefab;
+        private AudioSource[] _prefab;
+        public AudioSource[] Prefabs => _prefab;
 
         private void Awake()
         {
             _pool = _audioSourcePool.Pool;
-            _prefab = _audioSourcePool.Pool.Prefab;
+            _prefab = _audioSourcePool.Pool.Prefabs;
         }
 
         public AudioSource GetInstance()
@@ -36,6 +36,6 @@ namespace Factory
             audioSource.Play();
         }
 
-        public AudioSource NewInstance() => Instantiate(Prefab);
+        public AudioSource NewInstance() => Instantiate(Prefabs[Random.Range(0, Prefabs.Length)]);
     }
 }
