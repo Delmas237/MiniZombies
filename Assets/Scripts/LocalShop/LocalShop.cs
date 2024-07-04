@@ -77,51 +77,48 @@ namespace LocalShopLib
                 _player.CurrencyController.Spend(100);
         }
 
-        public void PurchaseGun(int ID)
+        public void PurchaseGun(int id)
         {
-            if (_weaponsLvl[ID] >= 0)
+            if (_weaponsLvl[id] >= 0)
             {
-                GunLvlUp(ID);
+                GunLvlUp(id);
                 return;
             }
 
-            if (_player.CurrencyController.Spend(_shopWeapons[ID].Price))
+            if (_player.CurrencyController.Spend(_shopWeapons[id].Price))
             {
-                _weaponsLvl[ID]++;
+                _weaponsLvl[id]++;
 
-                UpdateLotText(ID);
-                GetGun(ID);
+                UpdateLotText(id);
+                GetGun(id);
             }
         }
-        private void GunLvlUp(int ID)
+        private void GunLvlUp(int id)
         {
-            if (_player.CurrencyController.Spend(_shopWeapons[ID].PriceLvlBoost))
+            if (_player.CurrencyController.Spend(_shopWeapons[id].PriceLvlBoost))
             {
-                _weaponsLvl[ID]++;
-                _player.WeaponsController.Guns[ID + 1].Damage += _shopWeapons[ID].DamageLvlBoost;
+                _weaponsLvl[id]++;
+                _player.WeaponsController.Guns[id + 1].Damage += _shopWeapons[id].DamageLvlBoost;
 
-                UpdateLotText(ID);
+                UpdateLotText(id);
             }
         }
-        public void GetGun(int ID)
+        public void GetGun(int id)
         {
-            if (_weaponsLvl[ID] >= 0 && _playerGunSlots.GunSlot2 != (GunType)ID + 1)
-            {
-                _playerGunSlots.SetSecondSlot((GunType)ID + 1);
+            if (_weaponsLvl[id] >= 0 && _playerGunSlots.SetFreeOrLastSlot((GunType)id + 1))
                 _getGunSound.Play();
-            }
         }
 
-        private void UpdateLotText(int ID)
+        private void UpdateLotText(int id)
         {
-            _shopWeapons[ID].PriceText.text = _shopWeapons[ID].PriceLvlBoost + "$";
-            _shopWeapons[ID].DamageText.text = $"{_player.WeaponsController.Guns[ID + 1].Damage}dmg";
-            _shopWeapons[ID].LvlText.text = $"{_weaponsLvl[ID]} lvl";
+            _shopWeapons[id].PriceText.text = _shopWeapons[id].PriceLvlBoost + "$";
+            _shopWeapons[id].DamageText.text = $"{_player.WeaponsController.Guns[id + 1].Damage}dmg";
+            _shopWeapons[id].LvlText.text = $"{_weaponsLvl[id]} lvl";
         }
 
-        public void PurchaseMedKit(int ID)
+        public void PurchaseMedKit(int id)
         {
-            if (_player.CurrencyController.Spend(_shopItems[ID].Price) &&
+            if (_player.CurrencyController.Spend(_shopItems[id].Price) &&
                 _player.HealthController.Health < _player.HealthController.MaxHealth)
             {
                 _player.HealthController.Health = _player.HealthController.MaxHealth;

@@ -694,6 +694,7 @@ MonoBehaviour:
     _shootDelay: 0.5
   _weaponsController:
     _bullets: 9999
+    _initialGun: 0
     _guns:
     - {fileID: 7498342157292042901}
 --- !u!195 &3273963864776120562
@@ -1217,6 +1218,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 3890003675546145180}
     m_Modifications:
     - target: {fileID: 60767804659289434, guid: 817032021e65a1a428bad43472a5e0ac, type: 3}
+      propertyPath: _shootDir
+      value: 
+      objectReference: {fileID: 2805238932535356984}
+    - target: {fileID: 60767804659289434, guid: 817032021e65a1a428bad43472a5e0ac, type: 3}
       propertyPath: <Damage>k__BackingField
       value: 15
       objectReference: {fileID: 0}
@@ -1328,6 +1333,10 @@ PrefabInstance:
       propertyPath: cooldown
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 7371549725607492157, guid: 817032021e65a1a428bad43472a5e0ac, type: 3}
+      propertyPath: _shootDir
+      value: 
+      objectReference: {fileID: 2805238932535356984}
     - target: {fileID: 7371549725795301885, guid: 817032021e65a1a428bad43472a5e0ac, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -1348,6 +1357,10 @@ PrefabInstance:
       propertyPath: cooldown
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 7371549726179397746, guid: 817032021e65a1a428bad43472a5e0ac, type: 3}
+      propertyPath: _shootDir
+      value: 
+      objectReference: {fileID: 2805238932535356984}
     - target: {fileID: 7371549726180331897, guid: 817032021e65a1a428bad43472a5e0ac, type: 3}
       propertyPath: m_Layer
       value: 7

@@ -32,6 +32,10 @@ namespace EnemyLib
 
             _weaponsController.CurrentGun.Damage = _damage;
             _weaponsController.CurrentGun.Cooldown = _cooldown;
+        }
+
+        public void UpdateData()
+        {
             Speed /= _cooldown;
         }
 

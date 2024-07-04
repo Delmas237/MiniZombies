@@ -30,8 +30,6 @@ namespace Factory
         protected void Construct(ZombieShooterContainer enemy)
         {
             base.Construct(enemy);
-
-            enemy.WeaponsController.ChangeGun(GunType.Pistol);
             enemy.WeaponsController.CurrentGun.ShotPool = _shotPool;
         }
     }
