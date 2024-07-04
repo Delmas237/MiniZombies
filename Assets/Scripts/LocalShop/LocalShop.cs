@@ -1,6 +1,7 @@
 using EventBusLib;
 using PlayerLib;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using Weapons;
 
@@ -13,6 +14,7 @@ namespace LocalShopLib
         [Space(10f)]
         [SerializeField] private PlayerContainer _player;
         [SerializeField] private PlayerGunSlots _playerGunSlots;
+        [SerializeField] private TextMeshProUGUI _slotsText;
 
         private List<int> _weaponsLvl;
 
@@ -25,6 +27,7 @@ namespace LocalShopLib
         private void Start()
         {
             UpdatePrice();
+            UpdateSlotsText();
 
             GunsLvlInitialize();
 
@@ -36,11 +39,14 @@ namespace LocalShopLib
             EventBus.Unsubscribe<WaveStartedEvent>(ShopDisable);
             EventBus.Unsubscribe<WaveFinishedEvent>(ShopEnable);
         }
-
         private void UpdatePrice()
         {
             for (int i = 0; i < _shopWeapons.Count; i++)
                 _shopWeapons[i].PriceText.text = _shopWeapons[i].Price.ToString() + "$";
+        }
+        private void UpdateSlotsText()
+        {
+            _slotsText.text = $"Slots used {_playerGunSlots.UsedSlots}/{_playerGunSlots.MaxSlots}";
         }
 
         private void GunsLvlInitialize()
@@ -89,8 +95,8 @@ namespace LocalShopLib
             {
                 _weaponsLvl[id]++;
 
-                UpdateLotText(id);
                 GetGun(id);
+                UpdateLotText(id);
             }
         }
         private void GunLvlUp(int id)
@@ -106,7 +112,10 @@ namespace LocalShopLib
         public void GetGun(int id)
         {
             if (_weaponsLvl[id] >= 0 && _playerGunSlots.SetFreeOrLastSlot((GunType)id + 1))
+            {
                 _getGunSound.Play();
+                UpdateSlotsText();
+            }
         }
 
         private void UpdateLotText(int id)
