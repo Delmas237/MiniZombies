@@ -98,7 +98,7 @@ Transform:
   m_GameObject: {fileID: 207944000948956154}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.007, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -138,6 +138,7 @@ MonoBehaviour:
   _attackController:
     _defaultSpeed: 2
     _damage: 5
+    _stopAttackSpeedRatio: 0.5
 --- !u!195 &3954004998406730725
 NavMeshAgent:
   m_ObjectHideFlags: 0

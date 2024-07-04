@@ -1186,6 +1186,7 @@ MonoBehaviour:
   _attackController:
     _defaultSpeed: 2
     _damage: 5
+    _stopAttackSpeedRatio: 0.5
 --- !u!195 &3762146503193652518
 NavMeshAgent:
   m_ObjectHideFlags: 0

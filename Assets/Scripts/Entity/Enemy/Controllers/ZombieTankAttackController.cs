@@ -17,9 +17,11 @@ namespace EnemyLib
         [SerializeField] private int _damage = 15;
         public int Damage => _damage;
 
+        [Space(10), Tooltip("Attack stopping speed divided by attack speed")]
+        [SerializeField, Range(0, 3f)] private float _stopAttackSpeedRatio = 0.3f;
+
         private IHealthController _healthController;
         private IEnemyMoveController _moveController;
-
         public void Initialize(IHealthController healthController, IEnemyMoveController moveController)
         {
             _healthController = healthController;
@@ -45,7 +47,7 @@ namespace EnemyLib
         {
             if (collision.gameObject.TryGetComponent(out IEntity entity) && entity == _moveController.Target)
             {
-                CoroutineHelper.StartRoutine(StopAttack(0.3f));
+                CoroutineHelper.StartRoutine(StopAttack(_stopAttackSpeedRatio / Speed));
             }
         }
 
