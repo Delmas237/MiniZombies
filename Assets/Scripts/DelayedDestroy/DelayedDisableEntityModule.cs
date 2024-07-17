@@ -33,7 +33,9 @@ public class DelayedDisableEntityModule : IModule
     private IEnumerator SetActiveFalse(float delay)
     {
         yield return new WaitForSeconds(delay);
-        _gameObject.SetActive(false);
+
+        if (_gameObject != null)
+            _gameObject.SetActive(false);
     }
 
     protected void DelayedSetActiveFalse() => CoroutineHelper.StartRoutine(SetActiveFalse(_delay));

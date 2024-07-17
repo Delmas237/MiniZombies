@@ -116,17 +116,15 @@ namespace PlayerLib
                 IEnemy closestEnemy = null;
                 if (closestEnemies.Count > 0)
                 {
+                    Vector3 position = _weaponsController.CurrentGun.transform.position;
                     List<Transform> enemiesTransform = closestEnemies.Select(e => e.Transform).ToList();
-                    Transform transform = ComponentSearcher<Transform>.Closest(_transform.position, enemiesTransform);
+                    Transform transform = ComponentSearcher<Transform>.Closest(position, enemiesTransform);
                     closestEnemy = closestEnemies[enemiesTransform.IndexOf(transform)];
 
-                    float distanceToEnemy = Vector3.Distance(_transform.position, closestEnemy.Transform.position);
+                    float distanceToEnemy = Vector3.Distance(position, closestEnemy.Transform.position);
                     enemyInRange = distanceToEnemy <= _weaponsController.CurrentGun.Distance;
                 }
-                if (enemyInRange)
-                    _closestEnemy = closestEnemy;
-                else
-                    _closestEnemy = null;
+                _closestEnemy = enemyInRange ? closestEnemy : null;
 
                 yield return new WaitForSeconds(TIME_TO_UPDATE_CLOSEST_ENEMY);
             }

@@ -8,12 +8,12 @@ namespace Factory
 {
     public class ZombieShooterFactory : ZombieFactory
     {
-        protected IPool<ParticleSystem> _shotPool;
+        protected IPool<BulletTrail> _bulletPool;
 
         public ZombieShooterFactory(IPool<ZombieShooterContainer> pool, IPool<AmmoPack> ammoPackPool, List<Transform> spawnDots, 
-            IEntity target, EnemyWaveBoostData waveBoostData, IPool<ParticleSystem> shotPool) : base(pool, ammoPackPool, spawnDots, target, waveBoostData)
+            IEntity target, EnemyWaveBoostData waveBoostData, IPool<BulletTrail> bulletPool) : base(pool, ammoPackPool, spawnDots, target, waveBoostData)
         {
-            _shotPool = shotPool;
+            _bulletPool = bulletPool;
         }
 
         public override IEnemy GetInstance()
@@ -30,7 +30,7 @@ namespace Factory
         protected void Construct(ZombieShooterContainer enemy)
         {
             base.Construct(enemy);
-            enemy.WeaponsController.CurrentGun.ShotPool = _shotPool;
+            enemy.WeaponsController.CurrentGun.BulletPool = _bulletPool;
         }
     }
 }

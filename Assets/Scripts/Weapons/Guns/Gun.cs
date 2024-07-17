@@ -25,13 +25,18 @@ namespace Weapons
         /// % of damage reduction on the next penetration
         /// </summary>
         public const float MINUS_PIERCING_DAMAGE = 5;
+        /// <summary>
+        /// Trail lifetime to cover a distance of 1 unit
+        /// </summary>
+        public const float TRAIL_UNIT_TIME = 0.05f;
 
         [Space(5)]
         [SerializeField] protected Transform _shootDir;
         [SerializeField] protected Transform _muzzle;
+        [Space(5)]
+        [SerializeField] protected bool _setTrailParent;
 
-        public IPool<ParticleSystem> ShotPool { get; set; }
-        protected AudioSource _shotSound;
+        public IPool<BulletTrail> BulletPool { get; set; }
 
         protected virtual void Update()
         {
@@ -50,10 +55,10 @@ namespace Weapons
         {
             if (_canShoot)
             {
-                Shoot(_shootDir.position);
+                BulletTrail bullet = Shoot(_shootDir.position);
 
-                float randomRange = 0.02f;
-                SoundPitch(_shotSound.pitch = Random.Range(_shotSound.pitch - randomRange, _shotSound.pitch + randomRange));
+                float pitchRange = 0.02f;
+                bullet.AudioSource.pitch += Random.Range(-pitchRange, pitchRange);
 
                 _canShoot = false;
                 _currentCooldown = Cooldown;
@@ -63,13 +68,20 @@ namespace Weapons
             return false;
         }
 
-        protected void Shoot(Vector3 vector)
+        protected BulletTrail Shoot(Vector3 vector)
         {
             if (gameObject.activeInHierarchy)
             {
-                GameObject shot = ShotPool.GetFreeElement().gameObject;
-                _shotSound = shot.GetComponent<AudioSource>();
-                shot.transform.SetPositionAndRotation(_muzzle.position, _muzzle.rotation);
+                BulletTrail bullet = BulletPool.GetFreeElement();
+
+                if (_setTrailParent)
+                    bullet.transform.parent = transform;
+
+                bullet.transform.SetPositionAndRotation(_muzzle.position, _muzzle.rotation);
+
+                GunData gunData = GunsDataSaver.GunsData[Type];
+                InitializeAudio(gunData, bullet.AudioSource);
+                InitializeBulletTrail(gunData, bullet.ParticleSystem);
 
                 Ray ray = new Ray(vector, _shootDir.forward);
                 RaycastHit[] hits = Physics.RaycastAll(ray, Distance).OrderBy(hit => hit.distance).ToArray();
@@ -87,9 +99,26 @@ namespace Weapons
                     entities[i].HealthController.Health -= piercingDamage;
                     piercingDamage -= (piercingDamage / 100) * MINUS_PIERCING_DAMAGE;
                 }
+
+                return bullet;
             }
+            return null;
         }
 
-        protected void SoundPitch(float pitch) => _shotSound.pitch = pitch;
+        private void InitializeAudio(GunData gunData, AudioSource audio)
+        {
+            audio.clip = gunData.AudioClip;
+            audio.volume = gunData.Volume;
+            audio.pitch = gunData.Pitch;
+            audio.Play();
+        }
+        private void InitializeBulletTrail(GunData gunData, ParticleSystem particles)
+        {
+            var mainModule = particles.main;
+            var shape = particles.shape;
+
+            mainModule.startLifetime = TRAIL_UNIT_TIME * Distance;
+            shape.angle = gunData.ShapeAngle;
+        }
     }
 }

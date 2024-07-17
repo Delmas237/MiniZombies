@@ -14,7 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Damage>k__BackingField: 25
   <Cooldown>k__BackingField: 0.25
-  <Distance>k__BackingField: 5
+  <Distance>k__BackingField: 4.2
   <Consumption>k__BackingField: 0
   <Type>k__BackingField: 0
   <Icon>k__BackingField: {fileID: -6897755345276088677, guid: cbc51f23591699f41af490520f0b9f3b, type: 3}
+  <AudioClip>k__BackingField: {fileID: 8300000, guid: 036008431315911478c27ee89236f78f, type: 3}
+  <Volume>k__BackingField: 0.3
+  <Pitch>k__BackingField: 1
+  <ShapeAngle>k__BackingField: 0.03

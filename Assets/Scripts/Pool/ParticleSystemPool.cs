@@ -4,8 +4,8 @@ namespace ObjectPool
 {
     public class ParticleSystemPool : MonoBehaviour
     {
-        [SerializeField] private PoolBase<ParticleSystem> _pool;
-        public IPool<ParticleSystem> Pool => _pool;
+        [SerializeField] private PoolBase<BulletTrail> _pool;
+        public IPool<BulletTrail> Pool => _pool;
 
         private void Awake()
         {

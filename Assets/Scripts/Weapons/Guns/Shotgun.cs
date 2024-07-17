@@ -8,12 +8,13 @@ namespace Weapons
         {
             if (_canShoot)
             {
-                float pitch = Random.Range(0.98f, 1.02f);
+                float pitchRange = 0.02f;
                 
-                Shoot(_shootDir.position + Vector3.left * 0.15f);
-                SoundPitch(pitch);
-                Shoot(_shootDir.position + Vector3.right * 0.15f);
-                SoundPitch(pitch);
+                BulletTrail bullet = Shoot(_shootDir.position + Vector3.left * 0.15f);
+                bullet.AudioSource.pitch += Random.Range(-pitchRange, pitchRange);
+
+                BulletTrail bullet1 = Shoot(_shootDir.position + Vector3.right * 0.15f);
+                bullet1.AudioSource.volume = 0;
 
                 _canShoot = false;
                 _currentCooldown = Cooldown;

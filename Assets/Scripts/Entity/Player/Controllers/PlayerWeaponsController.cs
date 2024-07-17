@@ -14,11 +14,13 @@ namespace PlayerLib
 
         private IHealthController _healthController;
 
+        public const float START_DISTANCE = 0.848f;
+
         public void Initialize(IHealthController healthController)
         {
-            base.Initialize();
-
             _healthController = healthController;
+
+            base.Initialize();
 
             _healthController.Died += OnDeath;
             AttackJoystick.OnUp += PullTrigger;
@@ -40,7 +42,8 @@ namespace PlayerLib
 
         private void UpdateShootLineScale()
         {
-            _shootLineRoot.localScale = new Vector3(1, 1, CurrentGun.Distance);
+            float distance = CurrentGun.Distance + START_DISTANCE;
+            _shootLineRoot.localScale = new Vector3(1, 1, distance);
         }
 
         public void UpdateShootLine()

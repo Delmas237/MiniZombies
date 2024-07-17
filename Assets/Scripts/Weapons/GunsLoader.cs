@@ -1,7 +1,5 @@
 using ObjectPool;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace Weapons
@@ -9,30 +7,19 @@ namespace Weapons
     public class GunsLoader : MonoBehaviour
     {
         [SerializeField] private bool _loadData = true;
-        [SerializeField] private List<GunInitializeData> _guns;
+        [SerializeField] private ParticleSystemPool _shotPool;
+
+        [SerializeField] private List<Gun> _guns;
 
         private void Awake()
         {
-            foreach (GunInitializeData gunInitializeData in _guns)
+            foreach (Gun gun in _guns)
             {
-                if (gunInitializeData != null && gunInitializeData.ShotPool != null)
-                    gunInitializeData.Gun.ShotPool = gunInitializeData.ShotPool.Pool;
-            }
+                gun.BulletPool = _shotPool.Pool;
 
-            if (_loadData)
-            {
-                List<Gun> guns = _guns.Select(g => g.Gun).ToList();
-
-                foreach (Gun gun in guns)
+                if (_loadData)
                     GunsDataSaver.LoadData(gun);
             }
         }
-    }
-
-    [Serializable]
-    public class GunInitializeData
-    {
-        public Gun Gun;
-        public ParticleSystemPool ShotPool;
     }
 }

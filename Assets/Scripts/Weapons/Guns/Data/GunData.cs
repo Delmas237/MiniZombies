@@ -14,5 +14,13 @@ namespace Weapons
         [field: SerializeField] public GunType Type { get; private set; }
         [field: Space(5)]
         [field: SerializeField] public Sprite Icon { get; private set; }
+
+        [field: Header("Audio")]
+        [field: SerializeField] public AudioClip AudioClip { get; private set; }
+        [field: SerializeField] public float Volume { get; private set; }
+        [field: SerializeField] public float Pitch { get; private set; }
+        
+        [field: Header("Bullet Trail")]
+        [field: SerializeField] public float ShapeAngle { get; private set; }
     }
 }

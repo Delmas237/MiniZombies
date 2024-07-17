@@ -31,7 +31,11 @@ namespace ObjectPool
         public T GetFreeElement()
         {
             if (HasFreeElement(out T element))
+            {
+                if (Parent != null)
+                    element.transform.SetParent(Parent);
                 return element;
+            }
 
             if (_autoExpand)
             {

@@ -48,16 +48,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8916842549bf1514c8be71cc9ac7a3c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gunsData: {fileID: 11400000, guid: afc016a82bde51c4583df8fe000e8d4d, type: 2}
+  _loadData: 1
+  _shotPool: {fileID: 0}
   _guns:
-  - Gun: {fileID: 7371549726035719926}
-    ShotsPool: {fileID: 0}
-  - Gun: {fileID: 60767804659289434}
-    ShotsPool: {fileID: 0}
-  - Gun: {fileID: 7371549725607492157}
-    ShotsPool: {fileID: 0}
-  - Gun: {fileID: 7371549726179397746}
-    ShotsPool: {fileID: 0}
+  - {fileID: 7371549726035719926}
+  - {fileID: 60767804659289434}
+  - {fileID: 7371549725607492157}
+  - {fileID: 7371549726179397746}
 --- !u!1 &7371549724949992761
 GameObject:
   m_ObjectHideFlags: 0
