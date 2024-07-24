@@ -6,6 +6,9 @@ namespace EnemyLib
     public class ZombieShooterContainer : ZombieContainer
     {
         [Space(10), Header("Controllers")]
+        [SerializeField] protected EnemyMoveController _moveController;
+        public override IEnemyMoveController MoveController => _moveController;
+
         [SerializeField] protected ZombieShooterAttackController _attackController;
         public override IEnemyAttackController AttackController => _attackController;
         
@@ -29,6 +32,7 @@ namespace EnemyLib
         protected override void OnEnable()
         {
             _attackController.UpdateData();
+            _moveController.UpdateData();
             base.OnEnable();
         }
 

@@ -9,8 +9,7 @@ namespace EnemyLib
         [SerializeField] protected HealthController _healthController;
         public IHealthController HealthController => _healthController;
 
-        [SerializeField] protected EnemyMoveController _moveController;
-        public IEnemyMoveController MoveController => _moveController;
+        public abstract IEnemyMoveController MoveController { get; }
         public abstract IEnemyAttackController AttackController { get; }
 
         [SerializeField] protected EnemyAnimationController _animationController;
@@ -37,7 +36,6 @@ namespace EnemyLib
         protected virtual void OnEnable()
         {
             _animationController.UpdateData();
-            _moveController.UpdateData();
         }
 
         protected virtual void OnDeath()

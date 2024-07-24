@@ -1590,7 +1590,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7202539250435081143}
-  - component: {fileID: 4755022141437270736}
+  - component: {fileID: -6659320028954139292}
   - component: {fileID: 7712739484609061815}
   - component: {fileID: 2435927728910848878}
   - component: {fileID: 2877117909070808267}
@@ -1619,7 +1619,7 @@ Transform:
   - {fileID: 8836832433936943710}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4755022141437270736
+--- !u!114 &-6659320028954139292
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1628,29 +1628,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 5331711090169241126}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d91960c0a3e8994b9201b20272c11d1, type: 3}
+  m_Script: {fileID: 11500000, guid: a7cca514cb674984caf397fbae6339bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _healthController:
-    <MaxHealth>k__BackingField: 70
+    <MaxHealth>k__BackingField: 50
     <AudioController>k__BackingField:
       _damageSound: {fileID: 0}
       _healSound: {fileID: 0}
       _deathSound: {fileID: 7799914577163119043}
       _deathPitchRandomRange: 0.15
-  _moveController:
-    _defaultSpeed: 2.5
-    _rotateTowardsTarget: 0
   _delayedDisableModule:
     <Enabled>k__BackingField: 1
     _delay: 3
   _dropAmmoAfterDeathModule:
     <Enabled>k__BackingField: 1
     _dropChance: 0.07
+  _moveController:
+    _defaultSpeed: 2.2
+    _minAvoidanceDistance: 5
+    _maxAvoidanceDistance: 20
+    _fleeDistance: 3
   _attackController:
-    _defaultSpeed: 1
+    _defaultSpeed: 0.5
     _damage: 15
-    _stopAttackSpeedRatio: 0.3
+    _cooldown: 1
+    _shootDelay: 1
 --- !u!195 &7712739484609061815
 NavMeshAgent:
   m_ObjectHideFlags: 0

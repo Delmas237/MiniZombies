@@ -18,11 +18,11 @@ namespace EnemyLib
 
         [SerializeField] private float _cooldown = 1f;
         [Space(10)]
-        [SerializeField, Tooltip("Delay before firing")] private float _shootDelay = 1f;
+        [SerializeField, Tooltip("Delay before firing")] protected float _shootDelay = 1f;
 
-        private IEnemyMoveController _moveController;
-        private IWeaponsController _weaponsController;
-        private Transform _transform;
+        protected IEnemyMoveController _moveController;
+        protected IWeaponsController _weaponsController;
+        protected Transform _transform;
 
         public void Initialize(IEnemyMoveController moveController, IWeaponsController weaponsController, Transform transform)
         {
@@ -34,12 +34,12 @@ namespace EnemyLib
             _weaponsController.CurrentGun.Cooldown = _cooldown;
         }
 
-        public void UpdateData()
+        public virtual void UpdateData()
         {
             Speed /= _cooldown;
         }
 
-        public void UpdateState()
+        public virtual void UpdateState()
         {
             float distanceToTarget = Vector3.Distance(_moveController.Target.Transform.position, _transform.position);
             bool targetDied = _moveController.Target.HealthController.Health <= 0;
@@ -60,7 +60,7 @@ namespace EnemyLib
             }
         }
 
-        private void GetIntoPosition()
+        protected virtual void GetIntoPosition()
         {
             IsAttack = true;
             CoroutineHelper.StartRoutine(ShootDelay(_shootDelay));
@@ -69,7 +69,7 @@ namespace EnemyLib
                 _moveController.Agent.isStopped = true;
         }
 
-        private IEnumerator ShootDelay(float delay)
+        protected IEnumerator ShootDelay(float delay)
         {
             float speedX = Speed;
 
@@ -78,7 +78,7 @@ namespace EnemyLib
             Speed = speedX;
         }
 
-        private void GetOutPosition()
+        protected virtual void GetOutPosition()
         {
             IsAttack = false;
 

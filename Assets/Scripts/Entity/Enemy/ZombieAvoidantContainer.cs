@@ -1,15 +1,16 @@
 using UnityEngine;
 using UnityEngine.AI;
+using Weapons;
 
 namespace EnemyLib
 {
-    public class ZombieTankContainer : ZombieContainer
+    public class ZombieAvoidantContainer : ZombieContainer
     {
         [Space(10), Header("Controllers")]
-        [SerializeField] protected EnemyMoveController _moveController;
+        [SerializeField] protected EnemyAvoidantMoveController _moveController;
         public override IEnemyMoveController MoveController => _moveController;
 
-        [SerializeField] protected ZombieTankAttackController _attackController;
+        [SerializeField] protected ZombieAvoidantAttackController _attackController;
         public override IEnemyAttackController AttackController => _attackController;
 
         protected override void Awake()
@@ -17,9 +18,9 @@ namespace EnemyLib
             base.Awake();
 
             _healthController.Initialize();
-            _animationController.Initialize(HealthController, MoveController, _attackController, GetComponent<Animator>());
-            _attackController.Initialize(HealthController, MoveController);
-            _moveController.Initialize(GetComponent<NavMeshAgent>(), transform, _attackController);
+            _animationController.Initialize(HealthController, MoveController, AttackController, GetComponent<Animator>());
+            _attackController.Initialize(MoveController, transform);
+            _moveController.Initialize(GetComponent<NavMeshAgent>(), transform, AttackController);
 
             DelayedDisableModule.Initialize(gameObject, this);
             DropAmmoAfterDeathModule.Initialize(HealthController, transform);
@@ -27,6 +28,7 @@ namespace EnemyLib
 
         protected override void OnEnable()
         {
+            _attackController.UpdateData();
             _moveController.UpdateData();
             base.OnEnable();
         }
@@ -37,17 +39,8 @@ namespace EnemyLib
             _animationController.MoveAnim();
             _moveController.Rotate();
 
+            _attackController.UpdateState();
             _animationController.AttackAnim();
-        }
-
-        private void OnCollisionEnter(Collision collision)
-        {
-            _attackController.OnCollisionEnter(collision);
-        }
-
-        private void OnCollisionExit(Collision collision)
-        {
-            _attackController.OnCollisionExit(collision);
         }
 
         protected override void OnDeath()
@@ -55,7 +48,7 @@ namespace EnemyLib
             base.OnDeath();
 
             _moveController.Agent.enabled = false;
-            _attackController.IsAttack = false;
+            AttackController.IsAttack = false;
             enabled = false;
         }
 
@@ -65,6 +58,6 @@ namespace EnemyLib
             _animationController.OnDestroy();
         }
 
-        private void DealDamage() => _attackController.DealDamage();
+        private void Shoot() => Debug.Log(1);
     }
 }
