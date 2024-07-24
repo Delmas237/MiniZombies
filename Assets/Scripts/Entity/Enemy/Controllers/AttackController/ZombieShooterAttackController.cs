@@ -18,7 +18,7 @@ namespace EnemyLib
 
         [SerializeField] private float _cooldown = 1f;
         [Space(10)]
-        [SerializeField, Tooltip("Delay before firing")] protected float _shootDelay = 1f;
+        [SerializeField, Tooltip("Delay before shooting first time")] protected float _shootDelay = 1f;
 
         protected IEnemyMoveController _moveController;
         protected IWeaponsController _weaponsController;
