@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using Weapons;
 
@@ -7,6 +8,9 @@ namespace PlayerLib
     [Serializable]
     public class PlayerAnimationController
     {
+        [SerializeField] private float _idleTransitionDelay = 0.5f;
+        private Coroutine _idleTransitionCor;
+
         private Animator _animator;
 
         private IHealthController _healthController;
@@ -25,6 +29,8 @@ namespace PlayerLib
             _weaponsController.GunChanged += CurrentGunAnim;
             _healthController.Died += DeathAnim;
             _healthController.Died += OnDeath;
+
+            _animator.SetBool("Idle", true);
         }
         private void OnDeath()
         {
@@ -35,6 +41,22 @@ namespace PlayerLib
 
         public void MoveAnim()
         {
+            if (_healthController.Health > 0 && !_moveController.IsTraking && !_moveController.IsMoving)
+            {
+                if (_idleTransitionCor == null && !_animator.GetBool("Idle"))
+                    _idleTransitionCor = CoroutineHelper.StartRoutine(IdleCor());
+            }
+            else
+            {
+                _animator.SetBool("Idle", false);
+
+                if (_idleTransitionCor != null)
+                {
+                    CoroutineHelper.StopRoutine(_idleTransitionCor);
+                    _idleTransitionCor = null;
+                }
+            }
+
             if (_moveController.IsMoving)
             {
                 _animator.SetFloat("SpeedPistol", 1);
@@ -45,6 +67,20 @@ namespace PlayerLib
                 _animator.SetFloat("SpeedPistol", 0);
                 _animator.SetFloat("Speed", 0);
             }
+        }
+        private IEnumerator IdleCor()
+        {
+            yield return new WaitForSeconds(_idleTransitionDelay);
+
+            if (_animator != null)
+            {
+                if (_healthController.Health > 0 && !_moveController.IsTraking)
+                    _animator.SetBool("Idle", !_moveController.IsMoving);
+                else
+                    _animator.SetBool("Idle", false);
+            }
+
+            _idleTransitionCor = null;
         }
 
         private void CurrentGunAnim(Gun gun)

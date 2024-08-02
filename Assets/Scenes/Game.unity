@@ -6016,7 +6016,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f80df8cc00e72b442a34fbe981ee6067, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _priority: 25
+  _priority: 15
   _waveBoostData:
     _hpPercent: 0.03
     _waveMultiplierSpeed: 0.01
@@ -95518,19 +95518,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4421778845161036601, guid: bfd8f93b916326940acee567443496c6, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: -0.4674016
       objectReference: {fileID: 0}
     - target: {fileID: 4421778845161036601, guid: bfd8f93b916326940acee567443496c6, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4421778845161036601, guid: bfd8f93b916326940acee567443496c6, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.8840451
       objectReference: {fileID: 0}
     - target: {fileID: 4421778845161036601, guid: bfd8f93b916326940acee567443496c6, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4421778845161036601, guid: bfd8f93b916326940acee567443496c6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -95538,7 +95538,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4421778845161036601, guid: bfd8f93b916326940acee567443496c6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 235.732
       objectReference: {fileID: 0}
     - target: {fileID: 4421778845161036601, guid: bfd8f93b916326940acee567443496c6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z

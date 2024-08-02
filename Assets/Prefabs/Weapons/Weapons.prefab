@@ -1,5 +1,39 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4173640367571588688
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1360528913057175686}
+  m_Layer: 0
+  m_Name: HeavyWeapons
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1360528913057175686
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4173640367571588688}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6561833741934130894}
+  - {fileID: 6561833741581401553}
+  - {fileID: 6561833741498874628}
+  m_Father: {fileID: 7371549724676782839}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7371549724676782838
 GameObject:
   m_ObjectHideFlags: 0
@@ -31,9 +65,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6561833741664607381}
-  - {fileID: 6561833741934130894}
-  - {fileID: 6561833741581401553}
-  - {fileID: 6561833741498874628}
+  - {fileID: 1360528913057175686}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7744849533872488209
@@ -185,7 +217,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 7371549724676782839}
+    m_TransformParent: {fileID: 1360528913057175686}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: c23d3442f6622184391da15c29ca1ced, type: 3}
       propertyPath: m_RootOrder
@@ -193,15 +225,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c23d3442f6622184391da15c29ca1ced, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.055189118
+      value: -0.055189144
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c23d3442f6622184391da15c29ca1ced, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.087415725
+      value: 0.08741579
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c23d3442f6622184391da15c29ca1ced, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.2122292
+      value: 0.21222927
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c23d3442f6622184391da15c29ca1ced, type: 3}
       propertyPath: m_LocalRotation.w
@@ -209,11 +241,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c23d3442f6622184391da15c29ca1ced, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.23505598
+      value: -0.23505597
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c23d3442f6622184391da15c29ca1ced, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.8951377
+      value: -0.8951378
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c23d3442f6622184391da15c29ca1ced, type: 3}
       propertyPath: m_LocalRotation.z
@@ -307,6 +339,7 @@ MonoBehaviour:
   <Consumption>k__BackingField: 1
   _shootDir: {fileID: 0}
   _muzzle: {fileID: 7371549725190715488}
+  _setTrailParent: 0
 --- !u!4 &6561833741934130894 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c23d3442f6622184391da15c29ca1ced, type: 3}
@@ -408,6 +441,7 @@ MonoBehaviour:
   <Consumption>k__BackingField: 0
   _shootDir: {fileID: 0}
   _muzzle: {fileID: 7371549725795301826}
+  _setTrailParent: 0
 --- !u!4 &6561833741664607381 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e78b5fe8c1b1d9047985c3b3edf2fcc3, type: 3}
@@ -419,7 +453,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 7371549724676782839}
+    m_TransformParent: {fileID: 1360528913057175686}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 1095122123249c540bb2057691d50174, type: 3}
       propertyPath: m_RootOrder
@@ -427,19 +461,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1095122123249c540bb2057691d50174, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.119293325
+      value: 0.11929342
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1095122123249c540bb2057691d50174, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.16495219
+      value: -0.16495217
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1095122123249c540bb2057691d50174, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.266496
+      value: 0.26649606
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1095122123249c540bb2057691d50174, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.09708231
+      value: 0.09708234
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1095122123249c540bb2057691d50174, type: 3}
       propertyPath: m_LocalRotation.x
@@ -451,7 +485,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1095122123249c540bb2057691d50174, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.36613125
+      value: 0.3661313
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1095122123249c540bb2057691d50174, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -509,6 +543,7 @@ MonoBehaviour:
   <Consumption>k__BackingField: 4
   _shootDir: {fileID: 0}
   _muzzle: {fileID: 7371549726180331902}
+  _setTrailParent: 0
 --- !u!4 &6561833741581401553 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1095122123249c540bb2057691d50174, type: 3}
@@ -520,7 +555,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 7371549724676782839}
+    m_TransformParent: {fileID: 1360528913057175686}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 63e373aaeb7076e47a42154dfe1512e9, type: 3}
       propertyPath: m_RootOrder
@@ -528,15 +563,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 63e373aaeb7076e47a42154dfe1512e9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.018824266
+      value: 0.018824268
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 63e373aaeb7076e47a42154dfe1512e9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.03995207
+      value: -0.03995203
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 63e373aaeb7076e47a42154dfe1512e9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.23482624
+      value: 0.23482631
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 63e373aaeb7076e47a42154dfe1512e9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -610,6 +645,7 @@ MonoBehaviour:
   <Consumption>k__BackingField: 2
   _shootDir: {fileID: 0}
   _muzzle: {fileID: 7371549724949992766}
+  _setTrailParent: 0
 --- !u!4 &6561833741498874628 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 63e373aaeb7076e47a42154dfe1512e9, type: 3}

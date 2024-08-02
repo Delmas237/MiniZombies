@@ -981,6 +981,7 @@ MonoBehaviour:
       _deathPitchRandomRange: 0
   _weaponsController:
     _bullets: 100
+    _initialGun: 0
     _guns:
     - {fileID: 835748756}
     - {fileID: 7393470864971495480}
@@ -993,6 +994,8 @@ MonoBehaviour:
     <MoveJoystick>k__BackingField: {fileID: 0}
     _rotationSmoothness: 13
     _autoRotationSmoothness: 12
+  _animationController:
+    _idleTransitionDelay: 0.3
 --- !u!54 &4240113845284777554
 Rigidbody:
   m_ObjectHideFlags: 0

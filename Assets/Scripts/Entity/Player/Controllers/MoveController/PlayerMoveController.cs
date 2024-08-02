@@ -15,7 +15,8 @@ namespace PlayerLib
 
         [SerializeField] private float _defaultSpeed = 3.65f;
         public float DefaultSpeed => _defaultSpeed;
-        public bool IsMoving => MoveJoystick.Horizontal != 0 || MoveJoystick.Vertical != 0;
+        public bool IsMoving => MoveJoystick.Direction != Vector2.zero;
+        public bool IsTraking => _closestEnemy != null || _weaponsController.AttackJoystick.Pressed;
 
         [field: SerializeField] public Joystick MoveJoystick { get; private set; }
 

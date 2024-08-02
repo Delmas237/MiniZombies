@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -63,6 +64,7 @@ namespace JoystickLib
         public Action OnUpInDeadZone;
 
         public Action OnClamped;
+        private bool clamped;
 
         protected virtual void Start()
         {
@@ -107,10 +109,28 @@ namespace JoystickLib
 
         private void Update()
         {
-            if (OnClamped != null && Pressed)
-                OnClamped.Invoke();
+            if (Pressed)
+            {
+                if (!clamped)
+                    StartCoroutine(OnClampedCor());
+                else
+                    OnClamped?.Invoke();
+            }
+            else
+                clamped = false;
 
             TimeManagement();
+        }
+
+        private IEnumerator OnClampedCor()
+        {
+            yield return new WaitForEndOfFrame();
+
+            if (Pressed)
+            {
+                clamped = true;
+                OnClamped?.Invoke();
+            }
         }
 
         private void TimeManagement()

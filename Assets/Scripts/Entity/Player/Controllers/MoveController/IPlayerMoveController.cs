@@ -6,5 +6,6 @@ namespace PlayerLib
     {
         public bool IsMoving { get; }
         public Joystick MoveJoystick { get; }
+        public bool IsTraking { get; }
     }
 }

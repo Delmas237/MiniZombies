@@ -56,7 +56,7 @@ namespace EnemyLib
             yield return new WaitForSeconds(delay);
             _targetCollision = null;
 
-            if (_moveController.Agent.enabled)
+            if (_moveController.Agent != null && _moveController.Agent.enabled)
                 _moveController.Agent.isStopped = false;
 
             IsAttack = false;
