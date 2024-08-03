@@ -10,6 +10,7 @@ namespace EnemyLib
         {
             _moveController = moveController;
             _transform = transform;
+            Speed = DefaultSpeed;
         }
 
         public override void UpdateState()

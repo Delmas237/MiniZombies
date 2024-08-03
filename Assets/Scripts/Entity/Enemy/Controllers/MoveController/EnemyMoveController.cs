@@ -24,6 +24,7 @@ namespace EnemyLib
             _agent = agent;
             _transform = transform;
             _attackController = attackController;
+            Speed = DefaultSpeed;
         }
 
         public virtual void UpdateData()

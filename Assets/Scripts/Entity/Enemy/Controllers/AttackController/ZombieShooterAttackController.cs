@@ -30,6 +30,7 @@ namespace EnemyLib
             _weaponsController = weaponsController;
             _transform = transform;
 
+            Speed = DefaultSpeed;
             _weaponsController.CurrentGun.Damage = _damage;
             _weaponsController.CurrentGun.Cooldown = _cooldown;
         }

@@ -22,10 +22,12 @@ namespace EnemyLib
 
         private IHealthController _healthController;
         private IEnemyMoveController _moveController;
+        
         public void Initialize(IHealthController healthController, IEnemyMoveController moveController)
         {
             _healthController = healthController;
             _moveController = moveController;
+            Speed = DefaultSpeed;
         }
 
         protected void Attack()
