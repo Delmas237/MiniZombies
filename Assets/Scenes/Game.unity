@@ -5996,7 +5996,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 120112156}
-  - component: {fileID: 120112155}
+  - component: {fileID: 120112157}
   m_Layer: 0
   m_Name: ZombieThrowerData
   m_TagString: Untagged
@@ -6004,24 +6004,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &120112155
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 120112154}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f80df8cc00e72b442a34fbe981ee6067, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _priority: 15
-  _waveBoostData:
-    _hpPercent: 0.03
-    _waveMultiplierSpeed: 0.01
-  _ammoPool: {fileID: 1605113706}
-  _enemyPool: {fileID: 1597891958}
 --- !u!4 &120112156
 Transform:
   m_ObjectHideFlags: 0
@@ -6037,6 +6019,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1315461295}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &120112157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 120112154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bea086f7028ed8342818deb1211bd00a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _priority: 15
+  _waveBoostData:
+    _hpPercent: 0.03
+    _waveMultiplierSpeed: 0.01
+  _ammoPool: {fileID: 1605113706}
+  _enemyPool: {fileID: 1597891958}
+  _projectilePool: {fileID: 256245600}
+  _projectileEffectPool: {fileID: 432212946}
 --- !u!1001 &121532923
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7504,7 +7506,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 164567633}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7559410faa7de0349979f5659aa3b912, type: 3}
+  m_Script: {fileID: 11500000, guid: 002b7be5a0cf70e468fdb76af4a48955, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _pool:
@@ -11938,6 +11940,71 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2e645cdecd35b204ea2b6f9127648d2e, type: 3}
   m_PrefabInstance: {fileID: 1972876945}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &256245598
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 256245599}
+  - component: {fileID: 256245601}
+  - component: {fileID: 256245600}
+  m_Layer: 0
+  m_Name: CursePoisonPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &256245599
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 256245598}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 655441476}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &256245600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 256245598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4284a85b5b5a3f54aaaaffb0d824b1f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pool:
+    _autoExpand: 1
+    _prefabs:
+    - {fileID: 2579357323252604951, guid: 08e24bd81350b1647835c2025d4cc5fc, type: 3}
+    _count: 5
+    <Parent>k__BackingField: {fileID: 0}
+--- !u!114 &256245601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 256245598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c25f61a5570ef1b44bfa3e057c6cad26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cursePoisonPool: {fileID: 256245600}
+  _poisonEffectPool: {fileID: 432212946}
 --- !u!1001 &260452325
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18765,6 +18832,56 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.02, y: 2.88, z: 0.94}
   m_Center: {x: 0, y: 1.42, z: 0}
+--- !u!1 &432212944
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 432212945}
+  - component: {fileID: 432212946}
+  m_Layer: 0
+  m_Name: CursePuddlePool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &432212945
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 432212944}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 655441476}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &432212946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 432212944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7559410faa7de0349979f5659aa3b912, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pool:
+    _autoExpand: 1
+    _prefabs:
+    - {fileID: 8405702250760892589, guid: bef6e8948dba9aa48afee79e706ee20c, type: 3}
+    _count: 5
+    <Parent>k__BackingField: {fileID: 0}
 --- !u!1001 &433517932
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28209,6 +28326,8 @@ Transform:
   - {fileID: 164567634}
   - {fileID: 1605113705}
   - {fileID: 1746660316}
+  - {fileID: 256245599}
+  - {fileID: 432212945}
   m_Father: {fileID: 985776684}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &657240607 stripped
@@ -47437,7 +47556,7 @@ MonoBehaviour:
   - {fileID: 1674074582}
   - {fileID: 1435330945}
   - {fileID: 590148789}
-  - {fileID: 120112155}
+  - {fileID: 120112157}
   _player: {fileID: 7560204000705171858}
 --- !u!1 &1110599362
 GameObject:
@@ -69419,10 +69538,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1597891956}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d999090a4dd050f4290fc927d9a430f3, type: 3}
+  m_Script: {fileID: 11500000, guid: d453264d12c25314882b091900e396d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pool:
+  _throwerPool:
     _autoExpand: 1
     _prefabs:
     - {fileID: -6659320028954139292, guid: 7b75f3562d050984db72904d4988b641, type: 3}
@@ -69961,7 +70080,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ammoPackPool: {fileID: 1605113706}
-  _audioSourcePool: {fileID: 1746660318}
+  _audioSourceFactory: {fileID: 1746660318}
 --- !u!1001 &1605877986
 PrefabInstance:
   m_ObjectHideFlags: 0

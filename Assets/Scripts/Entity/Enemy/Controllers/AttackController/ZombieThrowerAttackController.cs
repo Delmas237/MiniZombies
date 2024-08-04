@@ -4,8 +4,11 @@ using UnityEngine;
 namespace EnemyLib
 {
     [Serializable]
-    public class ZombieAvoidantAttackController : ZombieShooterAttackController
+    public class ZombieThrowerAttackController : ZombieShooterAttackController, IEnemyThrowerAttackController
     {
+        public IInstanceProvider<PoisonProjectile> ProjectileProvider { get; set; }
+        public IInstanceProvider<ParticleSystem> ProjectileEffectProvider { get; set; }
+
         public void Initialize(IEnemyMoveController moveController, Transform transform)
         {
             _moveController = moveController;
@@ -29,6 +32,12 @@ namespace EnemyLib
             {
                 GetOutPosition();
             }
+        }
+
+        public void Throw()
+        {
+            PoisonProjectile poisonProjectile = ProjectileProvider.GetInstance();
+            poisonProjectile.Initialize(_transform.position, _moveController.Target.Transform.position);
         }
     }
 }

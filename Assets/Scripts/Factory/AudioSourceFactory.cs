@@ -21,7 +21,7 @@ namespace Factory
 
         public AudioSource GetInstance()
         {
-            AudioSource instance = _audioSourcePool.Pool.GetFreeElement();
+            AudioSource instance = _audioSourcePool.Pool.GetInstance();
 
             ReconstructToDefault(instance);
             Construct(instance);

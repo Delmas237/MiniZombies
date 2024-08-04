@@ -14,7 +14,7 @@ namespace Factory
     {
         protected IEntity _target;
         protected List<Transform> _spawnDots;
-        protected IPool<AmmoPack> _ammoPackPool;
+        protected IInstanceProvider<AmmoPack> _ammoPackProvider;
 
         protected IPool<ZombieContainer> _pool;
         public IPool<ZombieContainer> Pool => _pool;
@@ -24,12 +24,12 @@ namespace Factory
 
         private readonly EnemyWaveBoostData _waveBoostData;
 
-        public ZombieFactory(IPool<ZombieContainer> pool, IPool<AmmoPack> ammoPackPool, List<Transform> spawnDots, 
+        public ZombieFactory(IPool<ZombieContainer> pool, IInstanceProvider<AmmoPack> ammoPackProvider, List<Transform> spawnDots, 
             IEntity target, EnemyWaveBoostData waveBoostData)
         {
             _prefabs = pool.Prefabs;
             _pool = pool;
-            _ammoPackPool = ammoPackPool;
+            _ammoPackProvider = ammoPackProvider;
             _spawnDots = spawnDots;
             _target = target;
             _waveBoostData = waveBoostData;
@@ -71,7 +71,7 @@ namespace Factory
 
         public virtual IEnemy GetInstance()
         {
-            ZombieContainer instance = _pool.GetFreeElement();
+            ZombieContainer instance = _pool.GetInstance();
 
             ReconstructToDefault(instance);
             Construct(instance);
@@ -109,7 +109,7 @@ namespace Factory
             enemy.MoveController.Target = _target;
             enemy.HealthController.Health = enemy.HealthController.MaxHealth;
 
-            enemy.DropAmmoAfterDeathModule.AmmoPool = _ammoPackPool;
+            enemy.DropAmmoAfterDeathModule.AmmoProvider = _ammoPackProvider;
 
             enemy.enabled = true;
         }

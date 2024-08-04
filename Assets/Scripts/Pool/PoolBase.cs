@@ -28,7 +28,7 @@ namespace ObjectPool
                 CreateObject();
         }
 
-        public T GetFreeElement()
+        public T GetInstance()
         {
             if (HasFreeElement(out T element))
             {

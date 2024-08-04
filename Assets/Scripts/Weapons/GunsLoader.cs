@@ -7,7 +7,7 @@ namespace Weapons
     public class GunsLoader : MonoBehaviour
     {
         [SerializeField] private bool _loadData = true;
-        [SerializeField] private ParticleSystemPool _shotPool;
+        [SerializeField] private BulletTrailPool _shotPool;
 
         [SerializeField] private List<Gun> _guns;
 

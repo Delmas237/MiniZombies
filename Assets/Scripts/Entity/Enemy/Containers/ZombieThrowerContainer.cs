@@ -4,14 +4,15 @@ using Weapons;
 
 namespace EnemyLib
 {
-    public class ZombieAvoidantContainer : ZombieContainer
+    public class ZombieThrowerContainer : ZombieContainer
     {
         [Space(10), Header("Controllers")]
         [SerializeField] protected EnemyAvoidantMoveController _moveController;
         public override IEnemyMoveController MoveController => _moveController;
 
-        [SerializeField] protected ZombieAvoidantAttackController _attackController;
+        [SerializeField] protected ZombieThrowerAttackController _attackController;
         public override IEnemyAttackController AttackController => _attackController;
+        public IEnemyThrowerAttackController ThrowerAttackController => _attackController;
 
         protected override void Awake()
         {
@@ -58,6 +59,6 @@ namespace EnemyLib
             _animationController.OnDestroy();
         }
 
-        private void Shoot() => Debug.Log(1);
+        private void Shoot() => ThrowerAttackController.Throw();
     }
 }

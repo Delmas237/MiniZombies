@@ -1,4 +1,3 @@
-using Factory;
 using UnityEngine;
 
 namespace Weapons
@@ -6,12 +5,7 @@ namespace Weapons
     public class AmmoPack : MonoBehaviour
     {
         [SerializeField] private int _magnitude = 100;
-        private IInstanceProvider<AudioSource> _destroySoundFactory;
-
-        public void Intialize(IInstanceProvider<AudioSource> destroySoundFactory)
-        {
-            _destroySoundFactory = destroySoundFactory;
-        }
+        public IInstanceProvider<AudioSource> DestroySoundFactory { get; set; }
 
         private void OnTriggerEnter(Collider other)
         {
@@ -19,7 +13,7 @@ namespace Weapons
             {
                 player.WeaponsController.AddBullets(_magnitude);
 
-                AudioSource audioSource = _destroySoundFactory.GetInstance();
+                AudioSource audioSource = DestroySoundFactory.GetInstance();
                 audioSource.transform.position = transform.position;
 
                 gameObject.SetActive(false);

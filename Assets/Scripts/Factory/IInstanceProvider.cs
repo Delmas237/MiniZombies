@@ -1,7 +1,4 @@
-namespace Factory
+public interface IInstanceProvider<out T>
 {
-    public interface IInstanceProvider<out T>
-    {
-        public T GetInstance();
-    }
+    public T GetInstance();
 }

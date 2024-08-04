@@ -4,13 +4,11 @@ using UnityEngine;
 
 namespace ObjectPool
 {
-    public interface IPool<out T> where T : Component
+    public interface IPool<out T> : IInstanceProvider<T> where T : Component
     {
         public T[] Prefabs { get; }
         public IReadOnlyList<T> Elements { get; }
 
         public event Action<T> Expanded;
-
-        public T GetFreeElement();
     }
 }

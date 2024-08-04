@@ -36,7 +36,7 @@ namespace Weapons
         [Space(5)]
         [SerializeField] protected bool _setTrailParent;
 
-        public IPool<BulletTrail> BulletPool { get; set; }
+        public IInstanceProvider<BulletTrail> BulletPool { get; set; }
 
         protected virtual void Update()
         {
@@ -72,7 +72,7 @@ namespace Weapons
         {
             if (gameObject.activeInHierarchy)
             {
-                BulletTrail bullet = BulletPool.GetFreeElement();
+                BulletTrail bullet = BulletPool.GetInstance();
 
                 if (_setTrailParent)
                     bullet.transform.parent = transform;

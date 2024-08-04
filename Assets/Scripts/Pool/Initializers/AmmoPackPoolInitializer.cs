@@ -1,15 +1,29 @@
 using Factory;
-using ObjectPool;
 using UnityEngine;
+using Weapons;
 
-public class AmmoPackPoolInitializer : MonoBehaviour
+namespace ObjectPool
 {
-    [SerializeField] private AmmoPackPool _ammoPackPool;
-    [SerializeField] private AudioSourceFactory _audioSourcePool;
-
-    private void Start()
+    public class AmmoPackPoolInitializer : MonoBehaviour
     {
-        foreach (var ammo in _ammoPackPool.Pool.Elements)
-            ammo.Intialize(_audioSourcePool);
+        [SerializeField] private AmmoPackPool _ammoPackPool;
+        [SerializeField] private AudioSourceFactory _audioSourceFactory;
+
+        private void Start()
+        {
+            foreach (var ammo in _ammoPackPool.Pool.Elements)
+                ammo.DestroySoundFactory = _audioSourceFactory;
+
+            _ammoPackPool.Pool.Expanded += OnExpanded;
+        }
+        private void OnDestroy()
+        {
+            _ammoPackPool.Pool.Expanded -= OnExpanded;
+        }
+
+        private void OnExpanded(AmmoPack ammo)
+        {
+            ammo.DestroySoundFactory = _audioSourceFactory;
+        }
     }
 }

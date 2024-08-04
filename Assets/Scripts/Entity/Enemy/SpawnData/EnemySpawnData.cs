@@ -1,4 +1,3 @@
-using Factory;
 using ObjectPool;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,7 +16,9 @@ namespace EnemyLib
 
         [SerializeField] protected EnemyPool _enemyPool;
         public EnemyPool EnemyPool => _enemyPool;
-        public abstract IInstanceProvider<IEnemy> Factory { get; }
+
+        protected IInstanceProvider<IEnemy> _factory;
+        public IInstanceProvider<IEnemy> Factory => _factory;
 
         public abstract void Initialize(List<Transform> spawnPoses, IEntity target);
     }

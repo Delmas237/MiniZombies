@@ -12,7 +12,7 @@ namespace Weapons
         [field: SerializeField] public bool Enabled { get; set; } = true;
         [Space(5)]
         [SerializeField, Range(0f, 1f)] private float _dropChance = 1;
-        public IPool<AmmoPack> AmmoPool { get; set; }
+        public IInstanceProvider<AmmoPack> AmmoProvider { get; set; }
         private Transform _transform;
 
         private IHealthController _healthController;
@@ -40,7 +40,7 @@ namespace Weapons
 
             if (rnd < _dropChance)
             {
-                AmmoPack ammo = AmmoPool.GetFreeElement();
+                AmmoPack ammo = AmmoProvider.GetInstance();
 
                 Vector3 defaultSpawnPos = _transform.position + 0.7f * Vector3.up;
                 ammo.transform.SetPositionAndRotation(defaultSpawnPos, Quaternion.identity);

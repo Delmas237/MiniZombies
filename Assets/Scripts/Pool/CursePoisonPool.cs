@@ -1,11 +1,12 @@
+using EnemyLib;
 using UnityEngine;
 
 namespace ObjectPool
 {
-    public class ParticleSystemPool : MonoBehaviour
+    public class CursePoisonPool : MonoBehaviour
     {
-        [SerializeField] private PoolBase<ParticleSystem> _pool;
-        public IPool<ParticleSystem> Pool => _pool;
+        [SerializeField] private PoolBase<PoisonProjectile> _pool;
+        public IPool<PoisonProjectile> Pool => _pool;
 
         private void Awake()
         {
