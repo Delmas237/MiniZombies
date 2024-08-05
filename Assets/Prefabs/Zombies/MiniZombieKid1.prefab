@@ -120,21 +120,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _healthController:
-    <MaxHealth>k__BackingField: 55
+    _maxHealth: 55
     <AudioController>k__BackingField:
       _damageSound: {fileID: 0}
       _healSound: {fileID: 0}
       _deathSound: {fileID: 8627356099161189314}
       _deathPitchRandomRange: 0.3
-  _moveController:
-    _defaultSpeed: 4.3
-    _rotateTowardsTarget: 0
   _delayedDisableModule:
     <Enabled>k__BackingField: 1
     _delay: 3
   _dropAmmoAfterDeathModule:
     <Enabled>k__BackingField: 1
     _dropChance: 0.07
+  _moveController:
+    _defaultSpeed: 4.3
   _attackController:
     _defaultSpeed: 2
     _damage: 5

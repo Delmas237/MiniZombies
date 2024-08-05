@@ -96,7 +96,7 @@ namespace Weapons
                 float piercingDamage = Damage;
                 for (int i = 0; i < entities.Count; i++)
                 {
-                    entities[i].HealthController.Health -= piercingDamage;
+                    entities[i].HealthController.Damage(piercingDamage);
                     piercingDamage -= (piercingDamage / 100) * MINUS_PIERCING_DAMAGE;
                 }
 

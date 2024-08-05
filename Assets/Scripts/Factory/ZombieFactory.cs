@@ -58,7 +58,7 @@ namespace Factory
         {
             foreach (ZombieContainer enemy in Pool.Elements)
             {
-                enemy.HealthController.MaxHealth *= 1 + _waveBoostData.HpPercent;
+                enemy.HealthController.SetMaxHealth(enemy.HealthController.MaxHealth * (1 + _waveBoostData.HpPercent));
 
                 float randomX = Random.Range(0.9f, 1.15f);
                 float boosterValue = waveFinishedEvent.Number * _waveBoostData.WaveMultiplierSpeed;
@@ -107,7 +107,7 @@ namespace Factory
             enemy.transform.SetPositionAndRotation(randSpawnDot.position, Quaternion.identity);
 
             enemy.MoveController.Target = _target;
-            enemy.HealthController.Health = enemy.HealthController.MaxHealth;
+            enemy.HealthController.Heal(enemy.HealthController.MaxHealth);
 
             enemy.DropAmmoAfterDeathModule.AmmoProvider = _ammoPackProvider;
 

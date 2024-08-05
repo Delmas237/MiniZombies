@@ -130,7 +130,7 @@ namespace LocalShopLib
             if (_player.CurrencyController.Spend(_shopItems[id].Price) &&
                 _player.HealthController.Health < _player.HealthController.MaxHealth)
             {
-                _player.HealthController.Health = _player.HealthController.MaxHealth;
+                _player.HealthController.Heal(_player.HealthController.MaxHealth);
             }
         }
     }

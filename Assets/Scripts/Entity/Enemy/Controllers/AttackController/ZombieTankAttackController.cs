@@ -72,7 +72,7 @@ namespace EnemyLib
                 return;
             }
 
-            _targetCollision.HealthController.Health -= Damage;
+            _targetCollision.HealthController.Damage(Damage);
         }
     }
 }
