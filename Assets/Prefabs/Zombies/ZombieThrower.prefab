@@ -1650,9 +1650,9 @@ MonoBehaviour:
     _maxAvoidanceDistance: 20
     _fleeDistance: 3
   _attackController:
-    _defaultSpeed: 0.5
+    _defaultSpeed: 1
     _damage: 15
-    _cooldown: 1
+    _cooldown: 3
     _shootDelay: 1
 --- !u!195 &7712739484609061815
 NavMeshAgent:
