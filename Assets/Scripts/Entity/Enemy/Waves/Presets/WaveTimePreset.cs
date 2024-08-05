@@ -6,7 +6,7 @@ namespace WavesLib
         {
             Wave wave = new WaveTime(_spawner, _text,
                 spawnSpeed: _spawnSpeed - boost * _spawnStep,
-                time: _min + boost * _step);
+                time: _min + boost * _step, _nightChance);
 
             return wave;
         }

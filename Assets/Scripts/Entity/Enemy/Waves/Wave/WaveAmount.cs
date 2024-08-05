@@ -10,7 +10,8 @@ namespace WavesLib
         public readonly int StartEnemyAmount;
         public int EnemyAmount;
 
-        public WaveAmount(Spawner<IEnemy> spawner, TextMeshProUGUI text, float spawnSpeed, int amount) : base(spawner, text, spawnSpeed)
+        public WaveAmount(Spawner<IEnemy> spawner, TextMeshProUGUI text, float spawnSpeed, int amount, float nightChance) : 
+            base(spawner, text, spawnSpeed, nightChance)
         {
             EnemyAmount = amount;
             StartEnemyAmount = amount;

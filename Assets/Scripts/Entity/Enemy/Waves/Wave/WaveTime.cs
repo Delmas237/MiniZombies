@@ -9,7 +9,8 @@ namespace WavesLib
 
         public float Time;
 
-        public WaveTime(Spawner<IEnemy> spawner, TextMeshProUGUI text, float spawnSpeed, float time) : base(spawner, text, spawnSpeed)
+        public WaveTime(Spawner<IEnemy> spawner, TextMeshProUGUI text, float spawnSpeed, float time, float nightChance) : 
+            base(spawner, text, spawnSpeed, nightChance)
         {
             Time = time;
 

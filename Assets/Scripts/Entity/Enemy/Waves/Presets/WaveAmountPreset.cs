@@ -8,7 +8,7 @@ namespace WavesLib
         {
             Wave wave = new WaveAmount(_spawner, _text,
                 spawnSpeed: _spawnSpeed - boost * _spawnStep,
-                amount: Mathf.RoundToInt(_min + boost * _step));
+                amount: Mathf.RoundToInt(_min + boost * _step), _nightChance);
 
             return wave;
         }

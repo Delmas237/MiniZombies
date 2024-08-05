@@ -2,6 +2,7 @@ using EventBusLib;
 using LightLib;
 using System;
 using TMPro;
+using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace WavesLib
@@ -10,7 +11,7 @@ namespace WavesLib
     {
         public bool IsUsing = true;
 
-        public TimesOfDay TimesOfDay;
+        public TimesOfDay TimesOfDay = TimesOfDay.Day;
         public abstract IWaveState State { get; }
 
         public readonly float SpawnSpeed;
@@ -20,9 +21,12 @@ namespace WavesLib
 
         public int DestroyedObjects;
 
-        public Wave(Spawner<IEnemy> spawner, TextMeshProUGUI text, float spawnSpeed)
+        public Wave(Spawner<IEnemy> spawner, TextMeshProUGUI text, float spawnSpeed, float nightChance)
         {
-            TimesOfDay = (TimesOfDay)Random.Range(0, Enum.GetNames(typeof(TimesOfDay)).Length);
+            float rndTimesOfDay = Random.Range(0, 1f);
+            if (rndTimesOfDay <= nightChance)
+                TimesOfDay = TimesOfDay.Night;
+            
             Spawner = spawner;
             Text = text;
 
