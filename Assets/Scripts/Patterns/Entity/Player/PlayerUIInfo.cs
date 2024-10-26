@@ -20,8 +20,8 @@ namespace PlayerLib
                 UpdateCoinsText(_player.CurrencyController.Coins);
                 UpdateBulletsText(_player.WeaponsController.Bullets);
 
-                _player.HealthController.Healed += UpdateHealthBar;
-                _player.HealthController.Damaged += UpdateHealthBar;
+                _player.HealthController.Increased += UpdateHealthBar;
+                _player.HealthController.Decreased += UpdateHealthBar;
 
                 _player.CurrencyController.CoinsChanged += UpdateCoinsText;
                 _player.WeaponsController.BulletsChanged += UpdateBulletsText;
@@ -31,8 +31,8 @@ namespace PlayerLib
         {
             if (_player != null)
             {
-                _player.HealthController.Healed -= UpdateHealthBar;
-                _player.HealthController.Damaged -= UpdateHealthBar;
+                _player.HealthController.Increased -= UpdateHealthBar;
+                _player.HealthController.Decreased -= UpdateHealthBar;
 
                 _player.CurrencyController.CoinsChanged -= UpdateCoinsText;
                 _player.WeaponsController.BulletsChanged -= UpdateBulletsText;

@@ -27,16 +27,16 @@ namespace PlayerLib
             _animator = animator;
 
             _weaponsController.GunChanged += CurrentGunAnim;
-            _healthController.Died += DeathAnim;
-            _healthController.Died += OnDeath;
+            _healthController.IsOver += OnHealhIsOver;
+            _healthController.IsOver += DeathAnim;
 
             _animator.SetBool("Idle", true);
         }
-        private void OnDeath()
+        private void OnHealhIsOver()
         {
             _weaponsController.GunChanged -= CurrentGunAnim;
-            _healthController.Died -= DeathAnim;
-            _healthController.Died -= OnDeath;
+            _healthController.IsOver -= OnHealhIsOver;
+            _healthController.IsOver -= DeathAnim;
         }
 
         public void MoveAnim()

@@ -46,9 +46,9 @@ namespace EnemyLib
             _animationController.AttackAnim();
         }
 
-        protected override void OnDeath()
+        protected override void OnHealhIsOver()
         {
-            base.OnDeath();
+            base.OnHealhIsOver();
 
             _moveController.Agent.enabled = false;
             AttackController.IsAttack = false;

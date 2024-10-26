@@ -2,15 +2,13 @@ using System;
 
 public interface IHealthController
 {
-    public float MaxHealth { get; }
+    public float MaxHealth { get; set; }
     public float Health { get; }
 
-    public event Action Died;
-    public event Action Damaged;
-    public event Action Healed;
+    public event Action Decreased;
+    public event Action Increased;
+    public event Action IsOver;
 
-    public void Damage(float damage);
-    public void Heal(float heal);
-
-    public void SetMaxHealth(float maxHealth);
+    public void Decrease(float value);
+    public void Increase(float value);
 }

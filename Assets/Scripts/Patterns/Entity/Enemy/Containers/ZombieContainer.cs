@@ -25,12 +25,12 @@ namespace EnemyLib
 
         protected virtual void Awake()
         {
-            HealthController.Died += OnDeath;
+            HealthController.IsOver += OnHealhIsOver;
         }
 
         protected virtual void OnDestroy()
         {
-            HealthController.Died -= OnDeath;
+            HealthController.IsOver -= OnHealhIsOver;
         }
 
         protected virtual void OnEnable()
@@ -38,7 +38,7 @@ namespace EnemyLib
             _animationController.UpdateData();
         }
 
-        protected virtual void OnDeath()
+        protected virtual void OnHealhIsOver()
         {
             if (GetComponent<Rigidbody>() == false)
             {

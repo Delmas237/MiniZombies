@@ -55,7 +55,7 @@ public class PoisonPuddle : MonoBehaviour
         while (_collidingEntities.Count > 0)
         {
             foreach (var entity in _collidingEntities)
-                entity.HealthController.Damage(_damage);
+                entity.HealthController.Decrease(_damage);
 
             yield return new WaitForSeconds(_cooldown);
         }

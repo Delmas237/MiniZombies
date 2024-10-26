@@ -50,9 +50,9 @@ namespace EnemyLib
             _attackController.OnCollisionExit(collision);
         }
 
-        protected override void OnDeath()
+        protected override void OnHealhIsOver()
         {
-            base.OnDeath();
+            base.OnHealhIsOver();
 
             _moveController.Agent.enabled = false;
             _attackController.IsAttack = false;

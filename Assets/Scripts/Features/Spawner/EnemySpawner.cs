@@ -58,7 +58,7 @@ namespace EnemyLib
                         _objectsOnScene.Add(enemy);
                         Spawned?.Invoke(enemy);
 
-                        enemy.HealthController.Died += RemoveDiedEnemies;
+                        enemy.HealthController.IsOver += RemoveDiedEnemies;
                         return;
                     }
                     current += spawnData.Priority;
@@ -77,7 +77,7 @@ namespace EnemyLib
 
             foreach (var enemy in enemiesForRemove)
             {
-                enemy.HealthController.Died -= RemoveDiedEnemies;
+                enemy.HealthController.IsOver -= RemoveDiedEnemies;
                 _objectsOnScene.Remove(enemy);
                 Removed?.Invoke();
             }

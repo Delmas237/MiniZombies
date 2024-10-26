@@ -28,9 +28,9 @@ namespace PlayerLib
             _weaponsController.Initialize(HealthController);
             _moveController.Initialize(WeaponsController, transform, GetComponent<Rigidbody>());
 
-            _healthController.Died += OnDeath;
+            _healthController.IsOver += OnHealhIsOver;
         }
-        private void OnDeath()
+        private void OnHealhIsOver()
         {
             _moveController.Rigidbody.velocity /= 2;
         }
@@ -46,7 +46,7 @@ namespace PlayerLib
 
         private void OnDestroy()
         {
-            _healthController.Died -= OnDeath;
+            _healthController.IsOver -= OnHealhIsOver;
             _moveController.OnDestroy();
         }
     }

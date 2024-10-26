@@ -22,13 +22,13 @@ namespace PlayerLib
 
             base.Initialize();
 
-            _healthController.Died += OnDeath;
+            _healthController.IsOver += OnHealhIsOver;
             AttackJoystick.OnUp += PullTrigger;
             AttackJoystick.OnClamped += PullAutoTrigger;
         }
-        protected void OnDeath()
+        protected void OnHealhIsOver()
         {
-            _healthController.Died -= OnDeath;
+            _healthController.IsOver -= OnHealhIsOver;
             AttackJoystick.OnUp -= PullTrigger;
             AttackJoystick.OnClamped -= PullAutoTrigger;
         }

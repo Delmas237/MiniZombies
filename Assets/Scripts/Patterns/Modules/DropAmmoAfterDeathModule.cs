@@ -24,14 +24,14 @@ namespace Weapons
                 _healthController = healthController;
                 _transform = transform;
 
-                healthController.Died += DropAmmo;
+                healthController.IsOver += DropAmmo;
                 EventBus.Subscribe<GameExitEvent>(Unsubscribe);
             }
         }
         private void Unsubscribe(GameExitEvent exitEvent)
         {
             EventBus.Unsubscribe<GameExitEvent>(Unsubscribe);
-            _healthController.Died -= DropAmmo;
+            _healthController.IsOver -= DropAmmo;
         }
 
         private void DropAmmo()

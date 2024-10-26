@@ -22,7 +22,7 @@ namespace EnemyLib
             _attackController = attackController;
             _animator = animator;
 
-            _healthController.Died += DeathAnim;
+            _healthController.IsOver += DeathAnim;
         }
 
         public void UpdateData()
@@ -77,7 +77,7 @@ namespace EnemyLib
 
         public void OnDestroy()
         {
-            _healthController.Died -= DeathAnim;
+            _healthController.IsOver -= DeathAnim;
         }
     }
 }

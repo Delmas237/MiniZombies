@@ -20,14 +20,14 @@ public class DelayedDisableEntityModule : IModule
             _gameObject = gameObject;
             _entity = entity;
 
-            entity.HealthController.Died += DelayedSetActiveFalse;
+            entity.HealthController.IsOver += DelayedSetActiveFalse;
             EventBus.Subscribe<GameExitEvent>(Unsubscribe);
         }
     }
     private void Unsubscribe(GameExitEvent exitEvent)
     {
         EventBus.Unsubscribe<GameExitEvent>(Unsubscribe);
-        _entity.HealthController.Died -= DelayedSetActiveFalse;
+        _entity.HealthController.IsOver -= DelayedSetActiveFalse;
     }
 
     private IEnumerator SetActiveFalse(float delay)
