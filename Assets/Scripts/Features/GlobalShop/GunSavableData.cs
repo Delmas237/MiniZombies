@@ -1,13 +1,13 @@
 namespace Weapons
 {
-    public class GunSaveableData
+    public class GunSavableData
     {
         public GunType Type;
         public float Damage;
         public float Cooldown;
         public float Distance;
 
-        public GunSaveableData(GunType type, float damage, float cooldown, float distance)
+        public GunSavableData(GunType type, float damage, float cooldown, float distance)
         {
             Type = type;
             Damage = damage;
@@ -15,6 +15,6 @@ namespace Weapons
             Distance = distance;
         }
 
-        public GunSaveableData(GunData gunData) : this(gunData.Type, gunData.Damage, gunData.Cooldown, gunData.Distance) { }
+        public GunSavableData(GunData gunData) : this(gunData.Type, gunData.Damage, gunData.Cooldown, gunData.Distance) { }
     }
 }

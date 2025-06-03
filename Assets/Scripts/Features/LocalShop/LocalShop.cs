@@ -15,14 +15,12 @@ namespace LocalShopLib
         [SerializeField] private PlayerContainer _player;
         [SerializeField] private PlayerGunSlots _playerGunSlots;
         [SerializeField] private TextMeshProUGUI _slotsText;
-
-        private List<int> _weaponsLvl;
-
         [Space(10f)]
         [SerializeField] private GameObject _shopButton;
         [SerializeField] private GameObject _shopPanel;
-
         [SerializeField] private AudioSource _getGunSound;
+
+        private List<int> _weaponsLvl;
 
         private void Start()
         {

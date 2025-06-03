@@ -1,5 +1,4 @@
 using System;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,21 +7,26 @@ namespace GlobalShopLib
     [Serializable]
     public class GlobalShopParameter
     {
-        public GlobalShopValue Price;
-        public GlobalShopValue Up;
-        public GlobalShopValue Info;
+        [SerializeField] private GlobalShopValue _price;
+        [SerializeField] private GlobalShopValue _up;
+        [SerializeField] private GlobalShopValue _info;
         [Space(10)]
-        public Button PurchaseButton;
+        [SerializeField] private Button _purchaseButton;
         public event Action Purchased;
+
+        public GlobalShopValue Price => _price;
+        public GlobalShopValue Up => _up;
+        public GlobalShopValue Info => _info;
+        public Button PurchaseButton => _purchaseButton;
 
         public void Initialize()
         {
-            PurchaseButton.onClick.AddListener(Purchase);
+            _purchaseButton.onClick.AddListener(Purchase);
         }
 
         public void Purchase()
         {
-            if (Info.Value > Up.Value && Bank.Spend(Mathf.FloorToInt(Price.Value)))
+            if (_info.Value > _up.Value && Bank.Spend(Mathf.FloorToInt(_price.Value)))
             {
                 Purchased.Invoke();
                 UpdateText();
@@ -31,18 +35,11 @@ namespace GlobalShopLib
 
         public void UpdateText()
         {
-            Price.Text.text = Price.Value.ToString() + "$";
-            Up.Text.text = Up.Value.ToString();
+            _price.Text.text = _price.Value.ToString() + "$";
+            _up.Text.text = _up.Value.ToString();
 
-            Info.Value = (float)Math.Round(Info.Value, 2);
-            Info.Text.text = Info.Value.ToString();
+            _info.Value = (float)Math.Round(_info.Value, 2);
+            _info.Text.text = _info.Value.ToString();
         }
-    }
-
-    [Serializable]
-    public class GlobalShopValue
-    {
-        public float Value;
-        public TextMeshProUGUI Text;
     }
 }

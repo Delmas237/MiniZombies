@@ -8,10 +8,15 @@ namespace LocalShopLib
     public class LocalShopWeapon : LocalShopItem
     {
         [Space(10)]
-        public int PriceLvlBoost;
-        public int DamageLvlBoost;
-        public TextMeshProUGUI DamageText;
+        [SerializeField] private int _priceLvlBoost;
+        [SerializeField] private int _damageLvlBoost;
+        [SerializeField] private TextMeshProUGUI _damageText;
         [Space(10)]
-        public TextMeshProUGUI LvlText;
+        [SerializeField] private TextMeshProUGUI _lvlText;
+
+        public int PriceLvlBoost => _priceLvlBoost;
+        public int DamageLvlBoost => _damageLvlBoost;
+        public TextMeshProUGUI DamageText => _damageText;
+        public TextMeshProUGUI LvlText => _lvlText;
     }
 }

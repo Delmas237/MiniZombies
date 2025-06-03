@@ -1,13 +1,18 @@
 using System;
 using TMPro;
+using UnityEngine;
 
 namespace LocalShopLib
 {
     [Serializable]
     public class LocalShopItem
     {
-        public string Name;
-        public int Price;
-        public TextMeshProUGUI PriceText;
+        [SerializeField] private string _name;
+        [SerializeField] private int _price;
+        [SerializeField] private TextMeshProUGUI _priceText;
+
+        public string Name => _name;
+        public int Price => _price;
+        public TextMeshProUGUI PriceText => _priceText;
     }
 }

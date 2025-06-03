@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5234,7 +5233,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 20.518982}
+  m_AnchoredPosition: {x: 0, y: 20.51892}
   m_SizeDelta: {x: 345.1946, y: 37.945}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &679704872
@@ -16530,106 +16529,106 @@ MonoBehaviour:
   _items:
   - _gunType: 1
     _damageParameter:
-      Price:
-        Value: 180
-        Text: {fileID: 1510013966}
-      Up:
-        Value: 1
-        Text: {fileID: 1249692438}
-      Info:
-        Value: 30
-        Text: {fileID: 294443351}
-      PurchaseButton: {fileID: 706006658}
+      _price:
+        _text: {fileID: 1510013966}
+        <Value>k__BackingField: 180
+      _up:
+        _text: {fileID: 1249692438}
+        <Value>k__BackingField: 1
+      _info:
+        _text: {fileID: 294443351}
+        <Value>k__BackingField: 30
+      _purchaseButton: {fileID: 706006658}
     _cooldownParameter:
-      Price:
-        Value: 350
-        Text: {fileID: 55765033}
-      Up:
-        Value: 0.01
-        Text: {fileID: 1367930516}
-      Info:
-        Value: 0.1
-        Text: {fileID: 641386690}
-      PurchaseButton: {fileID: 1727827048}
+      _price:
+        _text: {fileID: 55765033}
+        <Value>k__BackingField: 350
+      _up:
+        _text: {fileID: 1367930516}
+        <Value>k__BackingField: 0.01
+      _info:
+        _text: {fileID: 641386690}
+        <Value>k__BackingField: 0.1
+      _purchaseButton: {fileID: 1727827048}
     _distanceParameter:
-      Price:
-        Value: 200
-        Text: {fileID: 1603719515}
-      Up:
-        Value: 0.2
-        Text: {fileID: 237635323}
-      Info:
-        Value: 5
-        Text: {fileID: 479065488}
-      PurchaseButton: {fileID: 346319677}
+      _price:
+        _text: {fileID: 1603719515}
+        <Value>k__BackingField: 200
+      _up:
+        _text: {fileID: 237635323}
+        <Value>k__BackingField: 0.2
+      _info:
+        _text: {fileID: 479065488}
+        <Value>k__BackingField: 5
+      _purchaseButton: {fileID: 346319677}
   - _gunType: 2
     _damageParameter:
-      Price:
-        Value: 180
-        Text: {fileID: 741143036}
-      Up:
-        Value: 1
-        Text: {fileID: 1173621152}
-      Info:
-        Value: 28
-        Text: {fileID: 1514597985}
-      PurchaseButton: {fileID: 1066914885}
+      _price:
+        _text: {fileID: 741143036}
+        <Value>k__BackingField: 180
+      _up:
+        _text: {fileID: 1173621152}
+        <Value>k__BackingField: 1
+      _info:
+        _text: {fileID: 1514597985}
+        <Value>k__BackingField: 28
+      _purchaseButton: {fileID: 1066914885}
     _cooldownParameter:
-      Price:
-        Value: 150
-        Text: {fileID: 1966434345}
-      Up:
-        Value: 0.01
-        Text: {fileID: 1703137880}
-      Info:
-        Value: 0.5
-        Text: {fileID: 482571823}
-      PurchaseButton: {fileID: 1276499530}
+      _price:
+        _text: {fileID: 1966434345}
+        <Value>k__BackingField: 150
+      _up:
+        _text: {fileID: 1703137880}
+        <Value>k__BackingField: 0.01
+      _info:
+        _text: {fileID: 482571823}
+        <Value>k__BackingField: 0.5
+      _purchaseButton: {fileID: 1276499530}
     _distanceParameter:
-      Price:
-        Value: 200
-        Text: {fileID: 355792099}
-      Up:
-        Value: 0.1
-        Text: {fileID: 1249635439}
-      Info:
-        Value: 4
-        Text: {fileID: 1465189095}
-      PurchaseButton: {fileID: 319769475}
+      _price:
+        _text: {fileID: 355792099}
+        <Value>k__BackingField: 200
+      _up:
+        _text: {fileID: 1249635439}
+        <Value>k__BackingField: 0.1
+      _info:
+        _text: {fileID: 1465189095}
+        <Value>k__BackingField: 4
+      _purchaseButton: {fileID: 319769475}
   - _gunType: 3
     _damageParameter:
-      Price:
-        Value: 180
-        Text: {fileID: 968183110}
-      Up:
-        Value: 1.2
-        Text: {fileID: 1881183244}
-      Info:
-        Value: 62
-        Text: {fileID: 2115064089}
-      PurchaseButton: {fileID: 2132235955}
+      _price:
+        _text: {fileID: 968183110}
+        <Value>k__BackingField: 180
+      _up:
+        _text: {fileID: 1881183244}
+        <Value>k__BackingField: 1.2
+      _info:
+        _text: {fileID: 2115064089}
+        <Value>k__BackingField: 62
+      _purchaseButton: {fileID: 2132235955}
     _cooldownParameter:
-      Price:
-        Value: 150
-        Text: {fileID: 1943281634}
-      Up:
-        Value: 0.01
-        Text: {fileID: 2102290603}
-      Info:
-        Value: 0.5
-        Text: {fileID: 1894089650}
-      PurchaseButton: {fileID: 369239720}
+      _price:
+        _text: {fileID: 1943281634}
+        <Value>k__BackingField: 150
+      _up:
+        _text: {fileID: 2102290603}
+        <Value>k__BackingField: 0.01
+      _info:
+        _text: {fileID: 1894089650}
+        <Value>k__BackingField: 0.5
+      _purchaseButton: {fileID: 369239720}
     _distanceParameter:
-      Price:
-        Value: 190
-        Text: {fileID: 1617404209}
-      Up:
-        Value: 0.3
-        Text: {fileID: 436462789}
-      Info:
-        Value: 7.9
-        Text: {fileID: 1054906560}
-      PurchaseButton: {fileID: 1904299313}
+      _price:
+        _text: {fileID: 1617404209}
+        <Value>k__BackingField: 190
+      _up:
+        _text: {fileID: 436462789}
+        <Value>k__BackingField: 0.3
+      _info:
+        _text: {fileID: 1054906560}
+        <Value>k__BackingField: 7.9
+      _purchaseButton: {fileID: 1904299313}
 --- !u!1001 &2088340197
 PrefabInstance:
   m_ObjectHideFlags: 0

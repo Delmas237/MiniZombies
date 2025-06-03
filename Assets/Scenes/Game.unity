@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 0.3
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.24717146, g: 0.2769289, b: 0.32480583, a: 0.3}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1940,6 +1939,7 @@ MonoBehaviour:
   _step: 2
   _spawnSpeed: 1.5
   _spawnStep: 0.012
+  _nightChance: 0.3
   _spawner: {fileID: 1110232204}
   _text: {fileID: 316855171}
 --- !u!1001 &25142872
@@ -83316,6 +83316,7 @@ MonoBehaviour:
   _step: 4
   _spawnSpeed: 1.2
   _spawnStep: 0.008
+  _nightChance: 0.3
   _spawner: {fileID: 1110232204}
   _text: {fileID: 316855171}
 --- !u!1001 &1910196077
@@ -87740,31 +87741,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _shopItems:
-  - Name: Medkit
-    Price: 80
-    PriceText: {fileID: 484687310}
+  - _name: Medkit
+    _price: 80
+    _priceText: {fileID: 484687310}
   _shopWeapons:
-  - Name: MachineGun
-    Price: 300
-    PriceText: {fileID: 1767509391}
-    PriceLvlBoost: 200
-    DamageLvlBoost: 2
-    DamageText: {fileID: 423799913}
-    LvlText: {fileID: 990496108}
-  - Name: Shotgun
-    Price: 250
-    PriceText: {fileID: 1569906788}
-    PriceLvlBoost: 180
-    DamageLvlBoost: 2
-    DamageText: {fileID: 1711031887}
-    LvlText: {fileID: 754253867}
-  - Name: Riffle
-    Price: 275
-    PriceText: {fileID: 23998717}
-    PriceLvlBoost: 175
-    DamageLvlBoost: 2
-    DamageText: {fileID: 47522134}
-    LvlText: {fileID: 758106291}
+  - _name: MachineGun
+    _price: 300
+    _priceText: {fileID: 1767509391}
+    _priceLvlBoost: 200
+    _damageLvlBoost: 2
+    _damageText: {fileID: 423799913}
+    _lvlText: {fileID: 990496108}
+  - _name: Shotgun
+    _price: 250
+    _priceText: {fileID: 1569906788}
+    _priceLvlBoost: 180
+    _damageLvlBoost: 2
+    _damageText: {fileID: 1711031887}
+    _lvlText: {fileID: 754253867}
+  - _name: Riffle
+    _price: 275
+    _priceText: {fileID: 23998717}
+    _priceLvlBoost: 175
+    _damageLvlBoost: 2
+    _damageText: {fileID: 47522134}
+    _lvlText: {fileID: 758106291}
   _player: {fileID: 7560204000705171858}
   _playerGunSlots: {fileID: 1269711841}
   _slotsText: {fileID: 15194794}

@@ -13,14 +13,14 @@ namespace Weapons
         private static readonly Dictionary<GunType, GunData> _gunsData = new Dictionary<GunType, GunData>();
         public static IReadOnlyDictionary<GunType, GunData> GunsData => _gunsData;
 
-        private static readonly Dictionary<GunType, GunSaveableData> _gunsSaveableData = new Dictionary<GunType, GunSaveableData>();
-        public static IReadOnlyDictionary<GunType, GunSaveableData> GunsSaveableData
+        private static readonly Dictionary<GunType, GunSavableData> _gunsSavableData = new Dictionary<GunType, GunSavableData>();
+        public static IReadOnlyDictionary<GunType, GunSavableData> GunsSavableData
         {
             get
             {
                 if (!_initialized)
                     Initialize();
-                return _gunsSaveableData;
+                return _gunsSavableData;
             }
         }
 
@@ -41,13 +41,13 @@ namespace Weapons
 
                 if (!File.Exists(path))
                 {
-                    GunSaveableData gunSaveableData = new GunSaveableData(_gunsData[currentType]);
+                    GunSavableData gunSaveableData = new GunSavableData(_gunsData[currentType]);
                     SaveData(gunSaveableData);
                 }
 
                 string serializedGun = File.ReadAllText(path);
-                GunSaveableData gunData = JsonUtility.FromJson<GunSaveableData>(serializedGun);
-                _gunsSaveableData.Add(gunData.Type, gunData);
+                GunSavableData gunData = JsonUtility.FromJson<GunSavableData>(serializedGun);
+                _gunsSavableData.Add(gunData.Type, gunData);
             }
         }
 
@@ -56,13 +56,13 @@ namespace Weapons
             if (!_initialized)
                 Initialize();
 
-            if (_gunsSaveableData.ContainsKey(gun.Type))
+            if (_gunsSavableData.ContainsKey(gun.Type))
             {
-                GunSaveableData gunSaveableData = _gunsSaveableData[gun.Type];
+                GunSavableData gunSavableData = _gunsSavableData[gun.Type];
 
-                gun.Damage = gunSaveableData.Damage;
-                gun.Cooldown = gunSaveableData.Cooldown;
-                gun.Distance = gunSaveableData.Distance;
+                gun.Damage = gunSavableData.Damage;
+                gun.Cooldown = gunSavableData.Cooldown;
+                gun.Distance = gunSavableData.Distance;
                 return true;
             }
             else
@@ -71,14 +71,14 @@ namespace Weapons
             }
         }
 
-        public static void SaveData(GunSaveableData gunSaveableData)
+        public static void SaveData(GunSavableData gunSavableData)
         {
             if (!_initialized)
                 Initialize();
 
-            string serializedGun = JsonUtility.ToJson(gunSaveableData);
+            string serializedGun = JsonUtility.ToJson(gunSavableData);
 
-            string path = GetPathForGun(gunSaveableData.Type);
+            string path = GetPathForGun(gunSavableData.Type);
             ValidateDirectory(path);
 
             File.WriteAllText(path, serializedGun);

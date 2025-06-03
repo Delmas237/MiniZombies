@@ -8,19 +8,19 @@ namespace GlobalShopLib
     public class GlobalShopItem
     {
         [SerializeField] private GunType _gunType;
-        private GunSaveableData _gunData;
+        private GunSavableData _gunData;
 
         [SerializeField] private GlobalShopParameter _damageParameter;
         [SerializeField] private GlobalShopParameter _cooldownParameter;
         [SerializeField] private GlobalShopParameter _distanceParameter;
 
-        public event Action<GunSaveableData> Updated;
+        public event Action<GunSavableData> Updated;
 
         public void Intialize()
         {
-            if (GunsDataSaver.GunsSaveableData.ContainsKey(_gunType))
+            if (GunsDataSaver.GunsSavableData.ContainsKey(_gunType))
             {
-                _gunData = GunsDataSaver.GunsSaveableData[_gunType];
+                _gunData = GunsDataSaver.GunsSavableData[_gunType];
 
                 UpdateInfo();
 
