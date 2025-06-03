@@ -61,10 +61,12 @@ namespace PlayerLib
         {
             if (_controllable)
             {
-                float speedFactor = (MoveJoystick.Horizontal == 0 || MoveJoystick.Vertical == 0) ? 1 : 1.5f;
+                Vector2 moveInput = new Vector2(MoveJoystick.Horizontal, MoveJoystick.Vertical);
 
-                _rigidbody.velocity = new Vector3(MoveJoystick.Horizontal * _defaultSpeed / speedFactor, _rigidbody.velocity.y, 
-                    MoveJoystick.Vertical * _defaultSpeed / speedFactor);
+                if (moveInput.sqrMagnitude > 1f)
+                    moveInput.Normalize();
+
+                _rigidbody.velocity = new Vector3(moveInput.x * _defaultSpeed, _rigidbody.velocity.y, moveInput.y * _defaultSpeed);
             }
         }
 
