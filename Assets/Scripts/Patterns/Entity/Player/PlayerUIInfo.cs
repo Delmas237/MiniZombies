@@ -27,17 +27,6 @@ namespace PlayerLib
                 _player.WeaponsController.BulletsChanged += UpdateBulletsText;
             }
         }
-        private void OnDestroy()
-        {
-            if (_player != null)
-            {
-                _player.HealthController.Increased -= UpdateHealthBar;
-                _player.HealthController.Decreased -= UpdateHealthBar;
-
-                _player.CurrencyController.CoinsChanged -= UpdateCoinsText;
-                _player.WeaponsController.BulletsChanged -= UpdateBulletsText;
-            }
-        }
 
         private void UpdateHealthBar()
         {
@@ -52,6 +41,18 @@ namespace PlayerLib
         private void UpdateBulletsText(int amount)
         {
             _bullets.text = amount.ToString();
+        }
+
+        private void OnDestroy()
+        {
+            if (_player != null)
+            {
+                _player.HealthController.Increased -= UpdateHealthBar;
+                _player.HealthController.Decreased -= UpdateHealthBar;
+
+                _player.CurrencyController.CoinsChanged -= UpdateCoinsText;
+                _player.WeaponsController.BulletsChanged -= UpdateBulletsText;
+            }
         }
     }
 }

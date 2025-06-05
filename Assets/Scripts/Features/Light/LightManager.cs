@@ -21,10 +21,6 @@ namespace LightLib
 
             EventBus.Subscribe<TimesOfDayChangedEvent>(SetTimesOfDay);
         }
-        private void OnDestroy()
-        {
-            EventBus.Unsubscribe<TimesOfDayChangedEvent>(SetTimesOfDay);
-        }
 
         private void Update()
         {
@@ -66,6 +62,11 @@ namespace LightLib
                     transform.rotation, Quaternion.Euler(vector), _rotationSpeed);
                 yield return null;
             }
+        }
+
+        private void OnDestroy()
+        {
+            EventBus.Unsubscribe<TimesOfDayChangedEvent>(SetTimesOfDay);
         }
     }
 }

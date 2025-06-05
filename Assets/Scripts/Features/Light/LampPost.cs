@@ -14,10 +14,6 @@ namespace LightLib
 
             EventBus.Subscribe<TimesOfDayChangedEvent>(Controller);
         }
-        private void OnDestroy()
-        {
-            EventBus.Unsubscribe<TimesOfDayChangedEvent>(Controller);
-        }
 
         private void Controller(TimesOfDayChangedEvent changedEvent)
         {
@@ -37,6 +33,11 @@ namespace LightLib
                     _lamp.enabled = true;
                     break;
             }
+        }
+
+        private void OnDestroy()
+        {
+            EventBus.Unsubscribe<TimesOfDayChangedEvent>(Controller);
         }
     }
 }

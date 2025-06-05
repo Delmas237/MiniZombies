@@ -10,7 +10,7 @@ public class ItemLevitation : MonoBehaviour
 
     private Rigidbody _rb;
 
-    void Start()
+    private void Start()
     {
         _rb = GetComponent<Rigidbody>();
 

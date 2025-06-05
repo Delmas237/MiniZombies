@@ -12,13 +12,14 @@ public class GameOverHandler : MonoBehaviour
     {
         _playerContainer.HealthController.IsOver += Handle;
     }
-    private void OnDestroy()
-    {
-        _playerContainer.HealthController.IsOver -= Handle;
-    }
 
     private void Handle()
     {
         EventBus.Invoke(new GameOverEvent(_enemyWaveManager.CurrentWaveIndex));
+    }
+
+    private void OnDestroy()
+    {
+        _playerContainer.HealthController.IsOver -= Handle;
     }
 }

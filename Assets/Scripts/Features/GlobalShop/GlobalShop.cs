@@ -17,6 +17,18 @@ namespace GlobalShopLib
             }
         }
 
+        private void Update()
+        {
+#if UNITY_EDITOR
+            Cheats();
+#endif
+        }
+        private void Cheats()
+        {
+            if (Input.GetKeyDown(KeyCode.N))
+                Bank.Add(100);
+        }
+
         private void OnDestroy()
         {
             foreach (var item in _items)
@@ -24,19 +36,6 @@ namespace GlobalShopLib
                 item.Updated -= GunsDataSaver.SaveData;
                 item.OnDestroy();
             }
-        }
-
-        private void Update()
-        {
-#if UNITY_EDITOR
-            Cheats();
-#endif
-        }
-
-        private void Cheats()
-        {
-            if (Input.GetKeyDown(KeyCode.N))
-                Bank.Add(100);
         }
     }
 }

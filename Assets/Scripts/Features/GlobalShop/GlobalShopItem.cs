@@ -33,12 +33,6 @@ namespace GlobalShopLib
                 _distanceParameter.Purchased += UpgradeDistance;
             }
         }
-        public void OnDestroy()
-        {
-            _damageParameter.Purchased -= UpgradeDamage;
-            _cooldownParameter.Purchased -= UpgradeCooldown;
-            _distanceParameter.Purchased -= UpgradeDistance;
-        }
 
         private void UpdateInfo()
         {
@@ -71,6 +65,13 @@ namespace GlobalShopLib
             _distanceParameter.Info.Value += _distanceParameter.Up.Value;
 
             Updated?.Invoke(_gunData);
+        }
+
+        public void OnDestroy()
+        {
+            _damageParameter.Purchased -= UpgradeDamage;
+            _cooldownParameter.Purchased -= UpgradeCooldown;
+            _distanceParameter.Purchased -= UpgradeDistance;
         }
     }
 }

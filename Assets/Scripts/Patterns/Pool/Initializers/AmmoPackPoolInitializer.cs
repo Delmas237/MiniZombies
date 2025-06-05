@@ -16,14 +16,15 @@ namespace ObjectPool
 
             _ammoPackPool.Pool.Expanded += OnExpanded;
         }
-        private void OnDestroy()
-        {
-            _ammoPackPool.Pool.Expanded -= OnExpanded;
-        }
 
         private void OnExpanded(AmmoPack ammo)
         {
             ammo.DestroySoundFactory = _audioSourceFactory;
+        }
+
+        private void OnDestroy()
+        {
+            _ammoPackPool.Pool.Expanded -= OnExpanded;
         }
     }
 }

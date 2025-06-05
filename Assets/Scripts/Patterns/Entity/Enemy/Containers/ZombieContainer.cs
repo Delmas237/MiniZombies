@@ -28,11 +28,6 @@ namespace EnemyLib
             HealthController.IsOver += OnHealhIsOver;
         }
 
-        protected virtual void OnDestroy()
-        {
-            HealthController.IsOver -= OnHealhIsOver;
-        }
-
         protected virtual void OnEnable()
         {
             _animationController.UpdateData();
@@ -48,6 +43,11 @@ namespace EnemyLib
                 rb.mass = 10f;
                 rb.velocity /= 2;
             }
+        }
+
+        protected virtual void OnDestroy()
+        {
+            HealthController.IsOver -= OnHealhIsOver;
         }
     }
 }

@@ -15,14 +15,15 @@ namespace ObjectPool
             
             _cursePoisonPool.Pool.Expanded += OnExpanded;
         }
-        private void OnDestroy()
-        {
-            _cursePoisonPool.Pool.Expanded -= OnExpanded;
-        }
 
         private void OnExpanded(PoisonProjectile poisonProjectile)
         {
             poisonProjectile.EffectProvider = _poisonEffectPool.Pool;
+        }
+
+        private void OnDestroy()
+        {
+            _cursePoisonPool.Pool.Expanded -= OnExpanded;
         }
     }
 }

@@ -32,11 +32,6 @@ namespace LocalShopLib
             EventBus.Subscribe<WaveStartedEvent>(ShopDisable);
             EventBus.Subscribe<WaveFinishedEvent>(ShopEnable);
         }
-        private void OnDestroy()
-        {
-            EventBus.Unsubscribe<WaveStartedEvent>(ShopDisable);
-            EventBus.Unsubscribe<WaveFinishedEvent>(ShopEnable);
-        }
         private void UpdatePrice()
         {
             for (int i = 0; i < _shopWeapons.Count; i++)
@@ -130,6 +125,12 @@ namespace LocalShopLib
             {
                 _player.HealthController.Increase(_player.HealthController.MaxHealth);
             }
+        }
+
+        private void OnDestroy()
+        {
+            EventBus.Unsubscribe<WaveStartedEvent>(ShopDisable);
+            EventBus.Unsubscribe<WaveFinishedEvent>(ShopEnable);
         }
     }
 }

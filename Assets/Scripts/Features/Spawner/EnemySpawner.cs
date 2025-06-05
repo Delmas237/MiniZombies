@@ -26,17 +26,13 @@ namespace EnemyLib
             EventBus.Subscribe<WaveStartedEvent>(OnWaveStarted);
             EventBus.Subscribe<GameOverEvent>(StopSpawn);
         }
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-            EventBus.Unsubscribe<WaveStartedEvent>(OnWaveStarted);
-            EventBus.Unsubscribe<GameOverEvent>(StopSpawn);
-        }
+
         private void OnWaveStarted(WaveStartedEvent waveStartedEvent)
         {
             IsSpawn = true;
             Cooldown = waveStartedEvent.Wave.SpawnSpeed;
         }
+
         private void StopSpawn(IEvent e) => IsSpawn = false;
 
         protected override void Spawn()
@@ -81,6 +77,13 @@ namespace EnemyLib
                 _objectsOnScene.Remove(enemy);
                 Removed?.Invoke();
             }
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            EventBus.Unsubscribe<WaveStartedEvent>(OnWaveStarted);
+            EventBus.Unsubscribe<GameOverEvent>(StopSpawn);
         }
     }
 }

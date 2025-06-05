@@ -18,12 +18,6 @@ namespace PlayerLib
             EventBus.Subscribe<GameOverEvent>(GetGlobalReward);
             EventBus.Subscribe<AllWavesFinishedEvent>(GetGlobalReward);
         }
-        private void OnDestroy()
-        {
-            EventBus.Unsubscribe<WaveFinishedEvent>(GetLocalReward);
-            EventBus.Unsubscribe<GameOverEvent>(GetGlobalReward);
-            EventBus.Unsubscribe<AllWavesFinishedEvent>(GetGlobalReward);
-        }
 
         private void GetLocalReward(WaveFinishedEvent waveFinishedEvent)
         {
@@ -46,6 +40,13 @@ namespace PlayerLib
             Bank.Add(intReward);
 
             EventBus.Invoke(new RewardedEvent(intReward));
+        }
+
+        private void OnDestroy()
+        {
+            EventBus.Unsubscribe<WaveFinishedEvent>(GetLocalReward);
+            EventBus.Unsubscribe<GameOverEvent>(GetGlobalReward);
+            EventBus.Unsubscribe<AllWavesFinishedEvent>(GetGlobalReward);
         }
     }
 }

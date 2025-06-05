@@ -14,10 +14,6 @@ public class LobbyUI : MonoBehaviour
         UpdateText(Bank.Coins);
         Bank.CoinsChanged += UpdateText;
     }
-    private void OnDestroy()
-    {
-        Bank.CoinsChanged -= UpdateText;
-    }
 
     private void UpdateText(int amount)
     {
@@ -25,4 +21,9 @@ public class LobbyUI : MonoBehaviour
     }
 
     public void Play() => SceneManager.LoadScene("Game");
+
+    private void OnDestroy()
+    {
+        Bank.CoinsChanged -= UpdateText;
+    }
 }

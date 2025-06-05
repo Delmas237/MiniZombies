@@ -22,12 +22,6 @@ namespace Panels
             EventBus.Subscribe<GameOverEvent>(SetWaveNumber);
             EventBus.Subscribe<RewardedEvent>(Open);
         }
-        private void OnDestroy()
-        {
-            EventBus.Unsubscribe<AllWavesFinishedEvent>(SetWaveNumber);
-            EventBus.Unsubscribe<GameOverEvent>(SetWaveNumber);
-            EventBus.Unsubscribe<RewardedEvent>(Open);
-        }
         private void SetWaveNumber(GameOverEvent gameOverEvent) => _waveNumber = gameOverEvent.CompletedWaves;
         private void SetWaveNumber(AllWavesFinishedEvent allWavesFinishedEvent) => _waveNumber = allWavesFinishedEvent.Number;
 
@@ -55,6 +49,13 @@ namespace Panels
         {
             EventBus.Invoke(new GameExitEvent());
             SceneManager.LoadScene("Lobby");
+        }
+
+        private void OnDestroy()
+        {
+            EventBus.Unsubscribe<AllWavesFinishedEvent>(SetWaveNumber);
+            EventBus.Unsubscribe<GameOverEvent>(SetWaveNumber);
+            EventBus.Unsubscribe<RewardedEvent>(Open);
         }
     }
 }
