@@ -4,7 +4,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 [Serializable]
-public class HealthAudioController
+public class EntityAudioController
 {
     [SerializeField] protected AudioSource _damageSound;
     [SerializeField] protected AudioSource _healSound;

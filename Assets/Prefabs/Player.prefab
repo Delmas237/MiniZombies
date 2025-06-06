@@ -973,12 +973,7 @@ MonoBehaviour:
   _currencyController:
     _coins: 0
   _healthController:
-    <MaxHealth>k__BackingField: 100
-    <AudioController>k__BackingField:
-      _damageSound: {fileID: 303503531}
-      _healSound: {fileID: 377062677}
-      _deathSound: {fileID: 175399891}
-      _deathPitchRandomRange: 0
+    _maxHealth: 100
   _weaponsController:
     _bullets: 100
     _initialGun: 0
@@ -987,15 +982,21 @@ MonoBehaviour:
     - {fileID: 7393470864971495480}
     - {fileID: 391794527}
     - {fileID: 950084880}
-    <AttackJoystick>k__BackingField: {fileID: 0}
     _shootLineRoot: {fileID: 2306417906408800393}
+    _attackJoystick: {fileID: 0}
   _moveController:
     _defaultSpeed: 3.65
-    <MoveJoystick>k__BackingField: {fileID: 0}
     _rotationSmoothness: 13
     _autoRotationSmoothness: 12
+    _timeToUpdateClosestEnemy: 0.35
+    _moveJoystick: {fileID: 0}
   _animationController:
     _idleTransitionDelay: 0.3
+  _audioController:
+    _damageSound: {fileID: 303503531}
+    _healSound: {fileID: 377062677}
+    _deathSound: {fileID: 175399891}
+    _deathPitchRandomRange: 0
 --- !u!54 &4240113845284777554
 Rigidbody:
   m_ObjectHideFlags: 0

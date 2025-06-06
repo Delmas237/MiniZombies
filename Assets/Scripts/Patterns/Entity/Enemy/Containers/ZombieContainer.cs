@@ -8,6 +8,7 @@ namespace EnemyLib
         [Header("Base Controllers")]
         [SerializeField] protected HealthController _healthController;
         [SerializeField] protected EnemyAnimationController _animationController;
+        [SerializeField] protected EntityAudioController _audioController;
 
         [Header("Base Modules")]
         [SerializeField] protected DelayedDisableEntityModule _delayedDisableModule;

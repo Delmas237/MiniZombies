@@ -17,6 +17,7 @@ namespace EnemyLib
             base.Awake();
 
             _healthController.Initialize();
+            _audioController.Initialize(_healthController);
             _animationController.Initialize(HealthController, MoveController, _attackController, GetComponent<Animator>());
             _attackController.Initialize(HealthController, MoveController);
             _moveController.Initialize(GetComponent<NavMeshAgent>(), transform, _attackController);

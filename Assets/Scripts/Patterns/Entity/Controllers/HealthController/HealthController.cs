@@ -11,8 +11,6 @@ public class HealthController : IHealthController
     public event Action Increased;
     public event Action IsOver;
 
-    [field: SerializeField] public HealthAudioController AudioController { get; set; }
-    
     public float MaxHealth
     {
         get { return _maxHealth; }
@@ -31,7 +29,6 @@ public class HealthController : IHealthController
 
     public void Initialize()
     {
-        AudioController.Initialize(this);
         _health = MaxHealth;
     }
 

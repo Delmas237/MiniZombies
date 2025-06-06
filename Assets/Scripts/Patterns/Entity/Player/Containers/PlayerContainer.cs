@@ -10,6 +10,7 @@ namespace PlayerLib
         [SerializeField] protected PlayerWeaponsController _weaponsController;
         [SerializeField] protected PlayerMoveController _moveController;
         [SerializeField] protected PlayerAnimationController _animationController;
+        [SerializeField] protected EntityAudioController _audioController;
 
         public Transform Transform => transform;
         public ICurrencyController CurrencyController => _currencyController;
@@ -20,6 +21,7 @@ namespace PlayerLib
         private void Awake()
         {
             _healthController.Initialize();
+            _audioController.Initialize(_healthController);
             _animationController.Initialize(HealthController, WeaponsController, MoveController, GetComponent<Animator>());
             _weaponsController.Initialize(HealthController);
             _moveController.Initialize(WeaponsController, transform, GetComponent<Rigidbody>());
