@@ -17,20 +17,20 @@ namespace PlayerLib
             if (_player != null)
             {
                 UpdateHealthBar();
-                UpdateCoinsText(_player.CurrencyController.Coins);
-                UpdateBulletsText(_player.WeaponsController.Bullets);
+                UpdateCoinsText(_player.CurrencyModule.Coins);
+                UpdateBulletsText(_player.WeaponsModule.Bullets);
 
-                _player.HealthController.Increased += UpdateHealthBar;
-                _player.HealthController.Decreased += UpdateHealthBar;
+                _player.HealthModule.Increased += UpdateHealthBar;
+                _player.HealthModule.Decreased += UpdateHealthBar;
 
-                _player.CurrencyController.CoinsChanged += UpdateCoinsText;
-                _player.WeaponsController.BulletsChanged += UpdateBulletsText;
+                _player.CurrencyModule.CoinsChanged += UpdateCoinsText;
+                _player.WeaponsModule.BulletsChanged += UpdateBulletsText;
             }
         }
 
         private void UpdateHealthBar()
         {
-            _healthBar.fillAmount = _player.HealthController.Health / _player.HealthController.MaxHealth;
+            _healthBar.fillAmount = _player.HealthModule.Health / _player.HealthModule.MaxHealth;
         }
 
         private void UpdateCoinsText(int amount)
@@ -47,11 +47,11 @@ namespace PlayerLib
         {
             if (_player != null)
             {
-                _player.HealthController.Increased -= UpdateHealthBar;
-                _player.HealthController.Decreased -= UpdateHealthBar;
+                _player.HealthModule.Increased -= UpdateHealthBar;
+                _player.HealthModule.Decreased -= UpdateHealthBar;
 
-                _player.CurrencyController.CoinsChanged -= UpdateCoinsText;
-                _player.WeaponsController.BulletsChanged -= UpdateBulletsText;
+                _player.CurrencyModule.CoinsChanged -= UpdateCoinsText;
+                _player.WeaponsModule.BulletsChanged -= UpdateBulletsText;
             }
         }
     }

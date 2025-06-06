@@ -30,7 +30,7 @@ namespace Factory
         protected void Construct(ZombieShooterContainer enemy)
         {
             base.Construct(enemy);
-            enemy.WeaponsController.CurrentGun.BulletPool = _bulletPool;
+            enemy.WeaponsModule.CurrentGun.BulletPool = _bulletPool;
         }
     }
 }

@@ -26,7 +26,7 @@ namespace PlayerLib
 
         private void SetInitialGun()
         {
-            GunType initialGun = _player.WeaponsController.InitialGun;
+            GunType initialGun = _player.WeaponsModule.InitialGun;
             _slots.Add(initialGun);
             _slotsImages[_slots.Count - 1].sprite = GunsDataSaver.GunsData[initialGun].Icon;
         }
@@ -60,17 +60,17 @@ namespace PlayerLib
             _slotsImages[index].sprite = sprite;
             _slotsImages[index].enabled = true;
 
-            _player.WeaponsController.ChangeGun(gunType);
+            _player.WeaponsModule.ChangeGun(gunType);
 
             return true;
         }
 
         public void ChangeCurrentGun(int slot)
         {
-            if (_player.WeaponsController.CurrentGun.Type == _slots[slot])
+            if (_player.WeaponsModule.CurrentGun.Type == _slots[slot])
                 return;
 
-            _player.WeaponsController.ChangeGun((GunType)_slots[slot]);
+            _player.WeaponsModule.ChangeGun((GunType)_slots[slot]);
             _getGunSound.Play();
         }
     }

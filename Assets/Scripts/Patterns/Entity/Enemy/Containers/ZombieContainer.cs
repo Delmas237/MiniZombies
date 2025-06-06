@@ -5,31 +5,31 @@ namespace EnemyLib
 {
     public abstract class ZombieContainer : MonoBehaviour, IEnemy
     {
-        [Header("Base Controllers")]
-        [SerializeField] protected HealthController _healthController;
-        [SerializeField] protected EnemyAnimationController _animationController;
-        [SerializeField] protected EntityAudioController _audioController;
-
         [Header("Base Modules")]
+        [SerializeField] protected HealthModule _healthModule;
+        [SerializeField] protected EnemyAnimationModule _animationModule;
+        [SerializeField] protected EntityAudioModule _audioModule;
+
+        [Header("Base Additional Modules")]
         [SerializeField] protected DelayedDisableEntityModule _delayedDisableModule;
         [SerializeField] protected DropAmmoAfterDeathModule _dropAmmoAfterDeathModule;
 
-        public IHealthController HealthController => _healthController;
+        public IHealthModule HealthModule => _healthModule;
         public DelayedDisableEntityModule DelayedDisableModule => _delayedDisableModule;
         public DropAmmoAfterDeathModule DropAmmoAfterDeathModule => _dropAmmoAfterDeathModule;
         public Transform Transform => transform;
 
-        public abstract IEnemyMoveController MoveController { get; }
-        public abstract IEnemyAttackController AttackController { get; }
+        public abstract IEnemyMoveModule MoveModule { get; }
+        public abstract IEnemyAttackModule AttackModule { get; }
 
         protected virtual void Awake()
         {
-            HealthController.IsOver += OnHealhIsOver;
+            HealthModule.IsOver += OnHealhIsOver;
         }
 
         protected virtual void OnEnable()
         {
-            _animationController.UpdateData();
+            _animationModule.UpdateData();
         }
 
         protected virtual void OnHealhIsOver()
@@ -46,7 +46,7 @@ namespace EnemyLib
 
         protected virtual void OnDestroy()
         {
-            HealthController.IsOver -= OnHealhIsOver;
+            HealthModule.IsOver -= OnHealhIsOver;
         }
     }
 }

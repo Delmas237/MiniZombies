@@ -10,7 +10,7 @@ public class GameOverHandler : MonoBehaviour
 
     private void Start()
     {
-        _playerContainer.HealthController.IsOver += Handle;
+        _playerContainer.HealthModule.IsOver += Handle;
     }
 
     private void Handle()
@@ -20,6 +20,6 @@ public class GameOverHandler : MonoBehaviour
 
     private void OnDestroy()
     {
-        _playerContainer.HealthController.IsOver -= Handle;
+        _playerContainer.HealthModule.IsOver -= Handle;
     }
 }

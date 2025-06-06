@@ -32,8 +32,8 @@ namespace Factory
         protected void Construct(ZombieThrowerContainer enemy)
         {
             base.Construct(enemy);
-            enemy.ThrowerAttackController.ProjectileProvider = _projectilePool;
-            enemy.ThrowerAttackController.ProjectileEffectProvider = _projectileEffectPool;
+            enemy.ThrowerAttackModule.ProjectileProvider = _projectilePool;
+            enemy.ThrowerAttackModule.ProjectileEffectProvider = _projectileEffectPool;
         }
     }
 }

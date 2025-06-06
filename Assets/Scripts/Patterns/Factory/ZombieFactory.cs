@@ -49,22 +49,22 @@ namespace Factory
         
         private void InitializeEnemy(ZombieContainer enemy)
         {
-            enemy.MoveController.Speed = enemy.MoveController.DefaultSpeed;
-            enemy.AttackController.Speed = enemy.AttackController.DefaultSpeed;
+            enemy.MoveModule.Speed = enemy.MoveModule.DefaultSpeed;
+            enemy.AttackModule.Speed = enemy.AttackModule.DefaultSpeed;
         }
 
         private void BoostEnemies(WaveFinishedEvent waveFinishedEvent)
         {
             foreach (ZombieContainer enemy in Pool.Elements)
             {
-                enemy.HealthController.MaxHealth = enemy.HealthController.MaxHealth * (1 + _waveBoostData.HpPercent);
+                enemy.HealthModule.MaxHealth = enemy.HealthModule.MaxHealth * (1 + _waveBoostData.HpPercent);
 
                 float randomX = Random.Range(0.9f, 1.15f);
                 float boosterValue = waveFinishedEvent.Number * _waveBoostData.WaveMultiplierSpeed;
                 float speedX = (float)Math.Round(randomX + boosterValue, 2);
-                enemy.MoveController.Speed = enemy.MoveController.DefaultSpeed * speedX;
-                enemy.MoveController.Agent.speed = speedX;
-                enemy.AttackController.Speed = speedX;
+                enemy.MoveModule.Speed = enemy.MoveModule.DefaultSpeed * speedX;
+                enemy.MoveModule.Agent.speed = speedX;
+                enemy.AttackModule.Speed = speedX;
             }
         }
 
@@ -83,8 +83,8 @@ namespace Factory
             if (enemy.TryGetComponent(out Rigidbody rb))
                 Object.Destroy(rb);
 
-            if (enemy.MoveController.Agent != null)
-                enemy.MoveController.Agent.enabled = true;
+            if (enemy.MoveModule.Agent != null)
+                enemy.MoveModule.Agent.enabled = true;
 
             if (enemy.TryGetComponent(out CapsuleCollider collider))
             {
@@ -105,8 +105,8 @@ namespace Factory
             Transform randSpawnDot = spawnDotsFurthest[Random.Range(0, spawnDotsFurthest.Count)];
             enemy.transform.SetPositionAndRotation(randSpawnDot.position, Quaternion.identity);
 
-            enemy.MoveController.Target = _target;
-            enemy.HealthController.Increase(enemy.HealthController.MaxHealth);
+            enemy.MoveModule.Target = _target;
+            enemy.HealthModule.Increase(enemy.HealthModule.MaxHealth);
 
             enemy.DropAmmoAfterDeathModule.AmmoProvider = _ammoPackProvider;
 

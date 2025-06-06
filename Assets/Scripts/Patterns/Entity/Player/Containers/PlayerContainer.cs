@@ -4,48 +4,48 @@ namespace PlayerLib
 {
     public class PlayerContainer : MonoBehaviour, IPlayer
     {
-        [Header("Controllers")]
-        [SerializeField] protected CurrencyController _currencyController;
-        [SerializeField] protected HealthController _healthController;
-        [SerializeField] protected PlayerWeaponsController _weaponsController;
-        [SerializeField] protected PlayerMoveController _moveController;
-        [SerializeField] protected PlayerAnimationController _animationController;
-        [SerializeField] protected EntityAudioController _audioController;
+        [Header("Modules")]
+        [SerializeField] protected CurrencyModule _currencyModule;
+        [SerializeField] protected HealthModule _healthModule;
+        [SerializeField] protected PlayerWeaponsModule _weaponsModule;
+        [SerializeField] protected PlayerMoveModule _moveModule;
+        [SerializeField] protected PlayerAnimationModule _animationModule;
+        [SerializeField] protected EntityAudioModule _audioModule;
 
         public Transform Transform => transform;
-        public ICurrencyController CurrencyController => _currencyController;
-        public IHealthController HealthController => _healthController;
-        public IPlayerWeaponsController WeaponsController => _weaponsController;
-        public IPlayerMoveController MoveController => _moveController;
+        public ICurrencyModule CurrencyModule => _currencyModule;
+        public IHealthModule HealthModule => _healthModule;
+        public IPlayerWeaponsModule WeaponsModule => _weaponsModule;
+        public IPlayerMoveModule MoveModule => _moveModule;
 
         private void Awake()
         {
-            _healthController.Initialize();
-            _audioController.Initialize(_healthController);
-            _animationController.Initialize(HealthController, WeaponsController, MoveController, GetComponent<Animator>());
-            _weaponsController.Initialize(HealthController);
-            _moveController.Initialize(WeaponsController, transform, GetComponent<Rigidbody>());
+            _healthModule.Initialize();
+            _audioModule.Initialize(HealthModule);
+            _animationModule.Initialize(HealthModule, WeaponsModule, MoveModule, GetComponent<Animator>());
+            _weaponsModule.Initialize(HealthModule);
+            _moveModule.Initialize(WeaponsModule, transform, GetComponent<Rigidbody>());
 
-            _healthController.IsOver += OnHealhIsOver;
+            _healthModule.IsOver += OnHealhIsOver;
         }
         private void OnHealhIsOver()
         {
-            _moveController.Rigidbody.velocity /= 2;
+            _moveModule.Rigidbody.velocity /= 2;
         }
 
         private void Update()
         {
-            _moveController.Move();
-            _animationController.MoveAnim();
+            _moveModule.Move();
+            _animationModule.MoveAnim();
 
-            _moveController.Rotate();
-            _weaponsController.UpdateShootLine();
+            _moveModule.Rotate();
+            _weaponsModule.UpdateShootLine();
         }
 
         private void OnDestroy()
         {
-            _healthController.IsOver -= OnHealhIsOver;
-            _moveController.OnDestroy();
+            _healthModule.IsOver -= OnHealhIsOver;
+            _moveModule.OnDestroy();
         }
     }
 }

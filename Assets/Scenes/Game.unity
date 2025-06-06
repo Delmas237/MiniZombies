@@ -95616,9 +95616,17 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 4240113845284777552, guid: bfd8f93b916326940acee567443496c6, type: 3}
+      propertyPath: _moveModule._moveJoystick
+      value: 
+      objectReference: {fileID: 810678695}
+    - target: {fileID: 4240113845284777552, guid: bfd8f93b916326940acee567443496c6, type: 3}
       propertyPath: _moveController._moveJoystick
       value: 
       objectReference: {fileID: 810678695}
+    - target: {fileID: 4240113845284777552, guid: bfd8f93b916326940acee567443496c6, type: 3}
+      propertyPath: _weaponsModule._attackJoystick
+      value: 
+      objectReference: {fileID: 1194677029}
     - target: {fileID: 4240113845284777552, guid: bfd8f93b916326940acee567443496c6, type: 3}
       propertyPath: _weaponsController._attackJoystick
       value: 

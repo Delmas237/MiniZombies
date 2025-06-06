@@ -5,62 +5,62 @@ namespace EnemyLib
 {
     public class ZombieShooterContainer : ZombieContainer
     {
-        [Space(10), Header("Controllers")]
-        [SerializeField] protected EnemyMoveController _moveController;
-        [SerializeField] protected ZombieShooterAttackController _attackController;
-        [SerializeField] protected WeaponsController _weaponsController;
+        [Header("Modules")]
+        [SerializeField] protected EnemyMoveModule _moveModule;
+        [SerializeField] protected ZombieShooterAttackModule _attackModule;
+        [SerializeField] protected WeaponsModule _weaponsModule;
 
-        public override IEnemyMoveController MoveController => _moveController;
-        public override IEnemyAttackController AttackController => _attackController;
-        public IWeaponsController WeaponsController => _weaponsController;
+        public override IEnemyMoveModule MoveModule => _moveModule;
+        public override IEnemyAttackModule AttackModule => _attackModule;
+        public IWeaponsModule WeaponsModule => _weaponsModule;
 
         protected override void Awake()
         {
             base.Awake();
 
-            _healthController.Initialize();
-            _audioController.Initialize(_healthController);
-            _animationController.Initialize(HealthController, MoveController, AttackController, GetComponent<Animator>());
-            _weaponsController.Initialize();
-            _attackController.Initialize(MoveController, _weaponsController, transform);
-            _moveController.Initialize(GetComponent<NavMeshAgent>(), transform, AttackController);
+            _healthModule.Initialize();
+            _audioModule.Initialize(HealthModule);
+            _animationModule.Initialize(HealthModule, MoveModule, AttackModule, GetComponent<Animator>());
+            _weaponsModule.Initialize();
+            _attackModule.Initialize(MoveModule, WeaponsModule, transform);
+            _moveModule.Initialize(GetComponent<NavMeshAgent>(), transform, AttackModule);
 
-            DelayedDisableModule.Initialize(gameObject, this);
-            DropAmmoAfterDeathModule.Initialize(HealthController, transform);
+            _delayedDisableModule.Initialize(gameObject, this);
+            _dropAmmoAfterDeathModule.Initialize(HealthModule, transform);
         }
 
         protected override void OnEnable()
         {
-            _attackController.UpdateData();
-            _moveController.UpdateData();
+            _attackModule.UpdateData();
+            _moveModule.UpdateData();
             base.OnEnable();
         }
 
         protected virtual void Update()
         {
-            _moveController.Move();
-            _animationController.MoveAnim();
-            _moveController.Rotate();
+            _moveModule.Move();
+            _animationModule.MoveAnim();
+            _moveModule.Rotate();
 
-            _attackController.UpdateState();
-            _animationController.AttackAnim();
+            _attackModule.UpdateState();
+            _animationModule.AttackAnim();
         }
 
         protected override void OnHealhIsOver()
         {
             base.OnHealhIsOver();
 
-            _moveController.Agent.enabled = false;
-            AttackController.IsAttack = false;
+            _moveModule.Agent.enabled = false;
+            _attackModule.IsAttack = false;
             enabled = false;
         }
 
         protected override void OnDestroy()
         {
             base.OnDestroy();
-            _animationController.OnDestroy();
+            _animationModule.OnDestroy();
         }
 
-        private void Shoot() => _weaponsController.PullTrigger();
+        private void Shoot() => _weaponsModule.PullTrigger();
     }
 }

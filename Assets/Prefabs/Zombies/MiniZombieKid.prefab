@@ -1167,9 +1167,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d91960c0a3e8994b9201b20272c11d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _healthController:
+  _healthModule:
     _maxHealth: 55
-  _audioController:
+  _audioModule:
     _damageSound: {fileID: 0}
     _healSound: {fileID: 0}
     _deathSound: {fileID: 1302113068734991624}
@@ -1180,9 +1180,9 @@ MonoBehaviour:
   _dropAmmoAfterDeathModule:
     _enabled: 1
     _dropChance: 0.07
-  _moveController:
+  _moveModule:
     _defaultSpeed: 4.3
-  _attackController:
+  _attackModule:
     _defaultSpeed: 2
     _damage: 5
     _stopAttackSpeedRatio: 0.5

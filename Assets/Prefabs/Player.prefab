@@ -970,11 +970,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67de7fec0da88f9479f4531fa3197e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currencyController:
+  _currencyModule:
     _coins: 0
-  _healthController:
+  _healthModule:
     _maxHealth: 100
-  _weaponsController:
+  _weaponsModule:
     _bullets: 100
     _initialGun: 0
     _guns:
@@ -984,15 +984,15 @@ MonoBehaviour:
     - {fileID: 950084880}
     _shootLineRoot: {fileID: 2306417906408800393}
     _attackJoystick: {fileID: 0}
-  _moveController:
+  _moveModule:
     _defaultSpeed: 3.65
     _rotationSmoothness: 13
     _autoRotationSmoothness: 12
     _timeToUpdateClosestEnemy: 0.35
     _moveJoystick: {fileID: 0}
-  _animationController:
+  _animationModule:
     _idleTransitionDelay: 0.3
-  _audioController:
+  _audioModule:
     _damageSound: {fileID: 303503531}
     _healSound: {fileID: 377062677}
     _deathSound: {fileID: 175399891}

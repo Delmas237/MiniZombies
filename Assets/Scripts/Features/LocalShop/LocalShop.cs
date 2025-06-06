@@ -71,9 +71,9 @@ namespace LocalShopLib
         private void Cheats()
         {
             if (Input.GetKeyDown(KeyCode.N))
-                _player.CurrencyController.Add(100);
+                _player.CurrencyModule.Add(100);
             if (Input.GetKeyDown(KeyCode.M))
-                _player.CurrencyController.Spend(100);
+                _player.CurrencyModule.Spend(100);
         }
 
         public void PurchaseGun(int id)
@@ -84,7 +84,7 @@ namespace LocalShopLib
                 return;
             }
 
-            if (_player.CurrencyController.Spend(_shopWeapons[id].Price))
+            if (_player.CurrencyModule.Spend(_shopWeapons[id].Price))
             {
                 _weaponsLvl[id]++;
 
@@ -94,10 +94,10 @@ namespace LocalShopLib
         }
         private void GunLvlUp(int id)
         {
-            if (_player.CurrencyController.Spend(_shopWeapons[id].PriceLvlBoost))
+            if (_player.CurrencyModule.Spend(_shopWeapons[id].PriceLvlBoost))
             {
                 _weaponsLvl[id]++;
-                _player.WeaponsController.Guns[id + 1].Damage += _shopWeapons[id].DamageLvlBoost;
+                _player.WeaponsModule.Guns[id + 1].Damage += _shopWeapons[id].DamageLvlBoost;
 
                 UpdateLotText(id);
             }
@@ -114,16 +114,16 @@ namespace LocalShopLib
         private void UpdateLotText(int id)
         {
             _shopWeapons[id].PriceText.text = _shopWeapons[id].PriceLvlBoost + "$";
-            _shopWeapons[id].DamageText.text = $"{_player.WeaponsController.Guns[id + 1].Damage}dmg";
+            _shopWeapons[id].DamageText.text = $"{_player.WeaponsModule.Guns[id + 1].Damage}dmg";
             _shopWeapons[id].LvlText.text = $"{_weaponsLvl[id]} lvl";
         }
 
         public void PurchaseMedKit(int id)
         {
-            if (_player.CurrencyController.Spend(_shopItems[id].Price) &&
-                _player.HealthController.Health < _player.HealthController.MaxHealth)
+            if (_player.CurrencyModule.Spend(_shopItems[id].Price) &&
+                _player.HealthModule.Health < _player.HealthModule.MaxHealth)
             {
-                _player.HealthController.Increase(_player.HealthController.MaxHealth);
+                _player.HealthModule.Increase(_player.HealthModule.MaxHealth);
             }
         }
 

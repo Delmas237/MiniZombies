@@ -3,5 +3,5 @@ using UnityEngine;
 public interface IEntity
 {
     public Transform Transform { get; }
-    public IHealthController HealthController { get; }
+    public IHealthModule HealthModule { get; }
 }

@@ -19,17 +19,17 @@ public class EnemyAgentPriorityUpdater : MonoBehaviour
             yield return new WaitForSeconds(_updateDelay);
 
             var enemies = Spawner<IEnemy>.ObjectsOnScene.Where(
-                e => Vector3.Distance(e.Transform.position, e.MoveController.Target.Transform.position) <= _radius).ToList();
+                e => Vector3.Distance(e.Transform.position, e.MoveModule.Target.Transform.position) <= _radius).ToList();
 
             enemies.Sort((a, b) =>
             {
-                float distanceA = Vector3.Distance(a.Transform.position, a.MoveController.Target.Transform.position);
-                float distanceB = Vector3.Distance(b.Transform.position, a.MoveController.Target.Transform.position);
+                float distanceA = Vector3.Distance(a.Transform.position, a.MoveModule.Target.Transform.position);
+                float distanceB = Vector3.Distance(b.Transform.position, a.MoveModule.Target.Transform.position);
                 return distanceA.CompareTo(distanceB);
             });
 
             for (int i = enemies.Count - 1; i >= 0; i--)
-                enemies[i].MoveController.Agent.avoidancePriority = i;
+                enemies[i].MoveModule.Agent.avoidancePriority = i;
         }
     }
 }

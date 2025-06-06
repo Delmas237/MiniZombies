@@ -4,7 +4,7 @@ using System.Collections;
 using UnityEngine;
 
 [Serializable]
-public class DelayedDisableEntityModule : IModule
+public class DelayedDisableEntityModule : IOptionalModule
 {
     [SerializeField] private bool _enabled = true;
     [Space(5)]
@@ -22,14 +22,14 @@ public class DelayedDisableEntityModule : IModule
             _gameObject = gameObject;
             _entity = entity;
 
-            entity.HealthController.IsOver += DelayedSetActiveFalse;
+            entity.HealthModule.IsOver += DelayedSetActiveFalse;
             EventBus.Subscribe<GameExitEvent>(Unsubscribe);
         }
     }
     private void Unsubscribe(GameExitEvent exitEvent)
     {
         EventBus.Unsubscribe<GameExitEvent>(Unsubscribe);
-        _entity.HealthController.IsOver -= DelayedSetActiveFalse;
+        _entity.HealthModule.IsOver -= DelayedSetActiveFalse;
     }
 
     private IEnumerator SetActiveFalse(float delay)

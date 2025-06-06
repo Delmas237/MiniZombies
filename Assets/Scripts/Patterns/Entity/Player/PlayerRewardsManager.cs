@@ -24,7 +24,7 @@ namespace PlayerLib
             float reward = waveFinishedEvent.Wave.DestroyedObjects * _localKillReward;
 
             int intReward = Mathf.RoundToInt(reward);
-            _player.CurrencyController.Add(intReward);
+            _player.CurrencyModule.Add(intReward);
         }
 
         private void GetGlobalReward(GameOverEvent gameOverEvent) => GetGlobalReward(gameOverEvent.CompletedWaves);

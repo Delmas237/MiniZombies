@@ -5,67 +5,67 @@ namespace EnemyLib
 {
     public class ZombieTankContainer : ZombieContainer
     {
-        [Space(10), Header("Controllers")]
-        [SerializeField] protected EnemyMoveController _moveController;
-        [SerializeField] protected ZombieTankAttackController _attackController;
+        [Header("Modules")]
+        [SerializeField] protected EnemyMoveModule _moveModule;
+        [SerializeField] protected ZombieTankAttackModule _attackModule;
 
-        public override IEnemyMoveController MoveController => _moveController;
-        public override IEnemyAttackController AttackController => _attackController;
+        public override IEnemyMoveModule MoveModule => _moveModule;
+        public override IEnemyAttackModule AttackModule => _attackModule;
 
         protected override void Awake()
         {
             base.Awake();
 
-            _healthController.Initialize();
-            _audioController.Initialize(_healthController);
-            _animationController.Initialize(HealthController, MoveController, _attackController, GetComponent<Animator>());
-            _attackController.Initialize(HealthController, MoveController);
-            _moveController.Initialize(GetComponent<NavMeshAgent>(), transform, _attackController);
+            _healthModule.Initialize();
+            _audioModule.Initialize(HealthModule);
+            _animationModule.Initialize(HealthModule, MoveModule, AttackModule, GetComponent<Animator>());
+            _attackModule.Initialize(HealthModule, MoveModule);
+            _moveModule.Initialize(GetComponent<NavMeshAgent>(), transform, AttackModule);
 
-            DelayedDisableModule.Initialize(gameObject, this);
-            DropAmmoAfterDeathModule.Initialize(HealthController, transform);
+            _delayedDisableModule.Initialize(gameObject, this);
+            _dropAmmoAfterDeathModule.Initialize(HealthModule, transform);
         }
 
         protected override void OnEnable()
         {
-            _moveController.UpdateData();
+            _moveModule.UpdateData();
             base.OnEnable();
         }
 
         protected virtual void Update()
         {
-            _moveController.Move();
-            _animationController.MoveAnim();
-            _moveController.Rotate();
+            _moveModule.Move();
+            _animationModule.MoveAnim();
+            _moveModule.Rotate();
 
-            _animationController.AttackAnim();
+            _animationModule.AttackAnim();
         }
 
         private void OnCollisionEnter(Collision collision)
         {
-            _attackController.OnCollisionEnter(collision);
+            _attackModule.OnCollisionEnter(collision);
         }
 
         private void OnCollisionExit(Collision collision)
         {
-            _attackController.OnCollisionExit(collision);
+            _attackModule.OnCollisionExit(collision);
         }
 
         protected override void OnHealhIsOver()
         {
             base.OnHealhIsOver();
 
-            _moveController.Agent.enabled = false;
-            _attackController.IsAttack = false;
+            _moveModule.Agent.enabled = false;
+            _attackModule.IsAttack = false;
             enabled = false;
         }
 
         protected override void OnDestroy()
         {
             base.OnDestroy();
-            _animationController.OnDestroy();
+            _animationModule.OnDestroy();
         }
 
-        private void DealDamage() => _attackController.DealDamage();
+        private void DealDamage() => _attackModule.DealDamage();
     }
 }
