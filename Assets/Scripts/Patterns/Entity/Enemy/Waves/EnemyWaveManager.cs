@@ -9,18 +9,18 @@ namespace WavesLib
     public class EnemyWaveManager : MonoBehaviour
     {
         [SerializeField, Min(1)] private int _wavesAmount = 100;
-        public int WavesAmount => _wavesAmount;
-
         [SerializeField, Min(0)] private float _timeBtwWaves = 10;
         [Space(10)]
         [SerializeField, Min(1)] private int _minWaveForNight = 2;
-        [SerializeField] private float _changeDayTimeDelay = 1;
+        [SerializeField, Min(0)] private float _changeDayTimeDelay = 1;
         [Space(10)]
         [SerializeField] private List<WavePreset> _presets;
 
         private readonly List<Wave> _waves = new List<Wave>();
+
         public Wave CurrentWave => _waves[CurrentWaveIndex];
         public int CurrentWaveIndex => _waves.Count - 1;
+        public int WavesAmount => _wavesAmount;
 
         private void Start()
         {

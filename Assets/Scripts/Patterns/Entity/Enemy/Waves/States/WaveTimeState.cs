@@ -7,10 +7,10 @@ namespace WavesLib
 {
     public class WaveTimeState : IWaveState
     {
-        private readonly WaveTime _wave;
-
         private Coroutine _control;
         private Coroutine _waitTransition;
+
+        private readonly WaveTime _wave;
 
         public WaveTimeState(WaveTime wave)
         {

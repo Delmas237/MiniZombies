@@ -4,9 +4,9 @@ using UnityEngine;
 public class BulletTrail : MonoBehaviour
 {
     private AudioSource _audioSource;
-    public AudioSource AudioSource => _audioSource;
-
     private ParticleSystem _particleSystem;
+
+    public AudioSource AudioSource => _audioSource;
     public ParticleSystem ParticleSystem => _particleSystem;
 
     private void Awake()

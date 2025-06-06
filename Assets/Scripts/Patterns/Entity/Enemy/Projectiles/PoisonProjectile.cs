@@ -8,10 +8,10 @@ namespace EnemyLib
         [SerializeField] private float _speed = 1;
         [SerializeField] private AnimationCurve _flight—urve;
 
-        public IInstanceProvider<ParticleSystem> EffectProvider { get; set; }
-
         private Vector3 _start;
         private Vector3 _target;
+
+        public IInstanceProvider<ParticleSystem> EffectProvider { get; set; }
 
         public void Initialize(Vector3 start, Vector3 target)
         {

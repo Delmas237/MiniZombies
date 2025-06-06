@@ -4,13 +4,13 @@ using Weapons;
 
 public interface IWeaponsController
 {
-    public int Bullets { get; }
     public event Action<int> BulletsChanged;
+    public event Action<Gun> GunChanged;
 
+    public Gun CurrentGun { get; }
+    public int Bullets { get; }
     public GunType InitialGun { get; }
     public IReadOnlyList<Gun> Guns { get; }
-    public Gun CurrentGun { get; }
-    public event Action<Gun> GunChanged;
 
     public void SetInitialGun();
     public void ChangeGun(GunType gunType);

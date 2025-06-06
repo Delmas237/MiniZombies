@@ -10,17 +10,16 @@ namespace ObjectPool
     public class PoolBase<T> : IPool<T> where T : Component
     {
         [SerializeField] private bool _autoExpand = true;
-        public event Action<T> Expanded;
-
-        [SerializeField] protected T[] _prefabs;
-        public T[] Prefabs => _prefabs;
-
+        [SerializeField] private T[] _prefabs;
         [SerializeField] private int _count = 5;
-
         private List<T> _pool = new List<T>();
-        public IReadOnlyList<T> Elements => _pool;
+        
+        public event Action<T> Expanded;
+        
         [field: Space(10)]
         [field: SerializeField] public Transform Parent { get; set; }
+        public T[] Prefabs => _prefabs;
+        public IReadOnlyList<T> Elements => _pool;
 
         public void Initialize()
         {

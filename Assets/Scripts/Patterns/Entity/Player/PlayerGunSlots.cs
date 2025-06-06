@@ -7,16 +7,16 @@ namespace PlayerLib
 {
     public class PlayerGunSlots : MonoBehaviour
     {
-        private List<GunType?> _slots = new List<GunType?>();
-        public IReadOnlyList<GunType?> Slots => _slots;
-
-        public int UsedSlots => _slots.Count;
-        public int MaxSlots => _slotsImages.Count;
-
         [SerializeField] private List<Image> _slotsImages;
         [SerializeField] private AudioSource _getGunSound;
         [Space(10)]
         [SerializeField] private PlayerContainer _player;
+
+        private List<GunType?> _slots = new List<GunType?>();
+
+        public IReadOnlyList<GunType?> Slots => _slots;
+        public int UsedSlots => _slots.Count;
+        public int MaxSlots => _slotsImages.Count;
 
         private void Start()
         {

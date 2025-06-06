@@ -7,9 +7,9 @@ namespace EnemyLib
     {
         [Space(10), Header("Controllers")]
         [SerializeField] protected EnemyMoveController _moveController;
-        public override IEnemyMoveController MoveController => _moveController;
-
         [SerializeField] protected ZombieTankAttackController _attackController;
+
+        public override IEnemyMoveController MoveController => _moveController;
         public override IEnemyAttackController AttackController => _attackController;
 
         protected override void Awake()

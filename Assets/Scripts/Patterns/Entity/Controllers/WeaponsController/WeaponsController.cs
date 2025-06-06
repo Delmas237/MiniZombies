@@ -8,18 +8,17 @@ using Weapons;
 public class WeaponsController : IWeaponsController
 {
     [SerializeField] private int _bullets = 100;
-    public int Bullets => _bullets;
-    public event Action<int> BulletsChanged;
-
-    [Space(10)]
     [SerializeField] private GunType _initialGun = GunType.Pistol;
-    public GunType InitialGun => _initialGun;
-    
     [SerializeField] private List<Gun> _guns;
-    public IReadOnlyList<Gun> Guns => _guns;
+
+    public event Action<int> BulletsChanged;
+    public event Action<Gun> GunChanged;
 
     public Gun CurrentGun { get; private set; }
-    public event Action<Gun> GunChanged;
+    
+    public int Bullets => _bullets;
+    public GunType InitialGun => _initialGun;
+    public IReadOnlyList<Gun> Guns => _guns;
 
     public virtual void Initialize()
     {

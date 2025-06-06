@@ -5,18 +5,21 @@ using UnityEngine;
 
 public abstract class Spawner<T> : MonoBehaviour
 {
-    [field: SerializeField] public bool IsSpawn { get; set; } = true;
-    [field: SerializeField] public float Cooldown { get; set; } = 3;
-
+    [SerializeField] protected float _cooldown = 3;
     [SerializeField] protected int _maxObjectsOnScene = 50;
+    [Space(10)]
+    [SerializeField] protected List<Transform> _spawnDots;
+
+    protected static readonly List<T> _objectsOnScene = new List<T>();
 
     public abstract event Action<T> Spawned;
     public abstract event Action Removed;
+
+    public bool IsSpawn { get; set; } = true;
     
-    protected static readonly List<T> _objectsOnScene = new List<T>();
+    public float Cooldown => _cooldown;
     public static IReadOnlyList<T> ObjectsOnScene => _objectsOnScene;
 
-    [SerializeField] protected List<Transform> _spawnDots;
 
     protected virtual void Start()
     {

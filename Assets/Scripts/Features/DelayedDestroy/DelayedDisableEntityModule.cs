@@ -6,16 +6,18 @@ using UnityEngine;
 [Serializable]
 public class DelayedDisableEntityModule : IModule
 {
-    [field: SerializeField] public bool Enabled { get; set; } = true;
+    [SerializeField] private bool _enabled = true;
     [Space(5)]
-    [SerializeField] protected float _delay = 3f;
+    [SerializeField] private float _delay = 3f;
 
     private GameObject _gameObject;
     private IEntity _entity;
 
+    public bool Enabled => _enabled;
+
     public void Initialize(GameObject gameObject, IEntity entity)
     {
-        if (Enabled)
+        if (_enabled)
         {
             _gameObject = gameObject;
             _entity = entity;

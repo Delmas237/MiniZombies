@@ -4,8 +4,8 @@ namespace EventBusLib
 {
     public class WaveStartedEvent : IEvent 
     {
-        public readonly Wave Wave;
-        public readonly int Number;
+        public Wave Wave { get; }
+        public int Number { get; }
 
         public WaveStartedEvent(Wave wave, int number) 
         {

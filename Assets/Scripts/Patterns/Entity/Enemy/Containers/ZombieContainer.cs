@@ -7,21 +7,19 @@ namespace EnemyLib
     {
         [Header("Base Controllers")]
         [SerializeField] protected HealthController _healthController;
+        [SerializeField] protected EnemyAnimationController _animationController;
+
+        [Header("Base Modules")]
+        [SerializeField] protected DelayedDisableEntityModule _delayedDisableModule;
+        [SerializeField] protected DropAmmoAfterDeathModule _dropAmmoAfterDeathModule;
+
         public IHealthController HealthController => _healthController;
+        public DelayedDisableEntityModule DelayedDisableModule => _delayedDisableModule;
+        public DropAmmoAfterDeathModule DropAmmoAfterDeathModule => _dropAmmoAfterDeathModule;
+        public Transform Transform => transform;
 
         public abstract IEnemyMoveController MoveController { get; }
         public abstract IEnemyAttackController AttackController { get; }
-
-        [SerializeField] protected EnemyAnimationController _animationController;
-
-        [field: Header("Base Modules")]
-        [SerializeField] protected DelayedDisableEntityModule _delayedDisableModule;
-        public DelayedDisableEntityModule DelayedDisableModule => _delayedDisableModule;
-
-        [SerializeField] protected DropAmmoAfterDeathModule _dropAmmoAfterDeathModule;
-        public DropAmmoAfterDeathModule DropAmmoAfterDeathModule => _dropAmmoAfterDeathModule;
-
-        public Transform Transform => transform;
 
         protected virtual void Awake()
         {

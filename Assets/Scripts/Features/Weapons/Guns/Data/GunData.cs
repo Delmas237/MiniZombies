@@ -5,22 +5,32 @@ namespace Weapons
     [CreateAssetMenu(fileName = "GunData", menuName = "Weapons/Gun")]
     public class GunData : ScriptableObject
     {
-        [field: SerializeField] public float Damage { get; private set; }
+        [SerializeField] private float _damage;
+        [SerializeField] private float _cooldown;
+        [SerializeField] private float _distance = 4;
+        [SerializeField] private int _consumption = 1;
+        [Space(5)]
+        [SerializeField] private GunType _type;
+        [Space(5)]
+        [SerializeField] private Sprite _icon;
 
-        [field: SerializeField] public float Cooldown { get; private set; }
-        [field: SerializeField] public float Distance { get; private set; } = 4;
-        [field: SerializeField] public int Consumption { get; private set; } = 1;
-        [field: Space(5)]
-        [field: SerializeField] public GunType Type { get; private set; }
-        [field: Space(5)]
-        [field: SerializeField] public Sprite Icon { get; private set; }
+        [Header("Audio")]
+        [SerializeField] private AudioClip _audioClip;
+        [SerializeField] private float _volume;
+        [SerializeField] private float _pitch;
 
-        [field: Header("Audio")]
-        [field: SerializeField] public AudioClip AudioClip { get; private set; }
-        [field: SerializeField] public float Volume { get; private set; }
-        [field: SerializeField] public float Pitch { get; private set; }
-        
-        [field: Header("Bullet Trail")]
-        [field: SerializeField] public float ShapeAngle { get; private set; }
+        [Header("Bullet Trail")]
+        [SerializeField] private float _shapeAngle;
+
+        public float Damage => _damage;
+        public float Cooldown => _cooldown;
+        public float Distance => _distance;
+        public int Consumption => _consumption;
+        public GunType Type => _type;
+        public Sprite Icon => _icon;
+        public AudioClip AudioClip => _audioClip;
+        public float Volume => _volume;
+        public float Pitch => _pitch;
+        public float ShapeAngle => _shapeAngle;
     }
 }

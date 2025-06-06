@@ -6,13 +6,12 @@ namespace LightLib
 {
     public class LightManager : MonoBehaviour
     {
-        private Light _generalLight;
-
         [SerializeField] private float _rotationSpeed = 0.02f;
-
+        [Space(10)]
         [SerializeField] private Vector3 _dayRotation;
         [SerializeField] private Vector3 _nightRotation;
 
+        private Light _generalLight;
         private TimesOfDay _timesOfDay;
 
         private void Start()

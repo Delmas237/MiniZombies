@@ -7,17 +7,17 @@ namespace EnemyLib
     [Serializable]
     public class EnemyMoveController : IEnemyMoveController
     {
-        private NavMeshAgent _agent;
-        public NavMeshAgent Agent => _agent;
-
+        [SerializeField] protected float _defaultSpeed = 3.7f;
+        
         protected Transform _transform;
+        private NavMeshAgent _agent;
         private IEnemyAttackController _attackController;
 
         public IEntity Target { get; set; }
-
-        [SerializeField] protected float _defaultSpeed = 3.7f;
-        public float DefaultSpeed => _defaultSpeed;
         public float Speed { get; set; }
+
+        public float DefaultSpeed => _defaultSpeed;
+        public NavMeshAgent Agent => _agent;
 
         public void Initialize(NavMeshAgent agent, Transform transform, IEnemyAttackController attackController)
         {

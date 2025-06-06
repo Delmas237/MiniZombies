@@ -7,10 +7,10 @@ namespace WavesLib
 {
     public class WaveAmountState : IWaveState
     {
-        private readonly WaveAmount _wave;
-
         private Func<IEnumerator> _waitTransition;
         private Coroutine _waitTransitionCor;
+
+        private readonly WaveAmount _wave;
 
         public WaveAmountState(WaveAmount wave)
         {

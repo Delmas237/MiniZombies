@@ -5,6 +5,14 @@ using UnityEngine;
 public class HealthController : IHealthController
 {
     [SerializeField] private float _maxHealth = 100;
+    private float _health;
+
+    public event Action Decreased;
+    public event Action Increased;
+    public event Action IsOver;
+
+    [field: SerializeField] public HealthAudioController AudioController { get; set; }
+    
     public float MaxHealth
     {
         get { return _maxHealth; }
@@ -19,15 +27,7 @@ public class HealthController : IHealthController
             _health = Math.Min(_maxHealth, _health);
         }
     }
-
-    private float _health;
     public float Health => _health;
-
-    public event Action Decreased;
-    public event Action Increased;
-    public event Action IsOver;
-
-    [field: SerializeField] public HealthAudioController AudioController { get; set; }
 
     public void Initialize()
     {

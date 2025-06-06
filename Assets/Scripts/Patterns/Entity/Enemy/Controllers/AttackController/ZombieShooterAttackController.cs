@@ -7,22 +7,22 @@ namespace EnemyLib
     [Serializable]
     public class ZombieShooterAttackController : IEnemyAttackController
     {
-        public bool IsAttack { get; set; }
-
         [SerializeField, Range(0.01f, 3f)] protected float _defaultSpeed = 1f;
-        public float DefaultSpeed => _defaultSpeed; 
-        public float Speed { get; set; }
-
         [SerializeField] private int _damage = 15;
-        public int Damage => _damage;
-
         [SerializeField] private float _cooldown = 1f;
-        [Space(10)]
-        [SerializeField, Tooltip("Delay before shooting first time")] protected float _shootDelay = 1f;
+
+        [Space(10), Tooltip("Delay before shooting first time")]
+        [SerializeField] protected float _shootDelay = 1f;
 
         protected IEnemyMoveController _moveController;
         protected IWeaponsController _weaponsController;
         protected Transform _transform;
+
+        public bool IsAttack { get; set; }
+        public float Speed { get; set; }
+
+        public float DefaultSpeed => _defaultSpeed;
+        public int Damage => _damage;
 
         public void Initialize(IEnemyMoveController moveController, IWeaponsController weaponsController, Transform transform)
         {
@@ -69,7 +69,6 @@ namespace EnemyLib
             if (_moveController.Agent.enabled)
                 _moveController.Agent.isStopped = true;
         }
-
         protected IEnumerator ShootDelay(float delay)
         {
             float speedX = Speed;

@@ -47539,8 +47539,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c68de97d1958eb544be3878d053fb83c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <IsSpawn>k__BackingField: 1
-  <Cooldown>k__BackingField: 3
+  _cooldown: 3
   _maxObjectsOnScene: 50
   _spawnDots:
   - {fileID: 412658978}
@@ -95616,6 +95615,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 4240113845284777552, guid: bfd8f93b916326940acee567443496c6, type: 3}
+      propertyPath: _moveController._moveJoystick
+      value: 
+      objectReference: {fileID: 810678695}
+    - target: {fileID: 4240113845284777552, guid: bfd8f93b916326940acee567443496c6, type: 3}
+      propertyPath: _weaponsController._attackJoystick
+      value: 
+      objectReference: {fileID: 1194677029}
     - target: {fileID: 4240113845284777552, guid: bfd8f93b916326940acee567443496c6, type: 3}
       propertyPath: _moveController.<MoveJoystick>k__BackingField
       value: 

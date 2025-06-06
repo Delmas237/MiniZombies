@@ -6,8 +6,8 @@ namespace CameraLib
     {
         [SerializeField] private Vector3 _rotationAngle;
         [SerializeField] private Vector3 _rotationSpeed;
-        private Vector3 _startRotation;
 
+        private Vector3 _startRotation;
         private Vector3 _rotationDir = Vector3.one;
 
         private void Start()

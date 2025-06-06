@@ -8,11 +8,11 @@ namespace GlobalShopLib
     public class GlobalShopItem
     {
         [SerializeField] private GunType _gunType;
-        private GunSavableData _gunData;
-
         [SerializeField] private GlobalShopParameter _damageParameter;
         [SerializeField] private GlobalShopParameter _cooldownParameter;
         [SerializeField] private GlobalShopParameter _distanceParameter;
+
+        private GunSavableData _gunData;
 
         public event Action<GunSavableData> Updated;
 

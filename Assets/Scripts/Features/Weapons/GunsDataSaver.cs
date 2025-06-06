@@ -11,9 +11,9 @@ namespace Weapons
         private const string RESOURCES_DATA_PATH = "Data/Guns";
 
         private static readonly Dictionary<GunType, GunData> _gunsData = new Dictionary<GunType, GunData>();
-        public static IReadOnlyDictionary<GunType, GunData> GunsData => _gunsData;
-
         private static readonly Dictionary<GunType, GunSavableData> _gunsSavableData = new Dictionary<GunType, GunSavableData>();
+        
+        public static IReadOnlyDictionary<GunType, GunData> GunsData => _gunsData;
         public static IReadOnlyDictionary<GunType, GunSavableData> GunsSavableData
         {
             get

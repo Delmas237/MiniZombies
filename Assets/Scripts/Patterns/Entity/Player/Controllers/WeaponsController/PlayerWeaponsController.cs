@@ -8,13 +8,13 @@ namespace PlayerLib
     [Serializable]
     public class PlayerWeaponsController : WeaponsController, IPlayerWeaponsController
     {
-        [field: SerializeField] public Joystick AttackJoystick { get; private set; }
-        [Space(10)]
         [SerializeField] private Transform _shootLineRoot;
-
+        [SerializeField] private Joystick _attackJoystick;
         private IHealthController _healthController;
 
         public const float START_DISTANCE = 0.848f;
+
+        public Joystick AttackJoystick => _attackJoystick;
 
         public void Initialize(IHealthController healthController)
         {

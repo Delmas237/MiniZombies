@@ -11,29 +11,28 @@ namespace PlayerLib
     [Serializable]
     public class PlayerMoveController : IPlayerMoveController
     {
-        private bool _controllable = true;
-
         [SerializeField] private float _defaultSpeed = 3.65f;
-        public float DefaultSpeed => _defaultSpeed;
-        public bool IsMoving => MoveJoystick.Direction != Vector2.zero;
-        public bool IsTraking => _closestEnemy != null || _weaponsController.AttackJoystick.Pressed;
-
-        [field: SerializeField] public Joystick MoveJoystick { get; private set; }
 
         [Header("Rotation Smoothness")]
         [SerializeField] private float _rotationSmoothness = 13f;
         [SerializeField] private float _autoRotationSmoothness = 12f;
+        [Space(10)]
+        [SerializeField] private float _timeToUpdateClosestEnemy = 0.35f;
+        [SerializeField] private Joystick _moveJoystick;
 
+        private bool _controllable = true;
         private Rigidbody _rigidbody;
-        public Rigidbody Rigidbody => _rigidbody;
-
         private Transform _transform;
 
+        private IEnemy _closestEnemy;
+        private Coroutine _closestEnemyCoroutine;
         private IPlayerWeaponsController _weaponsController;
 
-        private IEnemy _closestEnemy;
-        private const float TIME_TO_UPDATE_CLOSEST_ENEMY = 0.35f;
-        private Coroutine _closestEnemyCoroutine;
+        public float DefaultSpeed => _defaultSpeed;
+        public bool IsMoving => MoveJoystick.Direction != Vector2.zero;
+        public bool IsTraking => _closestEnemy != null || _weaponsController.AttackJoystick.Pressed;
+        public Joystick MoveJoystick => _moveJoystick;
+        public Rigidbody Rigidbody => _rigidbody;
 
         public void Initialize(IPlayerWeaponsController weaponsController, Transform transform, Rigidbody rigidbody)
         {
@@ -129,7 +128,7 @@ namespace PlayerLib
                 }
                 _closestEnemy = enemyInRange ? closestEnemy : null;
 
-                yield return new WaitForSeconds(TIME_TO_UPDATE_CLOSEST_ENEMY);
+                yield return new WaitForSeconds(_timeToUpdateClosestEnemy);
             }
         }
 

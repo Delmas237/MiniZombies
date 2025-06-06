@@ -7,22 +7,22 @@ namespace EnemyLib
     [Serializable]
     public class ZombieTankAttackController : IEnemyAttackController
     {
-        public bool IsAttack { get; set; }
-        private IEntity _targetCollision;
-
         [SerializeField, Range(0.01f, 3f)] protected float _defaultSpeed = 1f;
-        public float DefaultSpeed => _defaultSpeed;
-        public float Speed { get; set; }
-
         [SerializeField] private int _damage = 15;
-        public int Damage => _damage;
 
         [Space(10), Tooltip("Attack stopping speed divided by attack speed")]
         [SerializeField, Range(0, 3f)] private float _stopAttackSpeedRatio = 0.3f;
 
+        private IEntity _targetCollision;
         private IHealthController _healthController;
         private IEnemyMoveController _moveController;
-        
+
+        public bool IsAttack { get; set; }
+        public float Speed { get; set; }
+
+        public float DefaultSpeed => _defaultSpeed;
+        public int Damage => _damage;
+
         public void Initialize(IHealthController healthController, IEnemyMoveController moveController)
         {
             _healthController = healthController;
@@ -30,29 +30,11 @@ namespace EnemyLib
             Speed = DefaultSpeed;
         }
 
-        protected void Attack()
+        private void Attack()
         {
             _moveController.Agent.isStopped = true;
             IsAttack = true;
         }
-
-        public void OnCollisionEnter(Collision collision)
-        {
-            if (collision.gameObject.TryGetComponent(out IEntity entity) && entity == _moveController.Target && 
-                entity.HealthController.Health > 0 && _healthController.Health > 0)
-            {
-                _targetCollision = entity;
-                Attack();
-            }
-        }
-        public void OnCollisionExit(Collision collision)
-        {
-            if (collision.gameObject.TryGetComponent(out IEntity entity) && entity == _moveController.Target)
-            {
-                CoroutineHelper.StartRoutine(StopAttack(_stopAttackSpeedRatio / Speed));
-            }
-        }
-
         private IEnumerator StopAttack(float delay)
         {
             yield return new WaitForSeconds(delay);
@@ -73,6 +55,23 @@ namespace EnemyLib
             }
 
             _targetCollision.HealthController.Decrease(Damage);
+        }
+
+        public void OnCollisionEnter(Collision collision)
+        {
+            if (collision.gameObject.TryGetComponent(out IEntity entity) && entity == _moveController.Target && 
+                entity.HealthController.Health > 0 && _healthController.Health > 0)
+            {
+                _targetCollision = entity;
+                Attack();
+            }
+        }
+        public void OnCollisionExit(Collision collision)
+        {
+            if (collision.gameObject.TryGetComponent(out IEntity entity) && entity == _moveController.Target)
+            {
+                CoroutineHelper.StartRoutine(StopAttack(_stopAttackSpeedRatio / Speed));
+            }
         }
     }
 }

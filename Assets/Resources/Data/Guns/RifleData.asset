@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7c7e37c9ed45b344b782c75153c605e, type: 3}
   m_Name: RifleData
   m_EditorClassIdentifier: 
-  <Damage>k__BackingField: 100
-  <Cooldown>k__BackingField: 1.6
-  <Distance>k__BackingField: 7.1
-  <Consumption>k__BackingField: 2
-  <Type>k__BackingField: 3
-  <Icon>k__BackingField: {fileID: 6645489248575563105, guid: cbc51f23591699f41af490520f0b9f3b, type: 3}
-  <AudioClip>k__BackingField: {fileID: 8300000, guid: d41bfe47122b50e419ce6ba4dd73cf14, type: 3}
-  <Volume>k__BackingField: 0.45
-  <Pitch>k__BackingField: 1
-  <ShapeAngle>k__BackingField: 0.03
+  _damage: 100
+  _cooldown: 1.6
+  _distance: 7.1
+  _consumption: 2
+  _type: 3
+  _icon: {fileID: 6645489248575563105, guid: cbc51f23591699f41af490520f0b9f3b, type: 3}
+  _audioClip: {fileID: 8300000, guid: d41bfe47122b50e419ce6ba4dd73cf14, type: 3}
+  _volume: 0.45
+  _pitch: 1
+  _shapeAngle: 0.03

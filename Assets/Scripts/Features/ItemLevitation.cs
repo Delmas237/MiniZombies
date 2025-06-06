@@ -3,10 +3,10 @@ using UnityEngine;
 public class ItemLevitation : MonoBehaviour
 {
     [SerializeField] private Vector3 _moveArea;
-    private Vector3 _startPos;
     [SerializeField] private Vector3 _speed;
-    private Vector3 _currentSpeed;
     [SerializeField] private Vector3 _rotationSpeed;
+    private Vector3 _startPos;
+    private Vector3 _currentSpeed;
 
     private Rigidbody _rb;
 

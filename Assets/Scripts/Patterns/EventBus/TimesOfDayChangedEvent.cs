@@ -4,7 +4,7 @@ namespace EventBusLib
 {
     public class TimesOfDayChangedEvent : IEvent
     {
-        public readonly TimesOfDay TimesOfDay;
+        public TimesOfDay TimesOfDay { get; }
 
         public TimesOfDayChangedEvent(TimesOfDay timesOfDay)
         {

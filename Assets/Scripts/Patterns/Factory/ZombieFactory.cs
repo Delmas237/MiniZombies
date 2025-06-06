@@ -15,14 +15,13 @@ namespace Factory
         protected IEntity _target;
         protected List<Transform> _spawnDots;
         protected IInstanceProvider<AmmoPack> _ammoPackProvider;
-
         protected IPool<ZombieContainer> _pool;
-        public IPool<ZombieContainer> Pool => _pool;
 
         private readonly ZombieContainer[] _prefabs;
-        public ZombieContainer[] Prefabs => _prefabs;
-
         private readonly EnemyWaveBoostData _waveBoostData;
+
+        public IPool<ZombieContainer> Pool => _pool;
+        public ZombieContainer[] Prefabs => _prefabs;
 
         public ZombieFactory(IPool<ZombieContainer> pool, IInstanceProvider<AmmoPack> ammoPackProvider, List<Transform> spawnDots, 
             IEntity target, EnemyWaveBoostData waveBoostData)

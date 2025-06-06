@@ -2,7 +2,7 @@ namespace EventBusLib
 {
     public class GameOverEvent : IEvent 
     {
-        public readonly int CompletedWaves;
+        public int CompletedWaves { get; }
 
         public GameOverEvent(int completedWaves)
         {

@@ -2,7 +2,7 @@ namespace EventBusLib
 {
     public class RewardedEvent : IEvent
     {
-        public readonly int Reward;
+        public int Reward { get; }
 
         public RewardedEvent(int reward)
         {

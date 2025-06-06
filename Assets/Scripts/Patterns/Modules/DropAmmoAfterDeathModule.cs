@@ -8,17 +8,19 @@ namespace Weapons
     [Serializable]
     public class DropAmmoAfterDeathModule : IModule
     {
-        [field: SerializeField] public bool Enabled { get; set; } = true;
+        [SerializeField] private bool _enabled = true;
         [Space(5)]
         [SerializeField, Range(0f, 1f)] private float _dropChance = 1;
-        public IInstanceProvider<AmmoPack> AmmoProvider { get; set; }
-        private Transform _transform;
 
+        private Transform _transform;
         private IHealthController _healthController;
+
+        public IInstanceProvider<AmmoPack> AmmoProvider { get; set; }
+        public bool Enabled => _enabled;
 
         public void Initialize(IHealthController healthController, Transform transform)
         {
-            if (Enabled)
+            if (_enabled)
             {
                 _healthController = healthController;
                 _transform = transform;

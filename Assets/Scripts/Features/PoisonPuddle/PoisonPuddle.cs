@@ -7,7 +7,7 @@ public class PoisonPuddle : MonoBehaviour
     [SerializeField] private float _damage = 5f;
     [SerializeField] private float _cooldown = 0.5f;
     [Space(10)]
-    [SerializeField] protected float _lifeTime = 5;
+    [SerializeField] private float _lifeTime = 5;
     [Space(10)]
     [SerializeField] private bool _collideWithPlayer = true;
     [SerializeField] private bool _collideWithEnemy;

@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7c7e37c9ed45b344b782c75153c605e, type: 3}
   m_Name: ShotgunData
   m_EditorClassIdentifier: 
-  <Damage>k__BackingField: 28
-  <Cooldown>k__BackingField: 0.5
-  <Distance>k__BackingField: 5.2
-  <Consumption>k__BackingField: 4
-  <Type>k__BackingField: 2
-  <Icon>k__BackingField: {fileID: 4463942273191046130, guid: cbc51f23591699f41af490520f0b9f3b, type: 3}
-  <AudioClip>k__BackingField: {fileID: 8300000, guid: 76a4273082fae7347bc111a42b99c27c, type: 3}
-  <Volume>k__BackingField: 0.3
-  <Pitch>k__BackingField: 1
-  <ShapeAngle>k__BackingField: 7
+  _damage: 28
+  _cooldown: 0.5
+  _distance: 5.2
+  _consumption: 4
+  _type: 2
+  _icon: {fileID: 4463942273191046130, guid: cbc51f23591699f41af490520f0b9f3b, type: 3}
+  _audioClip: {fileID: 8300000, guid: 76a4273082fae7347bc111a42b99c27c, type: 3}
+  _volume: 0.3
+  _pitch: 1
+  _shapeAngle: 7

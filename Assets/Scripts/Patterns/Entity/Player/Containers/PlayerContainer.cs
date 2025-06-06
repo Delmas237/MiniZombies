@@ -6,20 +6,16 @@ namespace PlayerLib
     {
         [Header("Controllers")]
         [SerializeField] protected CurrencyController _currencyController;
-        public ICurrencyController CurrencyController => _currencyController;
-
         [SerializeField] protected HealthController _healthController;
-        public IHealthController HealthController => _healthController;
-
         [SerializeField] protected PlayerWeaponsController _weaponsController;
-        public IPlayerWeaponsController WeaponsController => _weaponsController;
-
         [SerializeField] protected PlayerMoveController _moveController;
-        public IPlayerMoveController MoveController => _moveController;
-
         [SerializeField] protected PlayerAnimationController _animationController;
 
         public Transform Transform => transform;
+        public ICurrencyController CurrencyController => _currencyController;
+        public IHealthController HealthController => _healthController;
+        public IPlayerWeaponsController WeaponsController => _weaponsController;
+        public IPlayerMoveController MoveController => _moveController;
 
         private void Awake()
         {

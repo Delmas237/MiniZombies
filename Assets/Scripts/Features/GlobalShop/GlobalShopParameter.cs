@@ -12,6 +12,7 @@ namespace GlobalShopLib
         [SerializeField] private GlobalShopValue _info;
         [Space(10)]
         [SerializeField] private Button _purchaseButton;
+
         public event Action Purchased;
 
         public GlobalShopValue Price => _price;

@@ -3,20 +3,20 @@ using UnityEngine;
 
 public static class Bank
 {
+    private static bool _initialized;
     private static int _coins;
-    public static int Coins
-    {
-        get 
-        {
-            if (!_initialized)
-                Load();
-            return _coins; 
-        }
-    }
 
     public static event Action<int> CoinsChanged;
 
-    private static bool _initialized;
+    public static int Coins
+    {
+        get
+        {
+            if (!_initialized)
+                Load();
+            return _coins;
+        }
+    }
 
     private static void Load()
     {

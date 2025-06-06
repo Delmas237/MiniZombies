@@ -10,11 +10,11 @@ namespace EnemyLib
 {
     public class EnemySpawner : Spawner<IEnemy>
     {
-        public override event Action<IEnemy> Spawned;
-        public override event Action Removed;
-
         [SerializeField] private List<EnemySpawnData> _spawnData;
         [SerializeField] private PlayerContainer _player;
+
+        public override event Action<IEnemy> Spawned;
+        public override event Action Removed;
 
         protected override void Start()
         {
@@ -30,7 +30,7 @@ namespace EnemyLib
         private void OnWaveStarted(WaveStartedEvent waveStartedEvent)
         {
             IsSpawn = true;
-            Cooldown = waveStartedEvent.Wave.SpawnSpeed;
+            _cooldown = waveStartedEvent.Wave.SpawnSpeed;
         }
 
         private void StopSpawn(IEvent e) => IsSpawn = false;

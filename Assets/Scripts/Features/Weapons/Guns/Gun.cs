@@ -2,24 +2,22 @@ using ObjectPool;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Weapons
 {
     public class Gun : MonoBehaviour
     {
-        [field: SerializeField] public GunType Type { get; private set; }
-        [field: SerializeField] public GunFireType FireType { get; private set; }
-        [field: Space(5)]
-        [field: SerializeField] public float Damage { get; set; }
+        [SerializeField] protected GunType _type;
+        [SerializeField] protected GunFireType _fireType;
+        [Space(5)]
+        [SerializeField] protected Transform _shootDir;
+        [SerializeField] protected Transform _muzzle;
+        [Space(5)]
+        [SerializeField] protected bool _setTrailParent;
 
-        [field: SerializeField] public float Cooldown { get; set; }
-        
         protected float _currentCooldown;
-        public float CurrentCooldown => _currentCooldown;
         protected bool _canShoot = true;
-
-        [field: SerializeField] public float Distance { get; set; } = 4;
-        [field: SerializeField] public int Consumption { get; set; } = 1;
 
         /// <summary>
         /// % of damage reduction on the next penetration
@@ -30,13 +28,16 @@ namespace Weapons
         /// </summary>
         public const float TRAIL_UNIT_TIME = 0.05f;
 
-        [Space(5)]
-        [SerializeField] protected Transform _shootDir;
-        [SerializeField] protected Transform _muzzle;
-        [Space(5)]
-        [SerializeField] protected bool _setTrailParent;
-
+        [field: Space(5)]
+        [field: SerializeField] public float Damage { get; set; }
+        [field: SerializeField] public float Cooldown { get; set; }
+        [field: SerializeField] public float Distance { get; set; } = 4;
+        [field: SerializeField] public int Consumption { get; set; } = 1;
         public IInstanceProvider<BulletTrail> BulletPool { get; set; }
+
+        public GunType Type => _type;
+        public GunFireType FireType => _fireType;
+        public float CurrentCooldown => _currentCooldown;
 
         protected virtual void Update()
         {

@@ -7,8 +7,10 @@ namespace PlayerLib
     public class CurrencyController : ICurrencyController
     {
         [SerializeField] protected int _coins;
-        public int Coins => _coins;
+        
         public event Action<int> CoinsChanged;
+        
+        public int Coins => _coins;
 
         public void Add(int amount)
         {
