@@ -13,7 +13,7 @@ namespace GlobalShopLib
             foreach (var item in _items)
             {
                 item.Intialize();
-                item.Updated += GunsDataSaver.SaveData;
+                item.Updated += GunsDataSaver.Save;
             }
         }
 
@@ -33,7 +33,7 @@ namespace GlobalShopLib
         {
             foreach (var item in _items)
             {
-                item.Updated -= GunsDataSaver.SaveData;
+                item.Updated -= GunsDataSaver.Save;
                 item.OnDestroy();
             }
         }

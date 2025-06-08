@@ -1,6 +1,6 @@
 namespace Weapons
 {
-    public class GunSavableData
+    public class GunSavableData : ISavableData
     {
         public GunType Type;
         public float Damage;

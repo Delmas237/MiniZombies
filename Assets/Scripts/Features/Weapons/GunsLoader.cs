@@ -18,7 +18,7 @@ namespace Weapons
                 gun.BulletPool = _shotPool.Pool;
 
                 if (_loadData)
-                    GunsDataSaver.LoadData(gun);
+                    GunsDataSaver.InitializeGun(gun);
             }
         }
     }
