@@ -85762,9 +85762,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 7560204000705171858}
-  _localKillReward: 6
-  _globalWaveReward: 10
-  _completedAllWavesReward: 500
+  _dataPath: Data/RewardData
 --- !u!1001 &1972743624
 PrefabInstance:
   m_ObjectHideFlags: 0

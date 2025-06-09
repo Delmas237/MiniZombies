@@ -6,17 +6,23 @@ namespace PlayerLib
     public class PlayerRewardsManager : MonoBehaviour
     {
         [SerializeField] private PlayerContainer _player;
-        [Header("Local")]
-        [SerializeField] private float _localKillReward = 6f;
-        [Header("Global")]
-        [SerializeField] private float _globalWaveReward = 10f;
-        [SerializeField] private float _completedAllWavesReward = 500f;
+        [SerializeField] private string _dataPath = "Data/RewardData";
+
+        private float _globalWaveReward;
+        private float _completedAllWavesReward;
+        private float _localKillReward;
 
         private void Start()
         {
             EventBus.Subscribe<WaveFinishedEvent>(GetLocalReward);
             EventBus.Subscribe<GameOverEvent>(GetGlobalReward);
             EventBus.Subscribe<AllWavesFinishedEvent>(GetGlobalReward);
+
+            RewardData reward = Resources.LoadAll<RewardData>(_dataPath)[0];
+
+            _localKillReward = reward.LocalKillReward;
+            _globalWaveReward = reward.GlobalWaveReward;
+            _completedAllWavesReward = reward.CompletedAllWavesReward;
         }
 
         private void GetLocalReward(WaveFinishedEvent waveFinishedEvent)
