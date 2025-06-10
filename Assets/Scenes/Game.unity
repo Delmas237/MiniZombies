@@ -9774,7 +9774,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -12143,7 +12143,7 @@ RectTransform:
   m_GameObject: {fileID: 260506476}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.1930999, y: 1.1930999, z: 1.1930999}
+  m_LocalScale: {x: 1.1931, y: 1.1931, z: 1.1931}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1157220721}
@@ -33292,7 +33292,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -34453,7 +34453,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -37528,7 +37528,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -236.99997, y: 36.970016}
+  m_AnchoredPosition: {x: -237, y: 36.97002}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &891514715
@@ -46141,7 +46141,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -76454,7 +76454,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -79704,7 +79704,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -87739,30 +87739,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _shopItems:
   - _name: Medkit
-    _price: 80
     _priceText: {fileID: 484687310}
   _shopWeapons:
-  - _name: MachineGun
-    _price: 300
+  - _type: 1
     _priceText: {fileID: 1767509391}
-    _priceLvlBoost: 200
-    _damageLvlBoost: 2
     _damageText: {fileID: 423799913}
     _lvlText: {fileID: 990496108}
-  - _name: Shotgun
-    _price: 250
+  - _type: 2
     _priceText: {fileID: 1569906788}
-    _priceLvlBoost: 180
-    _damageLvlBoost: 2
     _damageText: {fileID: 1711031887}
     _lvlText: {fileID: 754253867}
-  - _name: Riffle
-    _price: 275
+  - _type: 3
     _priceText: {fileID: 23998717}
-    _priceLvlBoost: 175
-    _damageLvlBoost: 2
     _damageText: {fileID: 47522134}
     _lvlText: {fileID: 758106291}
+  _dataPath: Data/LocalShopData
   _player: {fileID: 7560204000705171858}
   _playerGunSlots: {fileID: 1269711841}
   _slotsText: {fileID: 15194794}
@@ -88955,15 +88946,15 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2047922350}
-        m_TargetAssemblyTypeName: Shop, Assembly-CSharp
-        m_MethodName: PurchaseMedKit
-        m_Mode: 3
+        m_TargetAssemblyTypeName: LocalShopLib.LocalShop, Assembly-CSharp
+        m_MethodName: PurchaseItem
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Medkit
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &2083299431

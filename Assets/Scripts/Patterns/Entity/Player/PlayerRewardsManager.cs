@@ -18,7 +18,7 @@ namespace PlayerLib
             EventBus.Subscribe<GameOverEvent>(GetGlobalReward);
             EventBus.Subscribe<AllWavesFinishedEvent>(GetGlobalReward);
 
-            RewardData reward = Resources.LoadAll<RewardData>(_dataPath)[0];
+            RewardData reward = Resources.Load<RewardData>(_dataPath);
 
             _localKillReward = reward.LocalKillReward;
             _globalWaveReward = reward.GlobalWaveReward;

@@ -1,21 +1,21 @@
 using System;
 using TMPro;
 using UnityEngine;
+using Weapons;
 
 namespace LocalShopLib
 {
     [Serializable]
-    public class LocalShopWeapon : LocalShopItem
+    public class LocalShopGun
     {
+        [SerializeField] private GunType _type;
         [Space(10)]
-        [SerializeField] private int _priceLvlBoost;
-        [SerializeField] private int _damageLvlBoost;
+        [SerializeField] private TextMeshProUGUI _priceText;
         [SerializeField] private TextMeshProUGUI _damageText;
-        [Space(10)]
         [SerializeField] private TextMeshProUGUI _lvlText;
 
-        public int PriceLvlBoost => _priceLvlBoost;
-        public int DamageLvlBoost => _damageLvlBoost;
+        public GunType Type => _type;
+        public TextMeshProUGUI PriceText => _priceText;
         public TextMeshProUGUI DamageText => _damageText;
         public TextMeshProUGUI LvlText => _lvlText;
     }

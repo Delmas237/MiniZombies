@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27bd00eab0548474d8b297d375d44bab, type: 3}
+  m_Name: LocalShopData
+  m_EditorClassIdentifier: 
+  _items:
+  - _name: Medkit
+    _price: 80
+  _weapons:
+  - _type: 1
+    _price: 300
+    _priceLvlBoost: 200
+    _damageLvlBoost: 2
+  - _type: 2
+    _price: 250
+    _priceLvlBoost: 180
+    _damageLvlBoost: 2
+  - _type: 3
+    _price: 275
+    _priceLvlBoost: 175
+    _damageLvlBoost: 2
