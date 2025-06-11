@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Weapons;
 
@@ -7,12 +8,16 @@ namespace GlobalShopLib
     public class GlobalShop : MonoBehaviour
     {
         [SerializeField] private List<GlobalShopItem> _items;
+        [SerializeField] private string _dataPath = "Data/GlobalShopData";
+        private GlobalShopData _data;
 
         private void Awake()
         {
+            _data = Resources.Load<GlobalShopData>(_dataPath);
+            
             foreach (var item in _items)
             {
-                item.Intialize();
+                item.Intialize(_data.Items.First(i => i.Type == item.Type));
                 item.Updated += GunsDataSaver.Save;
             }
         }
@@ -34,7 +39,6 @@ namespace GlobalShopLib
             foreach (var item in _items)
             {
                 item.Updated -= GunsDataSaver.Save;
-                item.OnDestroy();
             }
         }
     }

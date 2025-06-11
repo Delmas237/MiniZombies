@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 using Weapons;
 
@@ -7,71 +8,63 @@ namespace GlobalShopLib
     [Serializable]
     public class GlobalShopItem
     {
-        [SerializeField] private GunType _gunType;
+        [SerializeField] private GunType _type;
         [SerializeField] private GlobalShopParameter _damageParameter;
         [SerializeField] private GlobalShopParameter _cooldownParameter;
         [SerializeField] private GlobalShopParameter _distanceParameter;
 
         private GunSavableData _gunData;
+        private GlobalShopItemData _itemData;
 
         public event Action<GunSavableData> Updated;
 
-        public void Intialize()
+        public GunType Type => _type;
+
+        public void Intialize(GlobalShopItemData data)
         {
-            if (GunsDataSaver.GunsSavableData.ContainsKey(_gunType))
+            if (GunsDataSaver.GunsSavableData.ContainsKey(_type))
             {
-                _gunData = GunsDataSaver.GunsSavableData[_gunType];
+                _gunData = GunsDataSaver.GunsSavableData[_type];
+                _itemData = data;
 
-                UpdateInfo();
+                InitializeValues();
 
-                _damageParameter.Initialize();
-                _cooldownParameter.Initialize();
-                _distanceParameter.Initialize();
-
-                _damageParameter.Purchased += UpgradeDamage;
-                _cooldownParameter.Purchased += UpgradeCooldown;
-                _distanceParameter.Purchased += UpgradeDistance;
+                _damageParameter.PurchaseButton.onClick.AddListener(UpgradeDamage);
+                _cooldownParameter.PurchaseButton.onClick.AddListener(UpgradeCooldown);
+                _distanceParameter.PurchaseButton.onClick.AddListener(UpgradeDistance);
             }
         }
 
-        private void UpdateInfo()
+        private void InitializeValues()
         {
-            _damageParameter.Info.Value = _gunData.Damage;
-            _cooldownParameter.Info.Value = _gunData.Cooldown;
-            _distanceParameter.Info.Value = _gunData.Distance;
+            UpdatePriceText(_damageParameter.PriceText, _itemData.DamageParameter.Price);
+            UpdatePriceText(_cooldownParameter.PriceText, _itemData.CooldownParameter.Price);
+            UpdatePriceText(_distanceParameter.PriceText, _itemData.DistanceParameter.Price);
+            
+            UpdateUpText(_damageParameter.UpText, _itemData.DamageParameter.Up);
+            UpdateUpText(_cooldownParameter.UpText, _itemData.CooldownParameter.Up);
+            UpdateUpText(_distanceParameter.UpText, _itemData.DistanceParameter.Up);
 
-            _damageParameter.UpdateText();
-            _cooldownParameter.UpdateText();
-            _distanceParameter.UpdateText();
+            UpdateInfoText(_damageParameter.InfoText, _gunData.Damage);
+            UpdateInfoText(_cooldownParameter.InfoText, _gunData.Cooldown);
+            UpdateInfoText(_distanceParameter.InfoText, _gunData.Distance);
         }
+        private void UpdatePriceText(TextMeshProUGUI text, float value) => text.text = value + "$";
+        private void UpdateUpText(TextMeshProUGUI text, float value) => text.text = value.ToString();
+        private void UpdateInfoText(TextMeshProUGUI text, float value) => text.text = Math.Round(value, 2).ToString();
 
-        private void UpgradeDamage()
+        private void UpgradeDamage() => Upgrade(ref _gunData.Damage, _itemData.DamageParameter.Up, _itemData.DamageParameter.Price, _damageParameter.InfoText);
+        private void UpgradeCooldown() => Upgrade(ref _gunData.Cooldown, _itemData.CooldownParameter.Up, _itemData.CooldownParameter.Price, _cooldownParameter.InfoText);
+        private void UpgradeDistance() => Upgrade(ref _gunData.Distance, _itemData.DistanceParameter.Up, _itemData.DistanceParameter.Price, _distanceParameter.InfoText);
+        private void Upgrade(ref float info, float up, float price, TextMeshProUGUI text)
         {
-            _gunData.Damage += _damageParameter.Up.Value;
-            _damageParameter.Info.Value += _damageParameter.Up.Value;
+            if (info > up && Bank.Spend(Mathf.FloorToInt(price)))
+            {
+                info += up;
+                UpdateInfoText(text, info);
 
-            Updated?.Invoke(_gunData);
-        }
-        private void UpgradeCooldown()
-        {
-            _gunData.Cooldown -= _cooldownParameter.Up.Value;
-            _cooldownParameter.Info.Value -= _cooldownParameter.Up.Value;
-
-            Updated?.Invoke(_gunData);
-        }
-        private void UpgradeDistance()
-        {
-            _gunData.Distance += _distanceParameter.Up.Value;
-            _distanceParameter.Info.Value += _distanceParameter.Up.Value;
-
-            Updated?.Invoke(_gunData);
-        }
-
-        public void OnDestroy()
-        {
-            _damageParameter.Purchased -= UpgradeDamage;
-            _cooldownParameter.Purchased -= UpgradeCooldown;
-            _distanceParameter.Purchased -= UpgradeDistance;
+                Updated?.Invoke(_gunData);
+            }
         }
     }
 }

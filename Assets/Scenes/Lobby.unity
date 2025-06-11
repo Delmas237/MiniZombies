@@ -16527,108 +16527,55 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _items:
-  - _gunType: 1
+  - _type: 1
     _damageParameter:
-      _price:
-        _text: {fileID: 1510013966}
-        <Value>k__BackingField: 180
-      _up:
-        _text: {fileID: 1249692438}
-        <Value>k__BackingField: 1
-      _info:
-        _text: {fileID: 294443351}
-        <Value>k__BackingField: 30
+      _priceText: {fileID: 1510013966}
+      _upText: {fileID: 1249692438}
+      _infoText: {fileID: 294443351}
       _purchaseButton: {fileID: 706006658}
     _cooldownParameter:
-      _price:
-        _text: {fileID: 55765033}
-        <Value>k__BackingField: 350
-      _up:
-        _text: {fileID: 1367930516}
-        <Value>k__BackingField: 0.01
-      _info:
-        _text: {fileID: 641386690}
-        <Value>k__BackingField: 0.1
+      _priceText: {fileID: 55765033}
+      _upText: {fileID: 1367930516}
+      _infoText: {fileID: 641386690}
       _purchaseButton: {fileID: 1727827048}
     _distanceParameter:
-      _price:
-        _text: {fileID: 1603719515}
-        <Value>k__BackingField: 200
-      _up:
-        _text: {fileID: 237635323}
-        <Value>k__BackingField: 0.2
-      _info:
-        _text: {fileID: 479065488}
-        <Value>k__BackingField: 5
+      _priceText: {fileID: 1603719515}
+      _upText: {fileID: 237635323}
+      _infoText: {fileID: 479065488}
       _purchaseButton: {fileID: 346319677}
-  - _gunType: 2
+  - _type: 2
     _damageParameter:
-      _price:
-        _text: {fileID: 741143036}
-        <Value>k__BackingField: 180
-      _up:
-        _text: {fileID: 1173621152}
-        <Value>k__BackingField: 1
-      _info:
-        _text: {fileID: 1514597985}
-        <Value>k__BackingField: 28
+      _priceText: {fileID: 741143036}
+      _upText: {fileID: 1173621152}
+      _infoText: {fileID: 1514597985}
       _purchaseButton: {fileID: 1066914885}
     _cooldownParameter:
-      _price:
-        _text: {fileID: 1966434345}
-        <Value>k__BackingField: 150
-      _up:
-        _text: {fileID: 1703137880}
-        <Value>k__BackingField: 0.01
-      _info:
-        _text: {fileID: 482571823}
-        <Value>k__BackingField: 0.5
+      _priceText: {fileID: 1966434345}
+      _upText: {fileID: 1703137880}
+      _infoText: {fileID: 482571823}
       _purchaseButton: {fileID: 1276499530}
     _distanceParameter:
-      _price:
-        _text: {fileID: 355792099}
-        <Value>k__BackingField: 200
-      _up:
-        _text: {fileID: 1249635439}
-        <Value>k__BackingField: 0.1
-      _info:
-        _text: {fileID: 1465189095}
-        <Value>k__BackingField: 4
+      _priceText: {fileID: 355792099}
+      _upText: {fileID: 1249635439}
+      _infoText: {fileID: 1465189095}
       _purchaseButton: {fileID: 319769475}
-  - _gunType: 3
+  - _type: 3
     _damageParameter:
-      _price:
-        _text: {fileID: 968183110}
-        <Value>k__BackingField: 180
-      _up:
-        _text: {fileID: 1881183244}
-        <Value>k__BackingField: 1.2
-      _info:
-        _text: {fileID: 2115064089}
-        <Value>k__BackingField: 62
+      _priceText: {fileID: 968183110}
+      _upText: {fileID: 1881183244}
+      _infoText: {fileID: 2115064089}
       _purchaseButton: {fileID: 2132235955}
     _cooldownParameter:
-      _price:
-        _text: {fileID: 1943281634}
-        <Value>k__BackingField: 150
-      _up:
-        _text: {fileID: 2102290603}
-        <Value>k__BackingField: 0.01
-      _info:
-        _text: {fileID: 1894089650}
-        <Value>k__BackingField: 0.5
+      _priceText: {fileID: 1943281634}
+      _upText: {fileID: 2102290603}
+      _infoText: {fileID: 1894089650}
       _purchaseButton: {fileID: 369239720}
     _distanceParameter:
-      _price:
-        _text: {fileID: 1617404209}
-        <Value>k__BackingField: 190
-      _up:
-        _text: {fileID: 436462789}
-        <Value>k__BackingField: 0.3
-      _info:
-        _text: {fileID: 1054906560}
-        <Value>k__BackingField: 7.9
+      _priceText: {fileID: 1617404209}
+      _upText: {fileID: 436462789}
+      _infoText: {fileID: 1054906560}
       _purchaseButton: {fileID: 1904299313}
+  _dataPath: Data/GlobalShopData
 --- !u!1001 &2088340197
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f59cfcd3e4064ec478cf00276d7a000d, type: 3}
+  m_Name: GlobalShopData
+  m_EditorClassIdentifier: 
+  _items:
+  - _type: 1
+    _damageParameter:
+      _price: 180
+      _up: 1
+    _cooldownParameter:
+      _price: 350
+      _up: 0.01
+    _distanceParameter:
+      _price: 200
+      _up: 0.2
+  - _type: 2
+    _damageParameter:
+      _price: 180
+      _up: 1
+    _cooldownParameter:
+      _price: 150
+      _up: 0.01
+    _distanceParameter:
+      _price: 200
+      _up: 0.1
+  - _type: 3
+    _damageParameter:
+      _price: 180
+      _up: 1.2
+    _cooldownParameter:
+      _price: 150
+      _up: 0.01
+    _distanceParameter:
+      _price: 190
+      _up: 0.3
