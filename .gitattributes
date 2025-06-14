@@ -1,8 +1,6 @@
 # Auto detect text files and perform LF normalization
 * text=auto
 
-*.json filter=lfs diff=lfs merge=lfs -text
-
 ## Unity ##
 
 *.cs diff=csharp text
