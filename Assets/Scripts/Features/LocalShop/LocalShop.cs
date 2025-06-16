@@ -1,9 +1,12 @@
 using EventBusLib;
 using PlayerLib;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using Weapons;
 
 namespace LocalShopLib
@@ -13,7 +16,7 @@ namespace LocalShopLib
         [SerializeField] private List<LocalShopItem> _shopItems;
         [SerializeField] private List<LocalShopGun> _shopWeapons;
         [Space(10f)]
-        [SerializeField] private string _dataPath = "Data/LocalShopData";
+        [SerializeField] private string _dataKey = "LocalShopData";
         [Space(10f)]
         [SerializeField] private PlayerContainer _player;
         [SerializeField] private PlayerGunSlots _playerGunSlots;
@@ -28,7 +31,11 @@ namespace LocalShopLib
 
         private void Start()
         {
-            _data = Resources.Load<LocalShopData>(_dataPath);
+            StartCoroutine(Initialize());
+        }
+        private IEnumerator Initialize()
+        {
+            yield return StartCoroutine(LoadData());
 
             UpdatePrice();
             UpdateSlotsText();
@@ -36,6 +43,18 @@ namespace LocalShopLib
             EventBus.Subscribe<WaveStartedEvent>(ShopDisable);
             EventBus.Subscribe<WaveFinishedEvent>(ShopEnable);
         }
+        private IEnumerator LoadData()
+        {
+            AsyncOperationHandle<LocalShopData> handle = Addressables.LoadAssetAsync<LocalShopData>(_dataKey);
+
+            yield return handle;
+
+            if (handle.Status == AsyncOperationStatus.Succeeded)
+                _data = handle.Result;
+            else
+                Debug.LogError("Failed to load data");
+        }
+
         private void UpdatePrice()
         {
             foreach (var item in _shopItems)
