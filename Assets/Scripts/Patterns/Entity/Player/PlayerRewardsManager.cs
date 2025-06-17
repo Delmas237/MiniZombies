@@ -1,12 +1,15 @@
 using EventBusLib;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace PlayerLib
 {
     public class PlayerRewardsManager : MonoBehaviour
     {
         [SerializeField] private PlayerContainer _player;
-        [SerializeField] private string _dataPath = "Data/RewardData";
+        [SerializeField] private string _dataKey = "RewardData";
 
         private float _globalWaveReward;
         private float _completedAllWavesReward;
@@ -18,11 +21,27 @@ namespace PlayerLib
             EventBus.Subscribe<GameOverEvent>(GetGlobalReward);
             EventBus.Subscribe<AllWavesFinishedEvent>(GetGlobalReward);
 
-            RewardData reward = Resources.Load<RewardData>(_dataPath);
+            StartCoroutine(LoadData());
+        }
+        private IEnumerator LoadData()
+        {
+            AsyncOperationHandle<RewardData> handle = Addressables.LoadAssetAsync<RewardData>(_dataKey);
 
-            _localKillReward = reward.LocalKillReward;
-            _globalWaveReward = reward.GlobalWaveReward;
-            _completedAllWavesReward = reward.CompletedAllWavesReward;
+            yield return handle;
+
+            if (handle.Status == AsyncOperationStatus.Succeeded)
+            {
+                RewardData data = handle.Result;
+
+                _localKillReward = data.LocalKillReward;
+                _globalWaveReward = data.GlobalWaveReward;
+                _completedAllWavesReward = data.CompletedAllWavesReward;
+            }
+            else
+            {
+                Debug.LogError("Failed to load data");
+            }
+            Addressables.Release(handle);
         }
 
         private void GetLocalReward(WaveFinishedEvent waveFinishedEvent)
