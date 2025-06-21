@@ -10,5 +10,6 @@ namespace PlayerLib
 
         public void Add(int amount);
         public bool Spend(int amount);
+        public bool IsCanSpend(int amount);
     }
 }

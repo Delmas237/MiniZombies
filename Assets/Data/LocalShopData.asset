@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _items:
   - _name: Turret
-    _price: 80
+    _price: 180
   - _name: Medkit
     _price: 80
   _weapons:

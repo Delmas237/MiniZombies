@@ -1,6 +1,6 @@
 using PlayerLib;
 
-public interface IPlayer : IEntity
+public interface IPlayer : IFriendly
 {
     public ICurrencyModule CurrencyModule { get; }
     public IPlayerWeaponsModule WeaponsModule { get; }

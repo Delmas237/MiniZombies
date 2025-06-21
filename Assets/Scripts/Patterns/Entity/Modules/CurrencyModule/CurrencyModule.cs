@@ -30,5 +30,7 @@ namespace PlayerLib
             CoinsChanged?.Invoke(_coins);
             return true;
         }
+
+        public bool IsCanSpend(int amount) => _coins >= amount;
     }
 }

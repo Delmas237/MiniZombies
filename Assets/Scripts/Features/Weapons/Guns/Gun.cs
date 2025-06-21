@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Weapons
 {
@@ -25,6 +27,8 @@ namespace Weapons
         /// Trail lifetime to cover a distance of 1 unit
         /// </summary>
         public const float TRAIL_UNIT_TIME = 0.05f;
+
+        public event Action Shooted;
 
         [field: Space(5)]
         [field: SerializeField] public float Damage { get; set; }
@@ -99,6 +103,7 @@ namespace Weapons
                     piercingDamage -= (piercingDamage / 100) * MINUS_PIERCING_DAMAGE;
                 }
 
+                Shooted?.Invoke();
                 return bullet;
             }
             return null;

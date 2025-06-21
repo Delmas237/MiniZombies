@@ -89,6 +89,7 @@ MonoBehaviour:
     _tower: {fileID: 6689396005722560641}
   _animationModule:
     _animator: {fileID: 9128426621592249960}
+    _installMotion: {fileID: 7400000, guid: 68727c6a1ac5ae64a8d5a158c0d7eae7, type: 2}
   _audioModule:
     _damageSound: {fileID: 0}
     _healSound: {fileID: 0}

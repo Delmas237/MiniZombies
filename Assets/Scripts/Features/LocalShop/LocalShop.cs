@@ -1,4 +1,5 @@
 using EventBusLib;
+using Factory;
 using PlayerLib;
 using System.Collections;
 using System.Collections.Generic;
@@ -25,6 +26,8 @@ namespace LocalShopLib
         [SerializeField] private GameObject _shopButton;
         [SerializeField] private GameObject _shopPanel;
         [SerializeField] private AudioSource _getGunSound;
+        [Space(10f)]
+        [SerializeField] private TurretFactory _turretFactory;
 
         private LocalShopData _data;
         private Dictionary<GunType, int> _gunsLvl = new Dictionary<GunType, int>();
@@ -153,10 +156,19 @@ namespace LocalShopLib
         {
             LocalShopItemData itemData = _data.Items.First(g => g.Name == id);
             
-            if (_player.CurrencyModule.Spend(itemData.Price) &&
-                _player.HealthModule.Health < _player.HealthModule.MaxHealth)
+            if (_player.CurrencyModule.IsCanSpend(itemData.Price))
             {
-                _player.HealthModule.Increase(_player.HealthModule.MaxHealth);
+                if (itemData.Name == "Medkit" && _player.HealthModule.Health < _player.HealthModule.MaxHealth)
+                {
+                    _player.HealthModule.Increase(_player.HealthModule.MaxHealth);
+                    _player.CurrencyModule.Spend(itemData.Price);
+                }
+                else if (itemData.Name == "Turret")
+                {
+                    TurretContainer turretContainer = _turretFactory.GetInstance();
+                    turretContainer.transform.position = _player.Transform.position;
+                    _player.CurrencyModule.Spend(itemData.Price);
+                }
             }
         }
 
