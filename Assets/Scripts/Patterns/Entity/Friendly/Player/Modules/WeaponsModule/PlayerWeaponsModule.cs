@@ -26,6 +26,11 @@ namespace PlayerLib
             AttackJoystick.OnUp += PullTrigger;
             AttackJoystick.OnClamped += PullAutoTrigger;
         }
+        private void PullAutoTrigger()
+        {
+            if (CurrentGun.FireType == GunFireType.Auto)
+                PullTrigger();
+        }
         protected void OnHealhIsOver()
         {
             _healthModule.IsOver -= OnHealhIsOver;

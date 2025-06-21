@@ -1,8 +1,11 @@
 using System;
 using System.Collections;
 
-public interface IWaveState
+namespace WavesLib
 {
-    public IEnumerator Control(Func<IEnumerator> nextWaveOrRecheck);
-    public void UpdateUIInfo();
+    public interface IWaveState
+    {
+        public IEnumerator Control(Func<IEnumerator> nextWaveOrRecheck);
+        public void UpdateUIInfo();
+    }
 }

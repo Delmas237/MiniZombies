@@ -7,8 +7,8 @@ using Weapons;
 [Serializable]
 public class WeaponsModule : IWeaponsModule
 {
-    [SerializeField] private int _bullets = 100;
     [SerializeField] private GunType _initialGun = GunType.Pistol;
+    [SerializeField] private int _bullets = 100;
     [SerializeField] private List<Gun> _guns;
 
     public event Action<int> BulletsChanged;
@@ -34,15 +34,6 @@ public class WeaponsModule : IWeaponsModule
                 SpendBullets(CurrentGun.Consumption);
         }
     }
-    public void PullAutoTrigger()
-    {
-        if (Bullets - CurrentGun.Consumption >= 0
-            && CurrentGun.FireType == GunFireType.Auto)
-        {
-            if (CurrentGun.ShootRequest())
-                SpendBullets(CurrentGun.Consumption);
-        }
-    }
 
     public virtual void ChangeGun(GunType gunType)
     {
@@ -58,10 +49,8 @@ public class WeaponsModule : IWeaponsModule
 
     private void UpdateGunsVisible()
     {
-        int currentGunIndex = (int)CurrentGun.Type;
-
         for (int i = 0; i < Guns.Count; i++)
-            _guns[i].gameObject.SetActive(i == currentGunIndex);
+            _guns[i].gameObject.SetActive(CurrentGun.Type == _guns[i].Type);
     }
 
     public void AddBullets(int amount)

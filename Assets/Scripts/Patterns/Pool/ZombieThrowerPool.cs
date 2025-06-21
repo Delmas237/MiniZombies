@@ -1,17 +1,19 @@
 using EnemyLib;
-using ObjectPool;
 using UnityEngine;
 
-public class ZombieThrowerPool : EnemyPool
+namespace ObjectPool
 {
-    [SerializeField] private PoolBase<ZombieThrowerContainer> _throwerPool;
-    public override IPool<ZombieContainer> Pool => _throwerPool;
-
-    private void Awake()
+    public class ZombieThrowerPool : EnemyPool
     {
-        if (_throwerPool.Parent == null)
-            _throwerPool.Parent = transform;
+        [SerializeField] private PoolBase<ZombieThrowerContainer> _pool;
+        public override IPool<ZombieContainer> Pool => _pool;
 
-        _throwerPool.Initialize();
+        private void Awake()
+        {
+            if (_pool.Parent == null)
+                _pool.Parent = transform;
+
+            _pool.Initialize();
+        }
     }
 }

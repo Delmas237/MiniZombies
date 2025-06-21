@@ -692,8 +692,8 @@ MonoBehaviour:
     _cooldown: 2
     _shootDelay: 0.5
   _weaponsModule:
-    _bullets: 9999
     _initialGun: 0
+    _bullets: 0
     _guns:
     - {fileID: 7498342157292042901}
 --- !u!195 &3273963864776120562

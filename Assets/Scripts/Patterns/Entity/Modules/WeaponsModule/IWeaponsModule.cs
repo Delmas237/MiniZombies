@@ -16,7 +16,6 @@ public interface IWeaponsModule
     public void ChangeGun(GunType gunType);
 
     public void PullTrigger();
-    public void PullAutoTrigger();
 
     public void AddBullets(int amount);
     public void SpendBullets(int amount);

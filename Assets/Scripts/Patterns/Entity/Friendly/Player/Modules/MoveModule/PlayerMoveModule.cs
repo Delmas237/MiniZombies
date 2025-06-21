@@ -14,8 +14,8 @@ namespace PlayerLib
         [SerializeField] private float _defaultSpeed = 3.65f;
 
         [Header("Rotation Smoothness")]
-        [SerializeField] private float _rotationSmoothness = 13f;
-        [SerializeField] private float _autoRotationSmoothness = 12f;
+        [SerializeField] private float _rotationSpeed = 13f;
+        [SerializeField] private float _autoRotationSpeed = 12f;
         [Space(10)]
         [SerializeField] private float _timeToUpdateClosestEnemy = 0.35f;
         [SerializeField] private Joystick _moveJoystick;
@@ -75,7 +75,7 @@ namespace PlayerLib
             {
                 if (_weaponsModule.AttackJoystick.Direction != Vector2.zero)
                 {
-                    RotateToJoystickDir(_weaponsModule.AttackJoystick, _rotationSmoothness * Time.deltaTime);
+                    RotateToJoystickDir(_weaponsModule.AttackJoystick, _rotationSpeed * Time.deltaTime);
                 }
                 else if (_weaponsModule.AttackJoystick.UnPressedOrInDeadZoneTime > 0.15f)
                 {
@@ -85,7 +85,7 @@ namespace PlayerLib
                     }
                     else if (MoveJoystick.Direction != Vector2.zero && _weaponsModule.AttackJoystick.UnPressedOrInDeadZoneTime > 0.05f)
                     {
-                        RotateToJoystickDir(MoveJoystick, _rotationSmoothness * Time.deltaTime);
+                        RotateToJoystickDir(MoveJoystick, _rotationSpeed * Time.deltaTime);
                     }
                 }
             }
@@ -97,7 +97,7 @@ namespace PlayerLib
             closestEnemy = new Vector3(closestEnemy.x, 0, closestEnemy.z);
 
             _transform.rotation = Quaternion.Lerp(
-                _transform.rotation, Quaternion.LookRotation(closestEnemy), _autoRotationSmoothness * Time.deltaTime);
+                _transform.rotation, Quaternion.LookRotation(closestEnemy), _autoRotationSpeed * Time.deltaTime);
         }
 
         private void RotateToJoystickDir(Joystick joystick, float rotationSmoothness)

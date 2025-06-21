@@ -12,13 +12,13 @@ namespace Factory
 {
     public class ZombieFactory : IFactory<ZombieContainer>, IInstanceProvider<IEnemy>
     {
-        protected IEntity _target;
-        protected List<Transform> _spawnDots;
-        protected IInstanceProvider<AmmoPack> _ammoPackProvider;
-        protected IPool<ZombieContainer> _pool;
+        protected readonly IEntity _target;
+        protected readonly List<Transform> _spawnDots;
+        protected readonly IInstanceProvider<AmmoPack> _ammoPackProvider;
+        protected readonly IPool<ZombieContainer> _pool;
 
-        private readonly ZombieContainer[] _prefabs;
-        private readonly EnemyWaveBoostData _waveBoostData;
+        protected readonly ZombieContainer[] _prefabs;
+        protected readonly EnemyWaveBoostData _waveBoostData;
 
         public IPool<ZombieContainer> Pool => _pool;
         public ZombieContainer[] Prefabs => _prefabs;
@@ -78,7 +78,7 @@ namespace Factory
             return instance;
         }
 
-       public void ReconstructToDefault(ZombieContainer enemy)
+        public void ReconstructToDefault(ZombieContainer enemy)
         {
             if (enemy.TryGetComponent(out Rigidbody rb))
                 Object.Destroy(rb);
