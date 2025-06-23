@@ -1,3 +1,4 @@
+using EventBusLib;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,19 +16,30 @@ public class TurretRotationModule
     private IWeaponsModule _weaponsModule;
 
     private IEnemy _closestEnemy;
+    private bool _isFindingEnemy = true;
     private Coroutine _closestEnemyCoroutine;
 
+    public bool IsFindingEnemy => _isFindingEnemy;
     public IEnemy ClosestEnemy => _closestEnemy;
 
     public void Initialize(IWeaponsModule weaponsModule)
     {
         _weaponsModule = weaponsModule;
         _closestEnemyCoroutine = CoroutineHelper.StartRoutine(UpdateClosestEnemy());
+
+        EventBus.Subscribe<GameOverEvent>(OnGameOver);
+    }
+
+    private void OnGameOver(GameOverEvent gameOverEvent)
+    {
+        _isFindingEnemy = false;
+        CoroutineHelper.StopRoutine(_closestEnemyCoroutine);
+        _closestEnemyCoroutine = null;
     }
 
     public void Rotate()
     {
-        if (_closestEnemy != null)
+        if (_isFindingEnemy && _closestEnemy != null)
         {
             _weaponsModule.PullTrigger();
             RotateToClosestEnemy(_closestEnemy.Transform.position);
@@ -71,6 +83,8 @@ public class TurretRotationModule
 
     public void OnDestroy()
     {
-        CoroutineHelper.StopRoutine(_closestEnemyCoroutine);
+        if (_closestEnemyCoroutine != null)
+            CoroutineHelper.StopRoutine(_closestEnemyCoroutine);
+        EventBus.Unsubscribe<GameOverEvent>(OnGameOver);
     }
 }

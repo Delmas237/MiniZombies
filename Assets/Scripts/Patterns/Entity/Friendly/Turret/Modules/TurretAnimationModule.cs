@@ -42,7 +42,7 @@ public class TurretAnimationModule
         if (_healthModule.Health <= 0 || !_isInstalled)
             return;
 
-        if (_rotationModule.ClosestEnemy != null)
+        if (_rotationModule.IsFindingEnemy && _rotationModule.ClosestEnemy != null)
         {
             _animator.SetTrigger("Fire");
         }
