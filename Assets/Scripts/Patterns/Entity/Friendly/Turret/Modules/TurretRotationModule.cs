@@ -1,53 +1,27 @@
-using EventBusLib;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 [Serializable]
 public class TurretRotationModule
 {
     [SerializeField] private float _rotationSpeed = 13f;
-    [SerializeField] private float _timeToUpdateClosestEnemy = 0.35f;
-    [Space(10)]
     [SerializeField] private Transform _tower;
 
-    private IWeaponsModule _weaponsModule;
+    private TurretAttackModule _attackModule;
 
-    private IEnemy _closestEnemy;
-    private bool _isFindingEnemy = true;
-    private Coroutine _closestEnemyCoroutine;
-
-    public bool IsFindingEnemy => _isFindingEnemy;
-    public IEnemy ClosestEnemy => _closestEnemy;
-
-    public void Initialize(IWeaponsModule weaponsModule)
+    public void Initialize(TurretAttackModule attackModule)
     {
-        _weaponsModule = weaponsModule;
-        _closestEnemyCoroutine = CoroutineHelper.StartRoutine(UpdateClosestEnemy());
-
-        EventBus.Subscribe<GameOverEvent>(OnGameOver);
-    }
-
-    private void OnGameOver(GameOverEvent gameOverEvent)
-    {
-        _isFindingEnemy = false;
-        CoroutineHelper.StopRoutine(_closestEnemyCoroutine);
-        _closestEnemyCoroutine = null;
+        _attackModule = attackModule;
     }
 
     public void Rotate()
     {
-        if (_isFindingEnemy && _closestEnemy != null)
-        {
-            _weaponsModule.PullTrigger();
-            RotateToClosestEnemy(_closestEnemy.Transform.position);
-        }
+        if (_attackModule.IsFindingEnemy && _attackModule.ClosestEnemy != null)
+            RotateToTarget(_attackModule.ClosestEnemy.Transform.position);
     }
-    private void RotateToClosestEnemy(Vector3 closestEnemy)
+    private void RotateToTarget(Vector3 target)
     {
-        Vector3 direction = closestEnemy - _tower.position;
+        Vector3 direction = target - _tower.position;
         direction.y = 0;
 
         float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
@@ -55,36 +29,5 @@ public class TurretRotationModule
 
         float smoothedAngle = Mathf.LerpAngle(currentAngle, targetAngle, _rotationSpeed * Time.deltaTime);
         _tower.rotation = Quaternion.Euler(_tower.eulerAngles.x, smoothedAngle, _tower.eulerAngles.z);
-    }
-
-    private IEnumerator UpdateClosestEnemy()
-    {
-        while (true)
-        {
-            IReadOnlyList<IEnemy> closestEnemies = Spawner<IEnemy>.ObjectsOnScene;
-
-            bool enemyInRange = false;
-            IEnemy closestEnemy = null;
-            if (closestEnemies.Count > 0)
-            {
-                Vector3 position = _weaponsModule.CurrentGun.transform.position;
-                List<Transform> enemiesTransform = closestEnemies.Select(e => e.Transform).ToList();
-                Transform transform = ComponentSearcher<Transform>.Closest(position, enemiesTransform);
-                closestEnemy = closestEnemies[enemiesTransform.IndexOf(transform)];
-
-                float distanceToEnemy = Vector3.Distance(position, closestEnemy.Transform.position);
-                enemyInRange = distanceToEnemy <= _weaponsModule.CurrentGun.Distance;
-            }
-            _closestEnemy = enemyInRange ? closestEnemy : null;
-
-            yield return new WaitForSeconds(_timeToUpdateClosestEnemy);
-        }
-    }
-
-    public void OnDestroy()
-    {
-        if (_closestEnemyCoroutine != null)
-            CoroutineHelper.StopRoutine(_closestEnemyCoroutine);
-        EventBus.Unsubscribe<GameOverEvent>(OnGameOver);
     }
 }

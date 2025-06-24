@@ -1,37 +1,26 @@
 using System;
-using System.Collections;
 using UnityEngine;
 
 [Serializable]
 public class TurretAnimationModule
 {
     [SerializeField] private Animator _animator;
-    [SerializeField] private Motion _installMotion;
 
-    private bool _isInstalled;
     private IHealthModule _healthModule;
-    private TurretRotationModule _rotationModule;
+    private TurretAttackModule _attackModule;
 
-    public void Initialize(IHealthModule healthModule, TurretRotationModule rotationModule)
+    public void Initialize(IHealthModule healthModule, TurretAttackModule attackModule)
     {
         _healthModule = healthModule;
-        _rotationModule = rotationModule;
+        _attackModule = attackModule;
 
+        _attackModule.StartedInstalling += OnStartedInstalling;
         _healthModule.IsOver += OnHealthIsOver;
     }
-    private IEnumerator WaitInstallMotion()
+    private void OnStartedInstalling()
     {
-        yield return new WaitForSeconds(_installMotion.averageDuration);
-        _isInstalled = true;
-    }
-
-    public void InstallAnim()
-    {
-        _isInstalled = false;
         _animator.SetTrigger("Install");
-        CoroutineHelper.StartRoutine(WaitInstallMotion());
     }
-
     private void OnHealthIsOver()
     {
         _animator.SetTrigger("Death");
@@ -39,10 +28,10 @@ public class TurretAnimationModule
 
     public void UpdateState()
     {
-        if (_healthModule.Health <= 0 || !_isInstalled)
+        if (_healthModule.Health <= 0 || !_attackModule.IsInstalled)
             return;
 
-        if (_rotationModule.IsFindingEnemy && _rotationModule.ClosestEnemy != null)
+        if (_attackModule.IsFindingEnemy && _attackModule.ClosestEnemy != null)
         {
             _animator.SetTrigger("Fire");
         }
@@ -54,6 +43,7 @@ public class TurretAnimationModule
 
     public void OnDestroy()
     {
+        _attackModule.StartedInstalling -= OnStartedInstalling;
         _healthModule.IsOver -= OnHealthIsOver;
     }
 }

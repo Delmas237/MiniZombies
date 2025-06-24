@@ -56,7 +56,7 @@ namespace Factory
         }
         public void Construct(TurretContainer prefab)
         {
-            prefab.AnimationModule.InstallAnim();
+            prefab.AttackModule.Install();
         }
 
         public TurretContainer NewInstance() => Object.Instantiate(Prefabs[Random.Range(0, Prefabs.Length)]);

@@ -5,6 +5,7 @@ public class TurretContainer : MonoBehaviour, IFriendly
     [Header("Modules")]
     [SerializeField] protected HealthModule _healthModule;
     [SerializeField] protected WeaponsModule _weaponsModule;
+    [SerializeField] protected TurretAttackModule _attackModule;
     [SerializeField] protected TurretRotationModule _rotationModule;
     [SerializeField] protected TurretAnimationModule _animationModule;
     [SerializeField] protected EntityAudioModule _audioModule;
@@ -12,6 +13,7 @@ public class TurretContainer : MonoBehaviour, IFriendly
     public Transform Transform => transform;
     public IHealthModule HealthModule => _healthModule;
     public IWeaponsModule WeaponsModule => _weaponsModule;
+    public TurretAttackModule AttackModule => _attackModule;
     public TurretRotationModule RotationModule => _rotationModule;
     public TurretAnimationModule AnimationModule => _animationModule;
 
@@ -20,8 +22,9 @@ public class TurretContainer : MonoBehaviour, IFriendly
         _healthModule.Initialize();
         _audioModule.Initialize(HealthModule);
         _weaponsModule.Initialize();
-        _rotationModule.Initialize(WeaponsModule);
-        _animationModule.Initialize(HealthModule, RotationModule);
+        _attackModule.Initialize(WeaponsModule);
+        _rotationModule.Initialize(AttackModule);
+        _animationModule.Initialize(HealthModule, AttackModule);
 
         _healthModule.IsOver += OnHealhIsOver;
     }
@@ -32,6 +35,7 @@ public class TurretContainer : MonoBehaviour, IFriendly
 
     private void Update()
     {
+        _attackModule.Attack();
         _rotationModule.Rotate();
         _animationModule.UpdateState();
     }
@@ -39,7 +43,7 @@ public class TurretContainer : MonoBehaviour, IFriendly
     private void OnDestroy()
     {
         _healthModule.IsOver -= OnHealhIsOver;
-        _rotationModule.OnDestroy();
+        _attackModule.OnDestroy();
         _animationModule.OnDestroy();
     }
 }
