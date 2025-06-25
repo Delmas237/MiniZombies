@@ -24,6 +24,7 @@ public class TurretAttackModule
     public bool IsInstalled => _isInstalled;
     public bool IsFindingEnemy => _isFindingEnemy;
     public IEnemy ClosestEnemy => _closestEnemy;
+    public float Cooldown => _weaponsModule.CurrentGun.Cooldown;
 
     public void Initialize(IWeaponsModule weaponsModule)
     {

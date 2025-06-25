@@ -17,7 +17,7 @@ public class TurretContainer : MonoBehaviour, IFriendly
     public TurretRotationModule RotationModule => _rotationModule;
     public TurretAnimationModule AnimationModule => _animationModule;
 
-    private void Awake()
+    private void Start()
     {
         _healthModule.Initialize();
         _audioModule.Initialize(HealthModule);

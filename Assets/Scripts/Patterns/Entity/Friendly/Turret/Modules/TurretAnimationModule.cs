@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [Serializable]
@@ -14,9 +16,28 @@ public class TurretAnimationModule
         _healthModule = healthModule;
         _attackModule = attackModule;
 
+        float fireLength = GetAnimationClipLength("Fire");
+        _animator.SetFloat("FireSpeed", fireLength / attackModule.Cooldown);
+
         _attackModule.StartedInstalling += OnStartedInstalling;
         _healthModule.IsOver += OnHealthIsOver;
     }
+    private float GetAnimationClipLength(string name)
+    {
+        List<AnimationClip> clips = _animator.runtimeAnimatorController.animationClips.ToList();
+        AnimationClip clip = clips.Find(c => c.name == name);
+
+        if (clip != null)
+        {
+            return clip.length;
+        }
+        else
+        {
+            Debug.LogWarning($"Animation '{name}' is not founded");
+            return 1f;
+        }
+    }
+
     private void OnStartedInstalling()
     {
         _animator.SetTrigger("Install");
