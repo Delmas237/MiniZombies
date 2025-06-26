@@ -4,10 +4,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Weapons;
 
 [Serializable]
 public class TurretAttackModule
 {
+    [SerializeField] private Transform _visibilityZone;
+    [SerializeField] private float _defaultVisibilityZoneScale = 0.21f;
+    [Space(10)]
     [SerializeField] private float _timeToUpdateClosestEnemy = 0.35f;
     [Space(10)]
     [SerializeField] private Motion _installMotion;
@@ -30,9 +34,17 @@ public class TurretAttackModule
     {
         _weaponsModule = weaponsModule;
         _closestEnemyCoroutine = CoroutineHelper.StartRoutine(UpdateClosestEnemy());
+        UpdateVisibilityZone();
 
+        _weaponsModule.GunChanged += UpdateVisibilityZone;
         EventBus.Subscribe<GameOverEvent>(OnGameOver);
     }
+    private void UpdateVisibilityZone(Gun gun) => UpdateVisibilityZone();
+    private void UpdateVisibilityZone()
+    {
+        _visibilityZone.localScale = _defaultVisibilityZoneScale * _weaponsModule.CurrentGun.Distance * Vector3.one;
+    }
+
     private void OnGameOver(GameOverEvent gameOverEvent)
     {
         _isFindingEnemy = false;
@@ -89,6 +101,7 @@ public class TurretAttackModule
         if (_closestEnemyCoroutine != null)
             CoroutineHelper.StopRoutine(_closestEnemyCoroutine);
 
+        _weaponsModule.GunChanged -= UpdateVisibilityZone;
         EventBus.Unsubscribe<GameOverEvent>(OnGameOver);
     }
 }
