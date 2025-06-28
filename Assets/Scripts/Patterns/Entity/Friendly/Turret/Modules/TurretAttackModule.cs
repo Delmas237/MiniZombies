@@ -101,7 +101,8 @@ public class TurretAttackModule
         if (_closestEnemyCoroutine != null)
             CoroutineHelper.StopRoutine(_closestEnemyCoroutine);
 
-        _weaponsModule.GunChanged -= UpdateVisibilityZone;
+        if (_weaponsModule != null)
+            _weaponsModule.GunChanged -= UpdateVisibilityZone;
         EventBus.Unsubscribe<GameOverEvent>(OnGameOver);
     }
 }

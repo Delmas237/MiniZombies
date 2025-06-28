@@ -32,6 +32,30 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3f81ef94df048474d9c42216aa3e2d9c
+    m_Address: Guns/PistolData.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Guns
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9af2f1d7d87c6cb47bf0a4ecaaf60c51
+    m_Address: Guns/RifleData.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Guns
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 57d7f07fefec2274bb98f8f3ee8ddf5f
+    m_Address: Guns/ShotgunData.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Guns
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c4ee5e1a09ad3b547b0c710307f20a40
+    m_Address: Guns/MachineGunData.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Guns
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 577acd81eb95ba14bbcc4c01d0e90e45, type: 2}
   m_SchemaSet:

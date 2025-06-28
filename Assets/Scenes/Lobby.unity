@@ -5951,6 +5951,50 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 596672b68d7f1114fbad12d5678d54f8, type: 3}
   m_PrefabInstance: {fileID: 783826182}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &785763174
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 785763176}
+  - component: {fileID: 785763175}
+  m_Layer: 0
+  m_Name: CoroutineHelper
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &785763175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 785763174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc9a7d32b7b8c7142b08f6eb639cf3fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &785763176
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 785763174}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &797538918 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 477521500200552015, guid: e1810b681bfc5e74893bff9ba30f1b24, type: 3}
@@ -16575,7 +16619,7 @@ MonoBehaviour:
       _upText: {fileID: 436462789}
       _infoText: {fileID: 1054906560}
       _purchaseButton: {fileID: 1904299313}
-  _dataPath: Data/GlobalShopData
+  _dataKey: GlobalShopData
 --- !u!1001 &2088340197
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17218,3 +17262,4 @@ SceneRoots:
   - {fileID: 1075920146}
   - {fileID: 1715613868}
   - {fileID: 197731826}
+  - {fileID: 785763176}

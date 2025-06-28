@@ -64,7 +64,9 @@ public class TurretAnimationModule
 
     public void OnDestroy()
     {
-        _attackModule.StartedInstalling -= OnStartedInstalling;
-        _healthModule.IsOver -= OnHealthIsOver;
+        if (_attackModule != null)
+            _attackModule.StartedInstalling -= OnStartedInstalling;
+        if (_healthModule != null)
+            _healthModule.IsOver -= OnHealthIsOver;
     }
 }

@@ -20,7 +20,7 @@ public class LobbyUI : MonoBehaviour
         _coinsText.text = amount.ToString();
     }
 
-    public void Play() => SceneManager.LoadScene("Game");
+    public void Play() => SceneManager.LoadScene("Gameplay");
 
     private void OnDestroy()
     {

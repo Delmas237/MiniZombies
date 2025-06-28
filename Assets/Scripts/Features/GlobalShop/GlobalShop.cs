@@ -16,9 +16,12 @@ namespace GlobalShopLib
 
         private void Awake()
         {
-            StartCoroutine(Initialize());
+            GunsDataSaver.Initialize();
+            GunsDataSaver.Initialized += Initialize;
         }
-        private IEnumerator Initialize()
+
+        private void Initialize() => StartCoroutine(InitializeCor());
+        private IEnumerator InitializeCor()
         {
             yield return StartCoroutine(LoadData());
 
@@ -54,10 +57,10 @@ namespace GlobalShopLib
 
         private void OnDestroy()
         {
+            GunsDataSaver.Initialized -= Initialize;
+
             foreach (var item in _items)
-            {
                 item.Updated -= GunsDataSaver.Save;
-            }
         }
     }
 }
