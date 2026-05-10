@@ -4,8 +4,8 @@ namespace PlayerLib
 {
     public interface IPlayerMoveModule : IMoveModule
     {
-        public bool IsMoving { get; }
-        public Joystick MoveJoystick { get; }
-        public bool IsTraking { get; }
+        bool IsMoving { get; }
+        Joystick MoveJoystick { get; }
+        bool IsTraking { get; }
     }
 }

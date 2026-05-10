@@ -2,13 +2,13 @@ using System;
 
 public interface IHealthModule
 {
-    public event Action Decreased;
-    public event Action Increased;
-    public event Action IsOver;
+    event Action Decreased;
+    event Action Increased;
+    event Action IsOver;
 
-    public float MaxHealth { get; set; }
-    public float Health { get; }
+    float MaxHealth { get; set; }
+    float Health { get; }
 
-    public void Decrease(float value);
-    public void Increase(float value);
+    void Decrease(float value);
+    void Increase(float value);
 }

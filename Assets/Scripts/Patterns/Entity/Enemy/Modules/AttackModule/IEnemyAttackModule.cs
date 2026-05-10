@@ -2,9 +2,9 @@ namespace EnemyLib
 {
     public interface IEnemyAttackModule
     {
-        public bool IsAttack { get; set; }
-        public float Speed { get; set; }
-        public float DefaultSpeed { get; }
-        public int Damage { get; }
+        bool IsAttack { get; set; }
+        float Speed { get; set; }
+        float DefaultSpeed { get; }
+        int Damage { get; }
     }
 }

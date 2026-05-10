@@ -3,6 +3,6 @@ using Weapons;
 
 public interface IEnemy : IEntity
 {
-    public IEnemyMoveModule MoveModule { get; }
-    public DropAmmoAfterDeathModule DropAmmoAfterDeathModule { get; }
+    IEnemyMoveModule MoveModule { get; }
+    DropAmmoAfterDeathModule DropAmmoAfterDeathModule { get; }
 }

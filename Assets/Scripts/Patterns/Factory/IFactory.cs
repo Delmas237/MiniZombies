@@ -2,10 +2,10 @@ namespace Factory
 {
     public interface IFactory<T>
     {
-        public T[] Prefabs { get; }
+        T[] Prefabs { get; }
 
-        public T NewInstance();
-        public void ReconstructToDefault(T prefab);
-        public void Construct(T prefab);
+        T NewInstance();
+        void ReconstructToDefault(T prefab);
+        void Construct(T prefab);
     }
 }

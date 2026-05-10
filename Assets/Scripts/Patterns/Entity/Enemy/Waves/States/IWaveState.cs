@@ -5,7 +5,7 @@ namespace WavesLib
 {
     public interface IWaveState
     {
-        public IEnumerator Control(Func<IEnumerator> nextWaveOrRecheck);
-        public void UpdateUIInfo();
+        IEnumerator Control(Func<IEnumerator> nextWaveOrRecheck);
+        void UpdateUIInfo();
     }
 }

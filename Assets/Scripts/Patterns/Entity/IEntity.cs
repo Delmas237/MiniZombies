@@ -2,6 +2,6 @@ using UnityEngine;
 
 public interface IEntity
 {
-    public Transform Transform { get; }
-    public IHealthModule HealthModule { get; }
+    Transform Transform { get; }
+    IHealthModule HealthModule { get; }
 }

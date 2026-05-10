@@ -4,8 +4,8 @@ namespace EnemyLib
 {
     public interface IEnemyMoveModule : IMoveModule
     {
-        public NavMeshAgent Agent { get; }
-        public IEntity Target { get; set; }
-        public float Speed { get; set; }
+        NavMeshAgent Agent { get; }
+        IEntity Target { get; set; }
+        float Speed { get; set; }
     }
 }

@@ -4,19 +4,19 @@ using Weapons;
 
 public interface IWeaponsModule
 {
-    public event Action<int> BulletsChanged;
-    public event Action<Gun> GunChanged;
+    event Action<int> BulletsChanged;
+    event Action<Gun> GunChanged;
 
-    public Gun CurrentGun { get; }
-    public int Bullets { get; }
-    public GunType InitialGun { get; }
-    public IReadOnlyList<Gun> Guns { get; }
+    Gun CurrentGun { get; }
+    int Bullets { get; }
+    GunType InitialGun { get; }
+    IReadOnlyList<Gun> Guns { get; }
 
-    public void SetInitialGun();
-    public void ChangeGun(GunType gunType);
+    void SetInitialGun();
+    void ChangeGun(GunType gunType);
 
-    public void PullTrigger();
+    void PullTrigger();
 
-    public void AddBullets(int amount);
-    public void SpendBullets(int amount);
+    void AddBullets(int amount);
+    void SpendBullets(int amount);
 }
