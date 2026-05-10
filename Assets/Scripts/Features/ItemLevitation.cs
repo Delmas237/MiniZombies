@@ -32,7 +32,7 @@ public class ItemLevitation : MonoBehaviour
             MoveInDir(ref _currentSpeed.y, _speed.y, _startPos.y, transform.position.y, _moveArea.y);
             MoveInDir(ref _currentSpeed.z, _speed.z, _startPos.z, transform.position.z, _moveArea.z);
 
-            _rb.velocity = _currentSpeed;
+            _rb.linearVelocity = _currentSpeed;
         }
     }
 

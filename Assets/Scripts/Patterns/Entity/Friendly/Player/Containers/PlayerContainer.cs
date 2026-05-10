@@ -30,7 +30,7 @@ namespace PlayerLib
         }
         private void OnHealhIsOver()
         {
-            _moveModule.Rigidbody.velocity /= 2;
+            _moveModule.Rigidbody.linearVelocity /= 2;
         }
 
         private void Update()

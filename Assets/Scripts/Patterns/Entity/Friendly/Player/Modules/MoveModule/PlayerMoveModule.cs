@@ -65,7 +65,7 @@ namespace PlayerLib
                 if (moveInput.sqrMagnitude > 1f)
                     moveInput.Normalize();
 
-                _rigidbody.velocity = new Vector3(moveInput.x * _defaultSpeed, _rigidbody.velocity.y, moveInput.y * _defaultSpeed);
+                _rigidbody.linearVelocity = new Vector3(moveInput.x * _defaultSpeed, _rigidbody.linearVelocity.y, moveInput.y * _defaultSpeed);
             }
         }
 
