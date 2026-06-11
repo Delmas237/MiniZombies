@@ -62,7 +62,7 @@ namespace PlayerLib
                 reward += _completedAllWavesReward;
 
             int intReward = Mathf.RoundToInt(reward);
-            Bank.Add(intReward);
+            Bank.Earn(intReward);
 
             EventBus.Invoke(new RewardedEvent(intReward));
         }

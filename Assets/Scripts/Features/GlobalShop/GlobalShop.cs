@@ -52,7 +52,7 @@ namespace GlobalShopLib
         private void Cheats()
         {
             if (Input.GetKeyDown(KeyCode.N))
-                Bank.Add(100);
+                Bank.Earn(100);
         }
 
         private void OnDestroy()

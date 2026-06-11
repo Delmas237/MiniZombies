@@ -30,7 +30,7 @@ public static class Bank
         PlayerPrefs.Save();
     }
 
-    public static void Add(int amount)
+    public static void Earn(int amount)
     {
         if (!_initialized)
             Load();
