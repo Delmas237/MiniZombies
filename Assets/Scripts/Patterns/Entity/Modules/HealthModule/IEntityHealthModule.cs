@@ -1,6 +1,6 @@
 using System;
 
-public interface IHealthModule
+public interface IEntityHealthModule
 {
     event Action Decreased;
     event Action Increased;

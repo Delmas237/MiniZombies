@@ -5,7 +5,7 @@ using UnityEngine.AI;
 namespace EnemyLib
 {
     [Serializable]
-    public class EnemyMoveModule : IEnemyMoveModule
+    public class EnemyMovementModule : IEnemyMovementModule
     {
         [SerializeField] protected float _defaultSpeed = 3.7f;
         

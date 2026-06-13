@@ -1,8 +1,8 @@
 using EnemyLib;
 using Weapons;
 
-public interface IEnemy : IEntity
+public interface IHostile : IEntity
 {
-    IEnemyMoveModule MoveModule { get; }
+    IEnemyMovementModule MovementModule { get; }
     DropAmmoAfterDeathModule DropAmmoAfterDeathModule { get; }
 }

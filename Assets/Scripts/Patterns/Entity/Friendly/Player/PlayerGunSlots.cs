@@ -10,7 +10,7 @@ namespace PlayerLib
         [SerializeField] private List<Image> _slotsImages;
         [SerializeField] private AudioSource _getGunSound;
         [Space(10)]
-        [SerializeField] private PlayerContainer _player;
+        [SerializeField] private PlayerEntity _player;
 
         private List<GunType?> _slots = new List<GunType?>();
 
@@ -20,6 +20,19 @@ namespace PlayerLib
 
         private void Start()
         {
+            if (GunsDataSaver.IsInitialized)
+                Initialize();
+            else
+            {
+                GunsDataSaver.Initialize();
+                GunsDataSaver.Initialized += Initialize;
+            }
+        }
+
+        private void Initialize()
+        {
+            GunsDataSaver.Initialized -= Initialize;
+
             SetInitialGun();
             UpdateSlotsImages();
         }

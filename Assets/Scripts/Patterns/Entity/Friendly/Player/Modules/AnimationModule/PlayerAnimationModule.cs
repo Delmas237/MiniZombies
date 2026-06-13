@@ -13,20 +13,20 @@ namespace PlayerLib
 
         private Animator _animator;
 
-        private IHealthModule _healthModule;
-        private IWeaponsModule _weaponsModule;
-        private IPlayerMoveModule _moveModule;
+        private IEntityHealthModule _healthModule;
+        private IWeaponModule _weaponModule;
+        private IPlayerMovementModule _moveModule;
 
-        public void Initialize(IHealthModule healthModule, IWeaponsModule weaponsModule, IPlayerMoveModule moveModule, 
+        public void Initialize(IEntityHealthModule healthModule, IWeaponModule weaponModule, IPlayerMovementModule moveModule, 
             Animator animator)
         {
             _healthModule = healthModule;
-            _weaponsModule = weaponsModule;
+            _weaponModule = weaponModule;
             _moveModule = moveModule;
 
             _animator = animator;
 
-            _weaponsModule.GunChanged += CurrentGunAnim;
+            _weaponModule.GunChanged += CurrentGunAnim;
             _healthModule.IsOver += OnHealhIsOver;
             _healthModule.IsOver += DeathAnim;
 
@@ -34,7 +34,7 @@ namespace PlayerLib
         }
         private void OnHealhIsOver()
         {
-            _weaponsModule.GunChanged -= CurrentGunAnim;
+            _weaponModule.GunChanged -= CurrentGunAnim;
             _healthModule.IsOver -= OnHealhIsOver;
             _healthModule.IsOver -= DeathAnim;
         }

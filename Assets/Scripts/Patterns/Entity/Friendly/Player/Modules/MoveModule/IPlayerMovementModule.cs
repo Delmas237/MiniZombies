@@ -2,7 +2,7 @@ using JoystickLib;
 
 namespace PlayerLib
 {
-    public interface IPlayerMoveModule : IMoveModule
+    public interface IPlayerMovementModule : IMovementModule
     {
         bool IsMoving { get; }
         Joystick MoveJoystick { get; }

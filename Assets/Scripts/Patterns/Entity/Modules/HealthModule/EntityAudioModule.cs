@@ -12,9 +12,9 @@ public class EntityAudioModule
     [Space(10)]
     [SerializeField] protected float _deathPitchRandomRange;
 
-    private IHealthModule _healthModule;
+    private IEntityHealthModule _healthModule;
 
-    public virtual void Initialize(IHealthModule healthModule)
+    public virtual void Initialize(IEntityHealthModule healthModule)
     {
         _healthModule = healthModule;
 

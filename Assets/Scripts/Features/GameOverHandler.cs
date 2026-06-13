@@ -5,7 +5,7 @@ using WavesLib;
 
 public class GameOverHandler : MonoBehaviour
 {
-    [SerializeField] private PlayerContainer _playerContainer;
+    [SerializeField] private PlayerEntity _playerContainer;
     [SerializeField] private EnemyWaveManager _enemyWaveManager;
 
     private void Start()

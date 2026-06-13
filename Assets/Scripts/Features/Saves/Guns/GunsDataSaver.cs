@@ -9,7 +9,8 @@ namespace Weapons
 {
     public static class GunsDataSaver
     {
-        private static bool _initialized;
+        private static bool _isInitializing;
+        private static bool _isInitialized;
         private static string _dataKey = "Guns";
 
         private static IDataSaver<GunSavableData> _dataSaver;
@@ -19,12 +20,22 @@ namespace Weapons
 
         public static event Action Initialized;
 
-        public static IReadOnlyDictionary<GunType, GunData> GunsData => _gunsData;
+        public static bool IsInitialized => _isInitialized;
+
+        public static IReadOnlyDictionary<GunType, GunData> GunsData
+        {
+            get
+            {
+                if (!_isInitialized)
+                    Initialize();
+                return _gunsData;
+            }
+        }
         public static IReadOnlyDictionary<GunType, GunSavableData> GunsSavableData
         {
             get
             {
-                if (!_initialized)
+                if (!_isInitialized)
                     Initialize();
                 return _gunsSavableData;
             }
@@ -32,10 +43,10 @@ namespace Weapons
 
         public static void Initialize()
         {
-            if (_initialized)
+            if (_isInitialized || _isInitializing)
                 return;
 
-            _initialized = true;
+            _isInitializing = true;
             CoroutineHelper.StartRoutine(InitializeCor());
         }
         private static IEnumerator InitializeCor()
@@ -56,12 +67,14 @@ namespace Weapons
             _dataSaver = new JsonGunsDataSaver();
             Load();
 
+            _isInitializing = false;
+            _isInitialized = true;
             Initialized?.Invoke();
         }
 
         private static void Load()
         {
-            if (!_initialized)
+            if (!_isInitialized)
                 Initialize();
 
             List<GunSavableData> data = _dataSaver.Load();
@@ -72,7 +85,7 @@ namespace Weapons
 
         public static void Save(GunSavableData data)
         {
-            if (!_initialized)
+            if (!_isInitialized)
                 Initialize();
 
             _dataSaver.Save(data);
@@ -80,7 +93,7 @@ namespace Weapons
 
         public static bool InitializeGun(Gun gun)
         {
-            if (!_initialized)
+            if (!_isInitialized)
                 Initialize();
 
             if (_gunsSavableData.ContainsKey(gun.Type))

@@ -2,27 +2,27 @@ using UnityEngine;
 
 namespace PlayerLib
 {
-    public class PlayerContainer : MonoBehaviour, IPlayer
+    public class PlayerEntity : MonoBehaviour, IPlayer
     {
         [Header("Modules")]
         [SerializeField] protected CurrencyModule _currencyModule;
-        [SerializeField] protected HealthModule _healthModule;
+        [SerializeField] protected EntityHealthModule _healthModule;
         [SerializeField] protected PlayerWeaponsModule _weaponsModule;
-        [SerializeField] protected PlayerMoveModule _moveModule;
+        [SerializeField] protected PlayerMovementModule _moveModule;
         [SerializeField] protected PlayerAnimationModule _animationModule;
         [SerializeField] protected EntityAudioModule _audioModule;
 
         public Transform Transform => transform;
         public ICurrencyModule CurrencyModule => _currencyModule;
-        public IHealthModule HealthModule => _healthModule;
-        public IPlayerWeaponsModule WeaponsModule => _weaponsModule;
-        public IPlayerMoveModule MoveModule => _moveModule;
+        public IEntityHealthModule HealthModule => _healthModule;
+        public IPlayerWeaponModule WeaponsModule => _weaponsModule;
+        public IPlayerMovementModule MovementModule => _moveModule;
 
         private void Awake()
         {
             _healthModule.Initialize();
             _audioModule.Initialize(HealthModule);
-            _animationModule.Initialize(HealthModule, WeaponsModule, MoveModule, GetComponent<Animator>());
+            _animationModule.Initialize(HealthModule, WeaponsModule, MovementModule, GetComponent<Animator>());
             _weaponsModule.Initialize(HealthModule);
             _moveModule.Initialize(WeaponsModule, transform, GetComponent<Rigidbody>());
 

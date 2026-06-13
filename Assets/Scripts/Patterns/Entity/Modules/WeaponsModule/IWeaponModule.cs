@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Weapons;
 
-public interface IWeaponsModule
+public interface IWeaponModule
 {
     event Action<int> BulletsChanged;
     event Action<Gun> GunChanged;

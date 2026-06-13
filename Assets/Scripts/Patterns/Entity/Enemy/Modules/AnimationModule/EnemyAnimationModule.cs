@@ -7,14 +7,14 @@ namespace EnemyLib
     [Serializable]
     public class EnemyAnimationModule
     {
-        private IHealthModule _healthModule;
-        private IEnemyMoveModule _moveModule;
+        private IEntityHealthModule _healthModule;
+        private IEnemyMovementModule _moveModule;
         private IEnemyAttackModule _attackModule;
         private Animator _animator;
 
         public const float DEFAULT_MOVE_SPEED = 3.7f;
 
-        public void Initialize(IHealthModule healthModule, IEnemyMoveModule moveModule, IEnemyAttackModule attackModule, 
+        public void Initialize(IEntityHealthModule healthModule, IEnemyMovementModule moveModule, IEnemyAttackModule attackModule, 
             Animator animator)
         {
             _healthModule = healthModule;

@@ -13,7 +13,7 @@ namespace WavesLib
         [Space(10)]
         [SerializeField, Range(0, 1f)] protected float _nightChance = 0.3f;
         [Space(10)]
-        [SerializeField] protected Spawner<IEnemy> _spawner;
+        [SerializeField] protected Spawner<IHostile> _spawner;
         [SerializeField] protected TextMeshProUGUI _text;
 
         public abstract Wave Construct(int boost);

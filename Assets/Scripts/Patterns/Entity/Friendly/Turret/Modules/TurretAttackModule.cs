@@ -17,9 +17,9 @@ public class TurretAttackModule
     [SerializeField] private Motion _installMotion;
 
     private bool _isInstalled;
-    private IWeaponsModule _weaponsModule;
+    private IWeaponModule _weaponModule;
 
-    private IEnemy _closestEnemy;
+    private IHostile _closestEnemy;
     private bool _isFindingEnemy = true;
     private Coroutine _closestEnemyCoroutine;
 
@@ -27,22 +27,22 @@ public class TurretAttackModule
 
     public bool IsInstalled => _isInstalled;
     public bool IsFindingEnemy => _isFindingEnemy;
-    public IEnemy ClosestEnemy => _closestEnemy;
-    public float Cooldown => _weaponsModule.CurrentGun.Cooldown;
+    public IHostile ClosestEnemy => _closestEnemy;
+    public float Cooldown => _weaponModule.CurrentGun.Cooldown;
 
-    public void Initialize(IWeaponsModule weaponsModule)
+    public void Initialize(IWeaponModule weaponModule)
     {
-        _weaponsModule = weaponsModule;
+        _weaponModule = weaponModule;
         _closestEnemyCoroutine = CoroutineHelper.StartRoutine(UpdateClosestEnemy());
         UpdateVisibilityZone();
 
-        _weaponsModule.GunChanged += UpdateVisibilityZone;
+        _weaponModule.GunChanged += UpdateVisibilityZone;
         EventBus.Subscribe<GameOverEvent>(OnGameOver);
     }
     private void UpdateVisibilityZone(Gun gun) => UpdateVisibilityZone();
     private void UpdateVisibilityZone()
     {
-        _visibilityZone.localScale = _defaultVisibilityZoneScale * _weaponsModule.CurrentGun.Distance * Vector3.one;
+        _visibilityZone.localScale = _defaultVisibilityZoneScale * _weaponModule.CurrentGun.Distance * Vector3.one;
     }
 
     private void OnGameOver(GameOverEvent gameOverEvent)
@@ -68,7 +68,7 @@ public class TurretAttackModule
     {
         if (_isInstalled && _isFindingEnemy && _closestEnemy != null)
         {
-            _weaponsModule.PullTrigger();
+            _weaponModule.PullTrigger();
         }
     }
 
@@ -76,19 +76,19 @@ public class TurretAttackModule
     {
         while (true)
         {
-            IReadOnlyList<IEnemy> closestEnemies = Spawner<IEnemy>.ObjectsOnScene;
+            IReadOnlyList<IHostile> closestEnemies = Spawner<IHostile>.ObjectsOnScene;
 
             bool enemyInRange = false;
-            IEnemy closestEnemy = null;
+            IHostile closestEnemy = null;
             if (closestEnemies.Count > 0)
             {
-                Vector3 position = _weaponsModule.CurrentGun.transform.position;
+                Vector3 position = _weaponModule.CurrentGun.transform.position;
                 List<Transform> enemiesTransform = closestEnemies.Select(e => e.Transform).ToList();
                 Transform transform = ComponentSearcher<Transform>.Closest(position, enemiesTransform);
                 closestEnemy = closestEnemies[enemiesTransform.IndexOf(transform)];
 
                 float distanceToEnemy = Vector3.Distance(position, closestEnemy.Transform.position);
-                enemyInRange = distanceToEnemy <= _weaponsModule.CurrentGun.Distance;
+                enemyInRange = distanceToEnemy <= _weaponModule.CurrentGun.Distance;
             }
             _closestEnemy = enemyInRange ? closestEnemy : null;
 
@@ -101,8 +101,8 @@ public class TurretAttackModule
         if (_closestEnemyCoroutine != null)
             CoroutineHelper.StopRoutine(_closestEnemyCoroutine);
 
-        if (_weaponsModule != null)
-            _weaponsModule.GunChanged -= UpdateVisibilityZone;
+        if (_weaponModule != null)
+            _weaponModule.GunChanged -= UpdateVisibilityZone;
         EventBus.Unsubscribe<GameOverEvent>(OnGameOver);
     }
 }

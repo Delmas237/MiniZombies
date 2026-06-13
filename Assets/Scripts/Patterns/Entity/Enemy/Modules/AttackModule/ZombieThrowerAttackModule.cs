@@ -9,7 +9,7 @@ namespace EnemyLib
         public IInstanceProvider<PoisonProjectile> ProjectileProvider { get; set; }
         public IInstanceProvider<ParticleSystem> ProjectileEffectProvider { get; set; }
 
-        public void Initialize(IEnemyMoveModule moveModule, Transform transform)
+        public void Initialize(IEnemyMovementModule moveModule, Transform transform)
         {
             _moveModule = moveModule;
             _transform = transform;

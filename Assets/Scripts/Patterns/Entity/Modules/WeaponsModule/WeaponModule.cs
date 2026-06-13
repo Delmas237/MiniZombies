@@ -5,7 +5,7 @@ using UnityEngine;
 using Weapons;
 
 [Serializable]
-public class WeaponsModule : IWeaponsModule
+public class WeaponModule : IWeaponModule
 {
     [SerializeField] private GunType _initialGun = GunType.Pistol;
     [SerializeField] private int _bullets = 100;

@@ -1,18 +1,18 @@
 using UnityEngine;
 
-public class TurretContainer : MonoBehaviour, IFriendly
+public class TurretEntity : MonoBehaviour, IFriendly
 {
     [Header("Modules")]
-    [SerializeField] protected HealthModule _healthModule;
-    [SerializeField] protected WeaponsModule _weaponsModule;
+    [SerializeField] protected EntityHealthModule _healthModule;
+    [SerializeField] protected WeaponModule _weaponsModule;
     [SerializeField] protected TurretAttackModule _attackModule;
     [SerializeField] protected TurretRotationModule _rotationModule;
     [SerializeField] protected TurretAnimationModule _animationModule;
     [SerializeField] protected EntityAudioModule _audioModule;
 
     public Transform Transform => transform;
-    public IHealthModule HealthModule => _healthModule;
-    public IWeaponsModule WeaponsModule => _weaponsModule;
+    public IEntityHealthModule HealthModule => _healthModule;
+    public IWeaponModule WeaponModule => _weaponsModule;
     public TurretAttackModule AttackModule => _attackModule;
     public TurretRotationModule RotationModule => _rotationModule;
     public TurretAnimationModule AnimationModule => _animationModule;
@@ -22,7 +22,7 @@ public class TurretContainer : MonoBehaviour, IFriendly
         _healthModule.Initialize();
         _audioModule.Initialize(HealthModule);
         _weaponsModule.Initialize();
-        _attackModule.Initialize(WeaponsModule);
+        _attackModule.Initialize(WeaponModule);
         _rotationModule.Initialize(AttackModule);
         _animationModule.Initialize(HealthModule, AttackModule);
 

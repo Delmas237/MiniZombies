@@ -13,7 +13,7 @@ namespace EnemyLib
 
         public override void Initialize(List<Transform> spawnPoses, IEntity target)
         {
-            _factory = new ZombieThrowerFactory((IPool<ZombieThrowerContainer>)_enemyPool.Pool, 
+            _factory = new ZombieThrowerFactory((IPool<ZombieThrowerEntity>)_enemyPool.Pool, 
                 _ammoPool.Pool, spawnPoses, target, _waveBoostData, _projectilePool.Pool, _projectileEffectPool.Pool);
         }
     }

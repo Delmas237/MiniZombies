@@ -13,12 +13,12 @@ namespace Weapons
         [SerializeField, Range(0f, 1f)] private float _dropChance = 1;
 
         private Transform _transform;
-        private IHealthModule _healthModule;
+        private IEntityHealthModule _healthModule;
 
         public IInstanceProvider<AmmoPack> AmmoProvider { get; set; }
         public bool Enabled => _enabled;
 
-        public void Initialize(IHealthModule healthModule, Transform transform)
+        public void Initialize(IEntityHealthModule healthModule, Transform transform)
         {
             if (_enabled)
             {

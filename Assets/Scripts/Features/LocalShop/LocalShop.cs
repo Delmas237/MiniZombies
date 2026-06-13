@@ -19,7 +19,7 @@ namespace LocalShopLib
         [Space(10f)]
         [SerializeField] private string _dataKey = "LocalShopData";
         [Space(10f)]
-        [SerializeField] private PlayerContainer _player;
+        [SerializeField] private PlayerEntity _player;
         [SerializeField] private PlayerGunSlots _playerGunSlots;
         [SerializeField] private TextMeshProUGUI _slotsText;
         [Space(10f)]
@@ -165,7 +165,7 @@ namespace LocalShopLib
                 }
                 else if (itemData.Name == "Turret")
                 {
-                    TurretContainer turretContainer = _turretFactory.GetInstance();
+                    TurretEntity turretContainer = _turretFactory.GetInstance();
                     turretContainer.transform.position = _player.Transform.position;
                     _player.CurrencyModule.Spend(itemData.Price);
                 }

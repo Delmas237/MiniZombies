@@ -8,10 +8,10 @@ public class TurretAnimationModule
 {
     [SerializeField] private Animator _animator;
 
-    private IHealthModule _healthModule;
+    private IEntityHealthModule _healthModule;
     private TurretAttackModule _attackModule;
 
-    public void Initialize(IHealthModule healthModule, TurretAttackModule attackModule)
+    public void Initialize(IEntityHealthModule healthModule, TurretAttackModule attackModule)
     {
         _healthModule = healthModule;
         _attackModule = attackModule;

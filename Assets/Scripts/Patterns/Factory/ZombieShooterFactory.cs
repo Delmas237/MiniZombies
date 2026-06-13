@@ -10,16 +10,16 @@ namespace Factory
     {
         protected IInstanceProvider<BulletTrail> _bulletPool;
 
-        public ZombieShooterFactory(IPool<ZombieShooterContainer> pool, IPool<AmmoPack> ammoPackPool, List<Transform> spawnDots, 
+        public ZombieShooterFactory(IPool<ZombieShooterEntity> pool, IPool<AmmoPack> ammoPackPool, List<Transform> spawnDots, 
             IEntity target, EnemyWaveBoostData waveBoostData, IInstanceProvider<BulletTrail> bulletPool) : base(pool, ammoPackPool, spawnDots, target, waveBoostData)
         {
             _bulletPool = bulletPool;
         }
 
-        public override IEnemy GetInstance()
+        public override IHostile GetInstance()
         {
-            var pool = (IInstanceProvider<ZombieShooterContainer>)_pool;
-            ZombieShooterContainer instance = pool.GetInstance();
+            var pool = (IInstanceProvider<ZombieShooterEntity>)_pool;
+            ZombieShooterEntity instance = pool.GetInstance();
 
             ReconstructToDefault(instance);
             Construct(instance);
@@ -27,10 +27,10 @@ namespace Factory
             return instance;
         }
 
-        protected void Construct(ZombieShooterContainer enemy)
+        protected void Construct(ZombieShooterEntity enemy)
         {
             base.Construct(enemy);
-            enemy.WeaponsModule.CurrentGun.BulletPool = _bulletPool;
+            enemy.WeaponModule.CurrentGun.BulletPool = _bulletPool;
         }
     }
 }

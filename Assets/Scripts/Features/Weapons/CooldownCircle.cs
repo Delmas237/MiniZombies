@@ -6,7 +6,7 @@ namespace Weapons
 {
     public class CooldownCircle : MonoBehaviour
     {
-        [SerializeField] private PlayerContainer _player;
+        [SerializeField] private PlayerEntity _player;
         private Image _image;
 
         private void Start()

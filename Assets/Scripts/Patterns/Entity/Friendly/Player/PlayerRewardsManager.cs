@@ -8,7 +8,7 @@ namespace PlayerLib
 {
     public class PlayerRewardsManager : MonoBehaviour
     {
-        [SerializeField] private PlayerContainer _player;
+        [SerializeField] private PlayerEntity _player;
         [SerializeField] private string _dataKey = "RewardData";
 
         private float _globalWaveReward;

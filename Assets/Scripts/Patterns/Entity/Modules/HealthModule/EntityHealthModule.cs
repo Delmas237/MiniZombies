@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [Serializable]
-public class HealthModule : IHealthModule
+public class EntityHealthModule : IEntityHealthModule
 {
     [SerializeField] private float _maxHealth = 100;
     private float _health;

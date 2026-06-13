@@ -12,12 +12,12 @@ namespace EnemyLib
         [SerializeField] protected AmmoPackPool _ammoPool;
         [SerializeField] protected EnemyPool _enemyPool;
 
-        protected IInstanceProvider<IEnemy> _factory;
+        protected IInstanceProvider<IHostile> _factory;
 
         public float Priority => _priority;
         public EnemyWaveBoostData EnemyWaveBoostData => _waveBoostData;
         public EnemyPool EnemyPool => _enemyPool;
-        public IInstanceProvider<IEnemy> Factory => _factory;
+        public IInstanceProvider<IHostile> Factory => _factory;
 
         public abstract void Initialize(List<Transform> spawnPoses, IEntity target);
     }

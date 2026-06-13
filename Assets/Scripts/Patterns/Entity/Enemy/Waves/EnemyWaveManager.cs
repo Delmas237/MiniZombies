@@ -37,7 +37,7 @@ namespace WavesLib
 
         private IEnumerator WaitTransition()
         {
-            yield return new WaitWhile(() => Spawner<IEnemy>.ObjectsOnScene.Count > 0);
+            yield return new WaitWhile(() => Spawner<IHostile>.ObjectsOnScene.Count > 0);
             CoroutineHelper.StartRoutine(Transition());
         }
 

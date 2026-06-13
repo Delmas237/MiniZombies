@@ -10,20 +10,20 @@ using Random = UnityEngine.Random;
 
 namespace Factory
 {
-    public class ZombieFactory : IFactory<ZombieContainer>, IInstanceProvider<IEnemy>
+    public class ZombieFactory : IFactory<ZombieEntity>, IInstanceProvider<IHostile>
     {
         protected readonly IEntity _target;
         protected readonly List<Transform> _spawnDots;
         protected readonly IInstanceProvider<AmmoPack> _ammoPackProvider;
-        protected readonly IPool<ZombieContainer> _pool;
+        protected readonly IPool<ZombieEntity> _pool;
 
-        protected readonly ZombieContainer[] _prefabs;
+        protected readonly ZombieEntity[] _prefabs;
         protected readonly EnemyWaveBoostData _waveBoostData;
 
-        public IPool<ZombieContainer> Pool => _pool;
-        public ZombieContainer[] Prefabs => _prefabs;
+        public IPool<ZombieEntity> Pool => _pool;
+        public ZombieEntity[] Prefabs => _prefabs;
 
-        public ZombieFactory(IPool<ZombieContainer> pool, IInstanceProvider<AmmoPack> ammoPackProvider, List<Transform> spawnDots, 
+        public ZombieFactory(IPool<ZombieEntity> pool, IInstanceProvider<AmmoPack> ammoPackProvider, List<Transform> spawnDots, 
             IEntity target, EnemyWaveBoostData waveBoostData)
         {
             _prefabs = pool.Prefabs;
@@ -33,7 +33,7 @@ namespace Factory
             _target = target;
             _waveBoostData = waveBoostData;
 
-            foreach (ZombieContainer enemy in Pool.Elements)
+            foreach (ZombieEntity enemy in Pool.Elements)
                 InitializeEnemy(enemy);
 
             _pool.Expanded += InitializeEnemy;
@@ -47,30 +47,30 @@ namespace Factory
             EventBus.Unsubscribe<GameExitEvent>(Unsubscribe);
         }
         
-        private void InitializeEnemy(ZombieContainer enemy)
+        private void InitializeEnemy(ZombieEntity enemy)
         {
-            enemy.MoveModule.Speed = enemy.MoveModule.DefaultSpeed;
+            enemy.MovementModule.Speed = enemy.MovementModule.DefaultSpeed;
             enemy.AttackModule.Speed = enemy.AttackModule.DefaultSpeed;
         }
 
         private void BoostEnemies(WaveFinishedEvent waveFinishedEvent)
         {
-            foreach (ZombieContainer enemy in Pool.Elements)
+            foreach (ZombieEntity enemy in Pool.Elements)
             {
                 enemy.HealthModule.MaxHealth = enemy.HealthModule.MaxHealth * (1 + _waveBoostData.HpPercent);
 
                 float randomX = Random.Range(0.9f, 1.15f);
                 float boosterValue = waveFinishedEvent.Number * _waveBoostData.WaveMultiplierSpeed;
                 float speedX = (float)Math.Round(randomX + boosterValue, 2);
-                enemy.MoveModule.Speed = enemy.MoveModule.DefaultSpeed * speedX;
-                enemy.MoveModule.Agent.speed = speedX;
+                enemy.MovementModule.Speed = enemy.MovementModule.DefaultSpeed * speedX;
+                enemy.MovementModule.Agent.speed = speedX;
                 enemy.AttackModule.Speed = speedX;
             }
         }
 
-        public virtual IEnemy GetInstance()
+        public virtual IHostile GetInstance()
         {
-            ZombieContainer instance = _pool.GetInstance();
+            ZombieEntity instance = _pool.GetInstance();
 
             ReconstructToDefault(instance);
             Construct(instance);
@@ -78,13 +78,13 @@ namespace Factory
             return instance;
         }
 
-        public void ReconstructToDefault(ZombieContainer enemy)
+        public void ReconstructToDefault(ZombieEntity enemy)
         {
             if (enemy.TryGetComponent(out Rigidbody rb))
                 Object.Destroy(rb);
 
-            if (enemy.MoveModule.Agent != null)
-                enemy.MoveModule.Agent.enabled = true;
+            if (enemy.MovementModule.Agent != null)
+                enemy.MovementModule.Agent.enabled = true;
 
             if (enemy.TryGetComponent(out CapsuleCollider collider))
             {
@@ -92,7 +92,7 @@ namespace Factory
                 collider.height = 1.9f;
             }
         }
-        public void Construct(ZombieContainer enemy)
+        public void Construct(ZombieEntity enemy)
         {
             List<Transform> spawnDotsCopy = new List<Transform>(_spawnDots);
             List<Transform> spawnDotsFurthest = new List<Transform>
@@ -105,7 +105,7 @@ namespace Factory
             Transform randSpawnDot = spawnDotsFurthest[Random.Range(0, spawnDotsFurthest.Count)];
             enemy.transform.SetPositionAndRotation(randSpawnDot.position, Quaternion.identity);
 
-            enemy.MoveModule.Target = _target;
+            enemy.MovementModule.Target = _target;
             enemy.HealthModule.Increase(enemy.HealthModule.MaxHealth);
 
             enemy.DropAmmoAfterDeathModule.AmmoProvider = _ammoPackProvider;
@@ -119,6 +119,6 @@ namespace Factory
             return transform;
         }
 
-        public ZombieContainer NewInstance() => Object.Instantiate(Prefabs[Random.Range(0, Prefabs.Length)]);
+        public ZombieEntity NewInstance() => Object.Instantiate(Prefabs[Random.Range(0, Prefabs.Length)]);
     }
 }

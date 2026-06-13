@@ -15,12 +15,12 @@ namespace WavesLib
         public int DestroyedObjects { get; private set; }
 
         public float SpawnSpeed { get; }
-        public Spawner<IEnemy> Spawner { get; }
+        public Spawner<IHostile> Spawner { get; }
         public TextMeshProUGUI Text { get; }
 
         public abstract IWaveState State { get; }
 
-        public Wave(Spawner<IEnemy> spawner, TextMeshProUGUI text, float spawnSpeed, float nightChance)
+        public Wave(Spawner<IHostile> spawner, TextMeshProUGUI text, float spawnSpeed, float nightChance)
         {
             float rndTimesOfDay = Random.Range(0, 1f);
             if (rndTimesOfDay <= nightChance)

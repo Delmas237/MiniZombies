@@ -14,8 +14,8 @@ namespace EnemyLib
         [SerializeField, Range(0, 3f)] private float _stopAttackSpeedRatio = 0.3f;
 
         private IEntity _targetCollision;
-        private IHealthModule _healthModule;
-        private IEnemyMoveModule _moveModule;
+        private IEntityHealthModule _healthModule;
+        private IEnemyMovementModule _moveModule;
 
         public bool IsAttack { get; set; }
         public float Speed { get; set; }
@@ -23,7 +23,7 @@ namespace EnemyLib
         public float DefaultSpeed => _defaultSpeed;
         public int Damage => _damage;
 
-        public void Initialize(IHealthModule healthModule, IEnemyMoveModule moveModule)
+        public void Initialize(IEntityHealthModule healthModule, IEnemyMovementModule moveModule)
         {
             _healthModule = healthModule;
             _moveModule = moveModule;

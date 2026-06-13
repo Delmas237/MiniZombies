@@ -3,10 +3,10 @@ using Weapons;
 
 namespace EnemyLib
 {
-    public abstract class ZombieContainer : MonoBehaviour, IEnemy
+    public abstract class ZombieEntity : MonoBehaviour, IHostile
     {
         [Header("Base Modules")]
-        [SerializeField] protected HealthModule _healthModule;
+        [SerializeField] protected EntityHealthModule _healthModule;
         [SerializeField] protected EnemyAnimationModule _animationModule;
         [SerializeField] protected EntityAudioModule _audioModule;
 
@@ -14,12 +14,12 @@ namespace EnemyLib
         [SerializeField] protected DelayedDisableEntityModule _delayedDisableModule;
         [SerializeField] protected DropAmmoAfterDeathModule _dropAmmoAfterDeathModule;
 
-        public IHealthModule HealthModule => _healthModule;
+        public IEntityHealthModule HealthModule => _healthModule;
         public DelayedDisableEntityModule DelayedDisableModule => _delayedDisableModule;
         public DropAmmoAfterDeathModule DropAmmoAfterDeathModule => _dropAmmoAfterDeathModule;
         public Transform Transform => transform;
 
-        public abstract IEnemyMoveModule MoveModule { get; }
+        public abstract IEnemyMovementModule MovementModule { get; }
         public abstract IEnemyAttackModule AttackModule { get; }
 
         protected virtual void Awake()

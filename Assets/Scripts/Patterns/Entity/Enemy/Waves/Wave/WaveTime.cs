@@ -7,7 +7,7 @@ namespace WavesLib
         public override IWaveState State { get; }
         public float Time { get; set; }
 
-        public WaveTime(Spawner<IEnemy> spawner, TextMeshProUGUI text, float spawnSpeed, float time, float nightChance) : 
+        public WaveTime(Spawner<IHostile> spawner, TextMeshProUGUI text, float spawnSpeed, float time, float nightChance) : 
             base(spawner, text, spawnSpeed, nightChance)
         {
             Time = time;

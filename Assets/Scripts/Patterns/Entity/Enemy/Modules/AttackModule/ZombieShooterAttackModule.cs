@@ -14,8 +14,8 @@ namespace EnemyLib
         [Space(10), Tooltip("Delay before shooting first time")]
         [SerializeField] protected float _shootDelay = 1f;
 
-        protected IEnemyMoveModule _moveModule;
-        protected IWeaponsModule _weaponsModule;
+        protected IEnemyMovementModule _moveModule;
+        protected IWeaponModule _weaponModule;
         protected Transform _transform;
 
         public bool IsAttack { get; set; }
@@ -24,15 +24,15 @@ namespace EnemyLib
         public float DefaultSpeed => _defaultSpeed;
         public int Damage => _damage;
 
-        public void Initialize(IEnemyMoveModule moveModule, IWeaponsModule weaponsModule, Transform transform)
+        public void Initialize(IEnemyMovementModule moveModule, IWeaponModule weaponModule, Transform transform)
         {
             _moveModule = moveModule;
-            _weaponsModule = weaponsModule;
+            _weaponModule = weaponModule;
             _transform = transform;
 
             Speed = DefaultSpeed;
-            _weaponsModule.CurrentGun.Damage = _damage;
-            _weaponsModule.CurrentGun.Cooldown = _cooldown;
+            _weaponModule.CurrentGun.Damage = _damage;
+            _weaponModule.CurrentGun.Cooldown = _cooldown;
         }
 
         public virtual void UpdateData()
@@ -47,14 +47,14 @@ namespace EnemyLib
 
             if (!IsAttack && !targetDied)
             {
-                if (distanceToTarget < _weaponsModule.CurrentGun.Distance / 2)
+                if (distanceToTarget < _weaponModule.CurrentGun.Distance / 2)
                 {
                     GetIntoPosition();
                 }
             }
             else
             {
-                if (distanceToTarget > _weaponsModule.CurrentGun.Distance || targetDied)
+                if (distanceToTarget > _weaponModule.CurrentGun.Distance || targetDied)
                 {
                     GetOutPosition();
                 }

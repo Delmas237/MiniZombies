@@ -9,7 +9,7 @@ using UnityEngine;
 namespace PlayerLib
 {
     [Serializable]
-    public class PlayerMoveModule : IPlayerMoveModule
+    public class PlayerMovementModule : IPlayerMovementModule
     {
         [SerializeField] private float _defaultSpeed = 3.65f;
 
@@ -24,9 +24,9 @@ namespace PlayerLib
         private Rigidbody _rigidbody;
         private Transform _transform;
 
-        private IEnemy _closestEnemy;
+        private IHostile _closestEnemy;
         private Coroutine _closestEnemyCoroutine;
-        private IPlayerWeaponsModule _weaponsModule;
+        private IPlayerWeaponModule _weaponsModule;
 
         public float DefaultSpeed => _defaultSpeed;
         public bool IsMoving => MoveJoystick.Direction != Vector2.zero;
@@ -34,7 +34,7 @@ namespace PlayerLib
         public Joystick MoveJoystick => _moveJoystick;
         public Rigidbody Rigidbody => _rigidbody;
 
-        public void Initialize(IPlayerWeaponsModule weaponsModule, Transform transform, Rigidbody rigidbody)
+        public void Initialize(IPlayerWeaponModule weaponsModule, Transform transform, Rigidbody rigidbody)
         {
             _weaponsModule = weaponsModule;
             _transform = transform;
@@ -112,10 +112,10 @@ namespace PlayerLib
         {
             while (true)
             {
-                IReadOnlyList<IEnemy> closestEnemies = Spawner<IEnemy>.ObjectsOnScene;
+                IReadOnlyList<IHostile> closestEnemies = Spawner<IHostile>.ObjectsOnScene;
 
                 bool enemyInRange = false;
-                IEnemy closestEnemy = null;
+                IHostile closestEnemy = null;
                 if (closestEnemies.Count > 0)
                 {
                     Vector3 position = _weaponsModule.CurrentGun.transform.position;

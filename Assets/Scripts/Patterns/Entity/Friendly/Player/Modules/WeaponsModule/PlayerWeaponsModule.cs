@@ -6,17 +6,17 @@ using Weapons;
 namespace PlayerLib
 {
     [Serializable]
-    public class PlayerWeaponsModule : WeaponsModule, IPlayerWeaponsModule
+    public class PlayerWeaponsModule : WeaponModule, IPlayerWeaponModule
     {
         [SerializeField] private Transform _shootLineRoot;
         [SerializeField] private Joystick _attackJoystick;
-        private IHealthModule _healthModule;
+        private IEntityHealthModule _healthModule;
 
         public const float START_DISTANCE = 0.848f;
 
         public Joystick AttackJoystick => _attackJoystick;
 
-        public void Initialize(IHealthModule healthModule)
+        public void Initialize(IEntityHealthModule healthModule)
         {
             _healthModule = healthModule;
 

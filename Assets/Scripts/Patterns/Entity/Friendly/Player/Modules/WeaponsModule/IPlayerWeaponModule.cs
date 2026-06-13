@@ -2,7 +2,7 @@ using JoystickLib;
 
 namespace PlayerLib
 {
-    public interface IPlayerWeaponsModule : IWeaponsModule
+    public interface IPlayerWeaponModule : IWeaponModule
     {
         Joystick AttackJoystick { get; }
     }

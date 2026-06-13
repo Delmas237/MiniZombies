@@ -5,6 +5,6 @@ namespace ObjectPool
 {
     public abstract class EnemyPool : MonoBehaviour
     {
-        public abstract IPool<ZombieContainer> Pool { get; }
+        public abstract IPool<ZombieEntity> Pool { get; }
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine.AI;
 namespace EnemyLib
 {
     [Serializable]
-    public class EnemyAvoidantMoveModule : EnemyMoveModule
+    public class EnemyAvoidantMoveModule : EnemyMovementModule
     {
         [Space(10)]
         [SerializeField] private float _minAvoidanceDistance = 10;

@@ -29,7 +29,7 @@ public class PoisonPuddle : MonoBehaviour
     {
         if (other.TryGetComponent(out IEntity entity))
         {
-            if ((entity is IPlayer && _collideWithPlayer) || (entity is IEnemy && _collideWithEnemy))
+            if ((entity is IPlayer && _collideWithPlayer) || (entity is IHostile && _collideWithEnemy))
             {
                 _collidingEntities.Add(entity);
                 _damageCor ??= StartCoroutine(ManageDamage());
@@ -41,7 +41,7 @@ public class PoisonPuddle : MonoBehaviour
     {
         if (other.TryGetComponent(out IEntity entity))
         {
-            if ((entity is IPlayer && _collideWithPlayer) || (entity is IEnemy && _collideWithEnemy))
+            if ((entity is IPlayer && _collideWithPlayer) || (entity is IHostile && _collideWithEnemy))
             {
                 _collidingEntities.Remove(entity);
             }

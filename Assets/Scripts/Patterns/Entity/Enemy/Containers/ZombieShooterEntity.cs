@@ -3,16 +3,16 @@ using UnityEngine.AI;
 
 namespace EnemyLib
 {
-    public class ZombieShooterContainer : ZombieContainer
+    public class ZombieShooterEntity : ZombieEntity
     {
         [Header("Modules")]
-        [SerializeField] protected EnemyMoveModule _moveModule;
+        [SerializeField] protected EnemyMovementModule _moveModule;
         [SerializeField] protected ZombieShooterAttackModule _attackModule;
-        [SerializeField] protected WeaponsModule _weaponsModule;
+        [SerializeField] protected WeaponModule _weaponsModule;
 
-        public override IEnemyMoveModule MoveModule => _moveModule;
+        public override IEnemyMovementModule MovementModule => _moveModule;
         public override IEnemyAttackModule AttackModule => _attackModule;
-        public IWeaponsModule WeaponsModule => _weaponsModule;
+        public IWeaponModule WeaponModule => _weaponsModule;
 
         protected override void Awake()
         {
@@ -20,9 +20,9 @@ namespace EnemyLib
 
             _healthModule.Initialize();
             _audioModule.Initialize(HealthModule);
-            _animationModule.Initialize(HealthModule, MoveModule, AttackModule, GetComponent<Animator>());
+            _animationModule.Initialize(HealthModule, MovementModule, AttackModule, GetComponent<Animator>());
             _weaponsModule.Initialize();
-            _attackModule.Initialize(MoveModule, WeaponsModule, transform);
+            _attackModule.Initialize(MovementModule, WeaponModule, transform);
             _moveModule.Initialize(GetComponent<NavMeshAgent>(), transform, AttackModule);
 
             _delayedDisableModule.Initialize(gameObject, this);

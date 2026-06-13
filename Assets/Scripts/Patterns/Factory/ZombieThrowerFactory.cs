@@ -11,17 +11,17 @@ namespace Factory
         protected IPool<PoisonProjectile> _projectilePool;
         protected IPool<ParticleSystem> _projectileEffectPool;
 
-        public ZombieThrowerFactory(IPool<ZombieThrowerContainer> pool, IPool<AmmoPack> ammoPackPool, List<Transform> spawnDots,
+        public ZombieThrowerFactory(IPool<ZombieThrowerEntity> pool, IPool<AmmoPack> ammoPackPool, List<Transform> spawnDots,
             IEntity target, EnemyWaveBoostData waveBoostData, IPool<PoisonProjectile> projectilePool, IPool<ParticleSystem> projectileEffectPool) : base(pool, ammoPackPool, spawnDots, target, waveBoostData)
         {
             _projectilePool = projectilePool;
             _projectileEffectPool = projectileEffectPool;
         }
 
-        public override IEnemy GetInstance()
+        public override IHostile GetInstance()
         {
-            var pool = (IPool<ZombieThrowerContainer>)_pool;
-            ZombieThrowerContainer instance = pool.GetInstance();
+            var pool = (IPool<ZombieThrowerEntity>)_pool;
+            ZombieThrowerEntity instance = pool.GetInstance();
 
             ReconstructToDefault(instance);
             Construct(instance);
@@ -29,7 +29,7 @@ namespace Factory
             return instance;
         }
 
-        protected void Construct(ZombieThrowerContainer enemy)
+        protected void Construct(ZombieThrowerEntity enemy)
         {
             base.Construct(enemy);
             enemy.ThrowerAttackModule.ProjectileProvider = _projectilePool;

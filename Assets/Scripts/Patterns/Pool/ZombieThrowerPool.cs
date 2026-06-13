@@ -5,8 +5,8 @@ namespace ObjectPool
 {
     public class ZombieThrowerPool : EnemyPool
     {
-        [SerializeField] private PoolBase<ZombieThrowerContainer> _pool;
-        public override IPool<ZombieContainer> Pool => _pool;
+        [SerializeField] private PoolBase<ZombieThrowerEntity> _pool;
+        public override IPool<ZombieEntity> Pool => _pool;
 
         private void Awake()
         {
