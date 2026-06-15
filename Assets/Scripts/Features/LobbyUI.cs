@@ -6,10 +6,14 @@ public class LobbyUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _coinsText;
     [SerializeField] private TextMeshProUGUI _maxWaveText;
+    [Space(10)]
+    [SerializeField] private string _gameplaySceneName = "Gameplay";
+
+    private string _maxWaveId = "MaxWave";
 
     private void Awake()
     {
-        _maxWaveText.text = PlayerPrefs.GetInt("MaxWave").ToString();
+        _maxWaveText.text = PlayerPrefs.GetInt(_maxWaveId).ToString();
 
         UpdateText(Bank.Coins);
         Bank.CoinsChanged += UpdateText;
@@ -20,7 +24,7 @@ public class LobbyUI : MonoBehaviour
         _coinsText.text = amount.ToString();
     }
 
-    public void Play() => SceneManager.LoadScene("Gameplay");
+    public void Play() => SceneManager.LoadScene(_gameplaySceneName);
 
     private void OnDestroy()
     {

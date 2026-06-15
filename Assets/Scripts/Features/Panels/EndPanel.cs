@@ -9,12 +9,17 @@ namespace Panels
     public class EndPanel : MonoBehaviour, IIntermediatePanel
     {
         [SerializeField] private float _timeToOpen;
+        [SerializeField] private string _completedString = "You completed {0} waves!";
         [Space(10)]
         [SerializeField] private GameObject _endPanel;
         [SerializeField] private TextMeshProUGUI _wavesCompleted;
         [SerializeField] private TextMeshProUGUI _moneyPlus;
+        [Space(10)]
+        [SerializeField] private string _gameplaySceneName = "Gameplay";
+        [SerializeField] private string _mainMenuSceneName = "MainMenu";
 
         private int _waveNumber;
+        private string _maxWaveId = "MaxWave";
 
         private void Start()
         {
@@ -32,23 +37,23 @@ namespace Panels
 
             _endPanel.SetActive(true);
 
-            _wavesCompleted.text = $"You completed {_waveNumber} waves!";
+            _wavesCompleted.text = string.Format(_completedString, _waveNumber);
             _moneyPlus.text = reward.ToString();
 
-            if (PlayerPrefs.GetInt("MaxWave") < _waveNumber)
-                PlayerPrefs.SetInt("MaxWave", _waveNumber);
+            if (PlayerPrefs.GetInt(_maxWaveId) < _waveNumber)
+                PlayerPrefs.SetInt(_maxWaveId, _waveNumber);
         }
 
         public void Restart()
         {
             EventBus.Invoke(new GameExitEvent());
-            SceneManager.LoadScene("Game");
+            SceneManager.LoadScene(_gameplaySceneName);
         }
 
-        public void GoLobby()
+        public void GoMainMenu()
         {
             EventBus.Invoke(new GameExitEvent());
-            SceneManager.LoadScene("Lobby");
+            SceneManager.LoadScene(_mainMenuSceneName);
         }
 
         private void OnDestroy()

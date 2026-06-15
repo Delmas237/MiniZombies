@@ -8,6 +8,9 @@ namespace Panels
     public class PausePanel : MonoBehaviour, IIntermediatePanel
     {
         [SerializeField] private MusicManager _musicManager;
+        [Space(10)]
+        [SerializeField] private string _gameplaySceneName = "Gameplay";
+        [SerializeField] private string _mainMenuSceneName = "MainMenu";
 
         public void Pause(bool value)
         {
@@ -26,13 +29,13 @@ namespace Panels
         public void Restart()
         {
             EventBus.Invoke(new GameExitEvent());
-            SceneManager.LoadScene("Game");
+            SceneManager.LoadScene(_gameplaySceneName);
         }
 
-        public void GoLobby()
+        public void GoMainMenu()
         {
             EventBus.Invoke(new GameExitEvent());
-            SceneManager.LoadScene("Lobby");
+            SceneManager.LoadScene(_mainMenuSceneName);
         }
 
         private void OnDestroy()
