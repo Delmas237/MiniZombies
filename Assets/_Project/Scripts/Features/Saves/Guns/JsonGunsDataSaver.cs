@@ -6,6 +6,8 @@ using Weapons;
 
 public class JsonGunsDataSaver : IDataSaver<GunSavableData>
 {
+    public const string SAVE_FOLDER_NAME = "_Project/JsonData";
+
     public List<GunSavableData> Load()
     {
         int allGunTypes = Enum.GetValues(typeof(GunType)).Length;
@@ -54,7 +56,7 @@ public class JsonGunsDataSaver : IDataSaver<GunSavableData>
 
     private string GetDataPath(GunType gunType)
     {
-        string dataPath = Application.isMobilePlatform ? Application.persistentDataPath : Application.dataPath;
-        return $"{dataPath}/JsonData/{gunType}.json";
+        string dataPath = Application.isEditor ? Application.dataPath : Application.persistentDataPath;
+        return $"{dataPath}/{SAVE_FOLDER_NAME}/{gunType}.json";
     }
 }
