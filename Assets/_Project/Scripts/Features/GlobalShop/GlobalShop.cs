@@ -1,10 +1,10 @@
+using Saves;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
-using Weapons;
 
 namespace GlobalShopLib
 {

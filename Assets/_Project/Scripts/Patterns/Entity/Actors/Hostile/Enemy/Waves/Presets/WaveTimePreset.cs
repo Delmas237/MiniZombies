@@ -1,4 +1,4 @@
-namespace WavesLib
+namespace Waves
 {
     public class WaveTimePreset : WavePreset
     {

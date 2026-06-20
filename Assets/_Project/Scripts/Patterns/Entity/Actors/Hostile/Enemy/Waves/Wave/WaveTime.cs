@@ -1,6 +1,7 @@
+using Entity.Hostile;
 using TMPro;
 
-namespace WavesLib
+namespace Waves
 {
     public class WaveTime : Wave
     {

@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using Weapons;
 
-namespace Weapons
+namespace Saves
 {
     public static class GunsDataSaver
     {

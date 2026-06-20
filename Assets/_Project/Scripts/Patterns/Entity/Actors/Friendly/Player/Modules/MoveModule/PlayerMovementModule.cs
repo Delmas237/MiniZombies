@@ -1,3 +1,4 @@
+using Entity.Hostile;
 using EventBusLib;
 using JoystickLib;
 using System;
@@ -6,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace PlayerLib
+namespace Player
 {
     [Serializable]
     public class PlayerMovementModule : IPlayerMovementModule

@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace EnemyLib
+namespace Entity.Hostile
 {
     [Serializable]
     public class EnemyAnimationModule

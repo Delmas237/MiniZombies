@@ -1,7 +1,7 @@
 using EventBusLib;
-using PlayerLib;
+using Player;
 using UnityEngine;
-using WavesLib;
+using Waves;
 
 public class GameOverHandler : MonoBehaviour
 {

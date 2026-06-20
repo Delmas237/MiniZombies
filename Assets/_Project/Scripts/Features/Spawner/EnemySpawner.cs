@@ -1,12 +1,12 @@
 using EventBusLib;
-using PlayerLib;
+using Player;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace EnemyLib
+namespace Entity.Hostile
 {
     public class EnemySpawner : Spawner<IHostile>
     {

@@ -1,14 +1,17 @@
 using System;
 
-public interface IEntityHealthModule
+namespace Entity
 {
-    event Action Decreased;
-    event Action Increased;
-    event Action IsOver;
+    public interface IEntityHealthModule
+    {
+        event Action Decreased;
+        event Action Increased;
+        event Action IsOver;
 
-    float MaxHealth { get; set; }
-    float Health { get; }
+        float MaxHealth { get; set; }
+        float Health { get; }
 
-    void Decrease(float value);
-    void Increase(float value);
+        void Decrease(float value);
+        void Increase(float value);
+    }
 }

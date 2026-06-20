@@ -1,4 +1,5 @@
-using EnemyLib;
+using Entity;
+using Entity.Hostile;
 using EventBusLib;
 using ObjectPool;
 using System;

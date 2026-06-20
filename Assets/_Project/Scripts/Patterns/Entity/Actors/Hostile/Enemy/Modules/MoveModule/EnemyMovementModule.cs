@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace EnemyLib
+namespace Entity.Hostile
 {
     [Serializable]
     public class EnemyMovementModule : IEnemyMovementModule

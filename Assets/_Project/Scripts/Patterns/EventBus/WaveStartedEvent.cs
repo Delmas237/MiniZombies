@@ -1,4 +1,4 @@
-using WavesLib;
+using Waves;
 
 namespace EventBusLib
 {

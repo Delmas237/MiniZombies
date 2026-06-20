@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace EnemyLib
+namespace Entity.Hostile
 {
     public class PoisonProjectile : MonoBehaviour
     {

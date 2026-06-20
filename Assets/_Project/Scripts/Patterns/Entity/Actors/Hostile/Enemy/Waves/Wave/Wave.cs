@@ -1,3 +1,4 @@
+using Entity.Hostile;
 using EventBusLib;
 using LightLib;
 using System;
@@ -5,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace WavesLib
+namespace Waves
 {
     public abstract class Wave
     {

@@ -1,1 +1,4 @@
-public interface IFriendly : IEntity { }
+namespace Entity
+{
+    public interface IFriendly : IEntity { }
+}

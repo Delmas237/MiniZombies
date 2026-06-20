@@ -1,3 +1,6 @@
+using Entity;
+using Entity.Hostile;
+using Player;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

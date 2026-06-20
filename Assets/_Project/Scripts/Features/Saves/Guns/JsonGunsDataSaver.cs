@@ -4,59 +4,62 @@ using System.IO;
 using UnityEngine;
 using Weapons;
 
-public class JsonGunsDataSaver : IDataSaver<GunSavableData>
+namespace Saves
 {
-    public const string SAVE_FOLDER_NAME = "_Project/JsonData";
-
-    public List<GunSavableData> Load()
+    public class JsonGunsDataSaver : IDataSaver<GunSavableData>
     {
-        int allGunTypes = Enum.GetValues(typeof(GunType)).Length;
+        public const string SAVE_FOLDER_NAME = "_Project/JsonData";
 
-        List<GunSavableData> allData = new List<GunSavableData>();
-        for (int i = 0; i < allGunTypes; i++)
+        public List<GunSavableData> Load()
         {
-            GunType currentType = (GunType)i;
-            string path = GetDataPath(currentType);
+            int allGunTypes = Enum.GetValues(typeof(GunType)).Length;
 
-            if (!File.Exists(path))
+            List<GunSavableData> allData = new List<GunSavableData>();
+            for (int i = 0; i < allGunTypes; i++)
             {
-                GunSavableData gunSavableData = new GunSavableData(GunsDataSaver.GunsData[currentType]);
-                Save(gunSavableData);
+                GunType currentType = (GunType)i;
+                string path = GetDataPath(currentType);
+
+                if (!File.Exists(path))
+                {
+                    GunSavableData gunSavableData = new GunSavableData(GunsDataSaver.GunsData[currentType]);
+                    Save(gunSavableData);
+                }
+
+                string serializedGun = File.ReadAllText(path);
+                GunSavableData gunData = JsonUtility.FromJson<GunSavableData>(serializedGun);
+                allData.Add(gunData);
             }
 
-            string serializedGun = File.ReadAllText(path);
-            GunSavableData gunData = JsonUtility.FromJson<GunSavableData>(serializedGun);
-            allData.Add(gunData);
+            return allData;
         }
 
-        return allData;
-    }
+        public void Save(GunSavableData data)
+        {
+            string serializedGun = JsonUtility.ToJson(data);
 
-    public void Save(GunSavableData data)
-    {
-        string serializedGun = JsonUtility.ToJson(data);
+            string path = GetDataPath(data.Type);
+            ValidateDirectory(path);
 
-        string path = GetDataPath(data.Type);
-        ValidateDirectory(path);
-
-        File.WriteAllText(path, serializedGun);
+            File.WriteAllText(path, serializedGun);
 
 #if UNITY_EDITOR
-        Debug.Log($"Gun json saved: {serializedGun}");
+            Debug.Log($"Gun json saved: {serializedGun}");
 #endif
-    }
+        }
 
-    private void ValidateDirectory(string path)
-    {
-        string directoryPath = Path.GetDirectoryName(path);
+        private void ValidateDirectory(string path)
+        {
+            string directoryPath = Path.GetDirectoryName(path);
 
-        if (!Directory.Exists(directoryPath))
-            Directory.CreateDirectory(directoryPath);
-    }
+            if (!Directory.Exists(directoryPath))
+                Directory.CreateDirectory(directoryPath);
+        }
 
-    private string GetDataPath(GunType gunType)
-    {
-        string dataPath = Application.isEditor ? Application.dataPath : Application.persistentDataPath;
-        return $"{dataPath}/{SAVE_FOLDER_NAME}/{gunType}.json";
+        private string GetDataPath(GunType gunType)
+        {
+            string dataPath = Application.isEditor ? Application.dataPath : Application.persistentDataPath;
+            return $"{dataPath}/{SAVE_FOLDER_NAME}/{gunType}.json";
+        }
     }
 }

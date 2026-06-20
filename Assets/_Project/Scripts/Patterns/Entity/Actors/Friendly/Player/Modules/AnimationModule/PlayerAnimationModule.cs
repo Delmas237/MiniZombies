@@ -1,9 +1,10 @@
+using Entity;
 using System;
 using System.Collections;
 using UnityEngine;
 using Weapons;
 
-namespace PlayerLib
+namespace Player
 {
     [Serializable]
     public class PlayerAnimationModule
@@ -14,10 +15,10 @@ namespace PlayerLib
         private Animator _animator;
 
         private IEntityHealthModule _healthModule;
-        private IWeaponModule _weaponModule;
+        private IEntityWeaponModule _weaponModule;
         private IPlayerMovementModule _moveModule;
 
-        public void Initialize(IEntityHealthModule healthModule, IWeaponModule weaponModule, IPlayerMovementModule moveModule, 
+        public void Initialize(IEntityHealthModule healthModule, IEntityWeaponModule weaponModule, IPlayerMovementModule moveModule, 
             Animator animator)
         {
             _healthModule = healthModule;

@@ -1,8 +1,9 @@
+using Entity;
 using JoystickLib;
 
-namespace PlayerLib
+namespace Player
 {
-    public interface IPlayerWeaponModule : IWeaponModule
+    public interface IPlayerWeaponModule : IEntityWeaponModule
     {
         Joystick AttackJoystick { get; }
     }

@@ -1,7 +1,7 @@
 using UnityEngine;
 using Weapons;
 
-namespace EnemyLib
+namespace Entity.Hostile
 {
     public abstract class ZombieEntity : MonoBehaviour, IHostile
     {
@@ -11,12 +11,12 @@ namespace EnemyLib
         [SerializeField] protected EntityAudioModule _audioModule;
 
         [Header("Base Additional Modules")]
-        [SerializeField] protected DelayedDisableEntityModule _delayedDisableModule;
-        [SerializeField] protected DropAmmoAfterDeathModule _dropAmmoAfterDeathModule;
+        [SerializeField] protected EntityDelayedDisableModule _delayedDisableModule;
+        [SerializeField] protected EntityDropAmmoOnDeathModule _dropAmmoAfterDeathModule;
 
         public IEntityHealthModule HealthModule => _healthModule;
-        public DelayedDisableEntityModule DelayedDisableModule => _delayedDisableModule;
-        public DropAmmoAfterDeathModule DropAmmoAfterDeathModule => _dropAmmoAfterDeathModule;
+        public EntityDelayedDisableModule DelayedDisableModule => _delayedDisableModule;
+        public EntityDropAmmoOnDeathModule DropAmmoAfterDeathModule => _dropAmmoAfterDeathModule;
         public Transform Transform => transform;
 
         public abstract IEnemyMovementModule MovementModule { get; }

@@ -1,9 +1,10 @@
+using Saves;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Weapons;
 
-namespace PlayerLib
+namespace Player
 {
     public class PlayerGunSlots : MonoBehaviour
     {

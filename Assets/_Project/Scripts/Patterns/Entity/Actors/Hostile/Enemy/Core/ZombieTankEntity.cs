@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace EnemyLib
+namespace Entity.Hostile
 {
     public class ZombieTankEntity : ZombieEntity
     {

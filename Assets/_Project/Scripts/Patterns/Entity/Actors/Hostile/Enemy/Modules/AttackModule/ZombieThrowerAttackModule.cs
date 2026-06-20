@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace EnemyLib
+namespace Entity.Hostile
 {
     [Serializable]
     public class ZombieThrowerAttackModule : ZombieShooterAttackModule, IEnemyThrowerAttackModule

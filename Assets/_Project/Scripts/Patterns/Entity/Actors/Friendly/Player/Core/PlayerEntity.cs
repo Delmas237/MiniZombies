@@ -1,11 +1,12 @@
+using Entity;
 using UnityEngine;
 
-namespace PlayerLib
+namespace Player
 {
     public class PlayerEntity : MonoBehaviour, IPlayer
     {
         [Header("Modules")]
-        [SerializeField] protected CurrencyModule _currencyModule;
+        [SerializeField] protected PlayerCurrencyModule _currencyModule;
         [SerializeField] protected EntityHealthModule _healthModule;
         [SerializeField] protected PlayerWeaponsModule _weaponsModule;
         [SerializeField] protected PlayerMovementModule _moveModule;
@@ -13,7 +14,7 @@ namespace PlayerLib
         [SerializeField] protected EntityAudioModule _audioModule;
 
         public Transform Transform => transform;
-        public ICurrencyModule CurrencyModule => _currencyModule;
+        public IPlayerCurrencyModule CurrencyModule => _currencyModule;
         public IEntityHealthModule HealthModule => _healthModule;
         public IPlayerWeaponModule WeaponsModule => _weaponsModule;
         public IPlayerMovementModule MovementModule => _moveModule;

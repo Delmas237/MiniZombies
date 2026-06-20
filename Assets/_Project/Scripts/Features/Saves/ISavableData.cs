@@ -1,1 +1,4 @@
-public interface ISavableData { }
+namespace Saves
+{
+    public interface ISavableData { }
+}

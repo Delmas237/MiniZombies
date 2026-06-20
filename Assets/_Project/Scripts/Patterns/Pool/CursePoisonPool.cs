@@ -1,4 +1,4 @@
-using EnemyLib;
+using Entity.Hostile;
 
 namespace ObjectPool
 {

@@ -1,18 +1,18 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace EnemyLib
+namespace Entity.Hostile
 {
     public class ZombieShooterEntity : ZombieEntity
     {
         [Header("Modules")]
         [SerializeField] protected EnemyMovementModule _moveModule;
         [SerializeField] protected ZombieShooterAttackModule _attackModule;
-        [SerializeField] protected WeaponModule _weaponsModule;
+        [SerializeField] protected EntityWeaponModule _weaponsModule;
 
         public override IEnemyMovementModule MovementModule => _moveModule;
         public override IEnemyAttackModule AttackModule => _attackModule;
-        public IWeaponModule WeaponModule => _weaponsModule;
+        public IEntityWeaponModule WeaponModule => _weaponsModule;
 
         protected override void Awake()
         {

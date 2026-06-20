@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Panels
+namespace UI
 {
     public class EndPanel : MonoBehaviour, IIntermediatePanel
     {

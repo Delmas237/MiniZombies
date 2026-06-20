@@ -1,12 +1,13 @@
+using Entity;
 using JoystickLib;
 using System;
 using UnityEngine;
 using Weapons;
 
-namespace PlayerLib
+namespace Player
 {
     [Serializable]
-    public class PlayerWeaponsModule : WeaponModule, IPlayerWeaponModule
+    public class PlayerWeaponsModule : EntityWeaponModule, IPlayerWeaponModule
     {
         [SerializeField] private Transform _shootLineRoot;
         [SerializeField] private Joystick _attackJoystick;

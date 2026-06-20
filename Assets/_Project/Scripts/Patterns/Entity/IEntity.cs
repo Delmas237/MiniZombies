@@ -1,7 +1,10 @@
 using UnityEngine;
 
-public interface IEntity
+namespace Entity
 {
-    Transform Transform { get; }
-    IEntityHealthModule HealthModule { get; }
+    public interface IEntity
+    {
+        Transform Transform { get; }
+        IEntityHealthModule HealthModule { get; }
+    }
 }

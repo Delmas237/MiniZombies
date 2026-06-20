@@ -2,32 +2,35 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LobbyUI : MonoBehaviour
+namespace UI
 {
-    [SerializeField] private TextMeshProUGUI _coinsText;
-    [SerializeField] private TextMeshProUGUI _maxWaveText;
-    [Space(10)]
-    [SerializeField] private string _gameplaySceneName = "Gameplay";
-
-    private string _maxWaveId = "MaxWave";
-
-    private void Awake()
+    public class LobbyUI : MonoBehaviour
     {
-        _maxWaveText.text = PlayerPrefs.GetInt(_maxWaveId).ToString();
+        [SerializeField] private TextMeshProUGUI _coinsText;
+        [SerializeField] private TextMeshProUGUI _maxWaveText;
+        [Space(10)]
+        [SerializeField] private string _gameplaySceneName = "Gameplay";
 
-        UpdateText(Bank.Coins);
-        Bank.CoinsChanged += UpdateText;
-    }
+        private string _maxWaveId = "MaxWave";
 
-    private void UpdateText(int amount)
-    {
-        _coinsText.text = amount.ToString();
-    }
+        private void Awake()
+        {
+            _maxWaveText.text = PlayerPrefs.GetInt(_maxWaveId).ToString();
 
-    public void Play() => SceneManager.LoadScene(_gameplaySceneName);
+            UpdateText(Bank.Coins);
+            Bank.CoinsChanged += UpdateText;
+        }
 
-    private void OnDestroy()
-    {
-        Bank.CoinsChanged -= UpdateText;
+        private void UpdateText(int amount)
+        {
+            _coinsText.text = amount.ToString();
+        }
+
+        public void Play() => SceneManager.LoadScene(_gameplaySceneName);
+
+        private void OnDestroy()
+        {
+            Bank.CoinsChanged -= UpdateText;
+        }
     }
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-namespace PlayerLib
+namespace Player
 {
     public class PlayerUIInfo : MonoBehaviour
     {

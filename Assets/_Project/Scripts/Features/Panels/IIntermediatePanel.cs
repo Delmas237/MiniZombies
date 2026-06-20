@@ -1,4 +1,4 @@
-namespace Panels
+namespace UI
 {
     public interface IIntermediatePanel
     {

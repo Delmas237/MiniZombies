@@ -1,8 +1,11 @@
-using PlayerLib;
+using Entity;
 
-public interface IPlayer : IFriendly
+namespace Player
 {
-    ICurrencyModule CurrencyModule { get; }
-    IPlayerWeaponModule WeaponsModule { get; }
-    IPlayerMovementModule MovementModule { get; }
+    public interface IPlayer : IFriendly
+    {
+        IPlayerCurrencyModule CurrencyModule { get; }
+        IPlayerWeaponModule WeaponsModule { get; }
+        IPlayerMovementModule MovementModule { get; }
+    }
 }

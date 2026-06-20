@@ -1,8 +1,8 @@
 using System;
 
-namespace PlayerLib
+namespace Player
 {
-    public interface ICurrencyModule
+    public interface IPlayerCurrencyModule
     {
         event Action<int> CoinsChanged;
 

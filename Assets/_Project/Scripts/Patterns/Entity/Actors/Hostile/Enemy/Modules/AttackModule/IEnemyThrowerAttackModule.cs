@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace EnemyLib
+namespace Entity.Hostile
 {
     public interface IEnemyThrowerAttackModule : IEnemyAttackModule
     {

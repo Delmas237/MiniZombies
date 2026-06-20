@@ -1,8 +1,9 @@
+using Entity;
 using JoystickLib;
 
-namespace PlayerLib
+namespace Player
 {
-    public interface IPlayerMovementModule : IMovementModule
+    public interface IPlayerMovementModule : IEntityMovementModule
     {
         bool IsMoving { get; }
         Joystick MoveJoystick { get; }

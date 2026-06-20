@@ -1,8 +1,10 @@
-using EnemyLib;
 using Weapons;
 
-public interface IHostile : IEntity
+namespace Entity.Hostile
 {
-    IEnemyMovementModule MovementModule { get; }
-    DropAmmoAfterDeathModule DropAmmoAfterDeathModule { get; }
+    public interface IHostile : IEntity
+    {
+        IEnemyMovementModule MovementModule { get; }
+        EntityDropAmmoOnDeathModule DropAmmoAfterDeathModule { get; }
+    }
 }

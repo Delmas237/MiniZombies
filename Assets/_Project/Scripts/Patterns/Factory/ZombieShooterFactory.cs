@@ -1,4 +1,5 @@
-using EnemyLib;
+using Entity;
+using Entity.Hostile;
 using ObjectPool;
 using System.Collections.Generic;
 using UnityEngine;

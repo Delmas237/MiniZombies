@@ -1,8 +1,8 @@
 using UnityEngine.AI;
 
-namespace EnemyLib
+namespace Entity.Hostile
 {
-    public interface IEnemyMovementModule : IMovementModule
+    public interface IEnemyMovementModule : IEntityMovementModule
     {
         NavMeshAgent Agent { get; }
         IEntity Target { get; set; }

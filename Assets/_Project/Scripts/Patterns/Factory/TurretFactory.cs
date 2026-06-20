@@ -1,3 +1,4 @@
+using Entity.Friendly;
 using EventBusLib;
 using ObjectPool;
 using UnityEngine;

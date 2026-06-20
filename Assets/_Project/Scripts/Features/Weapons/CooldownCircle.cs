@@ -1,4 +1,4 @@
-using PlayerLib;
+using Player;
 using UnityEngine;
 using UnityEngine.UI;
 

@@ -1,55 +1,58 @@
 using System;
 using UnityEngine;
 
-[Serializable]
-public class EntityHealthModule : IEntityHealthModule
+namespace Entity
 {
-    [SerializeField] private float _maxHealth = 100;
-    private float _health;
-
-    public event Action Decreased;
-    public event Action Increased;
-    public event Action IsOver;
-
-    public float MaxHealth
+    [Serializable]
+    public class EntityHealthModule : IEntityHealthModule
     {
-        get { return _maxHealth; }
-        set
+        [SerializeField] private float _maxHealth = 100;
+        private float _health;
+
+        public event Action Decreased;
+        public event Action Increased;
+        public event Action IsOver;
+
+        public float MaxHealth
         {
-            if (value <= 0)
+            get { return _maxHealth; }
+            set
             {
-                Debug.LogWarning("Max health cannot be less than zero");
-                return;
+                if (value <= 0)
+                {
+                    Debug.LogWarning("Max health cannot be less than zero");
+                    return;
+                }
+                _maxHealth = value;
+                _health = Math.Min(_maxHealth, _health);
             }
-            _maxHealth = value;
-            _health = Math.Min(_maxHealth, _health);
         }
-    }
-    public float Health => _health;
+        public float Health => _health;
 
-    public void Initialize()
-    {
-        _health = MaxHealth;
-    }
+        public void Initialize()
+        {
+            _health = MaxHealth;
+        }
 
-    public void Decrease(float value)
-    {
-        if (value <= 0 || _health == 0)
-            return;
+        public void Decrease(float value)
+        {
+            if (value <= 0 || _health == 0)
+                return;
 
-        _health = Math.Max(_health - value, 0);
-        Decreased?.Invoke();
+            _health = Math.Max(_health - value, 0);
+            Decreased?.Invoke();
 
-        if (_health <= 0)
-            IsOver?.Invoke();
-    }
+            if (_health <= 0)
+                IsOver?.Invoke();
+        }
 
-    public void Increase(float value)
-    {
-        if (value <= 0 || _health == MaxHealth)
-            return;
+        public void Increase(float value)
+        {
+            if (value <= 0 || _health == MaxHealth)
+                return;
 
-        _health = Math.Min(_health + value, MaxHealth);
-        Increased?.Invoke();
+            _health = Math.Min(_health + value, MaxHealth);
+            Increased?.Invoke();
+        }
     }
 }

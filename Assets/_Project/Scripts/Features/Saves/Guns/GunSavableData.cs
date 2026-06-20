@@ -1,4 +1,6 @@
-namespace Weapons
+using Weapons;
+
+namespace Saves
 {
     public class GunSavableData : ISavableData
     {

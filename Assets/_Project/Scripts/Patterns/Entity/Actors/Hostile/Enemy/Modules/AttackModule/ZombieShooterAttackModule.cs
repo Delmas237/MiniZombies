@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-namespace EnemyLib
+namespace Entity.Hostile
 {
     [Serializable]
     public class ZombieShooterAttackModule : IEnemyAttackModule
@@ -15,7 +15,7 @@ namespace EnemyLib
         [SerializeField] protected float _shootDelay = 1f;
 
         protected IEnemyMovementModule _moveModule;
-        protected IWeaponModule _weaponModule;
+        protected IEntityWeaponModule _weaponModule;
         protected Transform _transform;
 
         public bool IsAttack { get; set; }
@@ -24,7 +24,7 @@ namespace EnemyLib
         public float DefaultSpeed => _defaultSpeed;
         public int Damage => _damage;
 
-        public void Initialize(IEnemyMovementModule moveModule, IWeaponModule weaponModule, Transform transform)
+        public void Initialize(IEnemyMovementModule moveModule, IEntityWeaponModule weaponModule, Transform transform)
         {
             _moveModule = moveModule;
             _weaponModule = weaponModule;

@@ -1,10 +1,11 @@
+using Entity.Hostile;
 using EventBusLib;
 using LightLib;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace WavesLib
+namespace Waves
 {
     public class EnemyWaveManager : MonoBehaviour
     {

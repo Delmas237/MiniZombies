@@ -1,7 +1,8 @@
+using Entity.Hostile;
 using TMPro;
 using UnityEngine;
 
-namespace WavesLib
+namespace Waves
 {
     public abstract class WavePreset : MonoBehaviour
     {

@@ -3,7 +3,7 @@ using ObjectPool;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace EnemyLib
+namespace Entity.Hostile
 {
     public class ZombieShooterSpawnData : EnemySpawnData
     {

@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 
-namespace WavesLib
+namespace Waves
 {
     public interface IWaveState
     {

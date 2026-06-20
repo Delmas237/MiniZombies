@@ -1,12 +1,13 @@
 using EventBusLib;
 using System;
 using UnityEngine;
+using Weapons;
 using Random = UnityEngine.Random;
 
-namespace Weapons
+namespace Entity
 {
     [Serializable]
-    public class DropAmmoAfterDeathModule : IOptionalModule
+    public class EntityDropAmmoOnDeathModule : IEntityOptionalModule
     {
         [SerializeField] private bool _enabled = true;
         [Space(5)]

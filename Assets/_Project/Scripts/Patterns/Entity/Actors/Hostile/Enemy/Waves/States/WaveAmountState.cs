@@ -1,9 +1,11 @@
+using Entity;
+using Entity.Hostile;
 using EventBusLib;
 using System;
 using System.Collections;
 using UnityEngine;
 
-namespace WavesLib
+namespace Waves
 {
     public class WaveAmountState : IWaveState
     {

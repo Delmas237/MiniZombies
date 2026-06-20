@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace WavesLib
+namespace Waves
 {
     public class WaveAmountPreset : WavePreset
     {

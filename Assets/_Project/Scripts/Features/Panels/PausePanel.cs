@@ -3,7 +3,7 @@ using EventBusLib;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Panels
+namespace UI
 {
     public class PausePanel : MonoBehaviour, IIntermediatePanel
     {

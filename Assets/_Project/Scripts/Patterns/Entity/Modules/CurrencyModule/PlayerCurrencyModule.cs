@@ -1,10 +1,10 @@
 using System;
 using UnityEngine;
 
-namespace PlayerLib
+namespace Player
 {
     [Serializable]
-    public class CurrencyModule : ICurrencyModule
+    public class PlayerCurrencyModule : IPlayerCurrencyModule
     {
         [SerializeField] protected int _coins;
         
