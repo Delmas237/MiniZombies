@@ -59,6 +59,10 @@ namespace JoystickLib
 
         private Vector2 input = Vector2.zero;
 
+        public Action OnDown;
+
+        public Action Drag;
+
         public Action OnUp;
         public Action OnUpNotInDeadZone;
         public Action OnUpInDeadZone;
@@ -105,6 +109,7 @@ namespace JoystickLib
             InDeadZoneOnPointerUp = true;
 
             OnDrag(eventData);
+            OnDown?.Invoke();
         }
 
         private void Update()
@@ -169,6 +174,8 @@ namespace JoystickLib
             FormatInput();
             HandleInput(input.magnitude, input.normalized, radius, cam);
             handle.anchoredPosition = input * radius * handleRange;
+
+            Drag?.Invoke();
         }
 
         protected virtual void HandleInput(float magnitude, Vector2 normalized, Vector2 radius, Camera cam)

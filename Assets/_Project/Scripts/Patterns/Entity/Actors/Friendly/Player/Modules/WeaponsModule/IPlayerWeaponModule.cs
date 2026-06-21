@@ -5,6 +5,6 @@ namespace Player
 {
     public interface IPlayerWeaponModule : IEntityWeaponModule
     {
-        Joystick AttackJoystick { get; }
+        void PullAutoTrigger();
     }
 }

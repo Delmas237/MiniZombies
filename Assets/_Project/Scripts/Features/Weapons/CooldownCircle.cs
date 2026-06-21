@@ -21,7 +21,7 @@ namespace Weapons
 
         private void UpdateCircle()
         {
-            Gun gun = _player.WeaponsModule.CurrentGun;
+            Gun gun = _player.WeaponModule.CurrentGun;
             _image.fillAmount = gun.CurrentCooldown / gun.Cooldown;
         }
     }

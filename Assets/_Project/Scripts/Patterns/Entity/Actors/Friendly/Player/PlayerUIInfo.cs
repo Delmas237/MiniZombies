@@ -18,13 +18,13 @@ namespace Player
             {
                 UpdateHealthBar();
                 UpdateCoinsText(_player.CurrencyModule.Coins);
-                UpdateBulletsText(_player.WeaponsModule.Bullets);
+                UpdateBulletsText(_player.WeaponModule.Bullets);
 
                 _player.HealthModule.Increased += UpdateHealthBar;
                 _player.HealthModule.Decreased += UpdateHealthBar;
 
                 _player.CurrencyModule.CoinsChanged += UpdateCoinsText;
-                _player.WeaponsModule.BulletsChanged += UpdateBulletsText;
+                _player.WeaponModule.BulletsChanged += UpdateBulletsText;
             }
         }
 
@@ -51,7 +51,7 @@ namespace Player
                 _player.HealthModule.Decreased -= UpdateHealthBar;
 
                 _player.CurrencyModule.CoinsChanged -= UpdateCoinsText;
-                _player.WeaponsModule.BulletsChanged -= UpdateBulletsText;
+                _player.WeaponModule.BulletsChanged -= UpdateBulletsText;
             }
         }
     }

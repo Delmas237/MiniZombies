@@ -6,26 +6,32 @@ namespace Player
     public class PlayerEntity : MonoBehaviour, IPlayer
     {
         [Header("Modules")]
-        [SerializeField] protected PlayerCurrencyModule _currencyModule;
         [SerializeField] protected EntityHealthModule _healthModule;
+        [SerializeField] protected PlayerCurrencyModule _currencyModule;
+        [Space(10)]
+        [SerializeField] protected PlayerInputModule _inputModule;
         [SerializeField] protected PlayerWeaponsModule _weaponsModule;
         [SerializeField] protected PlayerMovementModule _moveModule;
+        [Space(10)]
         [SerializeField] protected PlayerAnimationModule _animationModule;
         [SerializeField] protected EntityAudioModule _audioModule;
+        [SerializeField] protected PlayerShootLineModule _shootLineModule;
 
         public Transform Transform => transform;
         public IPlayerCurrencyModule CurrencyModule => _currencyModule;
         public IEntityHealthModule HealthModule => _healthModule;
-        public IPlayerWeaponModule WeaponsModule => _weaponsModule;
+        public IPlayerWeaponModule WeaponModule => _weaponsModule;
         public IPlayerMovementModule MovementModule => _moveModule;
 
         private void Awake()
         {
             _healthModule.Initialize();
             _audioModule.Initialize(HealthModule);
-            _animationModule.Initialize(HealthModule, WeaponsModule, MovementModule, GetComponent<Animator>());
-            _weaponsModule.Initialize(HealthModule);
-            _moveModule.Initialize(WeaponsModule, transform, GetComponent<Rigidbody>());
+            _inputModule.Initialize(HealthModule, MovementModule, WeaponModule, _shootLineModule);
+            _animationModule.Initialize(HealthModule, WeaponModule, MovementModule, GetComponent<Animator>());
+            _weaponsModule.Initialize();
+            _moveModule.Initialize(WeaponModule, transform, GetComponent<Rigidbody>());
+            _shootLineModule.Initialize(WeaponModule);
 
             _healthModule.IsOver += OnHealhIsOver;
         }
@@ -40,12 +46,12 @@ namespace Player
             _animationModule.MoveAnim();
 
             _moveModule.Rotate();
-            _weaponsModule.UpdateShootLine();
         }
 
         private void OnDestroy()
         {
             _healthModule.IsOver -= OnHealhIsOver;
+            _inputModule.OnDestroy();
             _moveModule.OnDestroy();
         }
     }

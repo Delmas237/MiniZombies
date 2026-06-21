@@ -1,3 +1,4 @@
+using Entity;
 using Entity.Hostile;
 using EventBusLib;
 using JoystickLib;
@@ -23,22 +24,21 @@ namespace Player
 
         private bool _controllable = true;
         private Rigidbody _rigidbody;
-        private Transform _transform;
 
         private IHostile _closestEnemy;
         private Coroutine _closestEnemyCoroutine;
-        private IPlayerWeaponModule _weaponsModule;
+        private IEntityWeaponModule _weaponModule;
 
         public float DefaultSpeed => _defaultSpeed;
         public bool IsMoving => MoveJoystick.Direction != Vector2.zero;
-        public bool IsTraking => _closestEnemy != null || _weaponsModule.AttackJoystick.Pressed;
+        public IHostile ClosestEnemy => _closestEnemy;
+        public bool IsTraking => _closestEnemy != null || _weaponModule.AttackJoystick.Pressed;
         public Joystick MoveJoystick => _moveJoystick;
         public Rigidbody Rigidbody => _rigidbody;
 
-        public void Initialize(IPlayerWeaponModule weaponsModule, Transform transform, Rigidbody rigidbody)
+        public void Initialize(IEntityWeaponModule weaponModule, Rigidbody rigidbody)
         {
-            _weaponsModule = weaponsModule;
-            _transform = transform;
+            _weaponModule = weaponModule;
             _rigidbody = rigidbody;
 
             EventBus.Subscribe<GameOverEvent>(SetControllableFalse);
@@ -70,30 +70,11 @@ namespace Player
             }
         }
 
-        public void Rotate()
+        public void RotateToClosestEnemy(Vector3 closestEnemy)
         {
-            if (_controllable)
-            {
-                if (_weaponsModule.AttackJoystick.Direction != Vector2.zero)
-                {
-                    RotateToJoystickDir(_weaponsModule.AttackJoystick, _rotationSpeed * Time.deltaTime);
-                }
-                else if (_weaponsModule.AttackJoystick.UnPressedOrInDeadZoneTime > 0.15f)
-                {
-                    if (_closestEnemy != null)
-                    {
-                        RotateToClosestEnemy(_closestEnemy.Transform.position);
-                    }
-                    else if (MoveJoystick.Direction != Vector2.zero && _weaponsModule.AttackJoystick.UnPressedOrInDeadZoneTime > 0.05f)
-                    {
-                        RotateToJoystickDir(MoveJoystick, _rotationSpeed * Time.deltaTime);
-                    }
-                }
-            }
-        }
+            if (!_controllable)
+                return;
 
-        private void RotateToClosestEnemy(Vector3 closestEnemy)
-        {
             closestEnemy -= _transform.position;
             closestEnemy = new Vector3(closestEnemy.x, 0, closestEnemy.z);
 
@@ -101,12 +82,15 @@ namespace Player
                 _transform.rotation, Quaternion.LookRotation(closestEnemy), _autoRotationSpeed * Time.deltaTime);
         }
 
-        private void RotateToJoystickDir(Joystick joystick, float rotationSmoothness)
+        public void RotateToDirection(Vector2 direction)
         {
-            Vector3 moveDir = new Vector3(joystick.Horizontal, 0, joystick.Vertical);
+            if (!_controllable)
+                return;
+
+            Vector3 rotateDirection = new Vector3(direction.x, 0, direction.y);
             
             _transform.rotation = Quaternion.Lerp(
-                _transform.rotation, Quaternion.LookRotation(moveDir), rotationSmoothness);
+                _transform.rotation, Quaternion.LookRotation(rotateDirection), _rotationSpeed * Time.deltaTime);
         }
 
         private IEnumerator UpdateClosestEnemy()
@@ -119,13 +103,13 @@ namespace Player
                 IHostile closestEnemy = null;
                 if (closestEnemies.Count > 0)
                 {
-                    Vector3 position = _weaponsModule.CurrentGun.transform.position;
+                    Vector3 position = _weaponModule.CurrentGun.transform.position;
                     List<Transform> enemiesTransform = closestEnemies.Select(e => e.Transform).ToList();
                     Transform transform = ComponentSearcher<Transform>.Closest(position, enemiesTransform);
                     closestEnemy = closestEnemies[enemiesTransform.IndexOf(transform)];
 
                     float distanceToEnemy = Vector3.Distance(position, closestEnemy.Transform.position);
-                    enemyInRange = distanceToEnemy <= _weaponsModule.CurrentGun.Distance;
+                    enemyInRange = distanceToEnemy <= _weaponModule.CurrentGun.Distance;
                 }
                 _closestEnemy = enemyInRange ? closestEnemy : null;
 

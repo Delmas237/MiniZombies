@@ -127,7 +127,7 @@ namespace LocalShopLib
             if (_player.CurrencyModule.Spend(weaponData.PriceLvlBoost))
             {
                 _gunsLvl[type]++;
-                _player.WeaponsModule.Guns.First(g => g.Type == type).Damage += weaponData.DamageLvlBoost;
+                _player.WeaponModule.Guns.First(g => g.Type == type).Damage += weaponData.DamageLvlBoost;
 
                 UpdateLotText(type);
             }
@@ -149,7 +149,7 @@ namespace LocalShopLib
             LocalShopGunData weaponData = _data.Weapons.First(g => g.Type == type);
 
             weapon.PriceText.text = weaponData.PriceLvlBoost + "$";
-            weapon.DamageText.text = $"{_player.WeaponsModule.Guns.First(g => g.Type == type).Damage}dmg";
+            weapon.DamageText.text = $"{_player.WeaponModule.Guns.First(g => g.Type == type).Damage}dmg";
             weapon.LvlText.text = $"{_gunsLvl[type]} lvl";
         }
 

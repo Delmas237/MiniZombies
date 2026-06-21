@@ -1,12 +1,14 @@
 using Entity;
-using JoystickLib;
+using Entity.Hostile;
 
 namespace Player
 {
     public interface IPlayerMovementModule : IEntityMovementModule
     {
         bool IsMoving { get; }
-        Joystick MoveJoystick { get; }
         bool IsTraking { get; }
+        IHostile ClosestEnemy { get; }
+
+        void RotateToDirection(Vector2 direction);
     }
 }

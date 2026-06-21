@@ -12,7 +12,7 @@ namespace Weapons
         {
             if (other.TryGetComponent(out IPlayer player))
             {
-                player.WeaponsModule.AddBullets(_magnitude);
+                player.WeaponModule.AddBullets(_magnitude);
 
                 AudioSource audioSource = DestroySoundFactory.GetInstance();
                 audioSource.transform.position = transform.position;
