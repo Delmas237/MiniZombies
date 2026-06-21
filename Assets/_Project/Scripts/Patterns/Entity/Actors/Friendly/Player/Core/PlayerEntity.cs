@@ -20,18 +20,22 @@ namespace Player
         public Transform Transform => transform;
         public IPlayerCurrencyModule CurrencyModule => _currencyModule;
         public IEntityHealthModule HealthModule => _healthModule;
+        public IPlayerInputModule InputModule => _inputModule;
         public IPlayerWeaponModule WeaponModule => _weaponsModule;
         public IPlayerMovementModule MovementModule => _moveModule;
 
         private void Awake()
         {
+            _shootLineModule.Initialize(WeaponModule);
+
             _healthModule.Initialize();
             _audioModule.Initialize(HealthModule);
-            _inputModule.Initialize(HealthModule, MovementModule, WeaponModule, _shootLineModule);
-            _animationModule.Initialize(HealthModule, WeaponModule, MovementModule, GetComponent<Animator>());
+
+            _inputModule.Initialize(transform, HealthModule, MovementModule, WeaponModule, _shootLineModule);
+            _animationModule.Initialize(GetComponent<Animator>(), HealthModule, InputModule, WeaponModule, MovementModule);
+
             _weaponsModule.Initialize();
-            _moveModule.Initialize(WeaponModule, transform, GetComponent<Rigidbody>());
-            _shootLineModule.Initialize(WeaponModule);
+            _moveModule.Initialize(transform, GetComponent<Rigidbody>(), WeaponModule);
 
             _healthModule.IsOver += OnHealhIsOver;
         }
@@ -42,10 +46,8 @@ namespace Player
 
         private void Update()
         {
-            _moveModule.Move();
+            _inputModule.Update();
             _animationModule.MoveAnim();
-
-            _moveModule.Rotate();
         }
 
         private void OnDestroy()

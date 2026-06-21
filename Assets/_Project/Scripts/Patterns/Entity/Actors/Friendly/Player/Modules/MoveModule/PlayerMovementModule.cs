@@ -1,7 +1,6 @@
 using Entity;
 using Entity.Hostile;
 using EventBusLib;
-using JoystickLib;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,32 +13,26 @@ namespace Player
     public class PlayerMovementModule : IPlayerMovementModule
     {
         [SerializeField] private float _defaultSpeed = 3.65f;
-
-        [Header("Rotation Smoothness")]
         [SerializeField] private float _rotationSpeed = 13f;
-        [SerializeField] private float _autoRotationSpeed = 12f;
-        [Space(10)]
         [SerializeField] private float _timeToUpdateClosestEnemy = 0.35f;
-        [SerializeField] private Joystick _moveJoystick;
 
         private bool _controllable = true;
         private Rigidbody _rigidbody;
+        private Transform _transform;
 
         private IHostile _closestEnemy;
         private Coroutine _closestEnemyCoroutine;
         private IEntityWeaponModule _weaponModule;
 
         public float DefaultSpeed => _defaultSpeed;
-        public bool IsMoving => MoveJoystick.Direction != Vector2.zero;
         public IHostile ClosestEnemy => _closestEnemy;
-        public bool IsTraking => _closestEnemy != null || _weaponModule.AttackJoystick.Pressed;
-        public Joystick MoveJoystick => _moveJoystick;
         public Rigidbody Rigidbody => _rigidbody;
 
-        public void Initialize(IEntityWeaponModule weaponModule, Rigidbody rigidbody)
+        public void Initialize(Transform transform, Rigidbody rigidbody, IEntityWeaponModule weaponModule)
         {
-            _weaponModule = weaponModule;
+            _transform = transform;
             _rigidbody = rigidbody;
+            _weaponModule = weaponModule;
 
             EventBus.Subscribe<GameOverEvent>(SetControllableFalse);
             EventBus.Subscribe<GameExitEvent>(Unsubscribe);
@@ -57,40 +50,26 @@ namespace Player
             _controllable = false;
         }
 
-        public void Move()
-        {
-            if (_controllable)
-            {
-                Vector2 moveInput = new Vector2(MoveJoystick.Horizontal, MoveJoystick.Vertical);
 
-                if (moveInput.sqrMagnitude > 1f)
-                    moveInput.Normalize();
-
-                _rigidbody.linearVelocity = new Vector3(moveInput.x * _defaultSpeed, _rigidbody.linearVelocity.y, moveInput.y * _defaultSpeed);
-            }
-        }
-
-        public void RotateToClosestEnemy(Vector3 closestEnemy)
+        public void Move(Vector2 direction)
         {
             if (!_controllable)
                 return;
 
-            closestEnemy -= _transform.position;
-            closestEnemy = new Vector3(closestEnemy.x, 0, closestEnemy.z);
+            if (direction.sqrMagnitude > 1f)
+                direction.Normalize();
 
-            _transform.rotation = Quaternion.Lerp(
-                _transform.rotation, Quaternion.LookRotation(closestEnemy), _autoRotationSpeed * Time.deltaTime);
+            direction *= _defaultSpeed;
+            _rigidbody.linearVelocity = new Vector3(direction.x, _rigidbody.linearVelocity.y, direction.y);
         }
 
-        public void RotateToDirection(Vector2 direction)
+        public void RotateToDirection(Vector3 direction)
         {
             if (!_controllable)
                 return;
 
-            Vector3 rotateDirection = new Vector3(direction.x, 0, direction.y);
-            
             _transform.rotation = Quaternion.Lerp(
-                _transform.rotation, Quaternion.LookRotation(rotateDirection), _rotationSpeed * Time.deltaTime);
+                _transform.rotation, Quaternion.LookRotation(direction), _rotationSpeed * Time.deltaTime);
         }
 
         private IEnumerator UpdateClosestEnemy()

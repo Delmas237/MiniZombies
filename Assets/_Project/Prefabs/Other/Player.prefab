@@ -42,7 +42,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 7876713617914500085, guid: d6a77dfbd95dffe4d944edd3821d7204, type: 2}
-  m_audioClip: {fileID: 8300000, guid: 37560f17c89027c49af00c323d082dd2, type: 3}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: 37560f17c89027c49af00c323d082dd2, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.5
   m_Pitch: 1
@@ -201,7 +202,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 7876713617914500085, guid: d6a77dfbd95dffe4d944edd3821d7204, type: 2}
-  m_audioClip: {fileID: 8300000, guid: 4e7ac0d7c18225d4ca538003257f020b, type: 3}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: 4e7ac0d7c18225d4ca538003257f020b, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.6
   m_Pitch: 1
@@ -330,6 +332,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 7876713617914500085, guid: d6a77dfbd95dffe4d944edd3821d7204, type: 2}
   m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 0.5
   m_Pitch: 1
@@ -735,6 +738,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!212 &1140061343157357975
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -750,6 +754,11 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -771,9 +780,11 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.3529412}
   m_FlipX: 0
@@ -783,7 +794,6 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &2901048597055736639
 GameObject:
@@ -970,26 +980,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67de7fec0da88f9479f4531fa3197e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currencyModule:
-    _coins: 0
   _healthModule:
     _maxHealth: 100
+  _currencyModule:
+    _coins: 0
+  _inputModule:
+    _mobileInput: {fileID: 0}
   _weaponsModule:
-    _bullets: 100
     _initialGun: 0
+    _bullets: 100
     _guns:
     - {fileID: 835748756}
     - {fileID: 7393470864971495480}
     - {fileID: 391794527}
     - {fileID: 950084880}
-    _shootLineRoot: {fileID: 2306417906408800393}
-    _attackJoystick: {fileID: 0}
   _moveModule:
     _defaultSpeed: 3.65
-    _rotationSmoothness: 13
-    _autoRotationSmoothness: 12
+    _rotationSpeed: 13
     _timeToUpdateClosestEnemy: 0.35
-    _moveJoystick: {fileID: 0}
   _animationModule:
     _idleTransitionDelay: 0.3
   _audioModule:
@@ -997,6 +1005,8 @@ MonoBehaviour:
     _healSound: {fileID: 377062677}
     _deathSound: {fileID: 175399891}
     _deathPitchRandomRange: 0
+  _shootLineModule:
+    _shootLineRoot: {fileID: 2306417906408800393}
 --- !u!54 &4240113845284777554
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1004,10 +1014,10 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3897444098375238019}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -1065,7 +1075,7 @@ CapsuleCollider:
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!95 &7763498471370572099
 Animator:
-  serializedVersion: 5
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1079,6 +1089,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -1515,6 +1526,11 @@ SkinnedMeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 3
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1536,9 +1552,11 @@ SkinnedMeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   serializedVersion: 2
   m_Quality: 0
   m_UpdateWhenOffscreen: 0

@@ -19,10 +19,10 @@ namespace Entity.Hostile
         public float DefaultSpeed => _defaultSpeed;
         public NavMeshAgent Agent => _agent;
 
-        public void Initialize(NavMeshAgent agent, Transform transform, IEnemyAttackModule attackModule)
+        public void Initialize(Transform transform, NavMeshAgent agent,  IEnemyAttackModule attackModule)
         {
-            _agent = agent;
             _transform = transform;
+            _agent = agent;
             _attackModule = attackModule;
             Speed = DefaultSpeed;
         }

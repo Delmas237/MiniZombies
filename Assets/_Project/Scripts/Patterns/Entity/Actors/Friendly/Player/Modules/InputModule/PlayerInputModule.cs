@@ -1,9 +1,11 @@
 using Entity;
 using Player;
+using System;
 using UnityEngine;
 using Weapons;
 
-public class PlayerInputModule
+[Serializable]
+public class PlayerInputModule : IPlayerInputModule
 {
     [SerializeField] private PlayerMobileInput _mobileInput;
 
@@ -12,6 +14,9 @@ public class PlayerInputModule
     private IPlayerMovementModule _movementModule;
     private IPlayerWeaponModule _weaponModule;
     private PlayerShootLineModule _shootLineModule;
+
+    public bool HasMoveInput => _mobileInput.MoveJoystick.Direction != Vector2.zero;
+    public bool IsTraking => _movementModule.ClosestEnemy != null || _mobileInput.AttackJoystick.Pressed;
 
     public void Initialize(Transform transform, IEntityHealthModule healthModule, IPlayerMovementModule movementModule, IPlayerWeaponModule weaponModule, PlayerShootLineModule shootLineModule)
     {
@@ -24,44 +29,53 @@ public class PlayerInputModule
         _healthModule.IsOver += Unsubscribe;
         _weaponModule.GunChanged += UpdateShootLineScale;
 
-        _mobileInput.AttackJoystick.Drag += UpdateShootLine;
         _mobileInput.AttackJoystick.OnUp += _weaponModule.PullTrigger;
         _mobileInput.AttackJoystick.OnClamped += _weaponModule.PullAutoTrigger;
-
-        _mobileInput.MoveJoystick.Drag += Rotate;
     }
     private void UpdateShootLineScale(Gun gun)
     {
         _shootLineModule.UpdateShootLineScale();
     }
-    private void UpdateShootLine()
+
+    public void Update()
     {
-        _shootLineModule.UpdateShootLine(_mobileInput.AttackJoystick.Direction);
+        Move();
+        Rotate();
+        UpdateShootLine();
     }
 
-
+    private void Move()
+    {
+        _movementModule.Move(_mobileInput.MoveJoystick.Direction);
+    }
     private void Rotate()
     {
+        Vector3 direction;
         if (_mobileInput.AttackJoystick.Direction != Vector2.zero)
         {
-            _movementModule.RotateToDirection(_mobileInput.AttackJoystick.Direction, _rotationSpeed * Time.deltaTime);
+            direction = new Vector3(_mobileInput.AttackJoystick.Direction.x, 0, _mobileInput.AttackJoystick.Direction.y);
+            _movementModule.RotateToDirection(direction);
         }
         else if (_mobileInput.AttackJoystick.UnPressedOrInDeadZoneTime > 0.15f)
         {
-            if (_closestEnemy != null)
+            if (_movementModule.ClosestEnemy != null)
             {
-                Vector3 direction = _movementModule.ClosestEnemy.Transform.position;
+                direction = _movementModule.ClosestEnemy.Transform.position;
                 direction -= _transform.position;
-                direction = new Vector3(direction.x, 0, direction.z);
+                direction.y = 0;
                 _movementModule.RotateToDirection(direction);
             }
             else if (_mobileInput.MoveJoystick.Direction != Vector2.zero && _mobileInput.AttackJoystick.UnPressedOrInDeadZoneTime > 0.05f)
             {
-                _movementModule.RotateToDirection(_mobileInput.MoveJoystick, _rotationSpeed * Time.deltaTime);
+                direction = new Vector3(_mobileInput.MoveJoystick.Direction.x, 0, _mobileInput.MoveJoystick.Direction.y);
+                _movementModule.RotateToDirection(direction);
             }
         }
     }
-
+    private void UpdateShootLine()
+    {
+        _shootLineModule.UpdateShootLine(_mobileInput.AttackJoystick.Direction);
+    }
 
     public void OnDestroy()
     {
@@ -72,10 +86,7 @@ public class PlayerInputModule
         _healthModule.IsOver -= Unsubscribe;
         _weaponModule.GunChanged -= UpdateShootLineScale;
 
-        _mobileInput.AttackJoystick.Drag -= UpdateShootLine;
         _mobileInput.AttackJoystick.OnUp -= _weaponModule.PullTrigger;
         _mobileInput.AttackJoystick.OnClamped -= _weaponModule.PullAutoTrigger;
-
-        _mobileInput.MoveJoystick.Drag -= Rotate;
     }
 }

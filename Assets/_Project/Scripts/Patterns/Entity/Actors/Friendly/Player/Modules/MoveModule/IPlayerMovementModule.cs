@@ -1,14 +1,14 @@
 using Entity;
 using Entity.Hostile;
+using UnityEngine;
 
 namespace Player
 {
     public interface IPlayerMovementModule : IEntityMovementModule
     {
-        bool IsMoving { get; }
-        bool IsTraking { get; }
         IHostile ClosestEnemy { get; }
 
-        void RotateToDirection(Vector2 direction);
+        void Move(Vector2 direction);
+        void RotateToDirection(Vector3 direction);
     }
 }

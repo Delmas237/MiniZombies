@@ -14,13 +14,13 @@ namespace Entity.Hostile
 
         public const float DEFAULT_MOVE_SPEED = 3.7f;
 
-        public void Initialize(IEntityHealthModule healthModule, IEnemyMovementModule moveModule, IEnemyAttackModule attackModule, 
-            Animator animator)
+        public void Initialize(Animator animator, IEntityHealthModule healthModule, IEnemyMovementModule moveModule, IEnemyAttackModule attackModule)
         {
+            _animator = animator;
+
             _healthModule = healthModule;
             _moveModule = moveModule;
             _attackModule = attackModule;
-            _animator = animator;
 
             _healthModule.IsOver += DeathAnim;
         }

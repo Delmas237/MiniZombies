@@ -1,6 +1,8 @@
 using Player;
+using System;
 using UnityEngine;
 
+[Serializable]
 public class PlayerShootLineModule
 {
     [SerializeField] private Transform _shootLineRoot;
@@ -22,10 +24,10 @@ public class PlayerShootLineModule
 
     public void UpdateShootLine(Vector2 direction)
     {
-        bool attackJoystickMoving = direction != Vector2.zero;
-        if (attackJoystickMoving)
+        bool isZero = direction == Vector2.zero;
+        if (!isZero)
             _shootLineRoot.rotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.y));
 
-        _shootLineRoot.gameObject.SetActive(attackJoystickMoving);
+        _shootLineRoot.gameObject.SetActive(!isZero);
     }
 }

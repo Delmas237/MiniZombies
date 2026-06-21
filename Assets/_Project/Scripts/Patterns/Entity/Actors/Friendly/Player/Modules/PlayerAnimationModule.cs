@@ -15,17 +15,18 @@ namespace Player
         private Animator _animator;
 
         private IEntityHealthModule _healthModule;
+        private IPlayerInputModule _inputModule;
         private IEntityWeaponModule _weaponModule;
         private IPlayerMovementModule _moveModule;
 
-        public void Initialize(IEntityHealthModule healthModule, IEntityWeaponModule weaponModule, IPlayerMovementModule moveModule, 
-            Animator animator)
+        public void Initialize(Animator animator, IEntityHealthModule healthModule, IPlayerInputModule inputModule, IEntityWeaponModule weaponModule, IPlayerMovementModule moveModule)
         {
+            _animator = animator;
+
             _healthModule = healthModule;
+            _inputModule = inputModule;
             _weaponModule = weaponModule;
             _moveModule = moveModule;
-
-            _animator = animator;
 
             _weaponModule.GunChanged += CurrentGunAnim;
             _healthModule.IsOver += OnHealhIsOver;
@@ -42,7 +43,7 @@ namespace Player
 
         public void MoveAnim()
         {
-            if (_healthModule.Health > 0 && !_moveModule.IsTraking && !_moveModule.IsMoving)
+            if (_healthModule.Health > 0 && !_inputModule.IsTraking && !_inputModule.HasMoveInput)
             {
                 if (_idleTransitionCor == null && !_animator.GetBool("Idle"))
                     _idleTransitionCor = CoroutineHelper.StartRoutine(IdleCor());
@@ -58,7 +59,7 @@ namespace Player
                 }
             }
 
-            if (_moveModule.IsMoving)
+            if (_inputModule.HasMoveInput)
             {
                 _animator.SetFloat("SpeedPistol", 1);
                 _animator.SetFloat("Speed", 1.7f);
@@ -75,8 +76,8 @@ namespace Player
 
             if (_animator != null)
             {
-                if (_healthModule.Health > 0 && !_moveModule.IsTraking)
-                    _animator.SetBool("Idle", !_moveModule.IsMoving);
+                if (_healthModule.Health > 0 && !_inputModule.IsTraking)
+                    _animator.SetBool("Idle", !_inputModule.HasMoveInput);
                 else
                     _animator.SetBool("Idle", false);
             }
