@@ -10,20 +10,23 @@ namespace Entity.Hostile
         [SerializeField] protected float _defaultSpeed = 3.7f;
         
         protected Transform _transform;
-        private NavMeshAgent _agent;
-        private IEnemyAttackModule _attackModule;
+        protected NavMeshAgent _agent;
+        protected IEntityTargetModule _targetModule;
+        protected IEnemyAttackModule _attackModule;
 
-        public IEntity Target { get; set; }
         public float Speed { get; set; }
 
         public float DefaultSpeed => _defaultSpeed;
         public NavMeshAgent Agent => _agent;
 
-        public void Initialize(Transform transform, NavMeshAgent agent,  IEnemyAttackModule attackModule)
+        public void Initialize(Transform transform, NavMeshAgent agent, IEntityTargetModule targetModule, IEnemyAttackModule attackModule)
         {
             _transform = transform;
             _agent = agent;
+
+            _targetModule = targetModule;
             _attackModule = attackModule;
+            
             Speed = DefaultSpeed;
         }
 
@@ -34,10 +37,10 @@ namespace Entity.Hostile
 
         public virtual void Move()
         {
-            if (Target != null && Target.HealthModule.Health > 0)
+            if (_targetModule.Target != null && _targetModule.Target.HealthModule.Health > 0)
             {
                 if (Agent.enabled)
-                    Agent.SetDestination(Target.Transform.position);
+                    Agent.SetDestination(_targetModule.Target.Transform.position);
             }
             else
             {
@@ -47,9 +50,9 @@ namespace Entity.Hostile
 
         public virtual void Rotate()
         {
-            if (Target != null && Target.HealthModule.Health > 0 && _attackModule.IsAttack)
+            if (_targetModule.Target != null && _targetModule.Target.HealthModule.Health > 0 && _attackModule.IsAttack)
             {
-                Vector3 targetPos = Target.Transform.position - _transform.position;
+                Vector3 targetPos = _targetModule.Target.Transform.position - _transform.position;
                 targetPos = new Vector3(targetPos.x, 0, targetPos.z);
 
                 _transform.rotation = Quaternion.LookRotation(targetPos);

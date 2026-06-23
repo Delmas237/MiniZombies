@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Entity.Friendly
+namespace Entity.Friendly.Turret
 {
     [Serializable]
     public class TurretAnimationModule
@@ -11,11 +11,13 @@ namespace Entity.Friendly
         [SerializeField] private Animator _animator;
 
         private IEntityHealthModule _healthModule;
+        private IEntityTargetModule _targetModule;
         private TurretAttackModule _attackModule;
 
-        public void Initialize(IEntityHealthModule healthModule, TurretAttackModule attackModule)
+        public void Initialize(IEntityHealthModule healthModule, IEntityTargetModule targetModule, TurretAttackModule attackModule)
         {
             _healthModule = healthModule;
+            _targetModule = targetModule;
             _attackModule = attackModule;
 
             float fireLength = GetAnimationClipLength("Fire");
@@ -54,7 +56,7 @@ namespace Entity.Friendly
             if (_healthModule.Health <= 0 || !_attackModule.IsInstalled)
                 return;
 
-            if (_attackModule.IsFindingEnemy && _attackModule.ClosestEnemy != null)
+            if (_targetModule.Target != null)
             {
                 _animator.SetTrigger("Fire");
             }

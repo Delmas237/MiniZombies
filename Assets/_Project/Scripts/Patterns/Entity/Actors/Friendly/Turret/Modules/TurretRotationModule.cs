@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Entity.Friendly
+namespace Entity.Friendly.Turret
 {
     [Serializable]
     public class TurretRotationModule
@@ -9,17 +9,17 @@ namespace Entity.Friendly
         [SerializeField] private float _rotationSpeed = 13f;
         [SerializeField] private Transform _tower;
 
-        private TurretAttackModule _attackModule;
+        private IEntityTargetModule _targetModule;
 
-        public void Initialize(TurretAttackModule attackModule)
+        public void Initialize(IEntityTargetModule targetModule)
         {
-            _attackModule = attackModule;
+            _targetModule = targetModule;
         }
 
         public void Rotate()
         {
-            if (_attackModule.IsFindingEnemy && _attackModule.ClosestEnemy != null)
-                RotateToTarget(_attackModule.ClosestEnemy.Transform.position);
+            if (_targetModule.Target != null)
+                RotateToTarget(_targetModule.Target.Transform.position);
         }
         private void RotateToTarget(Vector3 target)
         {

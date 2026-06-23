@@ -1,4 +1,4 @@
-using Entity;
+using Entity.Friendly;
 
 namespace Player
 {

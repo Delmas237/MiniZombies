@@ -20,10 +20,10 @@ namespace Entity.Hostile
 
             _healthModule.Initialize();
             _audioModule.Initialize(HealthModule);
-            _animationModule.Initialize(GetComponent<Animator>(), HealthModule, MovementModule, AttackModule);
+            _animationModule.Initialize(GetComponent<Animator>(), HealthModule, TargetModule, MovementModule, AttackModule);
             _weaponsModule.Initialize();
-            _attackModule.Initialize(MovementModule, WeaponModule, transform);
-            _moveModule.Initialize(transform, GetComponent<NavMeshAgent>(), AttackModule);
+            _attackModule.Initialize(transform, TargetModule, MovementModule, WeaponModule);
+            _moveModule.Initialize(transform, GetComponent<NavMeshAgent>(), TargetModule, AttackModule);
 
             _delayedDisableModule.Initialize(gameObject, this);
             _dropAmmoAfterDeathModule.Initialize(HealthModule, transform);

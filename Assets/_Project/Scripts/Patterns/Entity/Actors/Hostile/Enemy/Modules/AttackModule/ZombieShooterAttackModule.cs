@@ -14,9 +14,10 @@ namespace Entity.Hostile
         [Space(10), Tooltip("Delay before shooting first time")]
         [SerializeField] protected float _shootDelay = 1f;
 
+        protected Transform _transform;
+        protected IEntityTargetModule _targetModule;
         protected IEnemyMovementModule _moveModule;
         protected IEntityWeaponModule _weaponModule;
-        protected Transform _transform;
 
         public bool IsAttack { get; set; }
         public float Speed { get; set; }
@@ -24,11 +25,12 @@ namespace Entity.Hostile
         public float DefaultSpeed => _defaultSpeed;
         public int Damage => _damage;
 
-        public void Initialize(IEnemyMovementModule moveModule, IEntityWeaponModule weaponModule, Transform transform)
+        public void Initialize(Transform transform, IEntityTargetModule targetModule, IEnemyMovementModule moveModule, IEntityWeaponModule weaponModule)
         {
+            _transform = transform;
+            _targetModule = targetModule;
             _moveModule = moveModule;
             _weaponModule = weaponModule;
-            _transform = transform;
 
             Speed = DefaultSpeed;
             _weaponModule.CurrentGun.Damage = _damage;
@@ -42,8 +44,8 @@ namespace Entity.Hostile
 
         public virtual void UpdateState()
         {
-            float distanceToTarget = Vector3.Distance(_moveModule.Target.Transform.position, _transform.position);
-            bool targetDied = _moveModule.Target.HealthModule.Health <= 0;
+            float distanceToTarget = Vector3.Distance(_targetModule.Target.Transform.position, _transform.position);
+            bool targetDied = _targetModule.Target.HealthModule.Health <= 0;
 
             if (!IsAttack && !targetDied)
             {

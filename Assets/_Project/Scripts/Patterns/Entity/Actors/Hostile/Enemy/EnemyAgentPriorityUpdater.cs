@@ -21,12 +21,12 @@ namespace Entity.Hostile
                 yield return new WaitForSeconds(_updateDelay);
 
                 var enemies = Spawner<IHostile>.ObjectsOnScene.Where(
-                    e => Vector3.Distance(e.Transform.position, e.MovementModule.Target.Transform.position) <= _radius).ToList();
+                    e => Vector3.Distance(e.Transform.position, e.TargetModule.Target.Transform.position) <= _radius).ToList();
 
                 enemies.Sort((a, b) =>
                 {
-                    float distanceA = Vector3.Distance(a.Transform.position, a.MovementModule.Target.Transform.position);
-                    float distanceB = Vector3.Distance(b.Transform.position, a.MovementModule.Target.Transform.position);
+                    float distanceA = Vector3.Distance(a.Transform.position, a.TargetModule.Target.Transform.position);
+                    float distanceB = Vector3.Distance(b.Transform.position, a.TargetModule.Target.Transform.position);
                     return distanceA.CompareTo(distanceB);
                 });
 

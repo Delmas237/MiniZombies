@@ -9,7 +9,7 @@ namespace Entity
     [Serializable]
     public class EntityDropAmmoOnDeathModule : IEntityOptionalModule
     {
-        [SerializeField] private bool _enabled = true;
+        [SerializeField] private bool _isEnabled = true;
         [Space(5)]
         [SerializeField, Range(0f, 1f)] private float _dropChance = 1;
 
@@ -17,11 +17,11 @@ namespace Entity
         private IEntityHealthModule _healthModule;
 
         public IInstanceProvider<AmmoPack> AmmoProvider { get; set; }
-        public bool Enabled => _enabled;
+        public bool IsEnabled { get => _isEnabled; set => _isEnabled = value; }
 
         public void Initialize(IEntityHealthModule healthModule, Transform transform)
         {
-            if (_enabled)
+            if (_isEnabled)
             {
                 _healthModule = healthModule;
                 _transform = transform;

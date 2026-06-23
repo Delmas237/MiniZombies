@@ -8,18 +8,18 @@ namespace Entity
     [Serializable]
     public class EntityDelayedDisableModule : IEntityOptionalModule
     {
-        [SerializeField] private bool _enabled = true;
+        [SerializeField] private bool _isEnabled = true;
         [Space(5)]
         [SerializeField] private float _delay = 3f;
 
         private GameObject _gameObject;
         private IEntity _entity;
 
-        public bool Enabled => _enabled;
+        public bool IsEnabled { get => _isEnabled; set => _isEnabled = value; }
 
         public void Initialize(GameObject gameObject, IEntity entity)
         {
-            if (_enabled)
+            if (_isEnabled)
             {
                 _gameObject = gameObject;
                 _entity = entity;

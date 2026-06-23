@@ -9,16 +9,18 @@ namespace Entity.Hostile
         public IInstanceProvider<PoisonProjectile> ProjectileProvider { get; set; }
         public IInstanceProvider<ParticleSystem> ProjectileEffectProvider { get; set; }
 
-        public void Initialize(IEnemyMovementModule moveModule, Transform transform)
+        public void Initialize(Transform transform, IEntityTargetModule targetModule, IEnemyMovementModule moveModule)
         {
-            _moveModule = moveModule;
             _transform = transform;
+            _targetModule = targetModule;
+            _moveModule = moveModule;
+
             Speed = DefaultSpeed;
         }
 
         public override void UpdateState()
         {
-            bool targetDied = _moveModule.Target.HealthModule.Health <= 0;
+            bool targetDied = _targetModule.Target.HealthModule.Health <= 0;
             bool destinationCompleted = Vector3.Distance(_transform.position, _moveModule.Agent.destination) < 1f;
 
             if (!IsAttack && !targetDied)
@@ -37,7 +39,7 @@ namespace Entity.Hostile
         public void Throw()
         {
             PoisonProjectile poisonProjectile = ProjectileProvider.GetInstance();
-            poisonProjectile.Initialize(_transform.position, _moveModule.Target.Transform.position);
+            poisonProjectile.Initialize(_transform.position, _targetModule.Target.Transform.position);
         }
     }
 }

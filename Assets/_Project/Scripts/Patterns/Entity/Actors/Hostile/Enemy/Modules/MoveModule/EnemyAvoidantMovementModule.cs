@@ -5,7 +5,7 @@ using UnityEngine.AI;
 namespace Entity.Hostile
 {
     [Serializable]
-    public class EnemyAvoidantMoveModule : EnemyMovementModule
+    public class EnemyAvoidantMovementModule : EnemyMovementModule
     {
         [Space(10)]
         [SerializeField] private float _minAvoidanceDistance = 10;
@@ -15,9 +15,9 @@ namespace Entity.Hostile
 
         public override void Move()
         {
-            float distanceToTarget = Vector3.Distance(Target.Transform.position, _transform.position);
+            float distanceToTarget = Vector3.Distance(_targetModule.Target.Transform.position, _transform.position);
 
-            if (Target != null && Target.HealthModule.Health > 0)
+            if (_targetModule.Target != null && _targetModule.Target.HealthModule.Health > 0)
             {
                 if (Agent.enabled)
                     Avoid(distanceToTarget);
@@ -33,7 +33,7 @@ namespace Entity.Hostile
             bool avoid = false;
             float targetDistance = 0;
             Vector3 startPosition = Vector3.zero;
-            Vector3 fleeDirection = _transform.position - Target.Transform.position;
+            Vector3 fleeDirection = _transform.position - _targetModule.Target.Transform.position;
 
             if (distanceToTarget < _minAvoidanceDistance)
             {
@@ -45,7 +45,7 @@ namespace Entity.Hostile
             {
                 avoid = true;
                 targetDistance = Math.Max(_minAvoidanceDistance, _maxAvoidanceDistance / 2);
-                startPosition = Target.Transform.position;
+                startPosition = _targetModule.Target.Transform.position;
             }
 
             if (avoid)

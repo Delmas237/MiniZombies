@@ -1,19 +1,23 @@
 using UnityEngine;
 
-namespace Entity.Friendly
+namespace Entity.Friendly.Turret
 {
     public class TurretEntity : MonoBehaviour, IFriendly
     {
         [Header("Modules")]
         [SerializeField] protected EntityHealthModule _healthModule;
+        [Space(10)]
+        [SerializeField] protected FriendlyTargetModule _targetModule;
         [SerializeField] protected EntityWeaponModule _weaponsModule;
         [SerializeField] protected TurretAttackModule _attackModule;
         [SerializeField] protected TurretRotationModule _rotationModule;
+        [Space(10)]
         [SerializeField] protected TurretAnimationModule _animationModule;
         [SerializeField] protected EntityAudioModule _audioModule;
 
         public Transform Transform => transform;
         public IEntityHealthModule HealthModule => _healthModule;
+        public IEntityTargetModule TargetModule => _targetModule;
         public IEntityWeaponModule WeaponModule => _weaponsModule;
         public TurretAttackModule AttackModule => _attackModule;
         public TurretRotationModule RotationModule => _rotationModule;
@@ -24,9 +28,10 @@ namespace Entity.Friendly
             _healthModule.Initialize();
             _audioModule.Initialize(HealthModule);
             _weaponsModule.Initialize();
-            _attackModule.Initialize(WeaponModule);
-            _rotationModule.Initialize(AttackModule);
-            _animationModule.Initialize(HealthModule, AttackModule);
+            _targetModule.Initialize(WeaponModule);
+            _attackModule.Initialize(TargetModule, WeaponModule);
+            _rotationModule.Initialize(TargetModule);
+            _animationModule.Initialize(HealthModule, TargetModule, AttackModule);
 
             _healthModule.IsOver += OnHealhIsOver;
         }

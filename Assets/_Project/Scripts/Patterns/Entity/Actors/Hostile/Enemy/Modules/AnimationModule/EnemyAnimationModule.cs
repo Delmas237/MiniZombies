@@ -8,17 +8,19 @@ namespace Entity.Hostile
     public class EnemyAnimationModule
     {
         private IEntityHealthModule _healthModule;
+        private IEntityTargetModule _targetModule;
         private IEnemyMovementModule _moveModule;
         private IEnemyAttackModule _attackModule;
         private Animator _animator;
 
         public const float DEFAULT_MOVE_SPEED = 3.7f;
 
-        public void Initialize(Animator animator, IEntityHealthModule healthModule, IEnemyMovementModule moveModule, IEnemyAttackModule attackModule)
+        public void Initialize(Animator animator, IEntityHealthModule healthModule, IEntityTargetModule targetModule, IEnemyMovementModule moveModule,  IEnemyAttackModule attackModule)
         {
             _animator = animator;
 
             _healthModule = healthModule;
+            _targetModule = targetModule;
             _moveModule = moveModule;
             _attackModule = attackModule;
 
@@ -42,7 +44,7 @@ namespace Entity.Hostile
         {
             if (_healthModule.Health > 0)
             {
-                if (_moveModule.Target != null && _moveModule.Target.HealthModule.Health > 0)
+                if (_targetModule.Target != null && _targetModule.Target.HealthModule.Health > 0)
                 {
                     if (_attackModule.IsAttack == false)
                         _animator.SetBool("Run", true);

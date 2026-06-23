@@ -1,5 +1,4 @@
 using UnityEngine;
-using Weapons;
 
 namespace Entity.Hostile
 {
@@ -7,6 +6,7 @@ namespace Entity.Hostile
     {
         [Header("Base Modules")]
         [SerializeField] protected EntityHealthModule _healthModule;
+        [SerializeField] protected EnemyTargetModule _targetModule;
         [SerializeField] protected EnemyAnimationModule _animationModule;
         [SerializeField] protected EntityAudioModule _audioModule;
 
@@ -15,6 +15,7 @@ namespace Entity.Hostile
         [SerializeField] protected EntityDropAmmoOnDeathModule _dropAmmoAfterDeathModule;
 
         public IEntityHealthModule HealthModule => _healthModule;
+        public IEntityTargetModule TargetModule => _targetModule;
         public EntityDelayedDisableModule DelayedDisableModule => _delayedDisableModule;
         public EntityDropAmmoOnDeathModule DropAmmoAfterDeathModule => _dropAmmoAfterDeathModule;
         public Transform Transform => transform;

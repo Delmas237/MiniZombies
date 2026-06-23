@@ -1,11 +1,14 @@
 using JoystickLib;
 using UnityEngine;
 
-public class PlayerMobileInput : MonoBehaviour
+namespace Player
 {
-    [SerializeField] private Joystick _moveJoystick;
-    [SerializeField] private Joystick _attackJoystick;
+    public class PlayerMobileInput : MonoBehaviour
+    {
+        [SerializeField] private Joystick _moveJoystick;
+        [SerializeField] private Joystick _attackJoystick;
 
-    public Joystick MoveJoystick => _moveJoystick;
-    public Joystick AttackJoystick => _attackJoystick;
+        public Joystick MoveJoystick => _moveJoystick;
+        public Joystick AttackJoystick => _attackJoystick;
+    }
 }

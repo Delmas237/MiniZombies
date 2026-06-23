@@ -2,6 +2,6 @@ namespace Entity
 {
     public interface IEntityOptionalModule
     {
-        bool Enabled { get; }
+        bool IsEnabled { get; set; }
     }
 }

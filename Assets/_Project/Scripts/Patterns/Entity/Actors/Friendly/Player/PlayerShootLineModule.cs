@@ -1,33 +1,35 @@
-using Player;
 using System;
 using UnityEngine;
 
-[Serializable]
-public class PlayerShootLineModule
+namespace Player
 {
-    [SerializeField] private Transform _shootLineRoot;
-
-    private IPlayerWeaponModule _weaponModule;
-
-    public const float START_DISTANCE = 0.848f;
-
-    public void Initialize(IPlayerWeaponModule weaponModule)
+    [Serializable]
+    public class PlayerShootLineModule
     {
-        _weaponModule = weaponModule;
-    }
+        [SerializeField] private Transform _shootLineRoot;
 
-    public void UpdateShootLineScale()
-    {
-        float distance = _weaponModule.CurrentGun.Distance + START_DISTANCE;
-        _shootLineRoot.localScale = new Vector3(1, 1, distance);
-    }
+        private IPlayerWeaponModule _weaponModule;
 
-    public void UpdateShootLine(Vector2 direction)
-    {
-        bool isZero = direction == Vector2.zero;
-        if (!isZero)
-            _shootLineRoot.rotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.y));
+        public const float START_DISTANCE = 0.848f;
 
-        _shootLineRoot.gameObject.SetActive(!isZero);
+        public void Initialize(IPlayerWeaponModule weaponModule)
+        {
+            _weaponModule = weaponModule;
+        }
+
+        public void UpdateShootLineScale()
+        {
+            float distance = _weaponModule.CurrentGun.Distance + START_DISTANCE;
+            _shootLineRoot.localScale = new Vector3(1, 1, distance);
+        }
+
+        public void UpdateShootLine(Vector2 direction)
+        {
+            bool isZero = direction == Vector2.zero;
+            if (!isZero)
+                _shootLineRoot.rotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.y));
+
+            _shootLineRoot.gameObject.SetActive(!isZero);
+        }
     }
 }

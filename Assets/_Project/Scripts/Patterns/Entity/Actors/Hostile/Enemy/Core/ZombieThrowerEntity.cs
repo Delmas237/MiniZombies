@@ -6,7 +6,7 @@ namespace Entity.Hostile
     public class ZombieThrowerEntity : ZombieEntity
     {
         [Header("Modules")]
-        [SerializeField] protected EnemyAvoidantMoveModule _moveModule;
+        [SerializeField] protected EnemyAvoidantMovementModule _moveModule;
         [SerializeField] protected ZombieThrowerAttackModule _attackModule;
 
         public IEnemyThrowerAttackModule ThrowerAttackModule => _attackModule;
@@ -19,9 +19,9 @@ namespace Entity.Hostile
 
             _healthModule.Initialize();
             _audioModule.Initialize(HealthModule);
-            _animationModule.Initialize(GetComponent<Animator>(), HealthModule, MovementModule, AttackModule);
-            _attackModule.Initialize(MovementModule, transform);
-            _moveModule.Initialize(transform, GetComponent<NavMeshAgent>(), AttackModule);
+            _animationModule.Initialize(GetComponent<Animator>(), HealthModule, TargetModule, MovementModule, AttackModule);
+            _attackModule.Initialize(transform, TargetModule, MovementModule);
+            _moveModule.Initialize(transform, GetComponent<NavMeshAgent>(), TargetModule, AttackModule);
 
             _delayedDisableModule.Initialize(gameObject, this);
             _dropAmmoAfterDeathModule.Initialize(HealthModule, transform);

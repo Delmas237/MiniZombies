@@ -1,7 +1,10 @@
 using UnityEngine;
 
-public interface IPlayerInputModule
+namespace Player
 {
-    bool HasMoveInput { get; }
-    bool IsTraking { get; }
+    public interface IPlayerInputModule
+    {
+        bool HasMoveInput { get; }
+        bool IsTraking { get; }
+    }
 }

@@ -1,4 +1,4 @@
-using Entity.Friendly;
+using Entity.Friendly.Turret;
 
 namespace ObjectPool
 {

@@ -106,7 +106,7 @@ namespace Factory
             Transform randSpawnDot = spawnDotsFurthest[Random.Range(0, spawnDotsFurthest.Count)];
             enemy.transform.SetPositionAndRotation(randSpawnDot.position, Quaternion.identity);
 
-            enemy.MovementModule.Target = _target;
+            enemy.TargetModule.Target = _target;
             enemy.HealthModule.Increase(enemy.HealthModule.MaxHealth);
 
             enemy.DropAmmoAfterDeathModule.AmmoProvider = _ammoPackProvider;

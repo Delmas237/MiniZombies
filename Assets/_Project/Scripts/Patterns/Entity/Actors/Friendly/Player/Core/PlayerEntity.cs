@@ -1,4 +1,5 @@
 using Entity;
+using Entity.Friendly;
 using UnityEngine;
 
 namespace Player
@@ -10,8 +11,9 @@ namespace Player
         [SerializeField] protected PlayerCurrencyModule _currencyModule;
         [Space(10)]
         [SerializeField] protected PlayerInputModule _inputModule;
-        [SerializeField] protected PlayerWeaponsModule _weaponsModule;
         [SerializeField] protected PlayerMovementModule _moveModule;
+        [SerializeField] protected FriendlyTargetModule _targetModule;
+        [SerializeField] protected PlayerWeaponModule _weaponsModule;
         [Space(10)]
         [SerializeField] protected PlayerAnimationModule _animationModule;
         [SerializeField] protected EntityAudioModule _audioModule;
@@ -21,8 +23,9 @@ namespace Player
         public IPlayerCurrencyModule CurrencyModule => _currencyModule;
         public IEntityHealthModule HealthModule => _healthModule;
         public IPlayerInputModule InputModule => _inputModule;
-        public IPlayerWeaponModule WeaponModule => _weaponsModule;
         public IPlayerMovementModule MovementModule => _moveModule;
+        public IEntityTargetModule TargetingModule => _targetModule;
+        public IPlayerWeaponModule WeaponModule => _weaponsModule;
 
         private void Awake()
         {
@@ -31,11 +34,12 @@ namespace Player
             _healthModule.Initialize();
             _audioModule.Initialize(HealthModule);
 
-            _inputModule.Initialize(transform, HealthModule, MovementModule, WeaponModule, _shootLineModule);
+            _inputModule.Initialize(transform, HealthModule, MovementModule, TargetingModule, WeaponModule, _shootLineModule);
             _animationModule.Initialize(GetComponent<Animator>(), HealthModule, InputModule, WeaponModule, MovementModule);
 
             _weaponsModule.Initialize();
-            _moveModule.Initialize(transform, GetComponent<Rigidbody>(), WeaponModule);
+            _moveModule.Initialize(transform, GetComponent<Rigidbody>());
+            _targetModule.Initialize(WeaponModule);
 
             _healthModule.IsOver += OnHealhIsOver;
         }
@@ -54,7 +58,7 @@ namespace Player
         {
             _healthModule.IsOver -= OnHealhIsOver;
             _inputModule.OnDestroy();
-            _moveModule.OnDestroy();
+            _targetModule.OnDestroy();
         }
     }
 }

@@ -5,7 +5,7 @@ using Weapons;
 namespace Player
 {
     [Serializable]
-    public class PlayerWeaponsModule : EntityWeaponModule, IPlayerWeaponModule
+    public class PlayerWeaponModule : EntityWeaponModule, IPlayerWeaponModule
     {
         public void PullAutoTrigger()
         {
