@@ -20,8 +20,6 @@ namespace Entity.Friendly.Turret
         public IEntityTargetModule TargetModule => _targetModule;
         public IEntityWeaponModule WeaponModule => _weaponsModule;
         public TurretAttackModule AttackModule => _attackModule;
-        public TurretRotationModule RotationModule => _rotationModule;
-        public TurretAnimationModule AnimationModule => _animationModule;
 
         private void Start()
         {
