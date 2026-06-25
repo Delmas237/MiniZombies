@@ -1,10 +1,9 @@
-using Entity;
 using System;
 using System.Collections;
 using UnityEngine;
 using Weapons;
 
-namespace Player
+namespace Entity.Friendly.Player
 {
     [Serializable]
     public class PlayerAnimationModule

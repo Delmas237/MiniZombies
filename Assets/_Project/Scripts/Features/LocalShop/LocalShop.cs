@@ -1,7 +1,7 @@
+using Entity.Friendly.Player;
 using Entity.Friendly.Turret;
 using EventBusLib;
 using Factory;
-using Player;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,8 +1,7 @@
-using Entity;
 using System;
 using Weapons;
 
-namespace Player
+namespace Entity.Friendly.Player
 {
     [Serializable]
     public class PlayerWeaponModule : EntityWeaponModule, IPlayerWeaponModule

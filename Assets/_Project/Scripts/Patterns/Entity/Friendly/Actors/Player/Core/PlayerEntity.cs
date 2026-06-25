@@ -1,8 +1,6 @@
-using Entity;
-using Entity.Friendly;
 using UnityEngine;
 
-namespace Player
+namespace Entity.Friendly.Player
 {
     public class PlayerEntity : MonoBehaviour, IPlayer
     {

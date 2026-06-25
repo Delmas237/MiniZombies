@@ -1,7 +1,6 @@
-using Entity;
 using UnityEngine;
 
-namespace Player
+namespace Entity.Friendly.Player
 {
     public interface IPlayerMovementModule : IEntityMovementModule
     {

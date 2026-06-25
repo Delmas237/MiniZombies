@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Weapons;
 
-namespace Player
+namespace Entity.Friendly.Player
 {
     public class PlayerGunSlots : MonoBehaviour
     {

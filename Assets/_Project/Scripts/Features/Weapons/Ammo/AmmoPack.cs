@@ -1,4 +1,4 @@
-using Player;
+using Entity.Friendly.Player;
 using UnityEngine;
 
 namespace Weapons

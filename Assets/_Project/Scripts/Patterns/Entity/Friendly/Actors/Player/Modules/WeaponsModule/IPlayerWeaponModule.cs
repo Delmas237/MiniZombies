@@ -1,7 +1,4 @@
-using Entity;
-using JoystickLib;
-
-namespace Player
+namespace Entity.Friendly.Player
 {
     public interface IPlayerWeaponModule : IEntityWeaponModule
     {

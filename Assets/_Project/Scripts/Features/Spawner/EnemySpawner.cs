@@ -1,5 +1,5 @@
 using EventBusLib;
-using Player;
+using Entity.Friendly.Player;
 using System;
 using System.Collections.Generic;
 using System.Linq;

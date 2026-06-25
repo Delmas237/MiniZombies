@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
-namespace Player
+namespace Entity.Friendly.Player
 {
     public class PlayerRewardsManager : MonoBehaviour
     {

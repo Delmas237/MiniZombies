@@ -1,9 +1,8 @@
-using Entity;
 using System;
 using UnityEngine;
 using Weapons;
 
-namespace Player
+namespace Entity.Friendly.Player
 {
     [Serializable]
     public class PlayerInputModule : IPlayerInputModule

@@ -1,5 +1,5 @@
+using Entity.Friendly.Player;
 using EventBusLib;
-using Player;
 using UnityEngine;
 using Waves;
 

@@ -1,6 +1,4 @@
-using Entity.Friendly;
-
-namespace Player
+namespace Entity.Friendly.Player
 {
     public interface IPlayer : IFriendly
     {

@@ -1,6 +1,4 @@
-using UnityEngine;
-
-namespace Player
+namespace Entity.Friendly.Player
 {
     public interface IPlayerInputModule
     {

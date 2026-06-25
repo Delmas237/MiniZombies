@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Player
+namespace Entity.Friendly.Player
 {
     [Serializable]
     public class PlayerCurrencyModule : IPlayerCurrencyModule
