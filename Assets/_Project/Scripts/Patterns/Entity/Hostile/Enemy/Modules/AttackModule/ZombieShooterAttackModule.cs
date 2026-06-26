@@ -7,7 +7,9 @@ namespace Entity.Hostile
     [Serializable]
     public class ZombieShooterAttackModule : IEnemyAttackModule
     {
-        [SerializeField, Range(0.01f, 3f)] protected float _defaultSpeed = 1f;
+        [SerializeField] private bool _enabled = true;
+        [Space(10)]
+        [SerializeField, Range(0.01f, 3f)] private float _defaultSpeed = 1f;
         [SerializeField] private int _damage = 15;
         [SerializeField] private float _cooldown = 1f;
 
@@ -19,6 +21,7 @@ namespace Entity.Hostile
         protected IEnemyMovementModule _moveModule;
         protected IEntityWeaponModule _weaponModule;
 
+        public bool Enabled { get => _enabled; set => _enabled = value; }
         public bool IsAttack { get; set; }
         public float Speed { get; set; }
 

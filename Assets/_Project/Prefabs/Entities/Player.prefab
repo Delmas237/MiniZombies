@@ -981,12 +981,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _healthModule:
+    _enabled: 1
     _maxHealth: 100
   _currencyModule:
+    _enabled: 1
     _coins: 0
   _inputModule:
+    _enabled: 1
     _mobileInput: {fileID: 0}
+  _moveModule:
+    _enabled: 1
+    _defaultSpeed: 3.65
+    _rotationSpeed: 13
+  _targetModule:
+    _enabled: 1
+    _updateTargetTime: 0.35
   _weaponsModule:
+    _enabled: 1
     _initialGun: 0
     _bullets: 100
     _guns:
@@ -994,18 +1005,17 @@ MonoBehaviour:
     - {fileID: 7393470864971495480}
     - {fileID: 391794527}
     - {fileID: 950084880}
-  _moveModule:
-    _defaultSpeed: 3.65
-    _rotationSpeed: 13
-    _timeToUpdateClosestEnemy: 0.35
   _animationModule:
+    _enabled: 1
     _idleTransitionDelay: 0.3
   _audioModule:
+    _enabled: 1
     _damageSound: {fileID: 303503531}
     _healSound: {fileID: 377062677}
     _deathSound: {fileID: 175399891}
     _deathPitchRandomRange: 0
   _shootLineModule:
+    _enabled: 1
     _shootLineRoot: {fileID: 2306417906408800393}
 --- !u!54 &4240113845284777554
 Rigidbody:

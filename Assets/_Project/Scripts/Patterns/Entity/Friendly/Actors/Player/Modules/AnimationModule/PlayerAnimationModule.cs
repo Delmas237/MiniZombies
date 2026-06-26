@@ -6,8 +6,10 @@ using Weapons;
 namespace Entity.Friendly.Player
 {
     [Serializable]
-    public class PlayerAnimationModule
+    public class PlayerAnimationModule : IEntityModule
     {
+        [SerializeField] private bool _enabled = true;
+        [Space(10)]
         [SerializeField] private float _idleTransitionDelay = 0.5f;
         private Coroutine _idleTransitionCor;
 
@@ -16,16 +18,16 @@ namespace Entity.Friendly.Player
         private IEntityHealthModule _healthModule;
         private IPlayerInputModule _inputModule;
         private IEntityWeaponModule _weaponModule;
-        private IPlayerMovementModule _moveModule;
 
-        public void Initialize(Animator animator, IEntityHealthModule healthModule, IPlayerInputModule inputModule, IEntityWeaponModule weaponModule, IPlayerMovementModule moveModule)
+        public bool Enabled { get => _enabled; set => _enabled = value; }
+
+        public void Initialize(Animator animator, IEntityHealthModule healthModule, IPlayerInputModule inputModule, IEntityWeaponModule weaponModule)
         {
             _animator = animator;
 
             _healthModule = healthModule;
             _inputModule = inputModule;
             _weaponModule = weaponModule;
-            _moveModule = moveModule;
 
             _weaponModule.GunChanged += CurrentGunAnim;
             _healthModule.IsOver += OnHealhIsOver;

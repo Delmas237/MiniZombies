@@ -7,6 +7,8 @@ namespace Entity.Friendly.Player
     [Serializable]
     public class PlayerInputModule : IPlayerInputModule
     {
+        [SerializeField] private bool _enabled = true;
+        [Space(10)]
         [SerializeField] private PlayerMobileInput _mobileInput;
 
         private Transform _transform;
@@ -16,6 +18,7 @@ namespace Entity.Friendly.Player
         private IPlayerWeaponModule _weaponModule;
         private PlayerShootLineModule _shootLineModule;
 
+        public bool Enabled { get => _enabled; set => _enabled = value; }
         public bool HasMoveInput => _mobileInput.MoveJoystick.Direction != Vector2.zero;
         public bool IsTraking => _targetingModule.Target != null || _mobileInput.AttackJoystick.Pressed;
 

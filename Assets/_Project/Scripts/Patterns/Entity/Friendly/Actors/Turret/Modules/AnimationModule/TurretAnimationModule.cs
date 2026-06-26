@@ -6,13 +6,17 @@ using UnityEngine;
 namespace Entity.Friendly.Turret
 {
     [Serializable]
-    public class TurretAnimationModule
+    public class TurretAnimationModule : IEntityModule
     {
+        [SerializeField] private bool _enabled = true;
+        [Space(10)]
         [SerializeField] private Animator _animator;
 
         private IEntityHealthModule _healthModule;
         private IEntityTargetModule _targetModule;
         private TurretAttackModule _attackModule;
+
+        public bool Enabled { get => _enabled; set => _enabled = value; }
 
         public void Initialize(IEntityHealthModule healthModule, IEntityTargetModule targetModule, TurretAttackModule attackModule)
         {

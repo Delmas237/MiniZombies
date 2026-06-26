@@ -6,6 +6,8 @@ namespace Entity
     [Serializable]
     public class EntityHealthModule : IEntityHealthModule
     {
+        [SerializeField] private bool _enabled = true;
+        [Space(10)]
         [SerializeField] private float _maxHealth = 100;
         private float _health;
 
@@ -13,6 +15,7 @@ namespace Entity
         public event Action Increased;
         public event Action IsOver;
 
+        public bool Enabled { get => _enabled; set => _enabled = value; }
         public float MaxHealth
         {
             get { return _maxHealth; }

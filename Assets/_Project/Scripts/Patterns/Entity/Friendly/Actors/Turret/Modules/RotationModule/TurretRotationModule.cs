@@ -4,12 +4,16 @@ using UnityEngine;
 namespace Entity.Friendly.Turret
 {
     [Serializable]
-    public class TurretRotationModule
+    public class TurretRotationModule : IEntityModule
     {
+        [SerializeField] private bool _enabled = true;
+        [Space(10)]
         [SerializeField] private float _rotationSpeed = 13f;
         [SerializeField] private Transform _tower;
 
         private IEntityTargetModule _targetModule;
+
+        public bool Enabled { get => _enabled; set => _enabled = value; }
 
         public void Initialize(IEntityTargetModule targetModule)
         {

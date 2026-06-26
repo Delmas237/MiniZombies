@@ -5,8 +5,10 @@ using Random = UnityEngine.Random;
 namespace Entity.Hostile
 {
     [Serializable]
-    public class EnemyAnimationModule
+    public class EnemyAnimationModule : IEntityModule
     {
+        [SerializeField] private bool _enabled = true;
+
         private IEntityHealthModule _healthModule;
         private IEntityTargetModule _targetModule;
         private IEnemyMovementModule _moveModule;
@@ -14,6 +16,8 @@ namespace Entity.Hostile
         private Animator _animator;
 
         public const float DEFAULT_MOVE_SPEED = 3.7f;
+
+        public bool Enabled { get => _enabled; set => _enabled = value; }
 
         public void Initialize(Animator animator, IEntityHealthModule healthModule, IEntityTargetModule targetModule, IEnemyMovementModule moveModule,  IEnemyAttackModule attackModule)
         {

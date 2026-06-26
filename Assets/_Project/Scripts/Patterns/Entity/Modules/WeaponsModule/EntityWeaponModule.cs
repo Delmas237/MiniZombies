@@ -9,6 +9,8 @@ namespace Entity
     [Serializable]
     public class EntityWeaponModule : IEntityWeaponModule
     {
+        [SerializeField] private bool _enabled = true;
+        [Space(10)]
         [SerializeField] private GunType _initialGun = GunType.Pistol;
         [SerializeField] private int _bullets = 100;
         [SerializeField] private List<Gun> _guns;
@@ -16,6 +18,7 @@ namespace Entity
         public event Action<int> BulletsChanged;
         public event Action<Gun> GunChanged;
 
+        public bool Enabled { get => _enabled; set => _enabled = value; }
         public Gun CurrentGun { get; private set; }
 
         public int Bullets => _bullets;

@@ -7,6 +7,8 @@ namespace Entity.Hostile
     [Serializable]
     public class EnemyMovementModule : IEnemyMovementModule
     {
+        [SerializeField] protected bool _enabled = true;
+        [Space(10)]
         [SerializeField] protected float _defaultSpeed = 3.7f;
         
         protected Transform _transform;
@@ -14,6 +16,7 @@ namespace Entity.Hostile
         protected IEntityTargetModule _targetModule;
         protected IEnemyAttackModule _attackModule;
 
+        public bool Enabled { get => _enabled; set => _enabled = value; }
         public float Speed { get; set; }
 
         public float DefaultSpeed => _defaultSpeed;

@@ -4,13 +4,17 @@ using UnityEngine;
 namespace Entity.Friendly.Player
 {
     [Serializable]
-    public class PlayerShootLineModule
+    public class PlayerShootLineModule : IEntityModule
     {
+        [SerializeField] private bool _enabled = true;
+        [Space(10)]
         [SerializeField] private Transform _shootLineRoot;
 
         private IPlayerWeaponModule _weaponModule;
 
         public const float START_DISTANCE = 0.848f;
+
+        public bool Enabled { get => _enabled; set => _enabled = value; }
 
         public void Initialize(IPlayerWeaponModule weaponModule)
         {

@@ -2,7 +2,7 @@ using System;
 
 namespace Entity.Friendly.Player
 {
-    public interface IPlayerCurrencyModule
+    public interface IPlayerCurrencyModule : IEntityModule
     {
         event Action<int> CoinsChanged;
 

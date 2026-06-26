@@ -6,8 +6,10 @@ using Random = UnityEngine.Random;
 namespace Entity
 {
     [Serializable]
-    public class EntityAudioModule
+    public class EntityAudioModule : IEntityModule
     {
+        [SerializeField] private bool _enabled = true;
+        [Space(10)]
         [SerializeField] protected AudioSource _damageSound;
         [SerializeField] protected AudioSource _healSound;
         [SerializeField] protected AudioSource _deathSound;
@@ -16,6 +18,8 @@ namespace Entity
 
         private IEntityHealthModule _healthModule;
 
+        public bool Enabled { get => _enabled; set => _enabled = value; }
+        
         public virtual void Initialize(IEntityHealthModule healthModule)
         {
             _healthModule = healthModule;

@@ -33,7 +33,7 @@ namespace Entity.Friendly.Player
             _audioModule.Initialize(HealthModule);
 
             _inputModule.Initialize(transform, HealthModule, MovementModule, TargetingModule, WeaponModule, _shootLineModule);
-            _animationModule.Initialize(GetComponent<Animator>(), HealthModule, InputModule, WeaponModule, MovementModule);
+            _animationModule.Initialize(GetComponent<Animator>(), HealthModule, InputModule, WeaponModule);
 
             _weaponsModule.Initialize();
             _moveModule.Initialize(transform, GetComponent<Rigidbody>());

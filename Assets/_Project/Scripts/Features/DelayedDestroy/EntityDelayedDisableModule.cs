@@ -6,20 +6,20 @@ using UnityEngine;
 namespace Entity
 {
     [Serializable]
-    public class EntityDelayedDisableModule : IEntityOptionalModule
+    public class EntityDelayedDisableModule : IEntityModule
     {
-        [SerializeField] private bool _isEnabled = true;
-        [Space(5)]
+        [SerializeField] private bool _enabled = true;
+        [Space(10)]
         [SerializeField] private float _delay = 3f;
 
         private GameObject _gameObject;
         private IEntity _entity;
 
-        public bool IsEnabled { get => _isEnabled; set => _isEnabled = value; }
+        public bool Enabled { get => _enabled; set => _enabled = value; }
 
         public void Initialize(GameObject gameObject, IEntity entity)
         {
-            if (_isEnabled)
+            if (_enabled)
             {
                 _gameObject = gameObject;
                 _entity = entity;

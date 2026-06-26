@@ -7,6 +7,8 @@ namespace Entity.Friendly.Player
     [Serializable]
     public class PlayerMovementModule : IPlayerMovementModule
     {
+        [SerializeField] private bool _enabled = true;
+        [Space(10)]
         [SerializeField] private float _defaultSpeed = 3.65f;
         [SerializeField] private float _rotationSpeed = 13f;
 
@@ -14,6 +16,7 @@ namespace Entity.Friendly.Player
         private Rigidbody _rigidbody;
         private Transform _transform;
 
+        public bool Enabled { get => _enabled; set => _enabled = value; }
         public float DefaultSpeed => _defaultSpeed;
         public Rigidbody Rigidbody => _rigidbody;
 

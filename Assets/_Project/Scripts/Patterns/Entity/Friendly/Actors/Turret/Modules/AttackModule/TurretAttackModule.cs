@@ -6,8 +6,10 @@ using Weapons;
 namespace Entity.Friendly.Turret
 {
     [Serializable]
-    public class TurretAttackModule
+    public class TurretAttackModule : IEntityModule
     {
+        [SerializeField] private bool _enabled = true;
+        [Space(10)]
         [SerializeField] private Transform _visibilityZone;
         [SerializeField] private float _defaultVisibilityZoneScale = 0.21f;
         [Space(10)]
@@ -19,6 +21,7 @@ namespace Entity.Friendly.Turret
 
         public event Action StartedInstalling;
 
+        public bool Enabled { get => _enabled; set => _enabled = value; }
         public bool IsInstalled => _isInstalled;
         public float Cooldown => _weaponModule.CurrentGun.Cooldown;
 

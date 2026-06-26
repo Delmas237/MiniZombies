@@ -11,12 +11,15 @@ namespace Entity.Friendly
     [Serializable]
     public class FriendlyTargetModule : IEntityTargetModule
     {
+        [SerializeField] private bool _enabled = true;
+        [Space(10)]
         [SerializeField] private float _updateTargetTime = 0.35f;
 
         private Coroutine _findClosestCoroutine;
 
         private IEntityWeaponModule _weaponModule;
 
+        public bool Enabled { get => _enabled; set => _enabled = value; }
         public bool IsFindingTarget { get; set; } = true;
         public IEntity Target { get; set; }
 
