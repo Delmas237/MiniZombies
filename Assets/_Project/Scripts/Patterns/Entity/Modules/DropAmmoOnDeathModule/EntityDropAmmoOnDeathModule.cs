@@ -21,14 +21,11 @@ namespace Entity
 
         public void Initialize(IEntityHealthModule healthModule, Transform transform)
         {
-            if (_enabled)
-            {
-                _healthModule = healthModule;
-                _transform = transform;
+            _healthModule = healthModule;
+            _transform = transform;
 
-                healthModule.IsOver += DropAmmo;
-                EventBus.Subscribe<GameExitEvent>(Unsubscribe);
-            }
+            healthModule.IsOver += DropAmmo;
+            EventBus.Subscribe<GameExitEvent>(Unsubscribe);
         }
         private void Unsubscribe(GameExitEvent exitEvent)
         {
@@ -38,8 +35,10 @@ namespace Entity
 
         private void DropAmmo()
         {
-            float rnd = Random.Range(0f, 1f);
+            if (!_enabled)
+                return;
 
+            float rnd = Random.Range(0f, 1f);
             if (rnd < _dropChance)
             {
                 AmmoPack ammo = AmmoProvider.GetInstance();

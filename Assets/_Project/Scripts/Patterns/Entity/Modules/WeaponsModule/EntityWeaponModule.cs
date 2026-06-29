@@ -9,11 +9,11 @@ namespace Entity
     [Serializable]
     public class EntityWeaponModule : IEntityWeaponModule
     {
-        [SerializeField] private bool _enabled = true;
+        [SerializeField] protected bool _enabled = true;
         [Space(10)]
-        [SerializeField] private GunType _initialGun = GunType.Pistol;
-        [SerializeField] private int _bullets = 100;
-        [SerializeField] private List<Gun> _guns;
+        [SerializeField] protected GunType _initialGun = GunType.Pistol;
+        [SerializeField] protected int _bullets = 100;
+        [SerializeField] protected List<Gun> _guns;
 
         public event Action<int> BulletsChanged;
         public event Action<Gun> GunChanged;
@@ -33,6 +33,9 @@ namespace Entity
 
         public void PullTrigger()
         {
+            if (!_enabled)
+                return;
+
             if (Bullets - CurrentGun.Consumption >= 0)
             {
                 if (CurrentGun.ShootRequest())
@@ -42,6 +45,9 @@ namespace Entity
 
         public virtual void ChangeGun(GunType gunType)
         {
+            if (!_enabled)
+                return;
+
             if (_guns.Any(g => g.Type == gunType))
             {
                 CurrentGun = _guns.First(g => g.Type == gunType);

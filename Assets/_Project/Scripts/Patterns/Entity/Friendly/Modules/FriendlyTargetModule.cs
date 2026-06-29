@@ -9,17 +9,30 @@ using UnityEngine;
 namespace Entity.Friendly
 {
     [Serializable]
-    public class FriendlyTargetModule : IEntityTargetModule
+    public class FriendlyTargetModule : IEntityTargetModule, IDisposable
     {
         [SerializeField] private bool _enabled = true;
         [Space(10)]
         [SerializeField] private float _updateTargetTime = 0.35f;
 
-        private Coroutine _findClosestCoroutine;
+        private Coroutine _findClosestCor;
 
         private IEntityWeaponModule _weaponModule;
 
-        public bool Enabled { get => _enabled; set => _enabled = value; }
+        public bool Enabled
+        {
+            get => _enabled;
+            set
+            {
+                if (_enabled != value)
+                {
+                    _enabled = value;
+                    if (!_enabled)
+                        StopFindingTargetImmediately();
+                }
+            }
+        }
+
         public bool IsFindingTarget { get; set; } = true;
         public IEntity Target { get; set; }
 
@@ -27,21 +40,32 @@ namespace Entity.Friendly
         {
             _weaponModule = weaponModule;
 
-            _findClosestCoroutine = CoroutineHelper.StartRoutine(FindClosest());
+            _findClosestCor = CoroutineHelper.StartRoutine(FindClosest());
             EventBus.Subscribe<GameOverEvent>(OnGameOver);
         }
+
         private void OnGameOver(GameOverEvent gameOverEvent)
         {
             IsFindingTarget = false;
             Target = null;
-            CoroutineHelper.StopRoutine(_findClosestCoroutine);
-            _findClosestCoroutine = null;
+
+            if (_findClosestCor != null)
+            {
+                CoroutineHelper.StopRoutine(_findClosestCor);
+                _findClosestCor = null;
+            }
         }
 
         private IEnumerator FindClosest()
         {
             while (true)
             {
+                if (!_enabled)
+                {
+                    yield return new WaitForSeconds(_updateTargetTime);
+                    continue;
+                }
+
                 if (IsFindingTarget)
                 {
                     IReadOnlyList<IHostile> targets = Spawner<IHostile>.ObjectsOnScene;
@@ -65,10 +89,21 @@ namespace Entity.Friendly
             }
         }
 
-        public void OnDestroy()
+        private void StopFindingTargetImmediately()
         {
-            if (_findClosestCoroutine != null)
-                CoroutineHelper.StopRoutine(_findClosestCoroutine);
+            IsFindingTarget = false;
+            Target = null;
+
+            if (_findClosestCor != null)
+            {
+                CoroutineHelper.StopRoutine(_findClosestCor);
+                _findClosestCor = null;
+            }
+        }
+
+        public void Dispose()
+        {
+            StopFindingTargetImmediately();
             EventBus.Unsubscribe<GameOverEvent>(OnGameOver);
         }
     }

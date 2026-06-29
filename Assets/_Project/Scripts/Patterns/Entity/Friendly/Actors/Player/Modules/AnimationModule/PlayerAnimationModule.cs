@@ -6,20 +6,32 @@ using Weapons;
 namespace Entity.Friendly.Player
 {
     [Serializable]
-    public class PlayerAnimationModule : IEntityModule
+    public class PlayerAnimationModule : IEntityModule, IDisposable
     {
         [SerializeField] private bool _enabled = true;
         [Space(10)]
         [SerializeField] private float _idleTransitionDelay = 0.5f;
-        private Coroutine _idleTransitionCor;
 
+        private Coroutine _idleTransitionCor;
         private Animator _animator;
 
         private IEntityHealthModule _healthModule;
         private IPlayerInputModule _inputModule;
         private IEntityWeaponModule _weaponModule;
 
-        public bool Enabled { get => _enabled; set => _enabled = value; }
+        public bool Enabled
+        {
+            get => _enabled;
+            set
+            {
+                if (_enabled != value)
+                {
+                    _enabled = value;
+                    if (!_enabled)
+                        StopIdleTransitionImmediately();
+                }
+            }
+        }
 
         public void Initialize(Animator animator, IEntityHealthModule healthModule, IPlayerInputModule inputModule, IEntityWeaponModule weaponModule)
         {
@@ -44,6 +56,9 @@ namespace Entity.Friendly.Player
 
         public void MoveAnim()
         {
+            if (!_enabled)
+                return;
+
             if (_healthModule.Health > 0 && !_inputModule.IsTraking && !_inputModule.HasMoveInput)
             {
                 if (_idleTransitionCor == null && !_animator.GetBool("Idle"))
@@ -71,9 +86,13 @@ namespace Entity.Friendly.Player
                 _animator.SetFloat("Speed", 0);
             }
         }
+
         private IEnumerator IdleCor()
         {
             yield return new WaitForSeconds(_idleTransitionDelay);
+
+            if (!_enabled)
+                yield break;
 
             if (_animator != null)
             {
@@ -86,11 +105,34 @@ namespace Entity.Friendly.Player
             _idleTransitionCor = null;
         }
 
+        private void StopIdleTransitionImmediately()
+        {
+            if (_idleTransitionCor != null)
+            {
+                CoroutineHelper.StopRoutine(_idleTransitionCor);
+                _idleTransitionCor = null;
+            }
+        }
+
         private void CurrentGunAnim(Gun gun)
         {
+            if (!_enabled)
+                return;
+
             _animator.SetBool("PistolInHands", gun.Type == GunType.Pistol);
         }
 
-        private void DeathAnim() => _animator.SetBool("Died", true);
+        private void DeathAnim()
+        {
+            if (!_enabled)
+                return;
+
+            _animator.SetBool("Died", true);
+        }
+
+        public void Dispose()
+        {
+            StopIdleTransitionImmediately();
+        }
     }
 }

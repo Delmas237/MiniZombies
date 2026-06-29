@@ -5,7 +5,7 @@ using Random = UnityEngine.Random;
 namespace Entity.Hostile
 {
     [Serializable]
-    public class EnemyAnimationModule : IEntityModule
+    public class EnemyAnimationModule : IEntityModule, IDisposable
     {
         [SerializeField] private bool _enabled = true;
 
@@ -46,25 +46,31 @@ namespace Entity.Hostile
         }
         public void MoveAnim()
         {
-            if (_healthModule.Health > 0)
-            {
-                if (_targetModule.Target != null && _targetModule.Target.HealthModule.Health > 0)
-                {
-                    if (_attackModule.IsAttack == false)
-                        _animator.SetBool("Run", true);
+            if (!_enabled)
+                return;
 
-                    _animator.SetBool("Idle", false);
-                }
-                else
-                {
-                    _animator.SetBool("Idle", true);
-                    _animator.SetBool("Run", false);
-                }
+            if (_healthModule.Health <= 0)
+                return;
+
+            if (_targetModule.Target != null && _targetModule.Target.HealthModule.Health > 0)
+            {
+                if (_attackModule.IsAttack == false)
+                    _animator.SetBool("Run", true);
+
+                _animator.SetBool("Idle", false);
+            }
+            else
+            {
+                _animator.SetBool("Idle", true);
+                _animator.SetBool("Run", false);
             }
         }
 
         public void AttackAnim()
         {
+            if (!_enabled)
+                return;
+
             if (_healthModule.Health > 0 && _attackModule.IsAttack)
             {
                 _animator.SetBool("Attack", true);
@@ -77,11 +83,14 @@ namespace Entity.Hostile
 
         private void DeathAnim()
         {
+            if (!_enabled)
+                return;
+
             int rnd = Random.Range(1, 3);
             _animator.SetBool("Death" + rnd, true);
         }
 
-        public void OnDestroy()
+        public void Dispose()
         {
             _healthModule.IsOver -= DeathAnim;
         }

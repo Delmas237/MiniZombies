@@ -5,26 +5,42 @@ using UnityEngine;
 namespace Entity.Hostile
 {
     [Serializable]
-    public class ZombieShooterAttackModule : IEnemyAttackModule
+    public class ZombieShooterAttackModule : IEnemyAttackModule, IDisposable
     {
-        [SerializeField] private bool _enabled = true;
+        [SerializeField] protected bool _enabled = true;
         [Space(10)]
-        [SerializeField, Range(0.01f, 3f)] private float _defaultSpeed = 1f;
-        [SerializeField] private int _damage = 15;
-        [SerializeField] private float _cooldown = 1f;
+        [SerializeField, Range(0.01f, 3f)] protected float _defaultSpeed = 1f;
+        [SerializeField] protected int _damage = 15;
+        [SerializeField] protected float _cooldown = 1f;
 
         [Space(10), Tooltip("Delay before shooting first time")]
         [SerializeField] protected float _shootDelay = 1f;
 
+        protected bool _isAttack;
+        protected Coroutine _shootDelayCoroutine;
+        
         protected Transform _transform;
         protected IEntityTargetModule _targetModule;
         protected IEnemyMovementModule _moveModule;
         protected IEntityWeaponModule _weaponModule;
 
-        public bool Enabled { get => _enabled; set => _enabled = value; }
-        public bool IsAttack { get; set; }
+        public bool Enabled
+        {
+            get => _enabled;
+            set
+            {
+                if (_enabled != value)
+                {
+                    _enabled = value;
+                    if (!_enabled)
+                        StopAttackImmediately();
+                }
+            }
+        }
+
         public float Speed { get; set; }
 
+        public bool IsAttack => _isAttack;
         public float DefaultSpeed => _defaultSpeed;
         public int Damage => _damage;
 
@@ -47,48 +63,105 @@ namespace Entity.Hostile
 
         public virtual void UpdateState()
         {
-            float distanceToTarget = Vector3.Distance(_targetModule.Target.Transform.position, _transform.position);
-            bool targetDied = _targetModule.Target.HealthModule.Health <= 0;
+            if (!_enabled)
+                return;
 
-            if (!IsAttack && !targetDied)
+            if (_targetModule.Target == null)
+                return;
+
+            if (_targetModule.Target.HealthModule.Health <= 0)
             {
-                if (distanceToTarget < _weaponModule.CurrentGun.Distance / 2)
-                {
+                GetOutPosition();
+                return;
+            }
+
+            float distanceToTarget = Vector3.Distance(_targetModule.Target.Transform.position, _transform.position);
+            float attackDistance = _weaponModule.CurrentGun.Distance;
+
+            if (!_isAttack)
+            {
+                if (distanceToTarget < attackDistance / 2)
                     GetIntoPosition();
-                }
             }
             else
             {
-                if (distanceToTarget > _weaponModule.CurrentGun.Distance || targetDied)
-                {
+                if (distanceToTarget > attackDistance || _targetModule.Target.HealthModule.Health <= 0)
                     GetOutPosition();
-                }
             }
         }
 
         protected virtual void GetIntoPosition()
         {
-            IsAttack = true;
-            CoroutineHelper.StartRoutine(ShootDelay(_shootDelay));
+            if (!_enabled)
+                return;
 
-            if (_moveModule.Agent.enabled)
+            _isAttack = true;
+
+            if (_shootDelayCoroutine != null)
+            {
+                CoroutineHelper.StopRoutine(_shootDelayCoroutine);
+                _shootDelayCoroutine = null;
+            }
+
+            _shootDelayCoroutine = CoroutineHelper.StartRoutine(ShootDelayCoroutine(_shootDelay));
+
+            if (_moveModule.Agent != null && _moveModule.Agent.enabled)
                 _moveModule.Agent.isStopped = true;
         }
-        protected IEnumerator ShootDelay(float delay)
+
+        private IEnumerator ShootDelayCoroutine(float delay)
         {
             float speedX = Speed;
-
             Speed = 0;
+
             yield return new WaitForSeconds(delay);
+
             Speed = speedX;
+            _shootDelayCoroutine = null;
         }
 
         protected virtual void GetOutPosition()
         {
-            IsAttack = false;
+            if (!_enabled)
+                return;
 
-            if (_moveModule.Agent.enabled)
+            StopAttackImmediately();
+        }
+
+        public void StopAttackImmediately()
+        {
+            _isAttack = false;
+
+            if (_moveModule.Agent != null && _moveModule.Agent.enabled && _moveModule.Agent.isOnNavMesh)
                 _moveModule.Agent.isStopped = false;
+
+            if (_shootDelayCoroutine != null)
+            {
+                CoroutineHelper.StopRoutine(_shootDelayCoroutine);
+                _shootDelayCoroutine = null;
+            }
+        }
+
+        public virtual void DealDamage()
+        {
+            if (!_enabled)
+                return;
+
+            if (_targetModule.Target == null)
+                return;
+
+            if (_targetModule.Target.HealthModule.Health <= 0)
+            {
+                GetOutPosition();
+                return;
+            }
+
+            _targetModule.Target.HealthModule.Decrease(Damage);
+        }
+
+        public void Dispose()
+        {
+            StopAttackImmediately();
         }
     }
 }

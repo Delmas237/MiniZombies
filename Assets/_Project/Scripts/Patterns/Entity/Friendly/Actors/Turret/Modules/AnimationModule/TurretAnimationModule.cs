@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Entity.Friendly.Turret
 {
     [Serializable]
-    public class TurretAnimationModule : IEntityModule
+    public class TurretAnimationModule : IEntityModule, IDisposable
     {
         [SerializeField] private bool _enabled = true;
         [Space(10)]
@@ -27,7 +27,7 @@ namespace Entity.Friendly.Turret
             float fireLength = GetAnimationClipLength("Fire");
             _animator.SetFloat("FireSpeed", fireLength / attackModule.Cooldown);
 
-            _attackModule.StartedInstalling += OnStartedInstalling;
+            _attackModule.InstallStarted += OnStartedInstalling;
             _healthModule.IsOver += OnHealthIsOver;
         }
         private float GetAnimationClipLength(string name)
@@ -48,15 +48,24 @@ namespace Entity.Friendly.Turret
 
         private void OnStartedInstalling()
         {
+            if (!_enabled)
+                return;
+
             _animator.SetTrigger("Install");
         }
         private void OnHealthIsOver()
         {
+            if (!_enabled)
+                return;
+
             _animator.SetTrigger("Death");
         }
 
         public void UpdateState()
         {
+            if (!_enabled)
+                return;
+
             if (_healthModule.Health <= 0 || !_attackModule.IsInstalled)
                 return;
 
@@ -70,10 +79,10 @@ namespace Entity.Friendly.Turret
             }
         }
 
-        public void OnDestroy()
+        public void Dispose()
         {
             if (_attackModule != null)
-                _attackModule.StartedInstalling -= OnStartedInstalling;
+                _attackModule.InstallStarted -= OnStartedInstalling;
             if (_healthModule != null)
                 _healthModule.IsOver -= OnHealthIsOver;
         }

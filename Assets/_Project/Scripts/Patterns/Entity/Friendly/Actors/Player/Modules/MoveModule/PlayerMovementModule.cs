@@ -12,7 +12,6 @@ namespace Entity.Friendly.Player
         [SerializeField] private float _defaultSpeed = 3.65f;
         [SerializeField] private float _rotationSpeed = 13f;
 
-        private bool _controllable = true;
         private Rigidbody _rigidbody;
         private Transform _transform;
 
@@ -25,23 +24,23 @@ namespace Entity.Friendly.Player
             _transform = transform;
             _rigidbody = rigidbody;
 
-            EventBus.Subscribe<GameOverEvent>(SetControllableFalse);
+            EventBus.Subscribe<GameOverEvent>(Disable);
             EventBus.Subscribe<GameExitEvent>(Unsubscribe);
         }
         private void Unsubscribe(GameExitEvent exitEvent)
         {
             EventBus.Unsubscribe<GameExitEvent>(Unsubscribe);
-            EventBus.Unsubscribe<GameOverEvent>(SetControllableFalse);
+            EventBus.Unsubscribe<GameOverEvent>(Disable);
         }
 
-        private void SetControllableFalse(IEvent e)
+        private void Disable(IEvent e)
         {
-            _controllable = false;
+            _enabled = false;
         }
 
         public void Move(Vector2 direction)
         {
-            if (!_controllable)
+            if (!_enabled)
                 return;
 
             if (direction.sqrMagnitude > 1f)
@@ -53,7 +52,7 @@ namespace Entity.Friendly.Player
 
         public void RotateToDirection(Vector3 direction)
         {
-            if (!_controllable)
+            if (!_enabled)
                 return;
 
             _transform.rotation = Quaternion.Lerp(

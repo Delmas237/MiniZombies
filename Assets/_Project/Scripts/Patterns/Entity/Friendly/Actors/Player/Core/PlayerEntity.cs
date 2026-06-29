@@ -55,8 +55,10 @@ namespace Entity.Friendly.Player
         private void OnDestroy()
         {
             _healthModule.IsOver -= OnHealhIsOver;
-            _inputModule.OnDestroy();
-            _targetModule.OnDestroy();
+
+            _inputModule.Dispose();
+            _targetModule.Dispose();
+            _animationModule.Dispose();
         }
     }
 }

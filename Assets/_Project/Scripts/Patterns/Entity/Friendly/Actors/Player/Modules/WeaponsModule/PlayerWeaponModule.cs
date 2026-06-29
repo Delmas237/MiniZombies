@@ -8,6 +8,9 @@ namespace Entity.Friendly.Player
     {
         public void PullAutoTrigger()
         {
+            if (!_enabled)
+                return;
+
             if (CurrentGun.FireType == GunFireType.Auto)
                 PullTrigger();
         }

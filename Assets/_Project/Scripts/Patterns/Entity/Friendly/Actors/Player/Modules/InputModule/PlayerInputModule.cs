@@ -5,7 +5,7 @@ using Weapons;
 namespace Entity.Friendly.Player
 {
     [Serializable]
-    public class PlayerInputModule : IPlayerInputModule
+    public class PlayerInputModule : IPlayerInputModule, IDisposable
     {
         [SerializeField] private bool _enabled = true;
         [Space(10)]
@@ -19,8 +19,8 @@ namespace Entity.Friendly.Player
         private PlayerShootLineModule _shootLineModule;
 
         public bool Enabled { get => _enabled; set => _enabled = value; }
-        public bool HasMoveInput => _mobileInput.MoveJoystick.Direction != Vector2.zero;
-        public bool IsTraking => _targetingModule.Target != null || _mobileInput.AttackJoystick.Pressed;
+        public bool HasMoveInput => _enabled && _mobileInput.MoveJoystick.Direction != Vector2.zero;
+        public bool IsTraking => _enabled && (_targetingModule.Target != null || _mobileInput.AttackJoystick.Pressed);
 
         public void Initialize(Transform transform, IEntityHealthModule healthModule, IPlayerMovementModule movementModule, IEntityTargetModule targetModule,
             IPlayerWeaponModule weaponModule, PlayerShootLineModule shootLineModule)
@@ -35,16 +35,36 @@ namespace Entity.Friendly.Player
             _healthModule.IsOver += Unsubscribe;
             _weaponModule.GunChanged += UpdateShootLineScale;
 
-            _mobileInput.AttackJoystick.OnUp += _weaponModule.PullTrigger;
-            _mobileInput.AttackJoystick.OnClamped += _weaponModule.PullAutoTrigger;
+            _mobileInput.AttackJoystick.OnUp += OnAttackUp;
+            _mobileInput.AttackJoystick.OnClamped += OnAttackClamped;
         }
         private void UpdateShootLineScale(Gun gun)
         {
+            if (!_enabled)
+                return;
+
             _shootLineModule.UpdateShootLineScale();
+        }
+        private void OnAttackUp()
+        {
+            if (!_enabled)
+                return;
+
+            _weaponModule.PullTrigger();
+        }
+        private void OnAttackClamped()
+        {
+            if (!_enabled)
+                return;
+
+            _weaponModule.PullAutoTrigger();
         }
 
         public void Update()
         {
+            if (!_enabled)
+                return;
+
             Move();
             Rotate();
             UpdateShootLine();
@@ -83,7 +103,7 @@ namespace Entity.Friendly.Player
             _shootLineModule.UpdateShootLine(_mobileInput.AttackJoystick.Direction);
         }
 
-        public void OnDestroy()
+        public void Dispose()
         {
             Unsubscribe();
         }
@@ -92,8 +112,8 @@ namespace Entity.Friendly.Player
             _healthModule.IsOver -= Unsubscribe;
             _weaponModule.GunChanged -= UpdateShootLineScale;
 
-            _mobileInput.AttackJoystick.OnUp -= _weaponModule.PullTrigger;
-            _mobileInput.AttackJoystick.OnClamped -= _weaponModule.PullAutoTrigger;
+            _mobileInput.AttackJoystick.OnUp -= OnAttackUp;
+            _mobileInput.AttackJoystick.OnClamped -= OnAttackClamped;
         }
     }
 }

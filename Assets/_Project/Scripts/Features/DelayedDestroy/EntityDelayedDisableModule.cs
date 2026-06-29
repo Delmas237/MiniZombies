@@ -12,31 +12,31 @@ namespace Entity
         [Space(10)]
         [SerializeField] private float _delay = 3f;
 
+        private IEntityHealthModule _healthModule;
         private GameObject _gameObject;
-        private IEntity _entity;
 
         public bool Enabled { get => _enabled; set => _enabled = value; }
 
-        public void Initialize(GameObject gameObject, IEntity entity)
+        public void Initialize(GameObject gameObject, IEntityHealthModule healthModule)
         {
-            if (_enabled)
-            {
-                _gameObject = gameObject;
-                _entity = entity;
+            _gameObject = gameObject;
+            _healthModule = healthModule;
 
-                entity.HealthModule.IsOver += DelayedSetActiveFalse;
-                EventBus.Subscribe<GameExitEvent>(Unsubscribe);
-            }
+            _healthModule.IsOver += DelayedSetActiveFalse;
+            EventBus.Subscribe<GameExitEvent>(Unsubscribe);
         }
         private void Unsubscribe(GameExitEvent exitEvent)
         {
             EventBus.Unsubscribe<GameExitEvent>(Unsubscribe);
-            _entity.HealthModule.IsOver -= DelayedSetActiveFalse;
+            _healthModule.IsOver -= DelayedSetActiveFalse;
         }
 
         private IEnumerator SetActiveFalse(float delay)
         {
             yield return new WaitForSeconds(delay);
+
+            if (!_enabled)
+                yield break;
 
             if (_gameObject != null)
                 _gameObject.SetActive(false);

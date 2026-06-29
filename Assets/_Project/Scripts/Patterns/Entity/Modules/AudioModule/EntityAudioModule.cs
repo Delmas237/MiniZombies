@@ -40,21 +40,28 @@ namespace Entity
 
         private void OnHealhIsOver()
         {
-            if (_deathSound != null)
-            {
-                _deathSound.pitch = Random.Range(_deathSound.pitch - _deathPitchRandomRange, _deathSound.pitch + _deathPitchRandomRange);
-                _deathSound.Play();
-            }
+            if (!_enabled)
+                return;
+
+            if (_deathSound == null)
+                return;
+
+            _deathSound.pitch = Random.Range(_deathSound.pitch - _deathPitchRandomRange, _deathSound.pitch + _deathPitchRandomRange);
+            _deathSound.Play();
         }
         private void OnHealhIncreased()
         {
-            if (_healSound != null)
-                _healSound.Play();
+            if (_healSound == null)
+                return;
+
+            _healSound.Play();
         }
         private void OnHealthDecreased()
         {
-            if (_damageSound != null)
-                _damageSound.Play();
+            if (_damageSound == null)
+                return;
+            
+            _damageSound.Play();
         }
     }
 }

@@ -23,12 +23,18 @@ namespace Entity.Friendly.Player
 
         public void UpdateShootLineScale()
         {
+            if (!_enabled)
+                return;
+
             float distance = _weaponModule.CurrentGun.Distance + START_DISTANCE;
             _shootLineRoot.localScale = new Vector3(1, 1, distance);
         }
 
         public void UpdateShootLine(Vector2 direction)
         {
+            if (!_enabled)
+                return;
+
             bool isZero = direction == Vector2.zero;
             if (!isZero)
                 _shootLineRoot.rotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.y));

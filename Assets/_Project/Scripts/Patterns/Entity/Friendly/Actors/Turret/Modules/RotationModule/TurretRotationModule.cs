@@ -22,8 +22,13 @@ namespace Entity.Friendly.Turret
 
         public void Rotate()
         {
-            if (_targetModule.Target != null)
-                RotateToTarget(_targetModule.Target.Transform.position);
+            if (!_enabled)
+                return;
+
+            if (_targetModule.Target == null)
+                return;
+
+            RotateToTarget(_targetModule.Target.Transform.position);
         }
         private void RotateToTarget(Vector3 target)
         {

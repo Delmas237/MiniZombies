@@ -23,7 +23,7 @@ namespace Entity.Hostile
             _attackModule.Initialize(transform, TargetModule, MovementModule);
             _moveModule.Initialize(transform, GetComponent<NavMeshAgent>(), TargetModule, AttackModule);
 
-            _delayedDisableModule.Initialize(gameObject, this);
+            _delayedDisableModule.Initialize(gameObject, _healthModule);
             _dropAmmoAfterDeathModule.Initialize(HealthModule, transform);
         }
 
@@ -49,14 +49,15 @@ namespace Entity.Hostile
             base.OnHealhIsOver();
 
             _moveModule.Agent.enabled = false;
-            _attackModule.IsAttack = false;
+            _attackModule.StopAttackImmediately();
             enabled = false;
         }
 
         protected override void OnDestroy()
         {
             base.OnDestroy();
-            _animationModule.OnDestroy();
+            _attackModule.Dispose();
+            _animationModule.Dispose();
         }
 
         private void Shoot() => ThrowerAttackModule.Throw();

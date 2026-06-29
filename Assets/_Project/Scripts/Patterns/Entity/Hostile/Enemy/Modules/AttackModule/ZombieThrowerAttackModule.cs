@@ -20,6 +20,9 @@ namespace Entity.Hostile
 
         public override void UpdateState()
         {
+            if (!_enabled)
+                return;
+
             bool targetDied = _targetModule.Target.HealthModule.Health <= 0;
             bool destinationCompleted = Vector3.Distance(_transform.position, _moveModule.Agent.destination) < 1f;
 
@@ -38,6 +41,9 @@ namespace Entity.Hostile
 
         public void Throw()
         {
+            if (!_enabled)
+                return;
+
             PoisonProjectile poisonProjectile = ProjectileProvider.GetInstance();
             poisonProjectile.Initialize(_transform.position, _targetModule.Target.Transform.position);
         }

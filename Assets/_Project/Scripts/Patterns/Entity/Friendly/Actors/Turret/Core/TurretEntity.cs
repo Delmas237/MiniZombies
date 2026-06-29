@@ -35,7 +35,7 @@ namespace Entity.Friendly.Turret
         }
         private void OnHealhIsOver()
         {
-            Destroy(gameObject);
+            _attackModule.Enabled = false;
         }
 
         private void Update()
@@ -48,8 +48,10 @@ namespace Entity.Friendly.Turret
         private void OnDestroy()
         {
             _healthModule.IsOver -= OnHealhIsOver;
-            _attackModule.OnDestroy();
-            _animationModule.OnDestroy();
+
+            _attackModule.Dispose();
+            _targetModule.Dispose();
+            _animationModule.Dispose();
         }
     }
 }

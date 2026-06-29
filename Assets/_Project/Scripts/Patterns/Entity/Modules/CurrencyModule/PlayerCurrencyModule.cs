@@ -17,6 +17,9 @@ namespace Entity.Friendly.Player
 
         public void Add(int amount)
         {
+            if (!_enabled)
+                return;
+
             if (amount <= 0)
                 return;
 
@@ -26,6 +29,9 @@ namespace Entity.Friendly.Player
 
         public bool Spend(int amount)
         {
+            if (!_enabled)
+                return false;
+
             if (amount < 0 || amount > _coins)
                 return false;
 
@@ -34,6 +40,6 @@ namespace Entity.Friendly.Player
             return true;
         }
 
-        public bool IsCanSpend(int amount) => _coins >= amount;
+        public bool IsCanSpend(int amount) => _enabled && _coins >= amount;
     }
 }

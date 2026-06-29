@@ -15,8 +15,10 @@ namespace Entity.Hostile
 
         public override void Move()
         {
-            float distanceToTarget = Vector3.Distance(_targetModule.Target.Transform.position, _transform.position);
+            if (!_enabled)
+                return;
 
+            float distanceToTarget = Vector3.Distance(_targetModule.Target.Transform.position, _transform.position);
             if (_targetModule.Target != null && _targetModule.Target.HealthModule.Health > 0)
             {
                 if (Agent.enabled)
