@@ -5,7 +5,7 @@ using Random = UnityEngine.Random;
 namespace Entity.Hostile
 {
     [Serializable]
-    public class EnemyAnimationModule : IEntityModule, IDisposable
+    public class EnemyAnimationModule : IModule, IDisposable
     {
         [SerializeField] private bool _enabled = true;
 

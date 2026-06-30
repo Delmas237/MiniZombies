@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Entity.Friendly.Player
 {
     [Serializable]
-    public class PlayerDeathModule : IEntityModule, IDisposable
+    public class PlayerDeathModule : IModule, IDisposable
     {
         [SerializeField] private bool _enabled = true;
 

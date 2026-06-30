@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Entity.Friendly.Turret
 {
-    public class TurretEntity : MonoBehaviour, IFriendly
+    public class TurretEntity : EntityBase, IFriendly
     {
         [Header("Modules")]
         [SerializeField] protected EntityHealthModule _healthModule;
@@ -16,20 +16,21 @@ namespace Entity.Friendly.Turret
         [SerializeField] protected EntityAudioModule _audioModule;
         [SerializeField] protected TurretDeathModule _deathModule;
 
-        public Transform Transform => transform;
-        public IEntityHealthModule HealthModule => _healthModule;
+        public override IEntityHealthModule HealthModule => _healthModule;
         public IEntityTargetModule TargetModule => _targetModule;
         public IEntityWeaponModule WeaponModule => _weaponsModule;
         public TurretAttackModule AttackModule => _attackModule;
 
-        private void Start()
+        protected override void OnAwake()
         {
             _healthModule.Initialize();
             _audioModule.Initialize(HealthModule);
+
             _weaponsModule.Initialize();
             _targetModule.Initialize(WeaponModule);
             _attackModule.Initialize(TargetModule, WeaponModule);
             _rotationModule.Initialize(TargetModule);
+
             _animationModule.Initialize(HealthModule, TargetModule, AttackModule);
             _deathModule.Initialize(_healthModule, _attackModule);
         }
@@ -39,15 +40,6 @@ namespace Entity.Friendly.Turret
             _attackModule.Attack();
             _rotationModule.Rotate();
             _animationModule.UpdateState();
-        }
-
-        private void OnDestroy()
-        {
-            _attackModule.Dispose();
-            _targetModule.Dispose();
-            _animationModule.Dispose();
-            _audioModule.Dispose();
-            _deathModule.Dispose();
         }
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Entity.Friendly.Turret
 {
     [Serializable]
-    public class TurretAnimationModule : IEntityModule, IDisposable
+    public class TurretAnimationModule : IModule, IDisposable
     {
         [SerializeField] private bool _enabled = true;
         [Space(10)]

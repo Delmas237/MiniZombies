@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Entity.Friendly.Player
 {
     [Serializable]
-    public class PlayerShootLineModule : IEntityModule
+    public class PlayerShootLineModule : IModule
     {
         [SerializeField] private bool _enabled = true;
         [Space(10)]
@@ -24,6 +24,9 @@ namespace Entity.Friendly.Player
         public void UpdateShootLineScale()
         {
             if (!_enabled)
+                return;
+
+            if (_weaponModule == null)
                 return;
 
             float distance = _weaponModule.CurrentGun.Distance + START_DISTANCE;

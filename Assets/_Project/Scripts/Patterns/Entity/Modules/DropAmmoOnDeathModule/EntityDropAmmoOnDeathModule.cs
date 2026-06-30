@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 namespace Entity
 {
     [Serializable]
-    public class EntityDropAmmoOnDeathModule : IEntityModule
+    public class EntityDropAmmoOnDeathModule : IModule
     {
         [SerializeField] private bool _enabled = true;
         [Space(5)]

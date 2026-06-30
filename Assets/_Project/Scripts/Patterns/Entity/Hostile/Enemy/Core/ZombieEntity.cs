@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Entity.Hostile
 {
-    public abstract class ZombieEntity : MonoBehaviour, IHostile
+    public abstract class ZombieEntity : EntityBase, IHostile
     {
         [Header("Base Modules")]
         [SerializeField] protected EntityHealthModule _healthModule;
@@ -13,8 +13,7 @@ namespace Entity.Hostile
         [SerializeField] protected EntityDelayedDisableModule _delayedDisableModule;
         [SerializeField] protected EntityDropAmmoOnDeathModule _dropAmmoAfterDeathModule;
 
-        public Transform Transform => transform;
-        public IEntityHealthModule HealthModule => _healthModule;
+        public override IEntityHealthModule HealthModule => _healthModule;
         public IEntityTargetModule TargetModule => _targetModule;
         public EntityDelayedDisableModule DelayedDisableModule => _delayedDisableModule;
         public EntityDropAmmoOnDeathModule DropAmmoAfterDeathModule => _dropAmmoAfterDeathModule;

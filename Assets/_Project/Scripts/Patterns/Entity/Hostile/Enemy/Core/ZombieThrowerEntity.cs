@@ -14,7 +14,7 @@ namespace Entity.Hostile
         public override IEnemyMovementModule MovementModule => _moveModule;
         public override IEnemyAttackModule AttackModule => _attackModule;
 
-        protected void Awake()
+        protected override void OnAwake()
         {
             _healthModule.Initialize();
             _audioModule.Initialize(HealthModule);
@@ -42,14 +42,6 @@ namespace Entity.Hostile
 
             _attackModule.UpdateState();
             _animationModule.AttackAnim();
-        }
-
-        protected void OnDestroy()
-        {
-            _attackModule.Dispose();
-            _animationModule.Dispose();
-            _audioModule.Dispose();
-            _deathModule.Dispose();
         }
 
         private void Shoot() => ThrowerAttackModule.Throw();

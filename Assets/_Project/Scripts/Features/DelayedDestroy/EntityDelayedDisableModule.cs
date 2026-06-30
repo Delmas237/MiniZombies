@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Entity
 {
     [Serializable]
-    public class EntityDelayedDisableModule : IEntityModule
+    public class EntityDelayedDisableModule : IModule
     {
         [SerializeField] private bool _enabled = true;
         [Space(10)]

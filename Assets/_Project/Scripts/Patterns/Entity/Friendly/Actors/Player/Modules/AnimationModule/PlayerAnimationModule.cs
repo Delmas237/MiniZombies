@@ -6,7 +6,7 @@ using Weapons;
 namespace Entity.Friendly.Player
 {
     [Serializable]
-    public class PlayerAnimationModule : IEntityModule, IDisposable
+    public class PlayerAnimationModule : IModule, IDisposable
     {
         [SerializeField] private bool _enabled = true;
         [Space(10)]

@@ -4,7 +4,7 @@ using Weapons;
 
 namespace Entity
 {
-    public interface IEntityWeaponModule : IEntityModule
+    public interface IEntityWeaponModule : IModule
     {
         Gun CurrentGun { get; }
         int Bullets { get; }

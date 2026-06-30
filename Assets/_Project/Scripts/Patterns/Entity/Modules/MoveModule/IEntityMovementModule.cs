@@ -1,6 +1,6 @@
 namespace Entity
 {
-    public interface IEntityMovementModule : IEntityModule
+    public interface IEntityMovementModule : IModule
     {
         float DefaultSpeed { get; }
     }

@@ -1,6 +1,6 @@
 namespace Entity.Hostile
 {
-    public interface IEnemyAttackModule : IEntityModule
+    public interface IEnemyAttackModule : IModule
     {
         bool IsAttack { get; }
         float Speed { get; set; }

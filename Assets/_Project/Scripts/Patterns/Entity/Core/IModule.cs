@@ -1,6 +1,6 @@
 namespace Entity
 {
-    public interface IEntityModule
+    public interface IModule
     {
         bool Enabled { get; set; }
     }

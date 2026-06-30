@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Entity.Hostile
 {
     [Serializable]
-    public class EnemyDeathModule : IEntityModule, IDisposable
+    public class EnemyDeathModule : IModule, IDisposable
     {
         [SerializeField] private bool _enabled = true;
 

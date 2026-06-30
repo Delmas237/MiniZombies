@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Entity.Friendly.Turret
 {
     [Serializable]
-    public class TurretRotationModule : IEntityModule
+    public class TurretRotationModule : IModule
     {
         [SerializeField] private bool _enabled = true;
         [Space(10)]

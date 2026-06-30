@@ -2,7 +2,7 @@ using System;
 
 namespace Entity
 {
-    public interface IEntityHealthModule : IEntityModule
+    public interface IEntityHealthModule : IModule
     {
         event Action Decreased;
         event Action Increased;

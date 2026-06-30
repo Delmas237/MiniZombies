@@ -6,7 +6,7 @@ using Weapons;
 namespace Entity.Friendly.Turret
 {
     [Serializable]
-    public class TurretAttackModule : IEntityModule, IDisposable
+    public class TurretAttackModule : IModule, IDisposable
     {
         [SerializeField] private bool _enabled = true;
         [Space(10)]

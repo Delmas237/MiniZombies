@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Entity.Friendly.Player
 {
-    public class PlayerEntity : MonoBehaviour, IPlayer
+    public class PlayerEntity : EntityBase, IPlayer
     {
         [Header("Modules")]
         [SerializeField] protected EntityHealthModule _healthModule;
@@ -18,18 +18,15 @@ namespace Entity.Friendly.Player
         [SerializeField] protected PlayerShootLineModule _shootLineModule;
         [SerializeField] protected PlayerDeathModule _deathModule;
 
-        public Transform Transform => transform;
+        public override IEntityHealthModule HealthModule => _healthModule;
         public IPlayerCurrencyModule CurrencyModule => _currencyModule;
-        public IEntityHealthModule HealthModule => _healthModule;
         public IPlayerInputModule InputModule => _inputModule;
         public IPlayerMovementModule MovementModule => _moveModule;
         public IEntityTargetModule TargetingModule => _targetModule;
         public IPlayerWeaponModule WeaponModule => _weaponsModule;
 
-        private void Awake()
+        protected override void OnAwake()
         {
-            _shootLineModule.Initialize(WeaponModule);
-
             _healthModule.Initialize();
             _audioModule.Initialize(HealthModule);
 
@@ -37,6 +34,7 @@ namespace Entity.Friendly.Player
             _animationModule.Initialize(GetComponent<Animator>(), HealthModule, InputModule, WeaponModule);
 
             _weaponsModule.Initialize();
+            _shootLineModule.Initialize(WeaponModule);
             _moveModule.Initialize(transform, GetComponent<Rigidbody>());
             _targetModule.Initialize(WeaponModule);
             _deathModule.Initialize(_healthModule, _moveModule);
@@ -46,15 +44,6 @@ namespace Entity.Friendly.Player
         {
             _inputModule.Update();
             _animationModule.MoveAnim();
-        }
-
-        private void OnDestroy()
-        {
-            _inputModule.Dispose();
-            _targetModule.Dispose();
-            _animationModule.Dispose();
-            _audioModule.Dispose();
-            _deathModule.Dispose();
         }
     }
 }

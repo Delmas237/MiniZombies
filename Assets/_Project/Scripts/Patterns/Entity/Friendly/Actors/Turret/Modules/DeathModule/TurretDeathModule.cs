@@ -4,16 +4,16 @@ using UnityEngine;
 namespace Entity.Friendly.Turret
 {
     [Serializable]
-    public class TurretDeathModule : IEntityModule, IDisposable
+    public class TurretDeathModule : IModule, IDisposable
     {
         [SerializeField] private bool _enabled = true;
 
         private IEntityHealthModule _healthModule;
-        private IEntityModule _attackModule;
+        private IModule _attackModule;
 
         public bool Enabled { get => _enabled; set => _enabled = value; }
 
-        public void Initialize(IEntityHealthModule healthModule, IEntityModule attackModule)
+        public void Initialize(IEntityHealthModule healthModule, IModule attackModule)
         {
             _healthModule = healthModule;
             _attackModule = attackModule;

@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 namespace Entity
 {
     [Serializable]
-    public class EntityAudioModule : IEntityModule, IDisposable
+    public class EntityAudioModule : IModule, IDisposable
     {
         [SerializeField] private bool _enabled = true;
         [Space(10)]
