@@ -8,23 +8,23 @@ namespace Entity.Hostile
         [Header("Modules")]
         [SerializeField] protected EnemyAvoidantMovementModule _moveModule;
         [SerializeField] protected ZombieThrowerAttackModule _attackModule;
+        [SerializeField] protected EnemyDeathModule _deathModule;
 
         public IEnemyThrowerAttackModule ThrowerAttackModule => _attackModule;
         public override IEnemyMovementModule MovementModule => _moveModule;
         public override IEnemyAttackModule AttackModule => _attackModule;
 
-        protected override void Awake()
+        protected void Awake()
         {
-            base.Awake();
-
             _healthModule.Initialize();
             _audioModule.Initialize(HealthModule);
             _animationModule.Initialize(GetComponent<Animator>(), HealthModule, TargetModule, MovementModule, AttackModule);
             _attackModule.Initialize(transform, TargetModule, MovementModule);
             _moveModule.Initialize(transform, GetComponent<NavMeshAgent>(), TargetModule, AttackModule);
+            _deathModule.Initialize(this, HealthModule, MovementModule, AttackModule);
 
             _delayedDisableModule.Initialize(gameObject, _healthModule);
-            _dropAmmoAfterDeathModule.Initialize(HealthModule, transform);
+            _dropAmmoAfterDeathModule.Initialize(transform, HealthModule);
         }
 
         protected override void OnEnable()
@@ -44,20 +44,12 @@ namespace Entity.Hostile
             _animationModule.AttackAnim();
         }
 
-        protected override void OnHealhIsOver()
+        protected void OnDestroy()
         {
-            base.OnHealhIsOver();
-
-            _moveModule.Agent.enabled = false;
-            _attackModule.StopAttackImmediately();
-            enabled = false;
-        }
-
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
             _attackModule.Dispose();
             _animationModule.Dispose();
+            _audioModule.Dispose();
+            _deathModule.Dispose();
         }
 
         private void Shoot() => ThrowerAttackModule.Throw();

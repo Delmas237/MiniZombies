@@ -16,6 +16,7 @@ namespace Entity.Friendly.Player
         [SerializeField] protected PlayerAnimationModule _animationModule;
         [SerializeField] protected EntityAudioModule _audioModule;
         [SerializeField] protected PlayerShootLineModule _shootLineModule;
+        [SerializeField] protected PlayerDeathModule _deathModule;
 
         public Transform Transform => transform;
         public IPlayerCurrencyModule CurrencyModule => _currencyModule;
@@ -38,12 +39,7 @@ namespace Entity.Friendly.Player
             _weaponsModule.Initialize();
             _moveModule.Initialize(transform, GetComponent<Rigidbody>());
             _targetModule.Initialize(WeaponModule);
-
-            _healthModule.IsOver += OnHealhIsOver;
-        }
-        private void OnHealhIsOver()
-        {
-            _moveModule.Rigidbody.linearVelocity /= 2;
+            _deathModule.Initialize(_healthModule, _moveModule);
         }
 
         private void Update()
@@ -54,11 +50,11 @@ namespace Entity.Friendly.Player
 
         private void OnDestroy()
         {
-            _healthModule.IsOver -= OnHealhIsOver;
-
             _inputModule.Dispose();
             _targetModule.Dispose();
             _animationModule.Dispose();
+            _audioModule.Dispose();
+            _deathModule.Dispose();
         }
     }
 }

@@ -6,5 +6,7 @@ namespace Entity.Hostile
         float Speed { get; set; }
         float DefaultSpeed { get; }
         int Damage { get; }
+
+        void StopAttackImmediately();
     }
 }

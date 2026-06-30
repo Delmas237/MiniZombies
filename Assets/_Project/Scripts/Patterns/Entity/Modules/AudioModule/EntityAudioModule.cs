@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 namespace Entity
 {
     [Serializable]
-    public class EntityAudioModule : IEntityModule
+    public class EntityAudioModule : IEntityModule, IDisposable
     {
         [SerializeField] private bool _enabled = true;
         [Space(10)]
@@ -30,9 +30,12 @@ namespace Entity
 
             EventBus.Subscribe<GameExitEvent>(Unsubscribe);
         }
-        private void Unsubscribe(GameExitEvent exitEvent)
+        private void Unsubscribe(GameExitEvent exitEvent = null)
         {
             EventBus.Unsubscribe<GameExitEvent>(Unsubscribe);
+            if (_healthModule == null)
+                return;
+
             _healthModule.IsOver -= OnHealhIsOver;
             _healthModule.Increased -= OnHealhIncreased;
             _healthModule.Decreased -= OnHealthDecreased;
@@ -62,6 +65,11 @@ namespace Entity
                 return;
             
             _damageSound.Play();
+        }
+
+        public void Dispose()
+        {
+            Unsubscribe();
         }
     }
 }

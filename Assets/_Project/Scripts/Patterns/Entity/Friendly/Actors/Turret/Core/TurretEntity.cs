@@ -14,6 +14,7 @@ namespace Entity.Friendly.Turret
         [Space(10)]
         [SerializeField] protected TurretAnimationModule _animationModule;
         [SerializeField] protected EntityAudioModule _audioModule;
+        [SerializeField] protected TurretDeathModule _deathModule;
 
         public Transform Transform => transform;
         public IEntityHealthModule HealthModule => _healthModule;
@@ -30,12 +31,7 @@ namespace Entity.Friendly.Turret
             _attackModule.Initialize(TargetModule, WeaponModule);
             _rotationModule.Initialize(TargetModule);
             _animationModule.Initialize(HealthModule, TargetModule, AttackModule);
-
-            _healthModule.IsOver += OnHealhIsOver;
-        }
-        private void OnHealhIsOver()
-        {
-            _attackModule.Enabled = false;
+            _deathModule.Initialize(_healthModule, _attackModule);
         }
 
         private void Update()
@@ -47,11 +43,11 @@ namespace Entity.Friendly.Turret
 
         private void OnDestroy()
         {
-            _healthModule.IsOver -= OnHealhIsOver;
-
             _attackModule.Dispose();
             _targetModule.Dispose();
             _animationModule.Dispose();
+            _audioModule.Dispose();
+            _deathModule.Dispose();
         }
     }
 }

@@ -19,10 +19,10 @@ namespace Entity
         public bool Enabled { get => _enabled; set => _enabled = value; }
         public IInstanceProvider<AmmoPack> AmmoProvider { get; set; }
 
-        public void Initialize(IEntityHealthModule healthModule, Transform transform)
+        public void Initialize(Transform transform, IEntityHealthModule healthModule)
         {
-            _healthModule = healthModule;
             _transform = transform;
+            _healthModule = healthModule;
 
             healthModule.IsOver += DropAmmo;
             EventBus.Subscribe<GameExitEvent>(Unsubscribe);
