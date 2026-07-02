@@ -37,7 +37,7 @@ namespace Entity.Friendly.Player
             _shootLineModule.Initialize(WeaponModule);
             _moveModule.Initialize(transform, GetComponent<Rigidbody>());
             _targetModule.Initialize(WeaponModule);
-            _deathModule.Initialize(_healthModule, _moveModule);
+            _deathModule.Initialize(HealthModule, MovementModule);
         }
 
         private void Update()

@@ -17,7 +17,7 @@ namespace Entity.Hostile
         [SerializeField] protected float _shootDelay = 1f;
 
         protected bool _isAttack;
-        protected Coroutine _shootDelayCoroutine;
+        protected float _rawSpeed;
         
         protected Transform _transform;
         protected IEntityTargetModule _targetModule;
@@ -38,7 +38,11 @@ namespace Entity.Hostile
             }
         }
 
-        public float Speed { get; set; }
+        public float Speed
+        {
+            get => _rawSpeed / _cooldown;
+            set => _rawSpeed = value;
+        }
 
         public bool IsAttack => _isAttack;
         public float DefaultSpeed => _defaultSpeed;
@@ -51,14 +55,8 @@ namespace Entity.Hostile
             _moveModule = moveModule;
             _weaponModule = weaponModule;
 
-            Speed = DefaultSpeed;
             _weaponModule.CurrentGun.Damage = _damage;
             _weaponModule.CurrentGun.Cooldown = _cooldown;
-        }
-
-        public virtual void UpdateData()
-        {
-            Speed /= _cooldown;
         }
 
         public virtual void UpdateState()
@@ -97,27 +95,8 @@ namespace Entity.Hostile
 
             _isAttack = true;
 
-            if (_shootDelayCoroutine != null)
-            {
-                CoroutineHelper.StopRoutine(_shootDelayCoroutine);
-                _shootDelayCoroutine = null;
-            }
-
-            _shootDelayCoroutine = CoroutineHelper.StartRoutine(ShootDelayCoroutine(_shootDelay));
-
             if (_moveModule.Agent != null && _moveModule.Agent.enabled)
                 _moveModule.Agent.isStopped = true;
-        }
-
-        private IEnumerator ShootDelayCoroutine(float delay)
-        {
-            float speedX = Speed;
-            Speed = 0;
-
-            yield return new WaitForSeconds(delay);
-
-            Speed = speedX;
-            _shootDelayCoroutine = null;
         }
 
         protected virtual void GetOutPosition()
@@ -134,12 +113,6 @@ namespace Entity.Hostile
 
             if (_moveModule.Agent != null && _moveModule.Agent.enabled && _moveModule.Agent.isOnNavMesh)
                 _moveModule.Agent.isStopped = false;
-
-            if (_shootDelayCoroutine != null)
-            {
-                CoroutineHelper.StopRoutine(_shootDelayCoroutine);
-                _shootDelayCoroutine = null;
-            }
         }
 
         public virtual void DealDamage()

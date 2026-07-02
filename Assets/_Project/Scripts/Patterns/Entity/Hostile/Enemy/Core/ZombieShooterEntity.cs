@@ -25,15 +25,8 @@ namespace Entity.Hostile
             _moveModule.Initialize(transform, GetComponent<NavMeshAgent>(), TargetModule, AttackModule);
             _deathModule.Initialize(this, HealthModule, MovementModule, AttackModule);
 
-            _delayedDisableModule.Initialize(gameObject, _healthModule);
+            _delayedDisableModule.Initialize(gameObject, HealthModule);
             _dropAmmoAfterDeathModule.Initialize(transform, HealthModule);
-        }
-
-        protected override void OnEnable()
-        {
-            _attackModule.UpdateData();
-            _moveModule.UpdateData();
-            base.OnEnable();
         }
 
         protected virtual void Update()

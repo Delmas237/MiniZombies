@@ -46,8 +46,6 @@ namespace Entity.Hostile
         {
             _targetModule = targetModule;
             _moveModule = moveModule;
-
-            Speed = DefaultSpeed;
         }
 
         public void OnCollisionEnter(Collision collision)

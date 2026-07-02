@@ -33,7 +33,7 @@ namespace Entity.Hostile
         private void Disable()
         {
             _movementModule.Agent.enabled = false;
-            _attackModule.StopAttackImmediately();
+            _attackModule.Enabled = false;
             _monoBehaviour.enabled = false;
         }
 

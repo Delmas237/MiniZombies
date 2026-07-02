@@ -14,8 +14,6 @@ namespace Entity.Hostile
             _transform = transform;
             _targetModule = targetModule;
             _moveModule = moveModule;
-
-            Speed = DefaultSpeed;
         }
 
         public override void UpdateState()

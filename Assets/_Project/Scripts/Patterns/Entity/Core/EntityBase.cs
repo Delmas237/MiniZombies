@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using UnityEngine;
 
@@ -7,7 +8,7 @@ namespace Entity
 {
     public abstract class EntityBase : MonoBehaviour, IEntity
     {
-        private Dictionary<Type, IModule> _moduleCache = new Dictionary<Type, IModule>();
+        private Dictionary<Type, ModuleCache> _moduleCache = new Dictionary<Type, ModuleCache>();
 
         public Transform Transform => transform;
         public abstract IEntityHealthModule HealthModule { get; }
@@ -29,9 +30,16 @@ namespace Entity
                     if (field.GetValue(this) is IModule module)
                     {
                         var moduleType = module.GetType();
+                        _moduleCache.TryGetValue(moduleType, out ModuleCache cache);
 
-                        if (!_moduleCache.ContainsKey(moduleType))
-                            _moduleCache[moduleType] = module;
+                        if (cache == null)
+                        {
+                            cache = new ModuleCache();
+                            _moduleCache[moduleType] = cache;
+                        }
+
+                        cache.Module = module;
+                        cache.InitialState = module.Enabled;
                     }
                 }
             }
@@ -64,9 +72,9 @@ namespace Entity
         public T GetModule<T>() where T : class, IModule
         {
             var moduleType = typeof(T);
-            if (_moduleCache.TryGetValue(moduleType, out var module))
+            if (_moduleCache.TryGetValue(moduleType, out var cache))
             {
-                return module as T;
+                return cache.Module as T;
             }
 
             foreach (var cachedModule in _moduleCache.Values)
@@ -85,7 +93,22 @@ namespace Entity
 
         public IEnumerable<IModule> GetAllModules()
         {
-            return _moduleCache.Values;
+            return _moduleCache.Values.Select(c => c.Module);
+        }
+
+        public void SetAllModulesInitialState()
+        {
+            foreach (var caches in _moduleCache.Values)
+            {
+                caches.Module.Enabled = caches.InitialState;
+                Debug.Log($"{caches.Module.GetType()} {caches.InitialState}");
+            }
+        }
+
+        public class ModuleCache
+        {
+            public IModule Module { get; set; }
+            public bool InitialState { get; set; }
         }
     }
 }

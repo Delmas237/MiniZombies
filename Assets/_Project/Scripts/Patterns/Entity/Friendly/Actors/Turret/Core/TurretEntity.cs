@@ -32,7 +32,7 @@ namespace Entity.Friendly.Turret
             _rotationModule.Initialize(TargetModule);
 
             _animationModule.Initialize(HealthModule, TargetModule, AttackModule);
-            _deathModule.Initialize(_healthModule, _attackModule);
+            _deathModule.Initialize(HealthModule, AttackModule);
         }
 
         private void Update()

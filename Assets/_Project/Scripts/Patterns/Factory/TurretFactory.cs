@@ -51,13 +51,14 @@ namespace Factory
             return instance;
         }
 
-        public void ReconstructToDefault(TurretEntity prefab)
+        public void ReconstructToDefault(TurretEntity turret)
         {
-            prefab.HealthModule.Increase(prefab.HealthModule.MaxHealth);
+            turret.SetAllModulesInitialState();
+            turret.HealthModule.Increase(turret.HealthModule.MaxHealth);
         }
-        public void Construct(TurretEntity prefab)
+        public void Construct(TurretEntity turret)
         {
-            prefab.AttackModule.Install();
+            turret.AttackModule.Install();
         }
 
         public TurretEntity NewInstance() => Object.Instantiate(Prefabs[Random.Range(0, Prefabs.Length)]);

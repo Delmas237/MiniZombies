@@ -64,7 +64,6 @@ namespace Factory
                 float boosterValue = waveFinishedEvent.Number * _waveBoostData.WaveMultiplierSpeed;
                 float speedX = (float)Math.Round(randomX + boosterValue, 2);
                 enemy.MovementModule.Speed = enemy.MovementModule.DefaultSpeed * speedX;
-                enemy.MovementModule.Agent.speed = speedX;
                 enemy.AttackModule.Speed = speedX;
             }
         }
@@ -81,6 +80,9 @@ namespace Factory
 
         public void ReconstructToDefault(ZombieEntity enemy)
         {
+            Debug.Log(enemy.name, enemy);
+            enemy.SetAllModulesInitialState();
+            
             if (enemy.TryGetComponent(out Rigidbody rb))
                 Object.Destroy(rb);
 

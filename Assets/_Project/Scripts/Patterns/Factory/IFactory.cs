@@ -5,7 +5,7 @@ namespace Factory
         T[] Prefabs { get; }
 
         T NewInstance();
-        void ReconstructToDefault(T prefab);
-        void Construct(T prefab);
+        void ReconstructToDefault(T instance);
+        void Construct(T instance);
     }
 }

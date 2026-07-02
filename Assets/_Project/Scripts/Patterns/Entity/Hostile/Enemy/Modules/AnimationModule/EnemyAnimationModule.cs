@@ -8,12 +8,13 @@ namespace Entity.Hostile
     public class EnemyAnimationModule : IModule, IDisposable
     {
         [SerializeField] private bool _enabled = true;
+        [SerializeField, Range(1, 2)] private int _deathAnimationsCount = 2;
 
+        private Animator _animator;
         private IEntityHealthModule _healthModule;
         private IEntityTargetModule _targetModule;
         private IEnemyMovementModule _moveModule;
         private IEnemyAttackModule _attackModule;
-        private Animator _animator;
 
         public const float DEFAULT_MOVE_SPEED = 3.7f;
 
@@ -31,7 +32,7 @@ namespace Entity.Hostile
             _healthModule.IsOver += DeathAnim;
         }
 
-        public void UpdateData()
+        public void OnEnable()
         {
             _animator.SetFloat("MoveSpeed", ConvertMoveSpeed(_moveModule.Speed));
             _animator.SetFloat("AttackSpeed", _attackModule.Speed);
@@ -54,7 +55,7 @@ namespace Entity.Hostile
 
             if (_targetModule.Target != null && _targetModule.Target.HealthModule.Health > 0)
             {
-                if (_attackModule.IsAttack == false)
+                if (!_attackModule.IsAttack)
                     _animator.SetBool("Run", true);
 
                 _animator.SetBool("Idle", false);
@@ -86,7 +87,7 @@ namespace Entity.Hostile
             if (!_enabled)
                 return;
 
-            int rnd = Random.Range(1, 3);
+            int rnd = Random.Range(1, _deathAnimationsCount + 1);
             _animator.SetBool("Death" + rnd, true);
         }
 

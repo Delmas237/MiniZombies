@@ -23,7 +23,7 @@ namespace Entity.Hostile
 
         protected virtual void OnEnable()
         {
-            _animationModule.UpdateData();
+            _animationModule.OnEnable();
         }
     }
 }

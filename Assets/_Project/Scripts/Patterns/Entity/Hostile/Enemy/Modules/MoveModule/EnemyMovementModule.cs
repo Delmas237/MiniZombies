@@ -10,14 +10,28 @@ namespace Entity.Hostile
         [SerializeField] protected bool _enabled = true;
         [Space(10)]
         [SerializeField] protected float _defaultSpeed = 3.7f;
-        
+
+        protected float _speed;
         protected Transform _transform;
         protected NavMeshAgent _agent;
         protected IEntityTargetModule _targetModule;
         protected IEnemyAttackModule _attackModule;
 
         public bool Enabled { get => _enabled; set => _enabled = value; }
-        public float Speed { get; set; }
+        public float Speed
+        {
+            get => _speed;
+            set
+            {
+                if (Agent == null)
+                {
+                    Debug.LogWarning($"{nameof(Agent)} is not initialized");
+                    return;
+                }
+                _speed = value;
+                Agent.speed = _speed;
+            }
+        }
 
         public float DefaultSpeed => _defaultSpeed;
         public NavMeshAgent Agent => _agent;
@@ -29,13 +43,6 @@ namespace Entity.Hostile
 
             _targetModule = targetModule;
             _attackModule = attackModule;
-            
-            Speed = DefaultSpeed;
-        }
-
-        public virtual void UpdateData()
-        {
-            Agent.speed = Speed;
         }
 
         public virtual void Move()
