@@ -39,9 +39,9 @@ namespace ObjectPool
             if (_autoExpand)
             {
                 _count++;
-                T newElement = CreateObject(true);
+                T newElement = CreateObject();
                 Expanded?.Invoke(newElement);
-
+                newElement.gameObject.SetActive(true);
                 return newElement;
             }
 

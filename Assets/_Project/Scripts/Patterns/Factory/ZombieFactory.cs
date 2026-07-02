@@ -80,7 +80,6 @@ namespace Factory
 
         public void ReconstructToDefault(ZombieEntity enemy)
         {
-            Debug.Log(enemy.name, enemy);
             enemy.SetAllModulesInitialState();
             
             if (enemy.TryGetComponent(out Rigidbody rb))

@@ -99,10 +99,7 @@ namespace Entity
         public void SetAllModulesInitialState()
         {
             foreach (var caches in _moduleCache.Values)
-            {
                 caches.Module.Enabled = caches.InitialState;
-                Debug.Log($"{caches.Module.GetType()} {caches.InitialState}");
-            }
         }
 
         public class ModuleCache
