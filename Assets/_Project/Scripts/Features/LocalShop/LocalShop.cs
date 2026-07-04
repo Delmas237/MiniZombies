@@ -35,9 +35,13 @@ namespace LocalShopLib
 
         private void Start()
         {
-            StartCoroutine(Initialize());
+            if (_playerGunSlots.IsInitialized)
+                Initialize();
+            else
+                _playerGunSlots.Initialized += Initialize;
         }
-        private IEnumerator Initialize()
+        private void Initialize() => StartCoroutine(InitializeCor());
+        private IEnumerator InitializeCor()
         {
             yield return StartCoroutine(LoadData());
 

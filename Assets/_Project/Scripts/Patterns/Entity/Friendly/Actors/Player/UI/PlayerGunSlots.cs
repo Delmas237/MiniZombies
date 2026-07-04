@@ -1,4 +1,5 @@
 using Saves;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,8 +14,12 @@ namespace Entity.Friendly.Player
         [Space(10)]
         [SerializeField] private PlayerEntity _player;
 
+        private bool _isInitialized;
         private List<GunType?> _slots = new List<GunType?>();
 
+        public Action Initialized;
+
+        public bool IsInitialized => _isInitialized;
         public IReadOnlyList<GunType?> Slots => _slots;
         public int UsedSlots => _slots.Count;
         public int MaxSlots => _slotsImages.Count;
@@ -36,6 +41,9 @@ namespace Entity.Friendly.Player
 
             SetInitialGun();
             UpdateSlotsImages();
+
+            _isInitialized = true;
+            Initialized?.Invoke();
         }
 
         private void SetInitialGun()
