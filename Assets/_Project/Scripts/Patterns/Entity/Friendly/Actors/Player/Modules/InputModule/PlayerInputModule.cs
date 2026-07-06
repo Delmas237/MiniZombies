@@ -109,11 +109,16 @@ namespace Entity.Friendly.Player
         }
         private void Unsubscribe()
         {
-            _healthModule.IsOver -= Unsubscribe;
-            _weaponModule.GunChanged -= UpdateShootLineScale;
+            if (_healthModule != null)
+                _healthModule.IsOver -= Unsubscribe;
+            if (_weaponModule != null)
+                _weaponModule.GunChanged -= UpdateShootLineScale;
 
-            _mobileInput.AttackJoystick.OnUp -= OnAttackUp;
-            _mobileInput.AttackJoystick.OnClamped -= OnAttackClamped;
+            if (_mobileInput != null)
+            {
+                _mobileInput.AttackJoystick.OnUp -= OnAttackUp;
+                _mobileInput.AttackJoystick.OnClamped -= OnAttackClamped;
+            }
         }
     }
 }

@@ -27,7 +27,8 @@ namespace Entity.Friendly.Player
 
         public void Dispose()
         {
-            _healthModule.IsOver -= OnHealthIsOver;
+            if (_healthModule != null)
+                _healthModule.IsOver -= OnHealthIsOver;
         }
     }
 }

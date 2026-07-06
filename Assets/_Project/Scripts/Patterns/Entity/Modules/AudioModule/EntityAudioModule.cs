@@ -33,12 +33,12 @@ namespace Entity
         private void Unsubscribe(GameExitEvent exitEvent = null)
         {
             EventBus.Unsubscribe<GameExitEvent>(Unsubscribe);
-            if (_healthModule == null)
-                return;
-
-            _healthModule.IsOver -= OnHealhIsOver;
-            _healthModule.Increased -= OnHealhIncreased;
-            _healthModule.Decreased -= OnHealthDecreased;
+            if (_healthModule != null)
+            {
+                _healthModule.IsOver -= OnHealhIsOver;
+                _healthModule.Increased -= OnHealhIncreased;
+                _healthModule.Decreased -= OnHealthDecreased;
+            }
         }
 
         private void OnHealhIsOver()

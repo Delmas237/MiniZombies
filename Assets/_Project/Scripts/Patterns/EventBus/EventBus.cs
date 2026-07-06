@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 namespace EventBusLib
 {
@@ -26,13 +25,7 @@ namespace EventBusLib
         {
             Type type = typeof(T);
             if (_eventCallbacks.ContainsKey(type))
-            {
                 _eventCallbacks[type].Remove(callback);
-            }
-            else
-            {
-                Debug.LogError($"Event {type} does not exist");
-            }
         }
 
         public static void Invoke<T>(T signal) where T : IEvent

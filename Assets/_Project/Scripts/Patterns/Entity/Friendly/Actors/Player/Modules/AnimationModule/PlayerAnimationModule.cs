@@ -41,17 +41,21 @@ namespace Entity.Friendly.Player
             _inputModule = inputModule;
             _weaponModule = weaponModule;
 
-            _weaponModule.GunChanged += CurrentGunAnim;
-            _healthModule.IsOver += OnHealhIsOver;
+            _healthModule.IsOver += Unsubscribe;
             _healthModule.IsOver += DeathAnim;
+            _weaponModule.GunChanged += CurrentGunAnim;
 
             _animator.SetBool("Idle", true);
         }
-        private void OnHealhIsOver()
+        private void Unsubscribe()
         {
-            _weaponModule.GunChanged -= CurrentGunAnim;
-            _healthModule.IsOver -= OnHealhIsOver;
-            _healthModule.IsOver -= DeathAnim;
+            if (_healthModule != null)
+            {
+                _healthModule.IsOver -= Unsubscribe;
+                _healthModule.IsOver -= DeathAnim;
+            }
+            if (_weaponModule != null)
+                _weaponModule.GunChanged -= CurrentGunAnim;
         }
 
         public void MoveAnim()
@@ -133,6 +137,7 @@ namespace Entity.Friendly.Player
         public void Dispose()
         {
             StopIdleTransitionImmediately();
+            Unsubscribe();
         }
     }
 }

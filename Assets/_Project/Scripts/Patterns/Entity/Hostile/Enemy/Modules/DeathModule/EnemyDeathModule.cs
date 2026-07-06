@@ -51,7 +51,8 @@ namespace Entity.Hostile
 
         public void Dispose()
         {
-            _healthModule.IsOver -= OnHealthIsOver;
+            if (_healthModule != null)
+                _healthModule.IsOver -= OnHealthIsOver;
         }
     }
 }

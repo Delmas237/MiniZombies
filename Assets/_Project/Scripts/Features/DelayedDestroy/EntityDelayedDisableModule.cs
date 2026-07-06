@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Entity
 {
     [Serializable]
-    public class EntityDelayedDisableModule : IModule
+    public class EntityDelayedDisableModule : IModule, IDisposable
     {
         [SerializeField] private bool _enabled = true;
         [Space(10)]
@@ -25,10 +25,11 @@ namespace Entity
             _healthModule.IsOver += DelayedSetActiveFalse;
             EventBus.Subscribe<GameExitEvent>(Unsubscribe);
         }
-        private void Unsubscribe(GameExitEvent exitEvent)
+        private void Unsubscribe(GameExitEvent exitEvent = null)
         {
             EventBus.Unsubscribe<GameExitEvent>(Unsubscribe);
-            _healthModule.IsOver -= DelayedSetActiveFalse;
+            if (_healthModule != null)
+                _healthModule.IsOver -= DelayedSetActiveFalse;
         }
 
         private IEnumerator SetActiveFalse(float delay)
@@ -43,5 +44,10 @@ namespace Entity
         }
 
         protected void DelayedSetActiveFalse() => CoroutineHelper.StartRoutine(SetActiveFalse(_delay));
+
+        public void Dispose()
+        {
+            Unsubscribe();
+        }
     }
 }

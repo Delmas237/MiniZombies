@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 namespace Entity
 {
     [Serializable]
-    public class EntityDropAmmoOnDeathModule : IModule
+    public class EntityDropAmmoOnDeathModule : IModule, IDisposable
     {
         [SerializeField] private bool _enabled = true;
         [Space(5)]
@@ -27,10 +27,11 @@ namespace Entity
             healthModule.IsOver += DropAmmo;
             EventBus.Subscribe<GameExitEvent>(Unsubscribe);
         }
-        private void Unsubscribe(GameExitEvent exitEvent)
+        private void Unsubscribe(GameExitEvent exitEvent = null)
         {
             EventBus.Unsubscribe<GameExitEvent>(Unsubscribe);
-            _healthModule.IsOver -= DropAmmo;
+            if (_healthModule != null)
+                _healthModule.IsOver -= DropAmmo;
         }
 
         private void DropAmmo()
@@ -46,6 +47,11 @@ namespace Entity
                 Vector3 defaultSpawnPos = _transform.position + 0.7f * Vector3.up;
                 ammo.transform.SetPositionAndRotation(defaultSpawnPos, Quaternion.identity);
             }
+        }
+
+        public void Dispose()
+        {
+            Unsubscribe();
         }
     }
 }

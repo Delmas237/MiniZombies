@@ -27,10 +27,8 @@ namespace Entity.Friendly.Turret
 
         public void Dispose()
         {
-            if (_healthModule == null)
-                return;
-
-            _healthModule.IsOver -= OnHealthIsOver;
+            if (_healthModule != null)
+                _healthModule.IsOver -= OnHealthIsOver;
         }
     }
 }

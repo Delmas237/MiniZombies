@@ -93,7 +93,8 @@ namespace Entity.Hostile
 
         public void Dispose()
         {
-            _healthModule.IsOver -= DeathAnim;
+            if (_healthModule != null)
+                _healthModule.IsOver -= DeathAnim;
         }
     }
 }
