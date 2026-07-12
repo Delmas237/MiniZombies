@@ -7,10 +7,10 @@ using Random = UnityEngine.Random;
 namespace Entity
 {
     [Serializable]
-    public class EntityDropAmmoOnDeathModule : IModule, IDisposable
+    public class EntityDropAmmoOnDeathModule : IEntityDropAmmoOnDeathModule, IDisposable
     {
         [SerializeField] private bool _enabled = true;
-        [Space(5)]
+        [Space(10)]
         [SerializeField, Range(0f, 1f)] private float _dropChance = 1;
 
         private Transform _transform;

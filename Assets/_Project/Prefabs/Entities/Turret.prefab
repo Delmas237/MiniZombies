@@ -93,11 +93,13 @@ MonoBehaviour:
     _enabled: 1
     _visibilityZone: {fileID: 3310666848594318893}
     _defaultVisibilityZoneScale: 0.21
-    _installMotion: {fileID: 7400000, guid: 68727c6a1ac5ae64a8d5a158c0d7eae7, type: 2}
   _rotationModule:
     _enabled: 1
     _rotationSpeed: 5
     _tower: {fileID: 6689396005722560641}
+  _installModule:
+    _enabled: 1
+    _installMotion: {fileID: 7400000, guid: 68727c6a1ac5ae64a8d5a158c0d7eae7, type: 2}
   _animationModule:
     _enabled: 1
     _animator: {fileID: 9128426621592249960}
@@ -107,6 +109,8 @@ MonoBehaviour:
     _healSound: {fileID: 0}
     _deathSound: {fileID: 0}
     _deathPitchRandomRange: 0
+  _deathModule:
+    _enabled: 1
 --- !u!1 &8700282423057122624
 GameObject:
   m_ObjectHideFlags: 0

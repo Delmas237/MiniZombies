@@ -14,20 +14,22 @@ namespace Entity.Friendly.Turret
 
         private IEntityHealthModule _healthModule;
         private IEntityTargetModule _targetModule;
-        private TurretAttackModule _attackModule;
+        private ITurretAttackModule _attackModule;
+        private ITurretInstallModule _installModule;
 
         public bool Enabled { get => _enabled; set => _enabled = value; }
 
-        public void Initialize(IEntityHealthModule healthModule, IEntityTargetModule targetModule, TurretAttackModule attackModule)
+        public void Initialize(IEntityHealthModule healthModule, IEntityTargetModule targetModule, ITurretAttackModule attackModule, ITurretInstallModule installModule)
         {
             _healthModule = healthModule;
             _targetModule = targetModule;
             _attackModule = attackModule;
+            _installModule = installModule;
 
             float fireLength = GetAnimationClipLength("Fire");
             _animator.SetFloat("FireSpeed", fireLength / attackModule.Cooldown);
 
-            _attackModule.InstallStarted += OnStartedInstalling;
+            _installModule.InstallStarted += OnStartedInstalling;
             _healthModule.IsOver += OnHealthIsOver;
         }
         private float GetAnimationClipLength(string name)
@@ -66,7 +68,7 @@ namespace Entity.Friendly.Turret
             if (!_enabled)
                 return;
 
-            if (_healthModule.Health <= 0 || !_attackModule.IsInstalled)
+            if (_healthModule.Health <= 0 || !_installModule.IsInstalled)
                 return;
 
             if (_targetModule.Target != null)
@@ -81,8 +83,8 @@ namespace Entity.Friendly.Turret
 
         public void Dispose()
         {
-            if (_attackModule != null)
-                _attackModule.InstallStarted -= OnStartedInstalling;
+            if (_installModule != null)
+                _installModule.InstallStarted -= OnStartedInstalling;
             if (_healthModule != null)
                 _healthModule.IsOver -= OnHealthIsOver;
         }

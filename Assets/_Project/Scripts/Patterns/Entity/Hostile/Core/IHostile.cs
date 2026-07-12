@@ -6,6 +6,6 @@ namespace Entity.Hostile
     {
         IEnemyMovementModule MovementModule { get; }
         IEntityTargetModule TargetModule { get; }
-        EntityDropAmmoOnDeathModule DropAmmoAfterDeathModule { get; }
+        IEntityDropAmmoOnDeathModule DropAmmoAfterDeathModule { get; }
     }
 }

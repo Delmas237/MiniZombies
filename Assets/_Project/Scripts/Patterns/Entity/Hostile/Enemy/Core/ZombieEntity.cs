@@ -15,8 +15,7 @@ namespace Entity.Hostile
 
         public override IEntityHealthModule HealthModule => _healthModule;
         public IEntityTargetModule TargetModule => _targetModule;
-        public EntityDelayedDisableModule DelayedDisableModule => _delayedDisableModule;
-        public EntityDropAmmoOnDeathModule DropAmmoAfterDeathModule => _dropAmmoAfterDeathModule;
+        public IEntityDropAmmoOnDeathModule DropAmmoAfterDeathModule => _dropAmmoAfterDeathModule;
 
         public abstract IEnemyMovementModule MovementModule { get; }
         public abstract IEnemyAttackModule AttackModule { get; }

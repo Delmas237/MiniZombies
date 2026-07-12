@@ -58,7 +58,7 @@ namespace Factory
         }
         public void Construct(TurretEntity turret)
         {
-            turret.AttackModule.Install();
+            turret.InstallModule.Install();
         }
 
         public TurretEntity NewInstance() => Object.Instantiate(Prefabs[Random.Range(0, Prefabs.Length)]);
