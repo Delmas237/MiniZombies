@@ -12,6 +12,7 @@ namespace Entity.Friendly.Turret
         [SerializeField] protected TurretAttackModule _attackModule;
         [SerializeField] protected TurretRotationModule _rotationModule;
         [SerializeField] protected TurretInstallModule _installModule;
+        [SerializeField] protected TurretVisibilityZoneModule _visibilityZoneModule;
         [Space(10)]
         [SerializeField] protected TurretAnimationModule _animationModule;
         [SerializeField] protected EntityAudioModule _audioModule;
@@ -32,6 +33,7 @@ namespace Entity.Friendly.Turret
             _targetModule.Initialize(WeaponModule);
             _attackModule.Initialize(TargetModule, WeaponModule, InstallModule);
             _rotationModule.Initialize(TargetModule);
+            _visibilityZoneModule.Initialize(WeaponModule);
 
             _animationModule.Initialize(HealthModule, TargetModule, AttackModule, InstallModule);
             _deathModule.Initialize(HealthModule, AttackModule);

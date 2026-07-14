@@ -91,8 +91,6 @@ MonoBehaviour:
     - {fileID: 6212917752911215961}
   _attackModule:
     _enabled: 1
-    _visibilityZone: {fileID: 3310666848594318893}
-    _defaultVisibilityZoneScale: 0.21
   _rotationModule:
     _enabled: 1
     _rotationSpeed: 5
@@ -100,6 +98,10 @@ MonoBehaviour:
   _installModule:
     _enabled: 1
     _installMotion: {fileID: 7400000, guid: 68727c6a1ac5ae64a8d5a158c0d7eae7, type: 2}
+  _visibilityZoneModule:
+    _enabled: 1
+    _visibilityZone: {fileID: 3310666848594318893}
+    _defaultVisibilityZoneScale: 0.21
   _animationModule:
     _enabled: 1
     _animator: {fileID: 9128426621592249960}

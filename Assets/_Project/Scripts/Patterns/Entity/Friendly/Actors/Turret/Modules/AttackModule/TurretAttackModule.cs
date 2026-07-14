@@ -1,16 +1,12 @@
 using System;
 using UnityEngine;
-using Weapons;
 
 namespace Entity.Friendly.Turret
 {
     [Serializable]
-    public class TurretAttackModule : ITurretAttackModule, IDisposable
+    public class TurretAttackModule : ITurretAttackModule
     {
         [SerializeField] private bool _enabled = true;
-        [Space(10)]
-        [SerializeField] private Transform _visibilityZone;
-        [SerializeField] private float _defaultVisibilityZoneScale = 0.21f;
 
         private IEntityTargetModule _targetModule;
         private IEntityWeaponModule _weaponModule;
@@ -24,23 +20,6 @@ namespace Entity.Friendly.Turret
             _targetModule = targetModule;
             _weaponModule = weaponModule;
             _installModule = installModule;
-
-            UpdateVisibilityZone();
-
-            _weaponModule.GunChanged += UpdateVisibilityZone;
-        }
-
-        private void UpdateVisibilityZone(Gun gun) => UpdateVisibilityZone();
-        
-        private void UpdateVisibilityZone()
-        {
-            if (!_enabled)
-                return;
-
-            if (_visibilityZone == null || _weaponModule.CurrentGun == null)
-                return;
-
-            _visibilityZone.localScale = _defaultVisibilityZoneScale * _weaponModule.CurrentGun.Distance * Vector3.one;
         }
 
         public virtual void Attack()
@@ -52,12 +31,6 @@ namespace Entity.Friendly.Turret
                 return;
 
             _weaponModule.PullTrigger();
-        }
-
-        public void Dispose()
-        {
-            if (_weaponModule != null)
-                _weaponModule.GunChanged -= UpdateVisibilityZone;
         }
     }
 }
