@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Entity.Friendly.Turret
 {
     [Serializable]
-    public class TurretAttackModule : ITurretAttackModule
+    public class TurretAttackModule : ITurretAttackModule, IUpdatable
     {
         [SerializeField] private bool _enabled = true;
 
@@ -22,7 +22,12 @@ namespace Entity.Friendly.Turret
             _installModule = installModule;
         }
 
-        public virtual void Attack()
+        public virtual void Update()
+        {
+            Attack();
+        }
+
+        private void Attack()
         {
             if (!_enabled)
                 return;

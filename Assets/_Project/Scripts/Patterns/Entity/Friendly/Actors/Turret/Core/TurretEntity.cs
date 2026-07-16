@@ -38,12 +38,5 @@ namespace Entity.Friendly.Turret
             _animationModule.Initialize(HealthModule, TargetModule, AttackModule, InstallModule);
             _deathModule.Initialize(HealthModule, AttackModule);
         }
-
-        private void Update()
-        {
-            _attackModule.Attack();
-            _rotationModule.Rotate();
-            _animationModule.UpdateState();
-        }
     }
 }

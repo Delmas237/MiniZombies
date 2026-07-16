@@ -13,7 +13,7 @@ namespace Entity.Hostile
         [Space(10)]
         [SerializeField] private float _fleeDistance = 5;
 
-        public override void Move()
+        protected override void Move()
         {
             if (!_enabled)
                 return;

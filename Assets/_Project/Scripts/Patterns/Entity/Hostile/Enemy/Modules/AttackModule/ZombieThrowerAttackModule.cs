@@ -16,7 +16,7 @@ namespace Entity.Hostile
             _moveModule = moveModule;
         }
 
-        public override void UpdateState()
+        protected override void UpdateState()
         {
             if (!_enabled)
                 return;

@@ -6,7 +6,7 @@ using Weapons;
 namespace Entity.Friendly.Player
 {
     [Serializable]
-    public class PlayerAnimationModule : IModule, IDisposable
+    public class PlayerAnimationModule : IModule, ILateUpdatable, IDisposable
     {
         [SerializeField] private bool _enabled = true;
         [Space(10)]
@@ -58,7 +58,12 @@ namespace Entity.Friendly.Player
                 _weaponModule.GunChanged -= CurrentGunAnim;
         }
 
-        public void MoveAnim()
+        public void LateUpdate()
+        {
+            MoveAnim();
+        }
+
+        private void MoveAnim()
         {
             if (!_enabled)
                 return;

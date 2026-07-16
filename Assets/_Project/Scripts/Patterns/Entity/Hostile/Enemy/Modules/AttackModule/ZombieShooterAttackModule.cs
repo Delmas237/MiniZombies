@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Entity.Hostile
 {
     [Serializable]
-    public class ZombieShooterAttackModule : IEnemyAttackModule, IDisposable
+    public class ZombieShooterAttackModule : IEnemyAttackModule, IUpdatable, IDisposable
     {
         [SerializeField] protected bool _enabled = true;
         [Space(10)]
@@ -59,7 +59,12 @@ namespace Entity.Hostile
             _weaponModule.CurrentGun.Cooldown = _cooldown;
         }
 
-        public virtual void UpdateState()
+        public virtual void Update()
+        {
+            UpdateState();
+        }
+
+        protected virtual void UpdateState()
         {
             if (!_enabled)
                 return;

@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Entity.Hostile
 {
     [Serializable]
-    public class ZombieTankAttackModule : IEnemyAttackModule, IDisposable
+    public class ZombieTankAttackModule : IEnemyAttackModule, IOnCollisionEnter, IOnCollisionExit, IDisposable
     {
         [SerializeField] private bool _enabled = true;
         [Space(10)]

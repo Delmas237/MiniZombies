@@ -6,7 +6,5 @@ namespace Entity.Hostile
     {
         NavMeshAgent Agent { get; }
         float Speed { get; set; }
-
-        void Move();
     }
 }

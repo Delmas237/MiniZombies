@@ -39,11 +39,5 @@ namespace Entity.Friendly.Player
             _targetModule.Initialize(WeaponModule);
             _deathModule.Initialize(HealthModule, MovementModule);
         }
-
-        private void Update()
-        {
-            _inputModule.Update();
-            _animationModule.MoveAnim();
-        }
     }
 }

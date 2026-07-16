@@ -26,25 +26,6 @@ namespace Entity.Hostile
             _dropAmmoAfterDeathModule.Initialize(transform, HealthModule);
         }
 
-        protected virtual void Update()
-        {
-            _moveModule.Move();
-            _animationModule.MoveAnim();
-            _moveModule.Rotate();
-
-            _animationModule.AttackAnim();
-        }
-
-        private void OnCollisionEnter(Collision collision)
-        {
-            _attackModule.OnCollisionEnter(collision);
-        }
-
-        private void OnCollisionExit(Collision collision)
-        {
-            _attackModule.OnCollisionExit(collision);
-        }
-
         private void DealDamage() => _attackModule.DealDamage();
     }
 }

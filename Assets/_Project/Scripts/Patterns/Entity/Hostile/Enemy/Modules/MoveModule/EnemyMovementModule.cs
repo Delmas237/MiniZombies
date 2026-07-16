@@ -5,7 +5,7 @@ using UnityEngine.AI;
 namespace Entity.Hostile
 {
     [Serializable]
-    public class EnemyMovementModule : IEnemyMovementModule
+    public class EnemyMovementModule : IEnemyMovementModule, IUpdatable
     {
         [SerializeField] protected bool _enabled = true;
         [Space(10)]
@@ -45,7 +45,13 @@ namespace Entity.Hostile
             _attackModule = attackModule;
         }
 
-        public virtual void Move()
+        public virtual void Update()
+        {
+            Move();
+            Rotate();
+        }
+
+        protected virtual void Move()
         {
             if (!_enabled)
                 return;
@@ -61,7 +67,7 @@ namespace Entity.Hostile
             }
         }
 
-        public virtual void Rotate()
+        protected virtual void Rotate()
         {
             if (!_enabled)
                 return;

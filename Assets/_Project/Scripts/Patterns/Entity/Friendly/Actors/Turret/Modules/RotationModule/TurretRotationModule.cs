@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Entity.Friendly.Turret
 {
     [Serializable]
-    public class TurretRotationModule : IModule
+    public class TurretRotationModule : IModule, IUpdatable
     {
         [SerializeField] private bool _enabled = true;
         [Space(10)]
@@ -20,7 +20,12 @@ namespace Entity.Friendly.Turret
             _targetModule = targetModule;
         }
 
-        public void Rotate()
+        public virtual void Update()
+        {
+            Rotate();
+        }
+
+        private void Rotate()
         {
             if (!_enabled)
                 return;

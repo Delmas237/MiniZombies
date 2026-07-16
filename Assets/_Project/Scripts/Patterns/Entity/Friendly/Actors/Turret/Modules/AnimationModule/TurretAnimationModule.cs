@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Entity.Friendly.Turret
 {
     [Serializable]
-    public class TurretAnimationModule : IModule, IDisposable
+    public class TurretAnimationModule : IModule, ILateUpdatable, IDisposable
     {
         [SerializeField] private bool _enabled = true;
         [Space(10)]
@@ -63,7 +63,12 @@ namespace Entity.Friendly.Turret
             _animator.SetTrigger("Death");
         }
 
-        public void UpdateState()
+        public virtual void LateUpdate()
+        {
+            UpdateState();
+        }
+
+        private void UpdateState()
         {
             if (!_enabled)
                 return;

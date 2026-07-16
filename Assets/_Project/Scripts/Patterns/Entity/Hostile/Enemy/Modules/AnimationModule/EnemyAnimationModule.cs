@@ -5,7 +5,7 @@ using Random = UnityEngine.Random;
 namespace Entity.Hostile
 {
     [Serializable]
-    public class EnemyAnimationModule : IModule, IDisposable
+    public class EnemyAnimationModule : IModule, IOnEnable, ILateUpdatable, IDisposable
     {
         [SerializeField] private bool _enabled = true;
         [SerializeField, Range(1, 2)] private int _deathAnimationsCount = 2;
@@ -45,7 +45,14 @@ namespace Entity.Hostile
 
             return (float)Math.Round(result, 3);
         }
-        public void MoveAnim()
+
+        public void LateUpdate()
+        {
+            MoveAnim();
+            AttackAnim();
+        }
+
+        private void MoveAnim()
         {
             if (!_enabled)
                 return;
@@ -67,7 +74,7 @@ namespace Entity.Hostile
             }
         }
 
-        public void AttackAnim()
+        private void AttackAnim()
         {
             if (!_enabled)
                 return;

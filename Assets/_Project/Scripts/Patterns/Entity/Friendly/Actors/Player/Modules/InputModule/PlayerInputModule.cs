@@ -5,7 +5,7 @@ using Weapons;
 namespace Entity.Friendly.Player
 {
     [Serializable]
-    public class PlayerInputModule : IPlayerInputModule, IDisposable
+    public class PlayerInputModule : IPlayerInputModule, IUpdatable, IDisposable
     {
         [SerializeField] private bool _enabled = true;
         [Space(10)]

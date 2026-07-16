@@ -19,10 +19,5 @@ namespace Entity.Hostile
 
         public abstract IEnemyMovementModule MovementModule { get; }
         public abstract IEnemyAttackModule AttackModule { get; }
-
-        protected virtual void OnEnable()
-        {
-            _animationModule.OnEnable();
-        }
     }
 }

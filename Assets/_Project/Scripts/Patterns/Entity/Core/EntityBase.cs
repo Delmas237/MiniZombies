@@ -45,17 +45,32 @@ namespace Entity
                             _moduleCache[moduleType] = cache;
                         }
 
-                        cache.Module = module;
-                        cache.InitialState = module.Enabled;
-                        cache.Updatable = module as IUpdatable;
-                        cache.FixedUpdatable = module as IFixedUpdatable;
-                        cache.LateUpdatable = module as ILateUpdatable;
-                        cache.OnEnable = module as IOnEnable;
-                        cache.OnDisable = module as IOnDisable;
-                        cache.Disposable = module as IDisposable;
+                        CacheModule(module, cache);
                     }
                 }
             }
+        }
+        private void CacheModule(IModule module, ModuleCache cache)
+        {
+            cache.Module = module;
+            cache.InitialState = module.Enabled;
+
+            cache.Updatable = module as IUpdatable;
+            cache.FixedUpdatable = module as IFixedUpdatable;
+            cache.LateUpdatable = module as ILateUpdatable;
+
+            cache.OnEnable = module as IOnEnable;
+            cache.OnDisable = module as IOnDisable;
+
+            cache.OnCollisionEnter = module as IOnCollisionEnter;
+            cache.OnCollisionStay = module as IOnCollisionStay;
+            cache.OnCollisionExit = module as IOnCollisionExit;
+
+            cache.OnTriggerEnter = module as IOnTriggerEnter;
+            cache.OnTriggerStay = module as IOnTriggerStay;
+            cache.OnTriggerExit = module as IOnTriggerExit;
+
+            cache.Disposable = module as IDisposable;
         }
         protected virtual void OnAwake() { }
         #endregion
