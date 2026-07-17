@@ -19,8 +19,8 @@ namespace Entity.Friendly.Player
         private PlayerShootLineModule _shootLineModule;
 
         public bool Enabled { get => _enabled; set => _enabled = value; }
-        public bool HasMoveInput => _enabled && _mobileInput.MoveJoystick.Direction != Vector2.zero;
-        public bool IsTraking => _enabled && (_targetingModule.Target != null || _mobileInput.AttackJoystick.Pressed);
+        public bool HasMoveInput => Enabled && _mobileInput.MoveJoystick.Direction != Vector2.zero;
+        public bool IsTraking => Enabled && (_targetingModule.Target != null || _mobileInput.AttackJoystick.Pressed);
 
         public void Initialize(Transform transform, IEntityHealthModule healthModule, IPlayerMovementModule movementModule, IEntityTargetModule targetModule,
             IPlayerWeaponModule weaponModule, PlayerShootLineModule shootLineModule)
@@ -40,21 +40,21 @@ namespace Entity.Friendly.Player
         }
         private void UpdateShootLineScale(Gun gun)
         {
-            if (!_enabled)
+            if (!Enabled)
                 return;
 
             _shootLineModule.UpdateShootLineScale();
         }
         private void OnAttackUp()
         {
-            if (!_enabled)
+            if (!Enabled)
                 return;
 
             _weaponModule.PullTrigger();
         }
         private void OnAttackClamped()
         {
-            if (!_enabled)
+            if (!Enabled)
                 return;
 
             _weaponModule.PullAutoTrigger();
@@ -62,9 +62,6 @@ namespace Entity.Friendly.Player
 
         public void Update()
         {
-            if (!_enabled)
-                return;
-
             Move();
             Rotate();
             UpdateShootLine();

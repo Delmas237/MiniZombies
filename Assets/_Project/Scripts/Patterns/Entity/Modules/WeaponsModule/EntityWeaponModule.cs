@@ -33,7 +33,7 @@ namespace Entity
 
         public void PullTrigger()
         {
-            if (!_enabled)
+            if (!Enabled)
                 return;
 
             if (Bullets - CurrentGun.Consumption >= 0)
@@ -45,7 +45,7 @@ namespace Entity
 
         public virtual void ChangeGun(GunType gunType)
         {
-            if (!_enabled)
+            if (!Enabled)
                 return;
 
             if (_guns.Any(g => g.Type == gunType))

@@ -39,7 +39,7 @@ namespace Entity
 
         public void Decrease(float value)
         {
-            if (!_enabled)
+            if (!Enabled)
                 return;
 
             if (value <= 0 || _health == 0)
@@ -54,7 +54,7 @@ namespace Entity
 
         public void Increase(float value)
         {
-            if (!_enabled)
+            if (!Enabled)
                 return;
 
             if (value <= 0 || _health == MaxHealth)

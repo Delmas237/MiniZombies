@@ -27,9 +27,6 @@ namespace Entity.Friendly.Turret
 
         private void Rotate()
         {
-            if (!_enabled)
-                return;
-
             if (_targetModule.Target == null)
                 return;
 

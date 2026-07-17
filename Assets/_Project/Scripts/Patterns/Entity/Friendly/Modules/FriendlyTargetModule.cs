@@ -60,7 +60,7 @@ namespace Entity.Friendly
         {
             while (true)
             {
-                if (!_enabled)
+                if (!Enabled)
                 {
                     yield return new WaitForSeconds(_updateTargetTime);
                     continue;

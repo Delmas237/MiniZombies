@@ -22,6 +22,9 @@ namespace Entity.Friendly.Turret
         }
         private void OnHealthIsOver()
         {
+            if (!Enabled)
+                return;
+
             _attackModule.Enabled = false;
         }
 

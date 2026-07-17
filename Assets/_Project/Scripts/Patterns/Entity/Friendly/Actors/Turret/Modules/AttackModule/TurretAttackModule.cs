@@ -29,9 +29,6 @@ namespace Entity.Friendly.Turret
 
         private void Attack()
         {
-            if (!_enabled)
-                return;
-
             if (!_installModule.IsInstalled || _targetModule.Target == null)
                 return;
 

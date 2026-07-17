@@ -43,7 +43,7 @@ namespace Entity
 
         private void OnHealhIsOver()
         {
-            if (!_enabled)
+            if (!Enabled)
                 return;
 
             if (_deathSound == null)

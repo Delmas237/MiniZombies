@@ -35,12 +35,12 @@ namespace Entity.Friendly.Player
 
         private void Disable(IEvent e)
         {
-            _enabled = false;
+            Enabled = false;
         }
 
         public void Move(Vector2 direction)
         {
-            if (!_enabled)
+            if (!Enabled)
                 return;
 
             if (direction.sqrMagnitude > 1f)
@@ -52,7 +52,7 @@ namespace Entity.Friendly.Player
 
         public void RotateToDirection(Vector3 direction)
         {
-            if (!_enabled)
+            if (!Enabled)
                 return;
 
             _transform.rotation = Quaternion.Lerp(

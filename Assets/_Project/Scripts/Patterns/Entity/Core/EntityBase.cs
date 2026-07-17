@@ -39,219 +39,92 @@ namespace Entity
                         }
 
                         var moduleType = module.GetType();
-                        if (!_moduleCache.TryGetValue(moduleType, out var cache))
-                        {
-                            cache = new ModuleCache();
-                            _moduleCache[moduleType] = cache;
-                        }
-
-                        CacheModule(module, cache);
+                        ModuleCache cache = GetCache(module);
+                        _moduleCache[moduleType] = cache;
                     }
                 }
             }
         }
-        private void CacheModule(IModule module, ModuleCache cache)
+        private ModuleCache GetCache(IModule module)
         {
-            cache.Module = module;
-            cache.InitialState = module.Enabled;
+            Dictionary<Type, object> interfaceMap = new Dictionary<Type, object>();
+             
+            FillMap<IUpdatable>();
+            FillMap<IFixedUpdatable>();
+            FillMap<ILateUpdatable>();
 
-            cache.Updatable = module as IUpdatable;
-            cache.FixedUpdatable = module as IFixedUpdatable;
-            cache.LateUpdatable = module as ILateUpdatable;
+            FillMap<IOnEnable>();
+            FillMap<IOnDisable>();
 
-            cache.OnEnable = module as IOnEnable;
-            cache.OnDisable = module as IOnDisable;
+            FillMap<IOnCollisionEnter>();
+            FillMap<IOnCollisionStay>();
+            FillMap<IOnCollisionExit>();
 
-            cache.OnCollisionEnter = module as IOnCollisionEnter;
-            cache.OnCollisionStay = module as IOnCollisionStay;
-            cache.OnCollisionExit = module as IOnCollisionExit;
+            FillMap<IOnTriggerEnter>();
+            FillMap<IOnTriggerStay>();
+            FillMap<IOnTriggerExit>();
 
-            cache.OnTriggerEnter = module as IOnTriggerEnter;
-            cache.OnTriggerStay = module as IOnTriggerStay;
-            cache.OnTriggerExit = module as IOnTriggerExit;
+            FillMap<IDisposable>();
 
-            cache.Disposable = module as IDisposable;
+            ModuleCache moduleCache = new ModuleCache(module, module.Enabled, interfaceMap);
+            return moduleCache;
+
+            void FillMap<T>() where T : class => 
+                interfaceMap[typeof (T)] = module as T;
         }
         protected virtual void OnAwake() { }
         #endregion
 
         #region Lifecycle
-        private void Update()
-        {
-            foreach (var cache in _moduleCache.Values)
-            {
-                try
-                {
-                    cache.Updatable?.Update();
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError($"Error updating module {cache.Module.GetType().Name}: {e.Message}");
-                }
-            }
-        }
+        private void Update() => InvokeOnModules<IUpdatable>(u => u.Update(), nameof(Update));
+        private void FixedUpdate() => InvokeOnModules<IFixedUpdatable>(u => u.FixedUpdate(), nameof(FixedUpdate));
+        private void LateUpdate() => InvokeOnModules<ILateUpdatable>(u => u.LateUpdate(), nameof(LateUpdate));
 
-        private void FixedUpdate()
-        {
-            foreach (var cache in _moduleCache.Values)
-            {
-                try
-                {
-                    cache.FixedUpdatable?.FixedUpdate();
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError($"Error fixed updating module {cache.Module.GetType().Name}: {e.Message}");
-                }
-            }
-        }
+        private void OnEnable() => InvokeOnModules<IOnEnable>(u => u.OnEnable(), nameof(OnEnable));
+        private void OnDisable() => InvokeOnModules<IOnDisable>(u => u.OnDisable(), nameof(OnDisable));
 
-        private void LateUpdate()
-        {
-            foreach (var cache in _moduleCache.Values)
-            {
-                try
-                {
-                    cache.LateUpdatable?.LateUpdate();
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError($"Error late updating module {cache.Module.GetType().Name}: {e.Message}");
-                }
-            }
-        }
+        private void OnCollisionEnter(Collision collision) =>
+            InvokeOnModules<IOnCollisionEnter>(u => u.OnCollisionEnter(collision), nameof(OnCollisionEnter));
+        private void OnCollisionStay(Collision collision) =>
+            InvokeOnModules<IOnCollisionStay>(u => u.OnCollisionStay(collision), nameof(OnCollisionStay));
+        private void OnCollisionExit(Collision collision) =>
+            InvokeOnModules<IOnCollisionExit>(u => u.OnCollisionExit(collision), nameof(OnCollisionExit));
 
-        private void OnEnable()
-        {
-            foreach (var cache in _moduleCache.Values)
-            {
-                try
-                {
-                    cache.OnEnable?.OnEnable();
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError($"Error OnEnable in module {cache.Module.GetType().Name}: {e.Message}");
-                }
-            }
-        }
+        private void OnTriggerEnter(Collider other) =>
+            InvokeOnModules<IOnTriggerEnter>(u => u.OnTriggerEnter(other), nameof(OnTriggerEnter));
+        private void OnTriggerStay(Collider other) =>
+            InvokeOnModules<IOnTriggerStay>(u => u.OnTriggerStay(other), nameof(OnTriggerStay));
+        private void OnTriggerExit(Collider other) =>
+            InvokeOnModules<IOnTriggerExit>(u => u.OnTriggerExit(other), nameof(OnTriggerExit));
 
-        private void OnDisable()
+        protected virtual void OnDestroy() => Dispose();
+        private void Dispose()
         {
-            foreach (var cache in _moduleCache.Values)
-            {
-                try
-                {
-                    cache.OnDisable?.OnDisable();
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError($"Error OnDisable in module {cache.Module.GetType().Name}: {e.Message}");
-                }
-            }
-        }
-
-        private void OnCollisionEnter(Collision collision)
-        {
-            foreach (var cache in _moduleCache.Values)
-            {
-                try
-                {
-                    cache.OnCollisionEnter?.OnCollisionEnter(collision);
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError($"Error OnCollisionEnter in module {cache.Module.GetType().Name}: {e.Message}");
-                }
-            }
-        }
-        private void OnCollisionStay(Collision collision)
-        {
-            foreach (var cache in _moduleCache.Values)
-            {
-                try
-                {
-                    cache.OnCollisionStay?.OnCollisionStay(collision);
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError($"Error OnCollisionStay in module {cache.Module.GetType().Name}: {e.Message}");
-                }
-            }
-        }
-        private void OnCollisionExit(Collision collision)
-        {
-            foreach (var cache in _moduleCache.Values)
-            {
-                try
-                {
-                    cache.OnCollisionExit?.OnCollisionExit(collision);
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError($"Error OnCollisionExit in module {cache.Module.GetType().Name}: {e.Message}");
-                }
-            }
-        }
-
-        private void OnTriggerEnter(Collider other)
-        {
-            foreach (var cache in _moduleCache.Values)
-            {
-                try
-                {
-                    cache.OnTriggerEnter?.OnTriggerEnter(other);
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError($"Error OnTriggerEnter in module {cache.Module.GetType().Name}: {e.Message}");
-                }
-            }
-        }
-        private void OnTriggerStay(Collider other)
-        {
-            foreach (var cache in _moduleCache.Values)
-            {
-                try
-                {
-                    cache.OnTriggerStay?.OnTriggerStay(other);
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError($"Error OnTriggerStay in module {cache.Module.GetType().Name}: {e.Message}");
-                }
-            }
-        }
-        private void OnTriggerExit(Collider other)
-        {
-            foreach (var cache in _moduleCache.Values)
-            {
-                try
-                {
-                    cache.OnTriggerExit?.OnTriggerExit(other);
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError($"Error OnTriggerExit in module {cache.Module.GetType().Name}: {e.Message}");
-                }
-            }
-        }
-
-        private void OnDestroy()
-        {
-            foreach (var cache in _moduleCache.Values)
-            {
-                try
-                {
-                    cache.Disposable?.Dispose();
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError($"Error disposing module {cache.Module.GetType().Name}: {e.Message}");
-                }
-            }
+            InvokeOnModules<IDisposable>(d => d.Dispose(), nameof(Dispose), true);
             _moduleCache.Clear();
             _interfaceCache.Clear();
+        }
+
+        private void InvokeOnModules<TInterface>(Action<TInterface> action, string methodName, bool ignoreState = false) where TInterface : class
+        {
+            foreach (var cache in _moduleCache.Values)
+            {
+                if (!cache.Module.Enabled && !ignoreState)
+                    continue;
+
+                var handler = cache.GetInterface<TInterface>();
+                if (handler == null)
+                    continue;
+
+                try
+                {
+                    action(handler);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError($"Error {methodName} in module {cache.Module.GetType().Name}: {e.Message}");
+                }
+            }
         }
         #endregion
 
@@ -282,25 +155,23 @@ namespace Entity
 
         public class ModuleCache
         {
+            private Dictionary<Type, object> _interfaceMap = new Dictionary<Type, object>();
+
             public IModule Module { get; set; }
             public bool InitialState { get; set; }
 
-            public IUpdatable Updatable { get; set; }
-            public IFixedUpdatable FixedUpdatable { get; set; }
-            public ILateUpdatable LateUpdatable { get; set; }
+            public ModuleCache(IModule module, bool initialState, Dictionary<Type, object> interfaceMap)
+            {
+                Module = module;
+                InitialState = initialState;
+                _interfaceMap = interfaceMap;
+            }
 
-            public IOnEnable OnEnable { get; set; }
-            public IOnDisable OnDisable { get; set; }
-
-            public IOnCollisionEnter OnCollisionEnter { get; set; }
-            public IOnCollisionStay OnCollisionStay { get; set; }
-            public IOnCollisionExit OnCollisionExit { get; set; }
-
-            public IOnTriggerEnter OnTriggerEnter { get; set; }
-            public IOnTriggerStay OnTriggerStay { get; set; }
-            public IOnTriggerExit OnTriggerExit { get; set; }
-
-            public IDisposable Disposable { get; set; }
+            public T GetInterface<T>() where T : class
+            {
+                _interfaceMap.TryGetValue(typeof(T), out var obj);
+                return obj as T;
+            }
         }
     }
 }

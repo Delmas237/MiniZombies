@@ -53,9 +53,6 @@ namespace Entity.Hostile
 
         protected virtual void Move()
         {
-            if (!_enabled)
-                return;
-
             if (_targetModule.Target != null && _targetModule.Target.HealthModule.Health > 0)
             {
                 if (Agent.enabled)
@@ -69,9 +66,6 @@ namespace Entity.Hostile
 
         protected virtual void Rotate()
         {
-            if (!_enabled)
-                return;
-
             if (_targetModule.Target != null && _targetModule.Target.HealthModule.Health > 0 && _attackModule.IsAttack)
             {
                 Vector3 targetPos = _targetModule.Target.Transform.position - _transform.position;

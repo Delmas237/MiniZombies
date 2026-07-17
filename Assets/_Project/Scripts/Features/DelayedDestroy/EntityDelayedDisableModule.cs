@@ -36,7 +36,7 @@ namespace Entity
         {
             yield return new WaitForSeconds(delay);
 
-            if (!_enabled)
+            if (!Enabled)
                 yield break;
 
             if (_gameObject != null)

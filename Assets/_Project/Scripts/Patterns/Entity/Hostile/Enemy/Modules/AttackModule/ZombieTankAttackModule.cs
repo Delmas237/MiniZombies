@@ -50,9 +50,6 @@ namespace Entity.Hostile
 
         public void OnCollisionEnter(Collision collision)
         {
-            if (!_enabled)
-                return;
-
             if (collision.gameObject.TryGetComponent(out IEntity entity) &&
                 entity == _targetModule.Target &&
                 entity.HealthModule.Health > 0)
@@ -64,9 +61,6 @@ namespace Entity.Hostile
 
         public void OnCollisionExit(Collision collision)
         {
-            if (!_enabled)
-                return;
-
             if (collision.gameObject.TryGetComponent(out IEntity entity) &&
                 entity == _targetModule.Target)
             {
@@ -77,9 +71,6 @@ namespace Entity.Hostile
 
         private void Attack()
         {
-            if (!_enabled)
-                return;
-
             if (_moveModule.Agent != null && _moveModule.Agent.enabled)
                 _moveModule.Agent.isStopped = true;
 
@@ -88,9 +79,6 @@ namespace Entity.Hostile
 
         private void StopAttackWithDelay(float delay)
         {
-            if (!_enabled)
-                return;
-
             if (_stopAttackCoroutine != null)
             {
                 CoroutineHelper.StopRoutine(_stopAttackCoroutine);
@@ -104,7 +92,7 @@ namespace Entity.Hostile
         {
             yield return new WaitForSeconds(delay);
 
-            if (!_enabled)
+            if (!Enabled)
                 yield break;
 
             StopAttackImmediately();
@@ -128,7 +116,7 @@ namespace Entity.Hostile
 
         public void DealDamage()
         {
-            if (!_enabled)
+            if (!Enabled)
                 return;
 
             if (_targetCollision == null)

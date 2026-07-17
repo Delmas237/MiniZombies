@@ -18,9 +18,6 @@ namespace Entity.Hostile
 
         protected override void UpdateState()
         {
-            if (!_enabled)
-                return;
-
             bool targetDied = _targetModule.Target.HealthModule.Health <= 0;
             bool destinationCompleted = Vector3.Distance(_transform.position, _moveModule.Agent.destination) < 1f;
 
@@ -39,7 +36,7 @@ namespace Entity.Hostile
 
         public void Throw()
         {
-            if (!_enabled)
+            if (!Enabled)
                 return;
 
             PoisonProjectile poisonProjectile = ProjectileProvider.GetInstance();

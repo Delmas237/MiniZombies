@@ -28,7 +28,7 @@ namespace Entity.Friendly.Turret
 
         private void UpdateVisibilityZone()
         {
-            if (!_enabled)
+            if (!Enabled)
                 return;
 
             if (_visibilityZone == null || _weaponModule.CurrentGun == null)

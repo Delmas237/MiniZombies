@@ -36,7 +36,7 @@ namespace Entity
 
         private void DropAmmo()
         {
-            if (!_enabled)
+            if (!Enabled)
                 return;
 
             float rnd = Random.Range(0f, 1f);

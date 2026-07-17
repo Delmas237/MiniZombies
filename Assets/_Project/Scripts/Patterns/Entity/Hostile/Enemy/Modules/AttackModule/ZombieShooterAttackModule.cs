@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using UnityEngine;
 
 namespace Entity.Hostile
@@ -66,9 +65,6 @@ namespace Entity.Hostile
 
         protected virtual void UpdateState()
         {
-            if (!_enabled)
-                return;
-
             if (_targetModule.Target == null)
                 return;
 
@@ -95,9 +91,6 @@ namespace Entity.Hostile
 
         protected virtual void GetIntoPosition()
         {
-            if (!_enabled)
-                return;
-
             _isAttack = true;
 
             if (_moveModule.Agent != null && _moveModule.Agent.enabled)
@@ -106,9 +99,6 @@ namespace Entity.Hostile
 
         protected virtual void GetOutPosition()
         {
-            if (!_enabled)
-                return;
-
             StopAttackImmediately();
         }
 
@@ -122,7 +112,7 @@ namespace Entity.Hostile
 
         public virtual void DealDamage()
         {
-            if (!_enabled)
+            if (!Enabled)
                 return;
 
             if (_targetModule.Target == null)

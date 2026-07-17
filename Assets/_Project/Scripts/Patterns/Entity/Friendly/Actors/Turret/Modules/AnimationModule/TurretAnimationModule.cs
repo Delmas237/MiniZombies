@@ -50,14 +50,14 @@ namespace Entity.Friendly.Turret
 
         private void OnStartedInstalling()
         {
-            if (!_enabled)
+            if (!Enabled)
                 return;
 
             _animator.SetTrigger("Install");
         }
         private void OnHealthIsOver()
         {
-            if (!_enabled)
+            if (!Enabled)
                 return;
 
             _animator.SetTrigger("Death");
@@ -70,9 +70,6 @@ namespace Entity.Friendly.Turret
 
         private void UpdateState()
         {
-            if (!_enabled)
-                return;
-
             if (_healthModule.Health <= 0 || !_installModule.IsInstalled)
                 return;
 

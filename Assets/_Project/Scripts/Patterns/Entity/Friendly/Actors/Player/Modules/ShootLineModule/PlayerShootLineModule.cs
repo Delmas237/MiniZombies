@@ -23,7 +23,7 @@ namespace Entity.Friendly.Player
 
         public void UpdateShootLineScale()
         {
-            if (!_enabled)
+            if (!Enabled)
                 return;
 
             if (_weaponModule == null)
@@ -35,7 +35,7 @@ namespace Entity.Friendly.Player
 
         public void UpdateShootLine(Vector2 direction)
         {
-            if (!_enabled)
+            if (!Enabled)
                 return;
 
             bool isZero = direction == Vector2.zero;

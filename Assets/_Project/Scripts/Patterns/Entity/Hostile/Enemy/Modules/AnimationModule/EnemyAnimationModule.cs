@@ -54,9 +54,6 @@ namespace Entity.Hostile
 
         private void MoveAnim()
         {
-            if (!_enabled)
-                return;
-
             if (_healthModule.Health <= 0)
                 return;
 
@@ -76,9 +73,6 @@ namespace Entity.Hostile
 
         private void AttackAnim()
         {
-            if (!_enabled)
-                return;
-
             if (_healthModule.Health > 0 && _attackModule.IsAttack)
             {
                 _animator.SetBool("Attack", true);
@@ -91,7 +85,7 @@ namespace Entity.Hostile
 
         private void DeathAnim()
         {
-            if (!_enabled)
+            if (!Enabled)
                 return;
 
             int rnd = Random.Range(1, _deathAnimationsCount + 1);

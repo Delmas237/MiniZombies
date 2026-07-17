@@ -22,6 +22,9 @@ namespace Entity.Friendly.Player
         }
         private void OnHealthIsOver()
         {
+            if (!Enabled)
+                return;
+
             _movementModule.Rigidbody.linearVelocity /= 2;
         }
 

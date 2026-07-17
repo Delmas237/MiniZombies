@@ -34,7 +34,7 @@ namespace Entity.Friendly.Turret
 
         public void Install()
         {
-            if (!_enabled)
+            if (!Enabled)
                 return;
 
             if (_installCoroutine != null)
@@ -54,7 +54,7 @@ namespace Entity.Friendly.Turret
             float duration = _installMotion.averageDuration;
             yield return new WaitForSeconds(duration);
 
-            if (!_enabled)
+            if (!Enabled)
                 yield break;
 
             _isInstalled = true;

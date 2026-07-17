@@ -65,9 +65,6 @@ namespace Entity.Friendly.Player
 
         private void MoveAnim()
         {
-            if (!_enabled)
-                return;
-
             if (_healthModule.Health > 0 && !_inputModule.IsTraking && !_inputModule.HasMoveInput)
             {
                 if (_idleTransitionCor == null && !_animator.GetBool("Idle"))
@@ -100,7 +97,7 @@ namespace Entity.Friendly.Player
         {
             yield return new WaitForSeconds(_idleTransitionDelay);
 
-            if (!_enabled)
+            if (!Enabled)
                 yield break;
 
             if (_animator != null)
@@ -125,7 +122,7 @@ namespace Entity.Friendly.Player
 
         private void CurrentGunAnim(Gun gun)
         {
-            if (!_enabled)
+            if (!Enabled)
                 return;
 
             _animator.SetBool("PistolInHands", gun.Type == GunType.Pistol);
@@ -133,7 +130,7 @@ namespace Entity.Friendly.Player
 
         private void DeathAnim()
         {
-            if (!_enabled)
+            if (!Enabled)
                 return;
 
             _animator.SetBool("Died", true);

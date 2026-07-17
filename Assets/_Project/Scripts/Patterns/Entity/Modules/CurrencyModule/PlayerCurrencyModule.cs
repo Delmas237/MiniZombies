@@ -17,7 +17,7 @@ namespace Entity.Friendly.Player
 
         public void Add(int amount)
         {
-            if (!_enabled)
+            if (!Enabled)
                 return;
 
             if (amount <= 0)
@@ -29,7 +29,7 @@ namespace Entity.Friendly.Player
 
         public bool Spend(int amount)
         {
-            if (!_enabled)
+            if (!Enabled)
                 return false;
 
             if (amount < 0 || amount > _coins)
