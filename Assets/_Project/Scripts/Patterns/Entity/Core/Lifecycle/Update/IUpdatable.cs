@@ -1,6 +1,6 @@
 namespace Entity
 {
-    public interface IUpdatable
+    public interface IUpdatable : IModuleEvent
     {
         void Update();
     }

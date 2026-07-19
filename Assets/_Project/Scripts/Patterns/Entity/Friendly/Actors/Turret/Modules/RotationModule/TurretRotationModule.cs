@@ -15,7 +15,8 @@ namespace Entity.Friendly.Turret
 
         public bool Enabled { get => _enabled; set => _enabled = value; }
 
-        public void Initialize(IEntityTargetModule targetModule)
+        [ModuleInject]
+        private void Initialize(IEntityTargetModule targetModule)
         {
             _targetModule = targetModule;
         }

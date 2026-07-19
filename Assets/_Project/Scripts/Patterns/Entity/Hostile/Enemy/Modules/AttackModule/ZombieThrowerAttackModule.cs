@@ -9,11 +9,15 @@ namespace Entity.Hostile
         public IInstanceProvider<PoisonProjectile> ProjectileProvider { get; set; }
         public IInstanceProvider<ParticleSystem> ProjectileEffectProvider { get; set; }
 
-        public void Initialize(Transform transform, IEntityTargetModule targetModule, IEnemyMovementModule moveModule)
+        [ModuleInject]
+        private void Initialize(Transform transform, IEntityTargetModule targetModule, IEnemyMovementModule moveModule)
         {
             _transform = transform;
             _targetModule = targetModule;
             _moveModule = moveModule;
+        }
+        public override void Start()
+        {
         }
 
         protected override void UpdateState()

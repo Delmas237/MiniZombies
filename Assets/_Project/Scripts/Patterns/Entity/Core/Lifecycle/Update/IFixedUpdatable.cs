@@ -1,6 +1,6 @@
 ﻿namespace Entity
 {
-    public interface IFixedUpdatable
+    public interface IFixedUpdatable : IModuleEvent
     {
         void FixedUpdate();
     }

@@ -16,7 +16,8 @@ namespace Entity.Friendly.Player
 
         public bool Enabled { get => _enabled; set => _enabled = value; }
 
-        public void Initialize(IPlayerWeaponModule weaponModule)
+        [ModuleInject]
+        private void Initialize(IPlayerWeaponModule weaponModule)
         {
             _weaponModule = weaponModule;
         }

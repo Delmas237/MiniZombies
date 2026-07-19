@@ -24,20 +24,5 @@ namespace Entity.Friendly.Player
         public IPlayerMovementModule MovementModule => _moveModule;
         public IEntityTargetModule TargetingModule => _targetModule;
         public IPlayerWeaponModule WeaponModule => _weaponsModule;
-
-        protected override void OnAwake()
-        {
-            _healthModule.Initialize();
-            _audioModule.Initialize(HealthModule);
-
-            _inputModule.Initialize(transform, HealthModule, MovementModule, TargetingModule, WeaponModule, _shootLineModule);
-            _animationModule.Initialize(GetComponent<Animator>(), HealthModule, InputModule, WeaponModule);
-
-            _weaponsModule.Initialize();
-            _shootLineModule.Initialize(WeaponModule);
-            _moveModule.Initialize(transform, GetComponent<Rigidbody>());
-            _targetModule.Initialize(WeaponModule);
-            _deathModule.Initialize(HealthModule, MovementModule);
-        }
     }
 }

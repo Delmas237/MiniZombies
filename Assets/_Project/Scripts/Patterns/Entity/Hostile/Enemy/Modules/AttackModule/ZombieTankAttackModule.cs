@@ -42,7 +42,8 @@ namespace Entity.Hostile
         public float DefaultSpeed => _defaultSpeed;
         public int Damage => _damage;
 
-        public void Initialize(IEntityTargetModule targetModule, IEnemyMovementModule moveModule)
+        [ModuleInject]
+        private void Initialize(IEntityTargetModule targetModule, IEnemyMovementModule moveModule)
         {
             _targetModule = targetModule;
             _moveModule = moveModule;

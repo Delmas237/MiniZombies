@@ -7,6 +7,7 @@ namespace Entity.Hostile
         [Header("Base Modules")]
         [SerializeField] protected EntityHealthModule _healthModule;
         [SerializeField] protected EnemyTargetModule _targetModule;
+        [SerializeField] protected EnemyRotationModule _rotationModule;
         [SerializeField] protected EnemyAnimationModule _animationModule;
         [SerializeField] protected EntityAudioModule _audioModule;
         [Space(10)]

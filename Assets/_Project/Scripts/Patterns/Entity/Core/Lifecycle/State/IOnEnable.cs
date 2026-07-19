@@ -1,6 +1,6 @@
 ﻿namespace Entity
 {
-    public interface IOnEnable
+    public interface IOnEnable : IModuleEvent
     {
         void OnEnable();
     }

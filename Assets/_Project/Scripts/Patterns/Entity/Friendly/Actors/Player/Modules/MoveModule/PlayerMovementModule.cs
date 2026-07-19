@@ -19,7 +19,9 @@ namespace Entity.Friendly.Player
         public float DefaultSpeed => _defaultSpeed;
         public Rigidbody Rigidbody => _rigidbody;
 
-        public void Initialize(Transform transform, Rigidbody rigidbody)
+
+        [ModuleInject]
+        private void Initialize(Transform transform, Rigidbody rigidbody)
         {
             _transform = transform;
             _rigidbody = rigidbody;

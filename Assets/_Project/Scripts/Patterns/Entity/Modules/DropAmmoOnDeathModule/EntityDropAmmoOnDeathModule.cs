@@ -19,7 +19,8 @@ namespace Entity
         public bool Enabled { get => _enabled; set => _enabled = value; }
         public IInstanceProvider<AmmoPack> AmmoProvider { get; set; }
 
-        public void Initialize(Transform transform, IEntityHealthModule healthModule)
+        [ModuleInject]
+        private void Initialize(Transform transform, IEntityHealthModule healthModule)
         {
             _transform = transform;
             _healthModule = healthModule;

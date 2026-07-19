@@ -2,7 +2,7 @@
 
 namespace Entity
 {
-    public interface IOnTriggerExit
+    public interface IOnTriggerExit : IModuleEvent
     {
         void OnTriggerExit(Collider other);
     }

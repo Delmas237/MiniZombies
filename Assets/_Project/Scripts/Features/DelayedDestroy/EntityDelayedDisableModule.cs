@@ -13,13 +13,14 @@ namespace Entity
         [SerializeField] private float _delay = 3f;
 
         private IEntityHealthModule _healthModule;
-        private GameObject _gameObject;
+        private Transform _transform;
 
         public bool Enabled { get => _enabled; set => _enabled = value; }
 
-        public void Initialize(GameObject gameObject, IEntityHealthModule healthModule)
+        [ModuleInject]
+        private void Initialize(Transform transform, IEntityHealthModule healthModule)
         {
-            _gameObject = gameObject;
+            _transform = transform;
             _healthModule = healthModule;
 
             _healthModule.IsOver += DelayedSetActiveFalse;
@@ -39,8 +40,8 @@ namespace Entity
             if (!Enabled)
                 yield break;
 
-            if (_gameObject != null)
-                _gameObject.SetActive(false);
+            if (_transform != null)
+                _transform.gameObject.SetActive(false);
         }
 
         protected void DelayedSetActiveFalse() => CoroutineHelper.StartRoutine(SetActiveFalse(_delay));

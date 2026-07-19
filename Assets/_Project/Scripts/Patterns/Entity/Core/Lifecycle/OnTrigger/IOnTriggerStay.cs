@@ -2,7 +2,7 @@
 
 namespace Entity
 {
-    public interface IOnTriggerStay
+    public interface IOnTriggerStay : IModuleEvent
     {
         void OnTriggerStay(Collider other);
     }

@@ -20,7 +20,8 @@ namespace Entity.Hostile
 
         public bool Enabled { get => _enabled; set => _enabled = value; }
 
-        public void Initialize(Animator animator, IEntityHealthModule healthModule, IEntityTargetModule targetModule, IEnemyMovementModule moveModule,  IEnemyAttackModule attackModule)
+        [ModuleInject]
+        private void Initialize(Animator animator, IEntityHealthModule healthModule, IEntityTargetModule targetModule, IEnemyMovementModule moveModule, IEnemyAttackModule attackModule)
         {
             _animator = animator;
 

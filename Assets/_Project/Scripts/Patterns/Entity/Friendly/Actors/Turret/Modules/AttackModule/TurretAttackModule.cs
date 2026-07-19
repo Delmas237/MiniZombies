@@ -15,7 +15,8 @@ namespace Entity.Friendly.Turret
         public bool Enabled { get => _enabled; set => _enabled = value; }
         public float Cooldown => _weaponModule.CurrentGun.Cooldown;
 
-        public void Initialize(IEntityTargetModule targetModule, IEntityWeaponModule weaponModule, ITurretInstallModule installModule)
+        [ModuleInject]
+        private void Initialize(IEntityTargetModule targetModule, IEntityWeaponModule weaponModule, ITurretInstallModule installModule)
         {
             _targetModule = targetModule;
             _weaponModule = weaponModule;

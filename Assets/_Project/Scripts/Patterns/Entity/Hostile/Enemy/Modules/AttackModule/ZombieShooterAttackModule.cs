@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Entity.Hostile
 {
     [Serializable]
-    public class ZombieShooterAttackModule : IEnemyAttackModule, IUpdatable, IDisposable
+    public class ZombieShooterAttackModule : IEnemyAttackModule, IOnStart, IUpdatable, IDisposable
     {
         [SerializeField] protected bool _enabled = true;
         [Space(10)]
@@ -47,13 +47,17 @@ namespace Entity.Hostile
         public float DefaultSpeed => _defaultSpeed;
         public int Damage => _damage;
 
-        public void Initialize(Transform transform, IEntityTargetModule targetModule, IEnemyMovementModule moveModule, IEntityWeaponModule weaponModule)
+        [ModuleInject]
+        private void Initialize(Transform transform, IEntityTargetModule targetModule, IEnemyMovementModule moveModule, IEntityWeaponModule weaponModule)
         {
             _transform = transform;
             _targetModule = targetModule;
             _moveModule = moveModule;
             _weaponModule = weaponModule;
+        }
 
+        public virtual void Start()
+        {
             _weaponModule.CurrentGun.Damage = _damage;
             _weaponModule.CurrentGun.Cooldown = _cooldown;
         }

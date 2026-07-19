@@ -33,7 +33,8 @@ namespace Entity.Friendly.Player
             }
         }
 
-        public void Initialize(Animator animator, IEntityHealthModule healthModule, IPlayerInputModule inputModule, IEntityWeaponModule weaponModule)
+        [ModuleInject]
+        private void Initialize(Animator animator, IEntityHealthModule healthModule, IPlayerInputModule inputModule, IEntityWeaponModule weaponModule)
         {
             _animator = animator;
 

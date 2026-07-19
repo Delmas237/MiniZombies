@@ -13,7 +13,9 @@ namespace Entity.Friendly.Player
 
         public bool Enabled { get => _enabled; set => _enabled = value; }
 
-        public void Initialize(IEntityHealthModule healthModule, IPlayerMovementModule movementModule)
+
+        [ModuleInject]
+        private void Initialize(IEntityHealthModule healthModule, IPlayerMovementModule movementModule)
         {
             _healthModule = healthModule;
             _movementModule = movementModule;

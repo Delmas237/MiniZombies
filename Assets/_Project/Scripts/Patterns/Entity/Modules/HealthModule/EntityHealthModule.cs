@@ -32,7 +32,8 @@ namespace Entity
         }
         public float Health => _health;
 
-        public void Initialize()
+        [ModuleInject]
+        private void Initialize()
         {
             _health = MaxHealth;
         }

@@ -22,7 +22,8 @@ namespace Entity.Friendly.Player
         public bool HasMoveInput => Enabled && _mobileInput.MoveJoystick.Direction != Vector2.zero;
         public bool IsTraking => Enabled && (_targetingModule.Target != null || _mobileInput.AttackJoystick.Pressed);
 
-        public void Initialize(Transform transform, IEntityHealthModule healthModule, IPlayerMovementModule movementModule, IEntityTargetModule targetModule,
+        [ModuleInject]
+        private void Initialize(Transform transform, IEntityHealthModule healthModule, IPlayerMovementModule movementModule, IEntityTargetModule targetModule,
             IPlayerWeaponModule weaponModule, PlayerShootLineModule shootLineModule)
         {
             _transform = transform;

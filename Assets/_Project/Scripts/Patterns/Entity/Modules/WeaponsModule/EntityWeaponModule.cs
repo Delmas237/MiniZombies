@@ -7,7 +7,7 @@ using Weapons;
 namespace Entity
 {
     [Serializable]
-    public class EntityWeaponModule : IEntityWeaponModule
+    public class EntityWeaponModule : IEntityWeaponModule, IOnAwake
     {
         [SerializeField] protected bool _enabled = true;
         [Space(10)]
@@ -25,7 +25,7 @@ namespace Entity
         public GunType InitialGun => _initialGun;
         public IReadOnlyList<Gun> Guns => _guns;
 
-        public virtual void Initialize()
+        public virtual void Awake()
         {
             SetInitialGun();
         }

@@ -1,6 +1,6 @@
 ﻿namespace Entity
 {
-    public interface ILateUpdatable
+    public interface ILateUpdatable : IModuleEvent
     {
         void LateUpdate();
     }

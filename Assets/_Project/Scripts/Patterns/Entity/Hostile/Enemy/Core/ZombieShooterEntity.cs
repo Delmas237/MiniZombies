@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace Entity.Hostile
 {
@@ -14,20 +13,6 @@ namespace Entity.Hostile
         public override IEnemyMovementModule MovementModule => _moveModule;
         public override IEnemyAttackModule AttackModule => _attackModule;
         public IEntityWeaponModule WeaponModule => _weaponsModule;
-
-        protected override void OnAwake()
-        {
-            _healthModule.Initialize();
-            _audioModule.Initialize(HealthModule);
-            _animationModule.Initialize(GetComponent<Animator>(), HealthModule, TargetModule, MovementModule, AttackModule);
-            _weaponsModule.Initialize();
-            _attackModule.Initialize(transform, TargetModule, MovementModule, WeaponModule);
-            _moveModule.Initialize(transform, GetComponent<NavMeshAgent>(), TargetModule, AttackModule);
-            _deathModule.Initialize(this, HealthModule, MovementModule, AttackModule);
-
-            _delayedDisableModule.Initialize(gameObject, HealthModule);
-            _dropAmmoAfterDeathModule.Initialize(transform, HealthModule);
-        }
 
         private void Shoot() => _weaponsModule.PullTrigger();
     }

@@ -15,7 +15,6 @@ namespace Entity.Hostile
         protected Transform _transform;
         protected NavMeshAgent _agent;
         protected IEntityTargetModule _targetModule;
-        protected IEnemyAttackModule _attackModule;
 
         public bool Enabled { get => _enabled; set => _enabled = value; }
         public float Speed
@@ -36,19 +35,18 @@ namespace Entity.Hostile
         public float DefaultSpeed => _defaultSpeed;
         public NavMeshAgent Agent => _agent;
 
-        public void Initialize(Transform transform, NavMeshAgent agent, IEntityTargetModule targetModule, IEnemyAttackModule attackModule)
+        [ModuleInject]
+        protected void Initialize(Transform transform, NavMeshAgent agent, IEntityTargetModule targetModule)
         {
             _transform = transform;
             _agent = agent;
 
             _targetModule = targetModule;
-            _attackModule = attackModule;
         }
 
         public virtual void Update()
         {
             Move();
-            Rotate();
         }
 
         protected virtual void Move()
@@ -61,18 +59,6 @@ namespace Entity.Hostile
             else
             {
                 Agent.enabled = false;
-            }
-        }
-
-        protected virtual void Rotate()
-        {
-            if (_targetModule.Target != null && _targetModule.Target.HealthModule.Health > 0 && _attackModule.IsAttack)
-            {
-                Vector3 targetPos = _targetModule.Target.Transform.position - _transform.position;
-                targetPos = new Vector3(targetPos.x, 0, targetPos.z);
-
-                _transform.rotation = Quaternion.LookRotation(targetPos);
-                _transform.eulerAngles += Vector3.up * 30;
             }
         }
     }

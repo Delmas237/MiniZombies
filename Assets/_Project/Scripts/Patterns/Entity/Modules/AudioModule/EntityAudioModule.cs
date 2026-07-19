@@ -20,7 +20,8 @@ namespace Entity
 
         public bool Enabled { get => _enabled; set => _enabled = value; }
         
-        public virtual void Initialize(IEntityHealthModule healthModule)
+        [ModuleInject]
+        private void Initialize(IEntityHealthModule healthModule)
         {
             _healthModule = healthModule;
 

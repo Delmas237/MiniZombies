@@ -36,7 +36,9 @@ namespace Entity.Friendly
         public bool IsFindingTarget { get; set; } = true;
         public IEntity Target { get; set; }
 
-        public void Initialize(IEntityWeaponModule weaponModule)
+
+        [ModuleInject]
+        private void Initialize(IEntityWeaponModule weaponModule)
         {
             _weaponModule = weaponModule;
 

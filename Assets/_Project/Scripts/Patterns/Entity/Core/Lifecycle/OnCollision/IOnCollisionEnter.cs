@@ -2,7 +2,7 @@
 
 namespace Entity
 {
-    public interface IOnCollisionEnter
+    public interface IOnCollisionEnter : IModuleEvent
     {
         void OnCollisionEnter(Collision collision);
     }

@@ -15,7 +15,8 @@ namespace Entity.Hostile
 
         public bool Enabled { get => _enabled; set => _enabled = value; }
 
-        public void Initialize(MonoBehaviour monoBehaviour, IEntityHealthModule healthModule, IEnemyMovementModule movementModule, IEnemyAttackModule attackModule)
+        [ModuleInject]
+        private void Initialize(MonoBehaviour monoBehaviour, IEntityHealthModule healthModule, IEnemyMovementModule movementModule, IEnemyAttackModule attackModule)
         {
             _monoBehaviour = monoBehaviour;
             _healthModule = healthModule;

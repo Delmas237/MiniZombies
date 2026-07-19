@@ -23,20 +23,5 @@ namespace Entity.Friendly.Turret
         public IEntityWeaponModule WeaponModule => _weaponsModule;
         public ITurretAttackModule AttackModule => _attackModule;
         public ITurretInstallModule InstallModule => _installModule;
-
-        protected override void OnAwake()
-        {
-            _healthModule.Initialize();
-            _audioModule.Initialize(HealthModule);
-
-            _weaponsModule.Initialize();
-            _targetModule.Initialize(WeaponModule);
-            _attackModule.Initialize(TargetModule, WeaponModule, InstallModule);
-            _rotationModule.Initialize(TargetModule);
-            _visibilityZoneModule.Initialize(WeaponModule);
-
-            _animationModule.Initialize(HealthModule, TargetModule, AttackModule, InstallModule);
-            _deathModule.Initialize(HealthModule, AttackModule);
-        }
     }
 }
