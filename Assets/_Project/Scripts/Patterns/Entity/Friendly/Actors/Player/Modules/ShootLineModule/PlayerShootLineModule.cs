@@ -1,15 +1,17 @@
 using System;
 using UnityEngine;
+using Weapons;
 
 namespace Entity.Friendly.Player
 {
     [Serializable]
-    public class PlayerShootLineModule : IModule
+    public class PlayerShootLineModule : IModule, IUpdatable, IDisposable
     {
         [SerializeField] private bool _enabled = true;
         [Space(10)]
         [SerializeField] private Transform _shootLineRoot;
 
+        private IPlayerInputModule _inputModule;
         private IPlayerWeaponModule _weaponModule;
 
         public const float START_DISTANCE = 0.848f;
@@ -17,9 +19,19 @@ namespace Entity.Friendly.Player
         public bool Enabled { get => _enabled; set => _enabled = value; }
 
         [ModuleInject]
-        private void Initialize(IPlayerWeaponModule weaponModule)
+        private void Initialize(IPlayerInputModule inputModule, IPlayerWeaponModule weaponModule)
         {
+            _inputModule = inputModule;
             _weaponModule = weaponModule;
+
+            _weaponModule.GunChanged += UpdateShootLineScale;
+        }
+        private void UpdateShootLineScale(Gun gun)
+        {
+            if (!Enabled)
+                return;
+
+            UpdateShootLineScale();
         }
 
         public void UpdateShootLineScale()
@@ -34,6 +46,11 @@ namespace Entity.Friendly.Player
             _shootLineRoot.localScale = new Vector3(1, 1, distance);
         }
 
+        public void Update()
+        {
+            UpdateShootLine(_inputModule.AttackDirection);
+        }
+
         public void UpdateShootLine(Vector2 direction)
         {
             if (!Enabled)
@@ -44,6 +61,12 @@ namespace Entity.Friendly.Player
                 _shootLineRoot.rotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.y));
 
             _shootLineRoot.gameObject.SetActive(!isZero);
+        }
+
+        public void Dispose()
+        {
+            if (_weaponModule != null)
+                _weaponModule.GunChanged -= UpdateShootLineScale;
         }
     }
 }

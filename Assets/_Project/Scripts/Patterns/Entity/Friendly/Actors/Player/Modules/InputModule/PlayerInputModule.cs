@@ -16,36 +16,29 @@ namespace Entity.Friendly.Player
         private IPlayerMovementModule _movementModule;
         private IEntityTargetModule _targetingModule;
         private IPlayerWeaponModule _weaponModule;
-        private PlayerShootLineModule _shootLineModule;
 
         public bool Enabled { get => _enabled; set => _enabled = value; }
         public bool HasMoveInput => Enabled && _mobileInput.MoveJoystick.Direction != Vector2.zero;
         public bool IsTraking => Enabled && (_targetingModule.Target != null || _mobileInput.AttackJoystick.Pressed);
+        public Vector2 MoveDirection => _mobileInput.MoveJoystick.Direction;
+        public Vector2 AttackDirection => _mobileInput.AttackJoystick.Direction;
 
         [ModuleInject]
         private void Initialize(Transform transform, IEntityHealthModule healthModule, IPlayerMovementModule movementModule, IEntityTargetModule targetModule,
-            IPlayerWeaponModule weaponModule, PlayerShootLineModule shootLineModule)
+            IPlayerWeaponModule weaponModule)
         {
             _transform = transform;
             _healthModule = healthModule;
             _movementModule = movementModule;
             _targetingModule = targetModule;
             _weaponModule = weaponModule;
-            _shootLineModule = shootLineModule;
 
             _healthModule.IsOver += Unsubscribe;
-            _weaponModule.GunChanged += UpdateShootLineScale;
 
             _mobileInput.AttackJoystick.OnUp += OnAttackUp;
             _mobileInput.AttackJoystick.OnClamped += OnAttackClamped;
         }
-        private void UpdateShootLineScale(Gun gun)
-        {
-            if (!Enabled)
-                return;
 
-            _shootLineModule.UpdateShootLineScale();
-        }
         private void OnAttackUp()
         {
             if (!Enabled)
@@ -65,7 +58,6 @@ namespace Entity.Friendly.Player
         {
             Move();
             Rotate();
-            UpdateShootLine();
         }
 
         private void Move()
@@ -96,10 +88,6 @@ namespace Entity.Friendly.Player
                 }
             }
         }
-        private void UpdateShootLine()
-        {
-            _shootLineModule.UpdateShootLine(_mobileInput.AttackJoystick.Direction);
-        }
 
         public void Dispose()
         {
@@ -109,8 +97,6 @@ namespace Entity.Friendly.Player
         {
             if (_healthModule != null)
                 _healthModule.IsOver -= Unsubscribe;
-            if (_weaponModule != null)
-                _weaponModule.GunChanged -= UpdateShootLineScale;
 
             if (_mobileInput != null)
             {
