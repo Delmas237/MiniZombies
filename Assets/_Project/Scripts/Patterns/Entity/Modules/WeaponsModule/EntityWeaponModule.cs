@@ -42,6 +42,14 @@ namespace Entity
                     SpendBullets(CurrentGun.Consumption);
             }
         }
+        public void PullAutoTrigger()
+        {
+            if (!Enabled)
+                return;
+
+            if (CurrentGun.FireType == GunFireType.Auto)
+                PullTrigger();
+        }
 
         public virtual void ChangeGun(GunType gunType)
         {

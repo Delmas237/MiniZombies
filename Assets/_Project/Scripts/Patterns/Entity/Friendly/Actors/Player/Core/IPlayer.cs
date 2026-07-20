@@ -3,7 +3,7 @@ namespace Entity.Friendly.Player
     public interface IPlayer : IFriendly
     {
         IPlayerCurrencyModule CurrencyModule { get; }
-        IPlayerWeaponModule WeaponModule { get; }
+        IEntityWeaponModule WeaponModule { get; }
         IPlayerMovementModule MovementModule { get; }
     }
 }

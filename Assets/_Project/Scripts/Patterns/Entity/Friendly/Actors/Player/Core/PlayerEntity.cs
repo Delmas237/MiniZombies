@@ -11,7 +11,7 @@ namespace Entity.Friendly.Player
         [SerializeField] protected PlayerInputModule _inputModule;
         [SerializeField] protected PlayerMovementModule _moveModule;
         [SerializeField] protected FriendlyTargetModule _targetModule;
-        [SerializeField] protected PlayerWeaponModule _weaponsModule;
+        [SerializeField] protected EntityWeaponModule _weaponsModule;
         [Space(10)]
         [SerializeField] protected PlayerAnimationModule _animationModule;
         [SerializeField] protected EntityAudioModule _audioModule;
@@ -23,6 +23,6 @@ namespace Entity.Friendly.Player
         public IPlayerInputModule InputModule => _inputModule;
         public IPlayerMovementModule MovementModule => _moveModule;
         public IEntityTargetModule TargetingModule => _targetModule;
-        public IPlayerWeaponModule WeaponModule => _weaponsModule;
+        public IEntityWeaponModule WeaponModule => _weaponsModule;
     }
 }

@@ -15,7 +15,7 @@ namespace Entity.Friendly.Player
         private IEntityHealthModule _healthModule;
         private IPlayerMovementModule _movementModule;
         private IEntityTargetModule _targetingModule;
-        private IPlayerWeaponModule _weaponModule;
+        private IEntityWeaponModule _weaponModule;
 
         public bool Enabled { get => _enabled; set => _enabled = value; }
         public bool HasMoveInput => Enabled && _mobileInput.MoveJoystick.Direction != Vector2.zero;
@@ -25,7 +25,7 @@ namespace Entity.Friendly.Player
 
         [ModuleInject]
         private void Initialize(Transform transform, IEntityHealthModule healthModule, IPlayerMovementModule movementModule, IEntityTargetModule targetModule,
-            IPlayerWeaponModule weaponModule)
+            IEntityWeaponModule weaponModule)
         {
             _transform = transform;
             _healthModule = healthModule;

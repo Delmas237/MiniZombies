@@ -18,6 +18,7 @@ namespace Entity
         void ChangeGun(GunType gunType);
 
         void PullTrigger();
+        void PullAutoTrigger();
 
         void AddBullets(int amount);
         void SpendBullets(int amount);

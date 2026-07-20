@@ -12,14 +12,14 @@ namespace Entity.Friendly.Player
         [SerializeField] private Transform _shootLineRoot;
 
         private IPlayerInputModule _inputModule;
-        private IPlayerWeaponModule _weaponModule;
+        private IEntityWeaponModule _weaponModule;
 
         public const float START_DISTANCE = 0.848f;
 
         public bool Enabled { get => _enabled; set => _enabled = value; }
 
         [ModuleInject]
-        private void Initialize(IPlayerInputModule inputModule, IPlayerWeaponModule weaponModule)
+        private void Initialize(IPlayerInputModule inputModule, IEntityWeaponModule weaponModule)
         {
             _inputModule = inputModule;
             _weaponModule = weaponModule;
