@@ -17,12 +17,5 @@ namespace Entity.Friendly.Player
         [SerializeField] protected EntityAudioModule _audioModule;
         [SerializeField] protected PlayerShootLineModule _shootLineModule;
         [SerializeField] protected PlayerDeathModule _deathModule;
-
-        public override IEntityHealthModule HealthModule => _healthModule;
-        public IPlayerCurrencyModule CurrencyModule => _currencyModule;
-        public IPlayerInputModule InputModule => _inputModule;
-        public IPlayerMovementModule MovementModule => _moveModule;
-        public IEntityTargetModule TargetingModule => _targetModule;
-        public IEntityWeaponModule WeaponModule => _weaponsModule;
     }
 }

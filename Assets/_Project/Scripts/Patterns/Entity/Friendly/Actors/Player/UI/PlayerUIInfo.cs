@@ -14,18 +14,22 @@ namespace Entity.Friendly.Player
 
         private void Start()
         {
-            if (_player != null)
-            {
-                UpdateHealthBar();
-                UpdateCoinsText(_player.CurrencyModule.Coins);
-                UpdateBulletsText(_player.WeaponModule.Bullets);
+            if (_player == null)
+                return;
+            
+            var healthModule = _player.HealthModule;
+            var currencyModule = _player.GetModule<IPlayerCurrencyModule>();
+            var weaponModule = _player.GetModule<IEntityWeaponModule>();
 
-                _player.HealthModule.Increased += UpdateHealthBar;
-                _player.HealthModule.Decreased += UpdateHealthBar;
+            UpdateHealthBar();
+            UpdateCoinsText(currencyModule.Coins);
+            UpdateBulletsText(weaponModule.Bullets);
 
-                _player.CurrencyModule.CoinsChanged += UpdateCoinsText;
-                _player.WeaponModule.BulletsChanged += UpdateBulletsText;
-            }
+            healthModule.Increased += UpdateHealthBar;
+            healthModule.Decreased += UpdateHealthBar;
+
+            currencyModule.CoinsChanged += UpdateCoinsText;
+            weaponModule.BulletsChanged += UpdateBulletsText;
         }
 
         private void UpdateHealthBar()
@@ -45,14 +49,18 @@ namespace Entity.Friendly.Player
 
         private void OnDestroy()
         {
-            if (_player != null)
-            {
-                _player.HealthModule.Increased -= UpdateHealthBar;
-                _player.HealthModule.Decreased -= UpdateHealthBar;
+            if (_player == null)
+                return;
 
-                _player.CurrencyModule.CoinsChanged -= UpdateCoinsText;
-                _player.WeaponModule.BulletsChanged -= UpdateBulletsText;
-            }
+            var healthModule = _player.HealthModule;
+            var currencyModule = _player.GetModule<IPlayerCurrencyModule>();
+            var weaponModule = _player.GetModule<IEntityWeaponModule>();
+
+            healthModule.Increased -= UpdateHealthBar;
+            healthModule.Decreased -= UpdateHealthBar;
+
+            currencyModule.CoinsChanged -= UpdateCoinsText;
+            weaponModule.BulletsChanged -= UpdateBulletsText;
         }
     }
 }

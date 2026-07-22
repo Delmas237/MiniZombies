@@ -1,3 +1,4 @@
+using Entity;
 using Entity.Friendly.Turret;
 using EventBusLib;
 using ObjectPool;
@@ -35,7 +36,8 @@ namespace Factory
 
         private void InitializeTurret(TurretEntity turret)
         {
-            foreach (Gun gun in turret.WeaponModule.Guns)
+            var weaponModule = turret.GetModule<IEntityWeaponModule>();
+            foreach (Gun gun in weaponModule.Guns)
             {
                 gun.BulletPool = _bulletTrailPool.Pool;
             }
@@ -58,7 +60,8 @@ namespace Factory
         }
         public void Construct(TurretEntity turret)
         {
-            turret.InstallModule.Install();
+            var installModule = turret.GetModule<ITurretInstallModule>();
+            installModule.Install();
         }
 
         public TurretEntity NewInstance() => Object.Instantiate(Prefabs[Random.Range(0, Prefabs.Length)]);

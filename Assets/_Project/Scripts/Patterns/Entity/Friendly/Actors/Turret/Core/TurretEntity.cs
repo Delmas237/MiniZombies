@@ -17,11 +17,5 @@ namespace Entity.Friendly.Turret
         [SerializeField] protected TurretAnimationModule _animationModule;
         [SerializeField] protected EntityAudioModule _audioModule;
         [SerializeField] protected TurretDeathModule _deathModule;
-
-        public override IEntityHealthModule HealthModule => _healthModule;
-        public IEntityTargetModule TargetModule => _targetModule;
-        public IEntityWeaponModule WeaponModule => _weaponsModule;
-        public ITurretAttackModule AttackModule => _attackModule;
-        public ITurretInstallModule InstallModule => _installModule;
     }
 }

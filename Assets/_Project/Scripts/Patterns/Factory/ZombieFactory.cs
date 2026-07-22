@@ -50,21 +50,29 @@ namespace Factory
         
         private void InitializeEnemy(ZombieEntity enemy)
         {
-            enemy.MovementModule.Speed = enemy.MovementModule.DefaultSpeed;
-            enemy.AttackModule.Speed = enemy.AttackModule.DefaultSpeed;
+            var movementModule = enemy.GetModule<IEnemyMovementModule>();
+            var attackModule = enemy.GetModule<IEnemyAttackModule>();
+
+            movementModule.Speed = movementModule.DefaultSpeed;
+            attackModule.Speed = attackModule.DefaultSpeed;
         }
 
         private void BoostEnemies(WaveFinishedEvent waveFinishedEvent)
         {
             foreach (ZombieEntity enemy in Pool.Elements)
             {
-                enemy.HealthModule.MaxHealth = enemy.HealthModule.MaxHealth * (1 + _waveBoostData.HpPercent);
+                var healthModule = enemy.HealthModule;
+                var movementModule = enemy.GetModule<IEnemyMovementModule>();
+                var attackModule = enemy.GetModule<IEnemyAttackModule>();
+
+                healthModule.MaxHealth *= (1 + _waveBoostData.HpPercent);
 
                 float randomX = Random.Range(0.9f, 1.15f);
                 float boosterValue = waveFinishedEvent.Number * _waveBoostData.WaveMultiplierSpeed;
                 float speedX = (float)Math.Round(randomX + boosterValue, 2);
-                enemy.MovementModule.Speed = enemy.MovementModule.DefaultSpeed * speedX;
-                enemy.AttackModule.Speed = speedX;
+                
+                movementModule.Speed = movementModule.DefaultSpeed * speedX;
+                attackModule.Speed = speedX;
             }
         }
 
@@ -85,8 +93,9 @@ namespace Factory
             if (enemy.TryGetComponent(out Rigidbody rb))
                 Object.Destroy(rb);
 
-            if (enemy.MovementModule.Agent != null)
-                enemy.MovementModule.Agent.enabled = true;
+            var movementModule = enemy.GetModule<IEnemyMovementModule>();
+            if (movementModule.Agent != null)
+                movementModule.Agent.enabled = true;
 
             if (enemy.TryGetComponent(out CapsuleCollider collider))
             {
@@ -96,24 +105,34 @@ namespace Factory
         }
         public void Construct(ZombieEntity enemy)
         {
-            List<Transform> spawnDotsCopy = new List<Transform>(_spawnDots);
-            List<Transform> spawnDotsFurthest = new List<Transform>
-            {
-                SearchFurthest(ref spawnDotsCopy),
-                SearchFurthest(ref spawnDotsCopy),
-                SearchFurthest(ref spawnDotsCopy)
-            };
-
-            Transform randSpawnDot = spawnDotsFurthest[Random.Range(0, spawnDotsFurthest.Count)];
+            Transform randSpawnDot = GetSpawnPosition();
             enemy.transform.SetPositionAndRotation(randSpawnDot.position, Quaternion.identity);
 
-            enemy.TargetModule.Target = _target;
-            enemy.HealthModule.Increase(enemy.HealthModule.MaxHealth);
+            var healthModule = enemy.GetModule<IEntityHealthModule>();
+            var targetModule = enemy.GetModule<IEntityTargetModule>();
+            var dropAmmoOnDeathModule = enemy.GetModule<IEntityDropAmmoOnDeathModule>();
 
-            enemy.DropAmmoAfterDeathModule.AmmoProvider = _ammoPackProvider;
+            targetModule.Target = _target;
+            healthModule.Increase(healthModule.MaxHealth);
+            dropAmmoOnDeathModule.AmmoProvider = _ammoPackProvider;
 
             enemy.enabled = true;
         }
+
+        private Transform GetSpawnPosition()
+        {
+            List<Transform> spawnPositionsCopy = new List<Transform>(_spawnDots);
+            List<Transform> spawnPositionsFurthest = new List<Transform>
+            {
+                SearchFurthest(ref spawnPositionsCopy),
+                SearchFurthest(ref spawnPositionsCopy),
+                SearchFurthest(ref spawnPositionsCopy)
+            };
+
+            Transform spawnPosition = spawnPositionsFurthest[Random.Range(0, spawnPositionsFurthest.Count)];
+            return spawnPosition;
+        }
+
         private Transform SearchFurthest(ref List<Transform> spawnDots)
         {
             Transform transform = ComponentSearcher<Transform>.Furthest(_target.Transform.position, spawnDots);

@@ -13,12 +13,5 @@ namespace Entity.Hostile
         [Space(10)]
         [SerializeField] protected EntityDelayedDisableModule _delayedDisableModule;
         [SerializeField] protected EntityDropAmmoOnDeathModule _dropAmmoAfterDeathModule;
-
-        public override IEntityHealthModule HealthModule => _healthModule;
-        public IEntityTargetModule TargetModule => _targetModule;
-        public IEntityDropAmmoOnDeathModule DropAmmoAfterDeathModule => _dropAmmoAfterDeathModule;
-
-        public abstract IEnemyMovementModule MovementModule { get; }
-        public abstract IEnemyAttackModule AttackModule { get; }
     }
 }

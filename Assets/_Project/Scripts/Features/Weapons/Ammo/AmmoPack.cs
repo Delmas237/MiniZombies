@@ -1,3 +1,4 @@
+using Entity;
 using Entity.Friendly.Player;
 using UnityEngine;
 
@@ -12,7 +13,8 @@ namespace Weapons
         {
             if (other.TryGetComponent(out IPlayer player))
             {
-                player.WeaponModule.AddBullets(_magnitude);
+                var weaponModule = player.GetModule<IEntityWeaponModule>();
+                weaponModule.AddBullets(_magnitude);
 
                 AudioSource audioSource = DestroySoundFactory.GetInstance();
                 audioSource.transform.position = transform.position;

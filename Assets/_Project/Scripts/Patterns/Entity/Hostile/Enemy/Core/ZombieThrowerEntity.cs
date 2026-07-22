@@ -9,10 +9,6 @@ namespace Entity.Hostile
         [SerializeField] protected ZombieThrowerAttackModule _attackModule;
         [SerializeField] protected EnemyDeathModule _deathModule;
 
-        public IEnemyThrowerAttackModule ThrowerAttackModule => _attackModule;
-        public override IEnemyMovementModule MovementModule => _moveModule;
-        public override IEnemyAttackModule AttackModule => _attackModule;
-
-        private void Shoot() => ThrowerAttackModule.Throw();
+        private void Shoot() => GetModule<IEnemyThrowerAttackModule>().Throw();
     }
 }

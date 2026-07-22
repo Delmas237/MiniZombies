@@ -6,7 +6,7 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Entity.Friendly.Player
 {
-    public class PlayerRewardsManager : MonoBehaviour
+    public class PlayerRewarder : MonoBehaviour
     {
         [SerializeField] private PlayerEntity _player;
         [SerializeField] private string _dataKey = "RewardData";
@@ -47,9 +47,10 @@ namespace Entity.Friendly.Player
         private void GetLocalReward(WaveFinishedEvent waveFinishedEvent)
         {
             float reward = waveFinishedEvent.Wave.DestroyedObjects * _localKillReward;
-
             int intReward = Mathf.RoundToInt(reward);
-            _player.CurrencyModule.Add(intReward);
+
+            var currencyModule = _player.GetModule<IPlayerCurrencyModule>();
+            currencyModule.Add(intReward);
         }
 
         private void GetGlobalReward(GameOverEvent gameOverEvent) => GetGlobalReward(gameOverEvent.CompletedWaves);

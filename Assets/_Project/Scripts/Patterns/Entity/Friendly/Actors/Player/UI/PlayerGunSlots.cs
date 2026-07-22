@@ -48,7 +48,9 @@ namespace Entity.Friendly.Player
 
         private void SetInitialGun()
         {
-            GunType initialGun = _player.WeaponModule.InitialGun;
+            var weaponModule = _player.GetModule<IEntityWeaponModule>();
+
+            GunType initialGun = weaponModule.InitialGun;
             _slots.Add(initialGun);
             _slotsImages[_slots.Count - 1].sprite = GunsDataSaver.GunsData[initialGun].Icon;
         }
@@ -82,17 +84,19 @@ namespace Entity.Friendly.Player
             _slotsImages[index].sprite = sprite;
             _slotsImages[index].enabled = true;
 
-            _player.WeaponModule.ChangeGun(gunType);
+            var weaponModule = _player.GetModule<IEntityWeaponModule>();
+            weaponModule.ChangeGun(gunType);
 
             return true;
         }
 
         public void ChangeCurrentGun(int slot)
         {
-            if (_player.WeaponModule.CurrentGun.Type == _slots[slot])
+            var weaponModule = _player.GetModule<IEntityWeaponModule>();
+            if (weaponModule.CurrentGun.Type == _slots[slot])
                 return;
 
-            _player.WeaponModule.ChangeGun((GunType)_slots[slot]);
+            weaponModule.ChangeGun((GunType)_slots[slot]);
             _getGunSound.Play();
         }
     }

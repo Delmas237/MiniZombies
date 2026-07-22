@@ -5,12 +5,15 @@ using Waves;
 
 public class GameOverHandler : MonoBehaviour
 {
-    [SerializeField] private PlayerEntity _playerContainer;
+    [SerializeField] private PlayerEntity _player;
     [SerializeField] private EnemyWaveManager _enemyWaveManager;
 
     private void Start()
     {
-        _playerContainer.HealthModule.IsOver += Handle;
+        if (_player == null)
+            return;
+
+        _player.HealthModule.IsOver += Handle;
     }
 
     private void Handle()
@@ -20,6 +23,9 @@ public class GameOverHandler : MonoBehaviour
 
     private void OnDestroy()
     {
-        _playerContainer.HealthModule.IsOver -= Handle;
+        if (_player == null)
+            return;
+
+        _player.HealthModule.IsOver -= Handle;
     }
 }

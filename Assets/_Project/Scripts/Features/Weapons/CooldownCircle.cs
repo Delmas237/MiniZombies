@@ -1,3 +1,4 @@
+using Entity;
 using Entity.Friendly.Player;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,7 +22,9 @@ namespace Weapons
 
         private void UpdateCircle()
         {
-            Gun gun = _player.WeaponModule.CurrentGun;
+            var weaponModule = _player.GetModule<IEntityWeaponModule>();
+            
+            Gun gun = weaponModule.CurrentGun;
             _image.fillAmount = gun.CurrentCooldown / gun.Cooldown;
         }
     }

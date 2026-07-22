@@ -1,3 +1,4 @@
+using Entity;
 using Entity.Friendly.Player;
 using Entity.Friendly.Turret;
 using EventBusLib;
@@ -96,10 +97,11 @@ namespace LocalShopLib
 
         private void Cheats()
         {
+            var currencyModule = _player.GetModule<IPlayerCurrencyModule>();
             if (Input.GetKeyDown(KeyCode.N))
-                _player.CurrencyModule.Add(100);
+                currencyModule.Add(100);
             if (Input.GetKeyDown(KeyCode.M))
-                _player.CurrencyModule.Spend(100);
+                currencyModule.Spend(100);
         }
 
         public void PurchaseGun(int id) => PurchaseGun((GunType)id);
@@ -113,7 +115,8 @@ namespace LocalShopLib
 
             LocalShopGunData weaponData = _data.Weapons.First(g => g.Type == type);
 
-            if (_player.CurrencyModule.Spend(weaponData.Price))
+            var currencyModule = _player.GetModule<IPlayerCurrencyModule>();
+            if (currencyModule.Spend(weaponData.Price))
             {
                 if (!_gunsLvl.ContainsKey(type))
                     _gunsLvl.Add(type, 0);
@@ -128,10 +131,13 @@ namespace LocalShopLib
         {
             LocalShopGunData weaponData = _data.Weapons.First(g => g.Type == type);
 
-            if (_player.CurrencyModule.Spend(weaponData.PriceLvlBoost))
+            var currencyModule = _player.GetModule<IPlayerCurrencyModule>();
+            if (currencyModule.Spend(weaponData.PriceLvlBoost))
             {
                 _gunsLvl[type]++;
-                _player.WeaponModule.Guns.First(g => g.Type == type).Damage += weaponData.DamageLvlBoost;
+                var weaponModule = _player.GetModule<IEntityWeaponModule>();
+
+                weaponModule.Guns.First(g => g.Type == type).Damage += weaponData.DamageLvlBoost;
 
                 UpdateLotText(type);
             }
@@ -152,8 +158,10 @@ namespace LocalShopLib
             LocalShopGun weapon = _shopWeapons.First(g => g.Type == type);
             LocalShopGunData weaponData = _data.Weapons.First(g => g.Type == type);
 
+            var weaponModule = _player.GetModule<IEntityWeaponModule>();
+            weapon.DamageText.text = $"{weaponModule.Guns.First(g => g.Type == type).Damage}dmg";
+
             weapon.PriceText.text = weaponData.PriceLvlBoost + "$";
-            weapon.DamageText.text = $"{_player.WeaponModule.Guns.First(g => g.Type == type).Damage}dmg";
             weapon.LvlText.text = $"{_gunsLvl[type]} lvl";
         }
 
@@ -161,18 +169,19 @@ namespace LocalShopLib
         {
             LocalShopItemData itemData = _data.Items.First(g => g.Name == id);
             
-            if (_player.CurrencyModule.IsCanSpend(itemData.Price))
+            var currencyModule = _player.GetModule<IPlayerCurrencyModule>();
+            if (currencyModule.IsCanSpend(itemData.Price))
             {
                 if (itemData.Name == "Medkit" && _player.HealthModule.Health < _player.HealthModule.MaxHealth)
                 {
                     _player.HealthModule.Increase(_player.HealthModule.MaxHealth);
-                    _player.CurrencyModule.Spend(itemData.Price);
+                    currencyModule.Spend(itemData.Price);
                 }
                 else if (itemData.Name == "Turret")
                 {
                     TurretEntity turretContainer = _turretFactory.GetInstance();
                     turretContainer.transform.position = _player.Transform.position;
-                    _player.CurrencyModule.Spend(itemData.Price);
+                    currencyModule.Spend(itemData.Price);
                 }
             }
         }

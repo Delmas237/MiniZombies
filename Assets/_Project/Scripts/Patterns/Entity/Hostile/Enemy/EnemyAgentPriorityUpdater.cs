@@ -20,18 +20,26 @@ namespace Entity.Hostile
             {
                 yield return new WaitForSeconds(_updateDelay);
 
-                var enemies = Spawner<IHostile>.ObjectsOnScene.Where(
-                    e => Vector3.Distance(e.Transform.position, e.TargetModule.Target.Transform.position) <= _radius).ToList();
+                var enemies = Spawner<IHostile>.ObjectsOnScene.Where(e =>
+                {
+                    IEntity target = e.GetModule<IEntityTargetModule>().Target;
+                    float distance = Vector3.Distance(e.Transform.position, target.Transform.position);
+                    return distance <= _radius;
+                }).ToList();
 
                 enemies.Sort((a, b) =>
                 {
-                    float distanceA = Vector3.Distance(a.Transform.position, a.TargetModule.Target.Transform.position);
-                    float distanceB = Vector3.Distance(b.Transform.position, a.TargetModule.Target.Transform.position);
+                    IEntity target = a.GetModule<IEntityTargetModule>().Target;
+                    float distanceA = Vector3.Distance(a.Transform.position, target.Transform.position);
+                    float distanceB = Vector3.Distance(b.Transform.position, target.Transform.position);
                     return distanceA.CompareTo(distanceB);
                 });
 
                 for (int i = enemies.Count - 1; i >= 0; i--)
-                    enemies[i].MovementModule.Agent.avoidancePriority = i;
+                {
+                    var movementModule = enemies[i].GetModule<IEnemyMovementModule>();
+                    movementModule.Agent.avoidancePriority = i;
+                }
             }
         }
     }

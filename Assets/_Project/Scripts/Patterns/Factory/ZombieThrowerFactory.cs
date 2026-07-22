@@ -33,8 +33,10 @@ namespace Factory
         protected void Construct(ZombieThrowerEntity enemy)
         {
             base.Construct(enemy);
-            enemy.ThrowerAttackModule.ProjectileProvider = _projectilePool;
-            enemy.ThrowerAttackModule.ProjectileEffectProvider = _projectileEffectPool;
+            var attackModule = enemy.GetModule<IEnemyThrowerAttackModule>();
+
+            attackModule.ProjectileProvider = _projectilePool;
+            attackModule.ProjectileEffectProvider = _projectileEffectPool;
         }
     }
 }

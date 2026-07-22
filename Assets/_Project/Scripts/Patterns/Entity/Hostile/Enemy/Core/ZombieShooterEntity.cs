@@ -10,10 +10,6 @@ namespace Entity.Hostile
         [SerializeField] protected EntityWeaponModule _weaponsModule;
         [SerializeField] protected EnemyDeathModule _deathModule;
 
-        public override IEnemyMovementModule MovementModule => _moveModule;
-        public override IEnemyAttackModule AttackModule => _attackModule;
-        public IEntityWeaponModule WeaponModule => _weaponsModule;
-
         private void Shoot() => _weaponsModule.PullTrigger();
     }
 }

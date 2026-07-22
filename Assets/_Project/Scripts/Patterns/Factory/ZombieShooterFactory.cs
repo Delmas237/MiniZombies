@@ -31,7 +31,9 @@ namespace Factory
         protected void Construct(ZombieShooterEntity enemy)
         {
             base.Construct(enemy);
-            enemy.WeaponModule.CurrentGun.BulletPool = _bulletPool;
+
+            var weaponModule = enemy.GetModule<IEntityWeaponModule>();
+            weaponModule.CurrentGun.BulletPool = _bulletPool;
         }
     }
 }

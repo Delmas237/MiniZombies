@@ -13,7 +13,7 @@ namespace Entity
         private Dictionary<Type, Component> _componentCache = new Dictionary<Type, Component>();
 
         public Transform Transform => transform;
-        public abstract IEntityHealthModule HealthModule { get; }
+        public IEntityHealthModule HealthModule => GetModule<IEntityHealthModule>();
 
         #region Initialization
         private void Awake()
@@ -375,18 +375,68 @@ namespace Entity
         #endregion
 
         #region Public Methods
+        /// <summary>
+        /// Gets a required module by its interface.
+        /// Throws an exception if the module is not found.
+        /// Use this method when the module is mandatory for the entity.
+        /// </summary>
         public T GetModule<T>() where T : class, IModule
         {
-            if (_interfaceCache.TryGetValue(typeof(T), out var module))
+            Type type = typeof(T);
+
+            if (!type.IsInterface)
+                throw new InvalidOperationException(
+                    $"{nameof(GetModule)}<{type.Name}> supports only module interfaces");
+
+            if (_interfaceCache.TryGetValue(type, out var module))
                 return module as T;
-            return null;
+
+            throw new InvalidOperationException(
+                $"Required module {type.Name} not found on entity {name}");
         }
 
+        /// <summary>
+        /// Checks if the entity contains a module with the specified interface.
+        /// Use this method for checking optional module availability.
+        /// </summary>
         public bool HasModule<T>() where T : class, IModule
         {
-            return GetModule<T>() != null;
+            Type type = typeof(T);
+
+            if (!type.IsInterface)
+                throw new InvalidOperationException(
+                    $"{nameof(HasModule)}<{type.Name}> supports only module interfaces");
+
+            return _interfaceCache.ContainsKey(type);
         }
 
+        /// <summary>
+        /// Tries to get an optional module by its interface.
+        /// Returns true if the module exists, otherwise returns false.
+        /// Use this method when the module is not mandatory for the entity.
+        /// </summary>
+        public bool TryGetModule<T>(out T module) where T : class, IModule
+        {
+            Type type = typeof(T);
+
+            if (!type.IsInterface)
+                throw new InvalidOperationException(
+                    $"{nameof(T)}<{type.Name}> supports only module interfaces");
+
+            if (_interfaceCache.TryGetValue(type, out var value))
+            {
+                module = value as T;
+                return true;
+            }
+
+            module = null;
+            return false;
+        }
+
+        /// <summary>
+        /// Returns all modules attached to the entity.
+        /// Use this method only when iterating through the entire module collection is required.
+        /// </summary>
         public IEnumerable<IModule> GetAllModules()
         {
             return _moduleCache.Values.Select(c => c.Module);
