@@ -1,5 +1,4 @@
 using Entity;
-using Entity.Friendly.Player;
 using UnityEngine;
 
 namespace Weapons
@@ -11,9 +10,9 @@ namespace Weapons
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent(out IPlayer player))
+            if (other.TryGetComponent(out IEntity entity) && entity.RoleModule.Role == EntityRole.Player)
             {
-                var weaponModule = player.GetModule<IEntityWeaponModule>();
+                var weaponModule = entity.GetModule<IEntityWeaponModule>();
                 weaponModule.AddBullets(_magnitude);
 
                 AudioSource audioSource = DestroySoundFactory.GetInstance();

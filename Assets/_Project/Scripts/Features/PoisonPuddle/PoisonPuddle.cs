@@ -1,6 +1,4 @@
 using Entity;
-using Entity.Hostile;
-using Entity.Friendly.Player;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,19 +30,24 @@ public class PoisonPuddle : MonoBehaviour
     {
         if (other.TryGetComponent(out IEntity entity))
         {
-            if ((entity is IPlayer && _collideWithPlayer) || (entity is IHostile && _collideWithEnemy))
+            if (IsAllowedEntityType(entity.RoleModule.Role))
             {
                 _collidingEntities.Add(entity);
                 _damageCor ??= StartCoroutine(ManageDamage());
             }
         }
     }
+    private bool IsAllowedEntityType(EntityRole type)
+    {
+        return (type == EntityRole.Player && _collideWithPlayer) ||
+                (type == EntityRole.Enemy && _collideWithEnemy);
+    }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.TryGetComponent(out IEntity entity))
         {
-            if ((entity is IPlayer && _collideWithPlayer) || (entity is IHostile && _collideWithEnemy))
+            if (IsAllowedEntityType(entity.RoleModule.Role))
             {
                 _collidingEntities.Remove(entity);
             }

@@ -2,9 +2,10 @@ using UnityEngine;
 
 namespace Entity.Hostile
 {
-    public abstract class ZombieEntity : EntityBase, IHostile
+    public abstract class ZombieEntity : EntityBase
     {
         [Header("Base Modules")]
+        [SerializeField] protected EntityRoleModule _roleModule;
         [SerializeField] protected EntityHealthModule _healthModule;
         [SerializeField] protected EnemyTargetModule _targetModule;
         [SerializeField] protected EnemyRotationModule _rotationModule;

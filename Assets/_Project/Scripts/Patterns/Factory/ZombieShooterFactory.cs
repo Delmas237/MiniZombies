@@ -17,7 +17,7 @@ namespace Factory
             _bulletPool = bulletPool;
         }
 
-        public override IHostile GetInstance()
+        public override IEntity GetInstance()
         {
             var pool = (IInstanceProvider<ZombieShooterEntity>)_pool;
             ZombieShooterEntity instance = pool.GetInstance();

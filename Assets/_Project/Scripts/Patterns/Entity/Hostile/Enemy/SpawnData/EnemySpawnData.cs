@@ -12,12 +12,12 @@ namespace Entity.Hostile
         [SerializeField] protected AmmoPackPool _ammoPool;
         [SerializeField] protected EnemyPool _enemyPool;
 
-        protected IInstanceProvider<IHostile> _factory;
+        protected IInstanceProvider<IEntity> _factory;
 
         public float Priority => _priority;
         public EnemyWaveBoostData EnemyWaveBoostData => _waveBoostData;
         public EnemyPool EnemyPool => _enemyPool;
-        public IInstanceProvider<IHostile> Factory => _factory;
+        public IInstanceProvider<IEntity> Factory => _factory;
 
         public abstract void Initialize(List<Transform> spawnPoses, IEntity target);
     }

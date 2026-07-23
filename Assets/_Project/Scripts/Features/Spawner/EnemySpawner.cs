@@ -8,12 +8,12 @@ using Random = UnityEngine.Random;
 
 namespace Entity.Hostile
 {
-    public class EnemySpawner : Spawner<IHostile>
+    public class EnemySpawner : Spawner<IEntity>
     {
         [SerializeField] private List<EnemySpawnData> _spawnData;
         [SerializeField] private PlayerEntity _player;
 
-        public override event Action<IHostile> Spawned;
+        public override event Action<IEntity> Spawned;
         public override event Action Removed;
 
         protected override void Start()
@@ -50,7 +50,7 @@ namespace Entity.Hostile
 
                     if (random >= current && random <= spawnData.Priority + current)
                     {
-                        IHostile enemy = spawnData.Factory.GetInstance();
+                        IEntity enemy = spawnData.Factory.GetInstance();
                         _objectsOnScene.Add(enemy);
                         Spawned?.Invoke(enemy);
 
@@ -64,7 +64,7 @@ namespace Entity.Hostile
 
         private void RemoveDiedEnemies()
         {
-            List<IHostile> enemiesForRemove = new List<IHostile>();
+            List<IEntity> enemiesForRemove = new List<IEntity>();
             foreach (var enemy in ObjectsOnScene)
             {
                 if (enemy == null || enemy.HealthModule.Health <= 0)

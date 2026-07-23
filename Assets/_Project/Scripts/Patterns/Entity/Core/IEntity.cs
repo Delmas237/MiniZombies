@@ -6,6 +6,7 @@ namespace Entity
     public interface IEntity
     {
         Transform Transform { get; }
+        IEntityRoleModule RoleModule { get; }
         IEntityHealthModule HealthModule { get; }
 
         T GetModule<T>() where T : class, IModule;

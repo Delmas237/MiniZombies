@@ -13,6 +13,7 @@ namespace Entity
         private Dictionary<Type, Component> _componentCache = new Dictionary<Type, Component>();
 
         public Transform Transform => transform;
+        public IEntityRoleModule RoleModule => GetModule<IEntityRoleModule>();
         public IEntityHealthModule HealthModule => GetModule<IEntityHealthModule>();
 
         #region Initialization

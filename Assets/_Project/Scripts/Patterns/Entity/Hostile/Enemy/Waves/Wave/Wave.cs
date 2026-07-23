@@ -16,12 +16,12 @@ namespace Waves
         public int DestroyedObjects { get; private set; }
 
         public float SpawnSpeed { get; }
-        public Spawner<IHostile> Spawner { get; }
+        public EnemySpawner Spawner { get; }
         public TextMeshProUGUI Text { get; }
 
         public abstract IWaveState State { get; }
 
-        public Wave(Spawner<IHostile> spawner, TextMeshProUGUI text, float spawnSpeed, float nightChance)
+        public Wave(EnemySpawner spawner, TextMeshProUGUI text, float spawnSpeed, float nightChance)
         {
             float rndTimesOfDay = Random.Range(0, 1f);
             if (rndTimesOfDay <= nightChance)

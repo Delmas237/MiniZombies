@@ -2,9 +2,10 @@ using UnityEngine;
 
 namespace Entity.Friendly.Player
 {
-    public class PlayerEntity : EntityBase, IPlayer
+    public class PlayerEntity : EntityBase
     {
         [Header("Modules")]
+        [SerializeField] protected EntityRoleModule _roleModule;
         [SerializeField] protected EntityHealthModule _healthModule;
         [SerializeField] protected PlayerCurrencyModule _currencyModule;
         [Space(10)]

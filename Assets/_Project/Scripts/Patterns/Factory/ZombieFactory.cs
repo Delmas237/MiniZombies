@@ -11,7 +11,7 @@ using Random = UnityEngine.Random;
 
 namespace Factory
 {
-    public class ZombieFactory : IFactory<ZombieEntity>, IInstanceProvider<IHostile>
+    public class ZombieFactory : IFactory<ZombieEntity>, IInstanceProvider<IEntity>
     {
         protected readonly IEntity _target;
         protected readonly List<Transform> _spawnDots;
@@ -76,7 +76,7 @@ namespace Factory
             }
         }
 
-        public virtual IHostile GetInstance()
+        public virtual IEntity GetInstance()
         {
             ZombieEntity instance = _pool.GetInstance();
 

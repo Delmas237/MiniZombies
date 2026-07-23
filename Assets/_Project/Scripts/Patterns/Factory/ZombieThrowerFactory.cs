@@ -19,7 +19,7 @@ namespace Factory
             _projectileEffectPool = projectileEffectPool;
         }
 
-        public override IHostile GetInstance()
+        public override IEntity GetInstance()
         {
             var pool = (IPool<ZombieThrowerEntity>)_pool;
             ZombieThrowerEntity instance = pool.GetInstance();

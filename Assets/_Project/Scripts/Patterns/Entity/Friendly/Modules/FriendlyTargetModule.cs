@@ -70,10 +70,10 @@ namespace Entity.Friendly
 
                 if (IsFindingTarget)
                 {
-                    IReadOnlyList<IHostile> targets = Spawner<IHostile>.ObjectsOnScene;
+                    IReadOnlyList<IEntity> targets = EnemySpawner.ObjectsOnScene;
 
                     bool isTargetInRange = false;
-                    IHostile closestTarget = null;
+                    IEntity closestTarget = null;
                     if (targets.Count > 0)
                     {
                         Vector3 position = _weaponModule.CurrentGun.transform.position;

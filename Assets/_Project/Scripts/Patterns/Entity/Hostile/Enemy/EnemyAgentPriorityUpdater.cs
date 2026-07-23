@@ -20,7 +20,7 @@ namespace Entity.Hostile
             {
                 yield return new WaitForSeconds(_updateDelay);
 
-                var enemies = Spawner<IHostile>.ObjectsOnScene.Where(e =>
+                var enemies = EnemySpawner.ObjectsOnScene.Where(e =>
                 {
                     IEntity target = e.GetModule<IEntityTargetModule>().Target;
                     float distance = Vector3.Distance(e.Transform.position, target.Transform.position);

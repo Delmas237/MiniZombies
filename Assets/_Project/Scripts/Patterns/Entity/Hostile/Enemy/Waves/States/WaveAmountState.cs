@@ -52,7 +52,7 @@ namespace Waves
         }
         private void HandleRemoved()
         {
-            if (_wave.EnemyAmount <= 0 && Spawner<IHostile>.ObjectsOnScene.Count <= 0)
+            if (_wave.EnemyAmount <= 0 && EnemySpawner.ObjectsOnScene.Count <= 0)
             {
                 _wave.IsUsing = false;
                 _wave.Spawner.Removed -= HandleRemoved;
@@ -62,11 +62,11 @@ namespace Waves
 
         public void UpdateUIInfo()
         {
-            if (_wave.EnemyAmount <= 0 && Spawner<IHostile>.ObjectsOnScene.Count > 0)
+            if (_wave.EnemyAmount <= 0 && EnemySpawner.ObjectsOnScene.Count > 0)
             {
-                _wave.Text.text = Spawner<IHostile>.ObjectsOnScene.Count.ToString();
+                _wave.Text.text = EnemySpawner.ObjectsOnScene.Count.ToString();
             }
-            else if (_wave.EnemyAmount > 0 || Spawner<IHostile>.ObjectsOnScene.Count > 0)
+            else if (_wave.EnemyAmount > 0 || EnemySpawner.ObjectsOnScene.Count > 0)
             {
                 _wave.Text.text = (_wave.StartEnemyAmount - _wave.DestroyedObjects).ToString();
             }

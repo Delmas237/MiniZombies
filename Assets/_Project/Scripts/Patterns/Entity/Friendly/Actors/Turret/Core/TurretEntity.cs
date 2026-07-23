@@ -2,9 +2,10 @@ using UnityEngine;
 
 namespace Entity.Friendly.Turret
 {
-    public class TurretEntity : EntityBase, IFriendly
+    public class TurretEntity : EntityBase
     {
         [Header("Modules")]
+        [SerializeField] protected EntityRoleModule _roleModule;
         [SerializeField] protected EntityHealthModule _healthModule;
         [Space(10)]
         [SerializeField] protected FriendlyTargetModule _targetModule;
