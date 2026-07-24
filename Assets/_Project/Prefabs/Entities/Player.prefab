@@ -980,6 +980,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67de7fec0da88f9479f4531fa3197e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _roleModule:
+    _enabled: 1
+    _role: 1
   _healthModule:
     _enabled: 1
     _maxHealth: 100
@@ -1017,6 +1020,8 @@ MonoBehaviour:
   _shootLineModule:
     _enabled: 1
     _shootLineRoot: {fileID: 2306417906408800393}
+  _deathModule:
+    _enabled: 1
 --- !u!54 &4240113845284777554
 Rigidbody:
   m_ObjectHideFlags: 0
