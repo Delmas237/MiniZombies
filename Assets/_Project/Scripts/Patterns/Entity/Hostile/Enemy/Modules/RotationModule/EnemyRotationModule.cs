@@ -1,10 +1,14 @@
+using System;
 using UnityEngine;
 
 namespace Entity.Hostile
 {
+    [Serializable]
     public class EnemyRotationModule : IModule, IUpdatable
     {
         [SerializeField] private bool _enabled = true;
+        [Space(10)]
+        [SerializeField] private float _anglePreset = 30f;
 
         protected Transform _transform;
         protected IEntityTargetModule _targetModule;
@@ -33,7 +37,7 @@ namespace Entity.Hostile
                 targetPos = new Vector3(targetPos.x, 0, targetPos.z);
 
                 _transform.rotation = Quaternion.LookRotation(targetPos);
-                _transform.eulerAngles += Vector3.up * 30;
+                _transform.eulerAngles += Vector3.up * _anglePreset;
             }
         }
     }
