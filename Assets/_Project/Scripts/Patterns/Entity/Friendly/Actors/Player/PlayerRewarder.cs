@@ -8,7 +8,7 @@ namespace Entity.Friendly.Player
 {
     public class PlayerRewarder : MonoBehaviour
     {
-        [SerializeField] private PlayerEntity _player;
+        [SerializeField] private EntityBase _player;
         [SerializeField] private string _dataKey = "RewardData";
 
         private float _globalWaveReward;

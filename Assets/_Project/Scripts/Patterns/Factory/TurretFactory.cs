@@ -7,22 +7,22 @@ using Weapons;
 
 namespace Factory
 {
-    public class TurretFactory : MonoBehaviour, IFactory<TurretEntity>, IInstanceProvider<TurretEntity>
+    public class TurretFactory : MonoBehaviour, IFactory<EntityBase>, IInstanceProvider<EntityBase>
     {
-        [SerializeField] private TurretPool _turretPool;
+        [SerializeField] private EntityPool _turretPool;
         [SerializeField] private BulletTrailPool _bulletTrailPool;
-        private IPool<TurretEntity> _pool;
-        private TurretEntity[] _prefabs;
+        private IPool<EntityBase> _pool;
+        private EntityBase[] _prefabs;
 
-        public IPool<TurretEntity> Pool => _pool;
-        public TurretEntity[] Prefabs => _prefabs;
+        public IPool<EntityBase> Pool => _pool;
+        public EntityBase[] Prefabs => _prefabs;
 
         private void Start()
         {
             _pool = _turretPool.Pool;
             _prefabs = _turretPool.Pool.Prefabs;
 
-            foreach (TurretEntity turret in Pool.Elements)
+            foreach (EntityBase turret in Pool.Elements)
                 InitializeTurret(turret);
 
             _pool.Expanded += InitializeTurret;
@@ -34,7 +34,7 @@ namespace Factory
             EventBus.Unsubscribe<GameExitEvent>(Unsubscribe);
         }
 
-        private void InitializeTurret(TurretEntity turret)
+        private void InitializeTurret(EntityBase turret)
         {
             var weaponModule = turret.GetModule<IEntityWeaponModule>();
             foreach (Gun gun in weaponModule.Guns)
@@ -43,9 +43,9 @@ namespace Factory
             }
         }
 
-        public TurretEntity GetInstance()
+        public EntityBase GetInstance()
         {
-            TurretEntity instance = _pool.GetInstance();
+            EntityBase instance = _pool.GetInstance();
 
             ReconstructToDefault(instance);
             Construct(instance);
@@ -53,17 +53,17 @@ namespace Factory
             return instance;
         }
 
-        public void ReconstructToDefault(TurretEntity turret)
+        public void ReconstructToDefault(EntityBase turret)
         {
             turret.SetAllModulesInitialState();
             turret.HealthModule.Increase(turret.HealthModule.MaxHealth);
         }
-        public void Construct(TurretEntity turret)
+        public void Construct(EntityBase turret)
         {
             var installModule = turret.GetModule<ITurretInstallModule>();
             installModule.Install();
         }
 
-        public TurretEntity NewInstance() => Object.Instantiate(Prefabs[Random.Range(0, Prefabs.Length)]);
+        public EntityBase NewInstance() => Object.Instantiate(Prefabs[Random.Range(0, Prefabs.Length)]);
     }
 }

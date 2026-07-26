@@ -1,5 +1,4 @@
 using EventBusLib;
-using Entity.Friendly.Player;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +10,7 @@ namespace Entity.Hostile
     public class EnemySpawner : Spawner<IEntity>
     {
         [SerializeField] private List<EnemySpawnData> _spawnData;
-        [SerializeField] private PlayerEntity _player;
+        [SerializeField] private EntityBase _player;
 
         public override event Action<IEntity> Spawned;
         public override event Action Removed;

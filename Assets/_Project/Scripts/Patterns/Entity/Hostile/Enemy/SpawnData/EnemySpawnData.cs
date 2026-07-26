@@ -10,13 +10,13 @@ namespace Entity.Hostile
         [Space(10)]
         [SerializeField] protected EnemyWaveBoostData _waveBoostData;
         [SerializeField] protected AmmoPackPool _ammoPool;
-        [SerializeField] protected EnemyPool _enemyPool;
+        [SerializeField] protected EntityPool _enemyPool;
 
         protected IInstanceProvider<IEntity> _factory;
 
         public float Priority => _priority;
         public EnemyWaveBoostData EnemyWaveBoostData => _waveBoostData;
-        public EnemyPool EnemyPool => _enemyPool;
+        public EntityPool EnemyPool => _enemyPool;
         public IInstanceProvider<IEntity> Factory => _factory;
 
         public abstract void Initialize(List<Transform> spawnPoses, IEntity target);

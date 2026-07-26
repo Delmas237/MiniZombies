@@ -12,7 +12,7 @@ namespace Entity.Friendly.Player
         [SerializeField] private List<Image> _slotsImages;
         [SerializeField] private AudioSource _getGunSound;
         [Space(10)]
-        [SerializeField] private PlayerEntity _player;
+        [SerializeField] private EntityBase _player;
 
         private bool _isInitialized;
         private List<GunType?> _slots = new List<GunType?>();

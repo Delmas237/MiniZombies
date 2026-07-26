@@ -13737,7 +13737,7 @@ GameObject:
   m_Component:
   - component: {fileID: 306524118}
   - component: {fileID: 306524120}
-  - component: {fileID: 306524119}
+  - component: {fileID: 306524121}
   m_Layer: 0
   m_Name: TurretPool
   m_TagString: Untagged
@@ -13760,24 +13760,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 655441476}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &306524119
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 306524117}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d96bebdc832a09d448764320c17ec23a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _pool:
-    _autoExpand: 1
-    _prefabs:
-    - {fileID: 7805578123346029309, guid: eb02d2f431a23ae448ed5ed14a4653b2, type: 3}
-    _count: 2
-    <Parent>k__BackingField: {fileID: 0}
 --- !u!114 &306524120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13790,8 +13772,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a08aaa982f3fcd4580bc7c2f3d97132, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _turretPool: {fileID: 306524119}
+  _turretPool: {fileID: 306524121}
   _bulletTrailPool: {fileID: 164567635}
+--- !u!114 &306524121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 306524117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b53ac2962f5633847a43776f119fdd82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectPool.EntityPool
+  _pool:
+    _autoExpand: 1
+    _prefabs:
+    - {fileID: 7805578123346029309, guid: eb02d2f431a23ae448ed5ed14a4653b2, type: 3}
+    _count: 2
+    <Parent>k__BackingField: {fileID: 0}
 --- !u!1001 &306794425
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -39530,9 +39530,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 919488714}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d999090a4dd050f4290fc927d9a430f3, type: 3}
+  m_Script: {fileID: 11500000, guid: b53ac2962f5633847a43776f119fdd82, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectPool.EntityPool
   _pool:
     _autoExpand: 1
     _prefabs:
@@ -56724,9 +56724,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1285498863}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d999090a4dd050f4290fc927d9a430f3, type: 3}
+  m_Script: {fileID: 11500000, guid: b53ac2962f5633847a43776f119fdd82, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectPool.EntityPool
   _pool:
     _autoExpand: 1
     _prefabs:
@@ -57240,7 +57240,7 @@ GameObject:
   - component: {fileID: 1308993748}
   - component: {fileID: 1308993749}
   m_Layer: 0
-  m_Name: PoolZombiePoliceMan
+  m_Name: PoolZombieShooter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -57270,9 +57270,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1308993747}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 871252b22ff39dd459caa183476472b5, type: 3}
+  m_Script: {fileID: 11500000, guid: b53ac2962f5633847a43776f119fdd82, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectPool.EntityPool
   _pool:
     _autoExpand: 1
     _prefabs:
@@ -66137,9 +66137,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1498937194}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d999090a4dd050f4290fc927d9a430f3, type: 3}
+  m_Script: {fileID: 11500000, guid: b53ac2962f5633847a43776f119fdd82, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectPool.EntityPool
   _pool:
     _autoExpand: 1
     _prefabs:
@@ -70105,9 +70105,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1597891956}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d453264d12c25314882b091900e396d0, type: 3}
+  m_Script: {fileID: 11500000, guid: b53ac2962f5633847a43776f119fdd82, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectPool.EntityPool
   _pool:
     _autoExpand: 1
     _prefabs:

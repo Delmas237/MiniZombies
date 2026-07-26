@@ -1,11 +1,11 @@
-using Entity.Friendly.Player;
+using Entity;
 using EventBusLib;
 using UnityEngine;
 using Waves;
 
 public class GameOverHandler : MonoBehaviour
 {
-    [SerializeField] private PlayerEntity _player;
+    [SerializeField] private EntityBase _player;
     [SerializeField] private EnemyWaveManager _enemyWaveManager;
 
     private void Start()

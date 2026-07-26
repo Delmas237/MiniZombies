@@ -8,7 +8,9 @@ namespace Entity.Hostile
     {
         public override void Initialize(List<Transform> spawnPoses, IEntity target)
         {
-            _factory = new ZombieFactory(_enemyPool.Pool, _ammoPool.Pool, spawnPoses, target, _waveBoostData);
+            _factory = new ZombieFactory(
+                _enemyPool.Pool, _ammoPool.Pool, 
+                spawnPoses, target, _waveBoostData);
         }
     }
 }
