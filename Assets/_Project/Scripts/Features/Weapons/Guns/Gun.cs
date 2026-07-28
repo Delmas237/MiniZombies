@@ -50,7 +50,7 @@ namespace Weapons
 
         protected virtual void CooldownCheck()
         {
-            Utilities.Timer(ref _currentCooldown, delegate ()
+            Utils.Timer(ref _currentCooldown, delegate ()
             {
                 _canShoot = true;
             });

@@ -50,7 +50,7 @@ namespace Waves
         public void UpdateUIInfo()
         {
             if (_wave.Time > 0)
-                _wave.Text.text = Utilities.Watch(Mathf.RoundToInt(_wave.Time));
+                _wave.Text.text = Utils.Watch(Mathf.RoundToInt(_wave.Time));
             else
                 _wave.Text.text = string.Empty;
         }
