@@ -1,10 +1,11 @@
+using Factory;
 using ObjectPool;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Entity.Hostile
 {
-    public abstract class EnemySpawnData : MonoBehaviour
+    public class EnemySpawnData : MonoBehaviour
     {
         [SerializeField, Range(0, 100)] protected float _priority = 100;
         [Space(10)]
@@ -19,6 +20,11 @@ namespace Entity.Hostile
         public EntityPool EnemyPool => _enemyPool;
         public IInstanceProvider<IEntity> Factory => _factory;
 
-        public abstract void Initialize(List<Transform> spawnPoses, IEntity target);
+        public virtual void Initialize(List<Transform> spawnPoses, IEntity target)
+        {
+            _factory = new EnemyFactory(
+                _enemyPool.Pool, _ammoPool.Pool,
+                spawnPoses, target, _waveBoostData);
+        }
     }
 }

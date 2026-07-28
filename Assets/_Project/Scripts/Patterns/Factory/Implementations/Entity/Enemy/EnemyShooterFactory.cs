@@ -7,11 +7,11 @@ using Weapons;
 
 namespace Factory
 {
-    public class ZombieShooterFactory : ZombieFactory
+    public class EnemyShooterFactory : EnemyFactory
     {
         protected IInstanceProvider<BulletTrail> _bulletPool;
 
-        public ZombieShooterFactory(IPool<EntityBase> pool, IPool<AmmoPack> ammoPackPool, List<Transform> spawnDots, 
+        public EnemyShooterFactory(IPool<EntityBase> pool, IPool<AmmoPack> ammoPackPool, List<Transform> spawnDots, 
             IEntity target, EnemyWaveBoostData waveBoostData, IInstanceProvider<BulletTrail> bulletPool) : base(pool, ammoPackPool, spawnDots, target, waveBoostData)
         {
             _bulletPool = bulletPool;

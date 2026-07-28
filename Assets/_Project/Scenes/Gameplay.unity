@@ -47890,7 +47890,7 @@ MonoBehaviour:
   - {fileID: 64070230}
   _spawnData:
   - {fileID: 1904218386}
-  - {fileID: 1674074582}
+  - {fileID: 1674074584}
   - {fileID: 1435330945}
   - {fileID: 590148789}
   - {fileID: 120112157}
@@ -63072,9 +63072,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1435330943}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f80df8cc00e72b442a34fbe981ee6067, type: 3}
+  m_Script: {fileID: 11500000, guid: 4426b75a7d4938147915be0b1208bcc1, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::Entity.Hostile.EnemySpawnData
   _priority: 50
   _waveBoostData:
     _hpPercent: 0.03
@@ -73922,7 +73922,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1674074583}
-  - component: {fileID: 1674074582}
+  - component: {fileID: 1674074584}
   m_Layer: 0
   m_Name: ZombieFatData
   m_TagString: Untagged
@@ -73930,24 +73930,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1674074582
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1674074581}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f80df8cc00e72b442a34fbe981ee6067, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _priority: 50
-  _waveBoostData:
-    _hpPercent: 0.03
-    _waveMultiplierSpeed: 0.01
-  _ammoPool: {fileID: 1605113706}
-  _enemyPool: {fileID: 1285498865}
 --- !u!4 &1674074583
 Transform:
   m_ObjectHideFlags: 0
@@ -73963,6 +73945,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1315461295}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1674074584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1674074581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4426b75a7d4938147915be0b1208bcc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Entity.Hostile.EnemySpawnData
+  _priority: 50
+  _waveBoostData:
+    _hpPercent: 0.03
+    _waveMultiplierSpeed: 0.01
+  _ammoPool: {fileID: 1605113706}
+  _enemyPool: {fileID: 1285498865}
 --- !u!1001 &1674544523
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -83641,9 +83641,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1904218384}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f80df8cc00e72b442a34fbe981ee6067, type: 3}
+  m_Script: {fileID: 11500000, guid: 4426b75a7d4938147915be0b1208bcc1, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::Entity.Hostile.EnemySpawnData
   _priority: 100
   _waveBoostData:
     _hpPercent: 0.03

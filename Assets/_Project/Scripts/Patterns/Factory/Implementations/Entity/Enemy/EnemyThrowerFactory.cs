@@ -7,12 +7,12 @@ using Weapons;
 
 namespace Factory
 {
-    public class ZombieThrowerFactory : ZombieFactory
+    public class EnemyThrowerFactory : EnemyFactory
     {
         protected IPool<PoisonProjectile> _projectilePool;
         protected IPool<ParticleSystem> _projectileEffectPool;
 
-        public ZombieThrowerFactory(IPool<EntityBase> pool, IPool<AmmoPack> ammoPackPool, List<Transform> spawnDots,
+        public EnemyThrowerFactory(IPool<EntityBase> pool, IPool<AmmoPack> ammoPackPool, List<Transform> spawnDots,
             IEntity target, EnemyWaveBoostData waveBoostData, IPool<PoisonProjectile> projectilePool, IPool<ParticleSystem> projectileEffectPool) : base(pool, ammoPackPool, spawnDots, target, waveBoostData)
         {
             _projectilePool = projectilePool;

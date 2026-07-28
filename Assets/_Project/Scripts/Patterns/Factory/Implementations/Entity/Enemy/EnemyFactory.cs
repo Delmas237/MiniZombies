@@ -11,7 +11,7 @@ using Random = UnityEngine.Random;
 
 namespace Factory
 {
-    public class ZombieFactory : IFactory<EntityBase>, IInstanceProvider<IEntity>
+    public class EnemyFactory : IFactory<EntityBase>, IInstanceProvider<IEntity>
     {
         protected readonly IEntity _target;
         protected readonly List<Transform> _spawnDots;
@@ -24,7 +24,7 @@ namespace Factory
         public IPool<EntityBase> Pool => _pool;
         public EntityBase[] Prefabs => _prefabs;
 
-        public ZombieFactory(IPool<EntityBase> pool, IInstanceProvider<AmmoPack> ammoPackProvider, List<Transform> spawnDots, 
+        public EnemyFactory(IPool<EntityBase> pool, IInstanceProvider<AmmoPack> ammoPackProvider, List<Transform> spawnDots, 
             IEntity target, EnemyWaveBoostData waveBoostData)
         {
             _prefabs = pool.Prefabs;
