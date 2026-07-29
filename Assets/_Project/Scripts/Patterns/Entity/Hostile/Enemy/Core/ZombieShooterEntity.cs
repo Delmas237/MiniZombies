@@ -6,7 +6,7 @@ namespace Entity.Hostile
     {
         [Header("Modules")]
         [SerializeField] protected EnemyMovementModule _moveModule;
-        [SerializeField] protected ZombieShooterAttackModule _attackModule;
+        [SerializeField] protected EnemyShooterAttackModule _attackModule;
         [SerializeField] protected EntityWeaponModule _weaponsModule;
         [SerializeField] protected EnemyDeathModule _deathModule;
 

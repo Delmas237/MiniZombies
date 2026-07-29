@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Entity.Hostile
 {
     [Serializable]
-    public class ZombieShooterAttackModule : IEnemyAttackModule, IOnStart, IUpdatable, IDisposable
+    public class EnemyShooterAttackModule : IEnemyAttackModule, IOnStart, IUpdatable, IDisposable
     {
         [SerializeField] protected bool _enabled = true;
         [Space(10)]

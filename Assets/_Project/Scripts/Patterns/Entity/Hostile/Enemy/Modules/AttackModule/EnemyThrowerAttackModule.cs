@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Entity.Hostile
 {
     [Serializable]
-    public class ZombieThrowerAttackModule : ZombieShooterAttackModule, IEnemyThrowerAttackModule
+    public class EnemyThrowerAttackModule : EnemyShooterAttackModule, IEnemyThrowerAttackModule
     {
         public IInstanceProvider<PoisonProjectile> ProjectileProvider { get; set; }
         public IInstanceProvider<ParticleSystem> ProjectileEffectProvider { get; set; }
