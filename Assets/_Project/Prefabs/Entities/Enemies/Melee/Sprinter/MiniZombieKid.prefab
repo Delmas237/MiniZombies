@@ -1205,8 +1205,10 @@ MonoBehaviour:
     _defaultSpeed: 4.3
   _attackModule:
     _enabled: 1
-    _defaultSpeed: 2
     _damage: 5
+    _baseSpeed: 2
+    _baseAttackDelay: 0.9
+    _baseCooldown: 0.85
     _stopAttackSpeedRatio: 0.5
   _deathModule:
     _enabled: 1

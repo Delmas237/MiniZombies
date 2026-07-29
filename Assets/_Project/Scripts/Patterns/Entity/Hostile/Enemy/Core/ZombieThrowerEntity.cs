@@ -8,7 +8,5 @@ namespace Entity.Hostile
         [SerializeField] protected EnemyAvoidantMovementModule _moveModule;
         [SerializeField] protected EnemyThrowerAttackModule _attackModule;
         [SerializeField] protected EnemyDeathModule _deathModule;
-
-        private void Shoot() => GetModule<IEnemyThrowerAttackModule>().Throw();
     }
 }

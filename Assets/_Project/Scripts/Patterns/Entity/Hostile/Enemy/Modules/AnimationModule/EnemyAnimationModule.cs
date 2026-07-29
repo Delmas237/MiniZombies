@@ -74,14 +74,7 @@ namespace Entity.Hostile
 
         private void AttackAnim()
         {
-            if (_healthModule.Health > 0 && _attackModule.IsAttack)
-            {
-                _animator.SetBool("Attack", true);
-            }
-            else
-            {
-                _animator.SetBool("Attack", false);
-            }
+            _animator.SetBool("Attack", _healthModule.Health > 0 && _attackModule.IsAttack);
         }
 
         private void DeathAnim()

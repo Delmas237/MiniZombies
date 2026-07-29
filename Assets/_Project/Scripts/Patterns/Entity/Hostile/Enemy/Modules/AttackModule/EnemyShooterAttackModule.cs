@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Entity.Hostile
@@ -8,16 +9,16 @@ namespace Entity.Hostile
     {
         [SerializeField] protected bool _enabled = true;
         [Space(10)]
-        [SerializeField, Range(0.01f, 3f)] protected float _defaultSpeed = 1f;
         [SerializeField] protected int _damage = 15;
+        [SerializeField, Range(0.01f, 3f)] protected float _baseSpeed = 1f;
+        [Space(10)]
+        [SerializeField] protected float _attackDelay = 1f;
         [SerializeField] protected float _cooldown = 1f;
 
-        [Space(10), Tooltip("Delay before shooting first time")]
-        [SerializeField] protected float _shootDelay = 1f;
-
         protected bool _isAttack;
-        protected float _rawSpeed;
-        
+
+        protected Coroutine _attackCoroutine;
+
         protected Transform _transform;
         protected IEntityTargetModule _targetModule;
         protected IEnemyMovementModule _moveModule;
@@ -37,14 +38,10 @@ namespace Entity.Hostile
             }
         }
 
-        public float Speed
-        {
-            get => _rawSpeed / _cooldown;
-            set => _rawSpeed = value;
-        }
+        public float Speed { get; set; }
 
         public bool IsAttack => _isAttack;
-        public float DefaultSpeed => _defaultSpeed;
+        public float BaseSpeed => _baseSpeed;
         public int Damage => _damage;
 
         [ModuleInject]
@@ -83,7 +80,7 @@ namespace Entity.Hostile
 
             if (!_isAttack)
             {
-                if (distanceToTarget < attackDistance / 2)
+                if (distanceToTarget < attackDistance)
                     GetIntoPosition();
             }
             else
@@ -95,15 +92,41 @@ namespace Entity.Hostile
 
         protected virtual void GetIntoPosition()
         {
-            _isAttack = true;
-
             if (_moveModule.Agent != null && _moveModule.Agent.enabled)
                 _moveModule.Agent.isStopped = true;
-        }
 
+            Attack();
+        }
         protected virtual void GetOutPosition()
         {
             StopAttackImmediately();
+        }
+
+        public virtual void Attack()
+        {
+            if (!Enabled)
+                return;
+
+            _isAttack = true;
+            _attackCoroutine = CoroutineHelper.StartRoutine(AttackCoroutine());
+        }
+        protected IEnumerator AttackCoroutine()
+        {
+            while (_isAttack)
+            {
+                yield return new WaitForSeconds(_attackDelay / Speed);
+                
+                if (!_isAttack)
+                    yield break;
+
+                Perform();
+
+                yield return new WaitForSeconds(_cooldown);
+            }
+        }
+        protected virtual void Perform()
+        {
+            _weaponModule.PullTrigger();
         }
 
         public void StopAttackImmediately()
@@ -112,23 +135,12 @@ namespace Entity.Hostile
 
             if (_moveModule.Agent != null && _moveModule.Agent.enabled && _moveModule.Agent.isOnNavMesh)
                 _moveModule.Agent.isStopped = false;
-        }
 
-        public virtual void DealDamage()
-        {
-            if (!Enabled)
-                return;
-
-            if (_targetModule.Target == null)
-                return;
-
-            if (_targetModule.Target.HealthModule.Health <= 0)
+            if (_attackCoroutine != null)
             {
-                GetOutPosition();
-                return;
+                CoroutineHelper.StopRoutine(_attackCoroutine);
+                _attackCoroutine = null;
             }
-
-            _targetModule.Target.HealthModule.Decrease(Damage);
         }
 
         public void Dispose()

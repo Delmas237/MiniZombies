@@ -1666,10 +1666,10 @@ MonoBehaviour:
     _fleeDistance: 3
   _attackModule:
     _enabled: 1
-    _defaultSpeed: 1
     _damage: 15
-    _cooldown: 3
-    _shootDelay: 1
+    _baseSpeed: 1
+    _attackDelay: 0.5
+    _cooldown: 1.15
   _deathModule:
     _enabled: 1
 --- !u!195 &7712739484609061815

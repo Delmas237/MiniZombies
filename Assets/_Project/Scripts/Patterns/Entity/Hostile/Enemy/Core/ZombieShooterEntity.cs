@@ -9,7 +9,5 @@ namespace Entity.Hostile
         [SerializeField] protected EnemyShooterAttackModule _attackModule;
         [SerializeField] protected EntityWeaponModule _weaponsModule;
         [SerializeField] protected EnemyDeathModule _deathModule;
-
-        private void Shoot() => _weaponsModule.PullTrigger();
     }
 }

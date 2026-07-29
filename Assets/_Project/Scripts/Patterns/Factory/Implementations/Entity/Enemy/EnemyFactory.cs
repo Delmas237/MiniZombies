@@ -54,7 +54,7 @@ namespace Factory
             var attackModule = enemy.GetModule<IEnemyAttackModule>();
 
             movementModule.Speed = movementModule.DefaultSpeed;
-            attackModule.Speed = attackModule.DefaultSpeed;
+            attackModule.Speed = attackModule.BaseSpeed;
         }
 
         private void BoostEnemies(WaveFinishedEvent waveFinishedEvent)

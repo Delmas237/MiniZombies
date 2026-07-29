@@ -38,13 +38,10 @@ namespace Entity.Hostile
             }
         }
 
-        public void Throw()
+        protected override void Perform()
         {
-            if (!Enabled)
-                return;
-
-            PoisonProjectile poisonProjectile = ProjectileProvider.GetInstance();
-            poisonProjectile.Initialize(_transform.position, _targetModule.Target.Transform.position);
+            PoisonProjectile projectile = ProjectileProvider.GetInstance();
+            projectile.Initialize(_transform.position, _targetModule.Target.Transform.position);
         }
     }
 }

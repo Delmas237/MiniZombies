@@ -6,7 +6,5 @@ namespace Entity.Hostile
     {
         IInstanceProvider<PoisonProjectile> ProjectileProvider { get; set; }
         IInstanceProvider<ParticleSystem> ProjectileEffectProvider { get; set; }
-
-        void Throw();
     }
 }

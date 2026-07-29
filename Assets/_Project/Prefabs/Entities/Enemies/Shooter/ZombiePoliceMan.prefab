@@ -710,10 +710,10 @@ MonoBehaviour:
     _defaultSpeed: 2
   _attackModule:
     _enabled: 1
-    _defaultSpeed: 1
     _damage: 15
-    _cooldown: 2
-    _shootDelay: 0.5
+    _baseSpeed: 1
+    _attackDelay: 0.25
+    _cooldown: 0.86
   _weaponsModule:
     _enabled: 1
     _initialGun: 0
@@ -1377,7 +1377,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7371549726035719926, guid: 817032021e65a1a428bad43472a5e0ac, type: 3}
       propertyPath: <Distance>k__BackingField
-      value: 5.5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7371549726179397746, guid: 817032021e65a1a428bad43472a5e0ac, type: 3}
       propertyPath: cooldown
