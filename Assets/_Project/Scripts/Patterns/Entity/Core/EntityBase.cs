@@ -6,11 +6,13 @@ using UnityEngine;
 
 namespace Entity
 {
-    public abstract class EntityBase : MonoBehaviour, IEntity
+    public class EntityBase : MonoBehaviour, IEntity
     {
         private Dictionary<Type, ModuleCache> _moduleCache = new Dictionary<Type, ModuleCache>();
         private Dictionary<Type, IModule> _interfaceCache = new Dictionary<Type, IModule>();
         private Dictionary<Type, Component> _componentCache = new Dictionary<Type, Component>();
+
+        private static readonly Dictionary<Type, InjectMetadata> _moduleInjectCache = new Dictionary<Type, InjectMetadata>();
 
         public Transform Transform => transform;
         public IEntityRoleModule RoleModule => GetModule<IEntityRoleModule>();
@@ -19,38 +21,44 @@ namespace Entity
         #region Initialization
         private void Awake()
         {
-            CollectModules();
             CollectComponents();
             InitializeModules();
 
             InvokeOnModules<IOnAwake>(a => a.Awake(), nameof(Awake));
         }
-        private void CollectModules()
+        private void CollectComponents()
         {
             _moduleCache.Clear();
             _interfaceCache.Clear();
-            var fields = GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+            _componentCache.Clear();
 
-            foreach (var field in fields)
+            var components = GetComponents<Component>();
+            foreach (var component in components)
             {
-                if (typeof(IModule).IsAssignableFrom(field.FieldType))
-                {
-                    if (field.GetValue(this) is IModule module)
-                    {
-                        foreach (var iface in module.GetType().GetInterfaces())
-                        {
-                            if (typeof(IModule).IsAssignableFrom(iface) && !_interfaceCache.ContainsKey(iface))
-                                _interfaceCache[iface] = module;
-                        }
+                if (component == null)
+                    continue;
 
-                        var moduleType = module.GetType();
-                        ModuleCache cache = GetCache(module);
-                        _moduleCache[moduleType] = cache;
-                    }
+                if (component is IModuleWrapper wrapper)
+                {
+                    CacheModule(wrapper.Module);
+                    continue;
                 }
+
+                CacheComponent(component);
             }
         }
-        private ModuleCache GetCache(IModule module)
+
+        private void CacheModule(IModule module)
+        {
+            foreach (var iface in module.GetType().GetInterfaces())
+            {
+                if (typeof(IModule).IsAssignableFrom(iface))
+                    _interfaceCache.TryAdd(iface, module);
+            }
+
+            _moduleCache[module.GetType()] = CreateCache(module);
+        }
+        private ModuleCache CreateCache(IModule module)
         {
             Dictionary<Type, object> interfaceMap = new Dictionary<Type, object>();
             foreach (var iface in module.GetType().GetInterfaces())
@@ -63,22 +71,16 @@ namespace Entity
             return moduleCache;
         }
 
-        private void CollectComponents()
+        private void CacheComponent(Component component)
         {
-            _componentCache.Clear();
-            var components = GetComponents<Component>();
-            foreach (var comp in components)
-            {
-                if (comp == null) continue;
-                var type = comp.GetType();
-                if (!_componentCache.ContainsKey(type))
-                    _componentCache[type] = comp;
+            var type = component.GetType();
+            if (!_componentCache.ContainsKey(type))
+                _componentCache[type] = component;
 
-                foreach (var iface in type.GetInterfaces())
-                {
-                    if (!_componentCache.ContainsKey(iface))
-                        _componentCache[iface] = comp;
-                }
+            foreach (var iface in type.GetInterfaces())
+            {
+                if (!_componentCache.ContainsKey(iface))
+                    _componentCache[iface] = component;
             }
         }
 
@@ -116,33 +118,59 @@ namespace Entity
         {
             foreach (var cache in _moduleCache.Values)
             {
-                var moduleType = cache.Module.GetType();
-                var methods = moduleType.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+                Type moduleType = cache.Module.GetType();
 
-                foreach (var method in methods)
+                if (!_moduleInjectCache.TryGetValue(moduleType, out var metadata))
                 {
-                    if (method.GetCustomAttribute<ModuleInjectAttribute>() != null)
-                    {
-                        var parameters = method.GetParameters();
+                    metadata = AnalyzeInjectMetadata(moduleType);
+                    _moduleInjectCache[moduleType] = metadata;
+                }
 
-                        if (parameters.Length == 0)
-                            break;
+                cache.InjectMethod = metadata.Method;
+                cache.InjectParameters = metadata.Parameters;
+            }
+        }
+        private static InjectMetadata AnalyzeInjectMetadata(Type moduleType)
+        {
+            MethodInfo injectMethod = null;
 
-                        foreach (var param in parameters)
-                        {
-                            if (typeof(IModule).IsAssignableFrom(param.ParameterType))
-                            {
-                                cache.InjectParameters.Add(new InjectParameter
-                                {
-                                    ParameterType = param.ParameterType,
-                                    IsRequired = !param.IsOptional
-                                });
-                            }
-                        }
-                        break;
-                    }
+            foreach (MethodInfo method in moduleType.GetMethods(
+                         BindingFlags.Instance |
+                         BindingFlags.Public |
+                         BindingFlags.NonPublic))
+            {
+                if (method.GetCustomAttribute<ModuleInjectAttribute>() != null)
+                {
+                    injectMethod = method;
+                    break;
                 }
             }
+
+            if (injectMethod == null)
+            {
+                return new InjectMetadata(
+                    null,
+                    new List<InjectParameter>());
+            }
+
+
+            var parameters = new List<InjectParameter>();
+
+            foreach (ParameterInfo parameter in injectMethod.GetParameters())
+            {
+                if (!typeof(IModule).IsAssignableFrom(parameter.ParameterType))
+                    continue;
+
+                parameters.Add(new InjectParameter
+                {
+                    ParameterType = parameter.ParameterType,
+                    IsRequired = !parameter.IsOptional
+                });
+            }
+
+            return new InjectMetadata(
+                injectMethod,
+                parameters);
         }
 
         private void InitializeModules()
@@ -262,22 +290,16 @@ namespace Entity
 
         private ModuleCache FindModuleByType(Type type)
         {
-            foreach (var cache in _moduleCache.Values)
-            {
-                if (cache.Module.GetType() == type)
-                    return cache;
+            if (_moduleCache.TryGetValue(type, out var cache))
+                return cache;
 
-                foreach (var iface in cache.Module.GetType().GetInterfaces())
-                {
-                    if (iface == type)
-                        return cache;
-                }
-            }
+            if (_interfaceCache.TryGetValue(type, out var module))
+                return _moduleCache[module.GetType()];
 
-            foreach (var cache in _moduleCache.Values)
+            foreach (var pair in _moduleCache)
             {
-                if (type.IsAssignableFrom(cache.Module.GetType()))
-                    return cache;
+                if (type.IsAssignableFrom(pair.Key))
+                    return pair.Value;
             }
 
             return null;
@@ -285,37 +307,35 @@ namespace Entity
 
         private void InvokeInjectMethod(ModuleCache cache)
         {
-            var moduleType = cache.Module.GetType();
-            var methods = moduleType.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+            if (cache.InjectMethod == null)
+                return;
 
-            foreach (var method in methods)
+            var parameters = cache.InjectMethod.GetParameters();
+            var args = new object[parameters.Length];
+
+            for (int i = 0; i < parameters.Length; i++)
             {
-                if (method.GetCustomAttribute<ModuleInjectAttribute>() != null)
-                {
-                    var parameters = method.GetParameters();
-                    var args = new object[parameters.Length];
+                Type paramType = parameters[i].ParameterType;
 
-                    for (int i = 0; i < parameters.Length; i++)
-                    {
-                        var paramType = parameters[i].ParameterType;
-                        args[i] = ResolveDependency(paramType);
-                        if (args[i] == null && !parameters[i].IsOptional)
-                            throw new InvalidOperationException($"Cannot resolve {paramType.Name} for {moduleType.Name}");
-                    }
+                args[i] = ResolveDependency(paramType);
 
-                    try
-                    {
-                        method.Invoke(cache.Module, args);
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.LogError($"Error initializing module {moduleType.Name}: {e.Message}\n" +
-                                       $"Inner: {e.InnerException?.Message}\n" +
-                                       $"StackTrace: {e.InnerException?.StackTrace}");
-                        throw;
-                    }
-                    break;
-                }
+                if (args[i] == null && !parameters[i].IsOptional)
+                    throw new InvalidOperationException(
+                        $"Cannot resolve {paramType.Name} for {cache.Module.GetType().Name}");
+            }
+
+            try
+            {
+                cache.InjectMethod.Invoke(cache.Module, args);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(
+                    $"Error initializing module {cache.Module.GetType().Name}: {e.Message}\n" +
+                    $"Inner: {e.InnerException?.Message}\n" +
+                    $"StackTrace: {e.InnerException?.StackTrace}");
+
+                throw;
             }
         }
         #endregion
@@ -456,6 +476,8 @@ namespace Entity
 
             public IModule Module { get; set; }
             public bool InitialState { get; set; }
+            
+            public MethodInfo InjectMethod { get; set; }
             public List<InjectParameter> InjectParameters { get; set; } = new List<InjectParameter>();
 
             public ModuleCache(IModule module, bool initialState, Dictionary<Type, object> interfaceMap)
@@ -476,6 +498,18 @@ namespace Entity
         {
             public Type ParameterType { get; set; }
             public bool IsRequired { get; set; }
+        }
+
+        public class InjectMetadata
+        {
+            public MethodInfo Method { get; }
+            public List<InjectParameter> Parameters { get; }
+
+            public InjectMetadata(MethodInfo method, List<InjectParameter> parameters)
+            {
+                Method = method;
+                Parameters = parameters;
+            }
         }
     }
 }
