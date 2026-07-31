@@ -1,4 +1,4 @@
-namespace Entity
+namespace EntityLib
 {
     public interface IModule
     {

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Entity
+namespace EntityLib
 {
     [Serializable]
     public class EntityHealthModule : IEntityHealthModule

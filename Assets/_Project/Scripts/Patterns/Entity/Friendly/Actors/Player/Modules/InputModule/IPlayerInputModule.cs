@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Entity.Friendly.Player
+namespace EntityLib.Friendly.Player
 {
     public interface IPlayerInputModule : IModule
     {

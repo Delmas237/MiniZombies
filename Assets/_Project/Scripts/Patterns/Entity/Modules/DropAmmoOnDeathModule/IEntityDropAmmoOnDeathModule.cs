@@ -1,6 +1,6 @@
 ﻿using Weapons;
 
-namespace Entity
+namespace EntityLib
 {
     public interface IEntityDropAmmoOnDeathModule : IModule
     {

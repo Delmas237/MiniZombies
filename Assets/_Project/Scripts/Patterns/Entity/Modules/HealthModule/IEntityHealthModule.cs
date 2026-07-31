@@ -1,6 +1,6 @@
 using System;
 
-namespace Entity
+namespace EntityLib
 {
     public interface IEntityHealthModule : IModule
     {

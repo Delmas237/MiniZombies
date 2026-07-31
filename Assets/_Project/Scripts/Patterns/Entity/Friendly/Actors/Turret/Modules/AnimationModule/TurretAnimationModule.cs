@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Entity.Friendly.Turret
+namespace EntityLib.Friendly.Turret
 {
     [Serializable]
     public class TurretAnimationModule : IModule, IOnStart, ILateUpdatable, IDisposable

@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using Weapons;
 
-namespace Entity.Friendly.Turret
+namespace EntityLib.Friendly.Turret
 {
     [Serializable]
     public class TurretVisibilityZoneModule : IModule, IDisposable

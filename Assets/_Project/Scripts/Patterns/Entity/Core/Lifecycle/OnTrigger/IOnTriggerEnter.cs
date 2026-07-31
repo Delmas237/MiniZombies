@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Entity
+namespace EntityLib
 {
     public interface IOnTriggerEnter : IModuleEvent
     {

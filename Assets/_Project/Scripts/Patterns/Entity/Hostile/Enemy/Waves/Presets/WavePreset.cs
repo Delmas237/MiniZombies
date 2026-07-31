@@ -1,4 +1,4 @@
-using Entity.Hostile;
+using EntityLib.Hostile;
 using TMPro;
 using UnityEngine;
 

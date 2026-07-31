@@ -1,4 +1,4 @@
-using Entity.Hostile;
+using EntityLib.Hostile;
 using UnityEngine;
 
 namespace ObjectPool

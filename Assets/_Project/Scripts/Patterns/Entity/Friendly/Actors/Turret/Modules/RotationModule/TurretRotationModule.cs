@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Entity.Friendly.Turret
+namespace EntityLib.Friendly.Turret
 {
     [Serializable]
     public class TurretRotationModule : IModule, IUpdatable

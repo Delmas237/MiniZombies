@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Entity.Friendly.Player
+namespace EntityLib.Friendly.Player
 {
     [Serializable]
     public class PlayerDeathModule : IModule, IDisposable

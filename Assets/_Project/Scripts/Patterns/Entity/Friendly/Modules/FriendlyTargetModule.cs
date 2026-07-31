@@ -1,4 +1,4 @@
-using Entity.Hostile;
+using EntityLib.Hostile;
 using EventBusLib;
 using System;
 using System.Collections;
@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Entity.Friendly
+namespace EntityLib.Friendly
 {
     [Serializable]
     public class FriendlyTargetModule : IEntityTargetModule, IDisposable

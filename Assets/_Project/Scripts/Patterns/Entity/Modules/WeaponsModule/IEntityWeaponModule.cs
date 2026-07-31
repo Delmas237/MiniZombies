@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Weapons;
 
-namespace Entity
+namespace EntityLib
 {
     public interface IEntityWeaponModule : IModule
     {

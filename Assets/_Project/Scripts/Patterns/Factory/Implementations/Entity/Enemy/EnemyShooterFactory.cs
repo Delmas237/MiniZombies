@@ -1,5 +1,5 @@
-using Entity;
-using Entity.Hostile;
+using EntityLib;
+using EntityLib.Hostile;
 using ObjectPool;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,13 +11,13 @@ namespace Factory
     {
         protected IInstanceProvider<BulletTrail> _bulletPool;
 
-        public EnemyShooterFactory(IPool<EntityBase> pool, IPool<AmmoPack> ammoPackPool, List<Transform> spawnDots, 
+        public EnemyShooterFactory(IPool<Entity> pool, IPool<AmmoPack> ammoPackPool, List<Transform> spawnDots, 
             IEntity target, EnemyWaveBoostData waveBoostData, IInstanceProvider<BulletTrail> bulletPool) : base(pool, ammoPackPool, spawnDots, target, waveBoostData)
         {
             _bulletPool = bulletPool;
         }
 
-        public override void Construct(EntityBase enemy)
+        public override void Construct(Entity enemy)
         {
             base.Construct(enemy);
 

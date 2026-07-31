@@ -4,11 +4,11 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
-namespace Entity.Friendly.Player
+namespace EntityLib.Friendly.Player
 {
     public class PlayerRewarder : MonoBehaviour
     {
-        [SerializeField] private EntityBase _player;
+        [SerializeField] private Entity _player;
         [SerializeField] private string _dataKey = "RewardData";
 
         private float _globalWaveReward;

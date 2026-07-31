@@ -1,4 +1,4 @@
-namespace Entity
+namespace EntityLib
 {
     public enum EntityRole
     {

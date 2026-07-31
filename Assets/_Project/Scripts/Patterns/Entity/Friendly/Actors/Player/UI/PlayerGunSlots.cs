@@ -5,14 +5,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using Weapons;
 
-namespace Entity.Friendly.Player
+namespace EntityLib.Friendly.Player
 {
     public class PlayerGunSlots : MonoBehaviour
     {
         [SerializeField] private List<Image> _slotsImages;
         [SerializeField] private AudioSource _getGunSound;
         [Space(10)]
-        [SerializeField] private EntityBase _player;
+        [SerializeField] private Entity _player;
 
         private bool _isInitialized;
         private List<GunType?> _slots = new List<GunType?>();

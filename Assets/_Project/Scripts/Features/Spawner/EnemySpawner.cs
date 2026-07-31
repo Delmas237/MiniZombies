@@ -5,12 +5,12 @@ using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Entity.Hostile
+namespace EntityLib.Hostile
 {
     public class EnemySpawner : Spawner<IEntity>
     {
         [SerializeField] private List<EnemySpawnData> _spawnData;
-        [SerializeField] private EntityBase _player;
+        [SerializeField] private Entity _player;
 
         public override event Action<IEntity> Spawned;
         public override event Action Removed;

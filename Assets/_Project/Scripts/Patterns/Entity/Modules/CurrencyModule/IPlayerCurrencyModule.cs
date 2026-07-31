@@ -1,6 +1,6 @@
 using System;
 
-namespace Entity.Friendly.Player
+namespace EntityLib.Friendly.Player
 {
     public interface IPlayerCurrencyModule : IModule
     {

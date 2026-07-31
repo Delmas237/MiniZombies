@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-namespace Entity.Friendly.Turret
+namespace EntityLib.Friendly.Turret
 {
     [Serializable]
     public class TurretInstallModule : ITurretInstallModule, IDisposable

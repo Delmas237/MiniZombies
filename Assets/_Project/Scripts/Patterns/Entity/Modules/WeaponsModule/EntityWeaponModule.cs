@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using Weapons;
 
-namespace Entity
+namespace EntityLib
 {
     [Serializable]
     public class EntityWeaponModule : IEntityWeaponModule, IOnAwake

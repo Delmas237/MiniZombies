@@ -1,4 +1,4 @@
-using Entity;
+using EntityLib;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

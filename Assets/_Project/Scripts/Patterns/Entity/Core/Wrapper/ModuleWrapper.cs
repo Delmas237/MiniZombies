@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Entity
+namespace EntityLib
 {
     public abstract class ModuleWrapper<T> : MonoBehaviour, IModuleWrapper where T : IModule
     {

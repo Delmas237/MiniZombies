@@ -1,5 +1,5 @@
-using Entity;
-using Entity.Hostile;
+using EntityLib;
+using EntityLib.Hostile;
 using EventBusLib;
 using System;
 using System.Collections;

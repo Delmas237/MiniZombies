@@ -4,7 +4,7 @@ using UnityEngine;
 using Weapons;
 using Random = UnityEngine.Random;
 
-namespace Entity
+namespace EntityLib
 {
     [Serializable]
     public class EntityDropAmmoOnDeathModule : IEntityDropAmmoOnDeathModule, IDisposable

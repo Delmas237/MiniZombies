@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-namespace Entity
+namespace EntityLib
 {
     [Serializable]
     public class EntityDelayedDisableModule : IModule, IDisposable

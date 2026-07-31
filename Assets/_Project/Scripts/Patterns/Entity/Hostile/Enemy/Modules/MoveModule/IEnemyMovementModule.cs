@@ -1,6 +1,6 @@
 using UnityEngine.AI;
 
-namespace Entity.Hostile
+namespace EntityLib.Hostile
 {
     public interface IEnemyMovementModule : IEntityMovementModule
     {

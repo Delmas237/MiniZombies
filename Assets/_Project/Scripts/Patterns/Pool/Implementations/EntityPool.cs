@@ -1,8 +1,8 @@
-using Entity;
+using EntityLib;
 
 namespace ObjectPool
 {
-    public class EntityPool : StandartPool<EntityBase>
+    public class EntityPool : StandartPool<Entity>
     {
     }
 }

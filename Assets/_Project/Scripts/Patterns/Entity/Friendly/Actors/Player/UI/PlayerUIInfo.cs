@@ -2,11 +2,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Entity.Friendly.Player
+namespace EntityLib.Friendly.Player
 {
     public class PlayerUIInfo : MonoBehaviour
     {
-        [SerializeField] private EntityBase _player;
+        [SerializeField] private Entity _player;
         [Space(10)]
         [SerializeField] private Image _healthBar;
         [SerializeField] private TextMeshProUGUI _bullets;

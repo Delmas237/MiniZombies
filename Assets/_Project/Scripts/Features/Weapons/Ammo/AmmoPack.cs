@@ -1,4 +1,4 @@
-using Entity;
+using EntityLib;
 using UnityEngine;
 
 namespace Weapons

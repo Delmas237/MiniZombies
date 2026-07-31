@@ -4,9 +4,9 @@ using System.Linq;
 using System.Reflection;
 using UnityEngine;
 
-namespace Entity
+namespace EntityLib
 {
-    public class EntityBase : MonoBehaviour, IEntity
+    public class Entity : MonoBehaviour, IEntity
     {
         private Dictionary<Type, ModuleCache> _moduleCache = new Dictionary<Type, ModuleCache>();
         private Dictionary<Type, IModule> _interfaceCache = new Dictionary<Type, IModule>();

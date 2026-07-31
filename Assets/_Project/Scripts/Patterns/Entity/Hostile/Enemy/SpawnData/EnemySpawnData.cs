@@ -3,7 +3,7 @@ using ObjectPool;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Entity.Hostile
+namespace EntityLib.Hostile
 {
     public class EnemySpawnData : MonoBehaviour
     {

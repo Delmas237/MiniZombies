@@ -2,7 +2,7 @@ using System.Collections;
 using System.Linq;
 using UnityEngine;
 
-namespace Entity.Hostile
+namespace EntityLib.Hostile
 {
     public class EnemyAgentPriorityUpdater : MonoBehaviour
     {

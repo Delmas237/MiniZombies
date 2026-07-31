@@ -1,4 +1,4 @@
-using Entity;
+using EntityLib;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,7 +6,7 @@ namespace Weapons
 {
     public class CooldownCircle : MonoBehaviour
     {
-        [SerializeField] private EntityBase _player;
+        [SerializeField] private Entity _player;
         private Image _image;
 
         private void Start()

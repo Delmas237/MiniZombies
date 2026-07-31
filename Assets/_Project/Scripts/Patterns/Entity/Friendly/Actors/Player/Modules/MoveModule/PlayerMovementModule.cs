@@ -2,7 +2,7 @@ using EventBusLib;
 using System;
 using UnityEngine;
 
-namespace Entity.Friendly.Player
+namespace EntityLib.Friendly.Player
 {
     [Serializable]
     public class PlayerMovementModule : IPlayerMovementModule, IDisposable

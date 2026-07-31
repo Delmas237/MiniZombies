@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using Weapons;
 
-namespace Entity.Friendly.Player
+namespace EntityLib.Friendly.Player
 {
     [Serializable]
     public class PlayerAnimationModule : IModule, ILateUpdatable, IDisposable

@@ -1,6 +1,6 @@
-using Entity;
-using Entity.Friendly.Player;
-using Entity.Friendly.Turret;
+using EntityLib;
+using EntityLib.Friendly.Player;
+using EntityLib.Friendly.Turret;
 using EventBusLib;
 using Factory;
 using System.Collections;
@@ -21,7 +21,7 @@ namespace LocalShopLib
         [Space(10f)]
         [SerializeField] private string _dataKey = "LocalShopData";
         [Space(10f)]
-        [SerializeField] private EntityBase _player;
+        [SerializeField] private Entity _player;
         [SerializeField] private PlayerGunSlots _playerGunSlots;
         [SerializeField] private TextMeshProUGUI _slotsText;
         [Space(10f)]
@@ -179,7 +179,7 @@ namespace LocalShopLib
                 }
                 else if (itemData.Name == "Turret")
                 {
-                    EntityBase turretContainer = _turretFactory.GetInstance();
+                    Entity turretContainer = _turretFactory.GetInstance();
                     turretContainer.transform.position = _player.Transform.position;
                     currencyModule.Spend(itemData.Price);
                 }

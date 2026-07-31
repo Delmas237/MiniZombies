@@ -1,11 +1,10 @@
 using System;
 using System.IO;
-using System.Linq;
 using System.Text;
 using UnityEditor;
 using UnityEngine;
 
-namespace Entity.Editor
+namespace EntityLib.Editor
 {
     public static class ModuleWrapperGenerator
     {

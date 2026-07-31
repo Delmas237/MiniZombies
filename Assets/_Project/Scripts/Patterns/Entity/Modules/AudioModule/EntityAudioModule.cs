@@ -3,7 +3,7 @@ using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Entity
+namespace EntityLib
 {
     [Serializable]
     public class EntityAudioModule : IModule, IDisposable

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Entity.Hostile
+namespace EntityLib.Hostile
 {
     [Serializable]
     public class EnemyRotationModule : IModule, IUpdatable

@@ -1,4 +1,4 @@
-namespace Entity.Hostile
+namespace EntityLib.Hostile
 {
     public interface IEnemyAttackModule : IModule
     {

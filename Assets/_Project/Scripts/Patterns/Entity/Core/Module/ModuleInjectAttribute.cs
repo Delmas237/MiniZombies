@@ -1,6 +1,6 @@
 using System;
 
-namespace Entity
+namespace EntityLib
 {
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
     public class ModuleInjectAttribute : Attribute { }

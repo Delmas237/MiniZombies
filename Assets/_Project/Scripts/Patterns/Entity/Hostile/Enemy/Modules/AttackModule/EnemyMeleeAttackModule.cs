@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-namespace Entity.Hostile
+namespace EntityLib.Hostile
 {
     [Serializable]
     public class EnemyMeleeAttackModule : IEnemyAttackModule, IOnCollisionEnter, IOnCollisionExit, IDisposable

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Entity.Friendly.Turret
+namespace EntityLib.Friendly.Turret
 {
     public interface ITurretInstallModule : IModule
     {

@@ -1,7 +1,7 @@
 using JoystickLib;
 using UnityEngine;
 
-namespace Entity.Friendly.Player
+namespace EntityLib.Friendly.Player
 {
     public class PlayerMobileInput : MonoBehaviour
     {

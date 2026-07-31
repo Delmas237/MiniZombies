@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using Weapons;
 
-namespace Entity.Friendly.Player
+namespace EntityLib.Friendly.Player
 {
     [Serializable]
     public class PlayerShootLineModule : IModule, IUpdatable, IDisposable
